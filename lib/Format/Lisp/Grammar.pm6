@@ -235,6 +235,50 @@ grammar Format::Lisp::Grammar {
 	<[ r R ]>
 	}
 
+	token tilde-S {
+	'~'	[
+		| '10,,,v@'
+		| '10,,,v'
+		| '3,,v'
+		| '3,1'
+		| '3,3@'
+		| '4,,,\'X@'
+		| '4,,,'
+		| '4,,v'
+		| '4,3'
+		| '4,4@'
+		| '5,3@'
+		| '7,3@'
+		| ':'
+		| 'V,,2'
+		| 'V:'
+		| 'V@:'
+		| 'v:@'
+		| 'v:@'
+		| 'v@:'
+		| '10,,,v@'
+		| '10,,,v'
+		| '3,,+2'
+		| '3,,-1S'
+		| '3,,0'
+		| '3,,V@'
+		| '3,,v'
+		| '4,,,\'X'
+		| '4,,,@'
+		| '5,3'
+		| '5,v@'
+		| '5,v'
+		| '7,3'
+		| '@'
+		| 'v,,2'
+		| 'v:'
+		| 'v:'
+		| 'v@'
+		| 'v'
+		]?
+	<[ s S ]>
+	}
+
 	token tilde-Caret {
 	'~'	[
 		|	<unsigned-integer> ',#'
@@ -338,5 +382,22 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
+#	| '~:s'
+#	| '~V,,2s'
+#	| '~V:s'
+	| '~V@:s'
+	| '~s'
+	| '~v:@s'
+	| '~v:@s'
+	| '~v@:s'
+	| '~10,,,v@S'
+	| '~10,,,vS'
+	| '~3,,+2S'
+	| '~3,,-1S'
+	| <tilde-S>
+	| <tilde-Tilde> <tilde-D> ':s'
+	| <tilde-Tilde> <tilde-D> '@s'
+	| <tilde-Tilde> <tilde-D> '@:S'
+	| <tilde-Tilde> <tilde-D> 'S'
 	}
 }
