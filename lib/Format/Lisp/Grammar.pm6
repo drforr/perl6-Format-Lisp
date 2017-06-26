@@ -265,12 +265,27 @@ grammar Format::Lisp::Grammar {
 		| 'v,,' <unsigned-integer>
 		| 'v:'
 		| 'v:@'
-		| 'v:@'
 		| 'v@'
 		| 'v@:'
 		| <V>
 		]?
 	<[ s S ]>
+	}
+
+	token tilde-T {
+	'~'	[
+		| '0,' <V>
+		| '0,' <unsigned-integer>
+		| '0,v@'
+		| '1,' <unsigned-integer>
+		| '1,1@'
+		| '2,' <unsigned-integer>
+		| 'v,' <V>
+		| 'v,' <unsigned-integer>
+		| 'v,1@'
+		| 'v,v@'
+		]?
+	<[ t T ]>
 	}
 
 	token tilde-Caret {
@@ -323,7 +338,9 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token TOP {
+	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
+	| 'XXXXX' <tilde-T>
 	| '\'' <tilde-C>
 	| <tilde-A>
 	| <tilde-A> 'Y' <tilde-Ques> 'X' <tilde-A>
@@ -339,6 +356,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-Star> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-Ques> 'X' <tilde-A>
 	| <tilde-A> <tilde-Star> <tilde-A>
+	| <tilde-A> <tilde-T>
+	| <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> 'T'
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
@@ -356,30 +375,33 @@ grammar Format::Lisp::Grammar {
 	| <tilde-P>
 	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-R>
+	| <tilde-S>
+	| <tilde-T>
+	| <tilde-T> <tilde-T>
 	| <tilde-Tilde> ',,,,\'' <tilde-C> 'f'
 	| <tilde-Tilde> ',,\'' <tilde-C> ':' <tilde-C>
 	| <tilde-Tilde> ',,\'' <tilde-C> ':d'
-	| <tilde-Tilde> '~d@o'
-	| <tilde-Tilde> '~do'
 	| <tilde-Tilde> <tilde-D> ',' <tilde-D> ',\'*r'
+	| <tilde-Tilde> <tilde-D> ',' <tilde-D> '@t'
 	| <tilde-Tilde> <tilde-D> ',' <tilde-D> 'R'
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> 'd'
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> <tilde-C>
 	| <tilde-Tilde> <tilde-D> ':a'
+	| <tilde-Tilde> <tilde-D> ':s'
 	| <tilde-Tilde> <tilde-D> '@' <tilde-C>
 	| <tilde-Tilde> <tilde-D> '@:A'
+	| <tilde-Tilde> <tilde-D> '@:S'
 	| <tilde-Tilde> <tilde-D> '@a'
 	| <tilde-Tilde> <tilde-D> '@b'
 	| <tilde-Tilde> <tilde-D> '@d'
+	| <tilde-Tilde> <tilde-D> '@o'
+	| <tilde-Tilde> <tilde-D> '@s'
+	| <tilde-Tilde> <tilde-D> 'S'
 	| <tilde-Tilde> <tilde-D> 'a'
 	| <tilde-Tilde> <tilde-D> 'b'
 	| <tilde-Tilde> <tilde-D> 'd'
+	| <tilde-Tilde> <tilde-D> 'o'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
-	| <tilde-S>
-	| <tilde-Tilde> <tilde-D> ':s'
-	| <tilde-Tilde> <tilde-D> '@s'
-	| <tilde-Tilde> <tilde-D> '@:S'
-	| <tilde-Tilde> <tilde-D> 'S'
 	}
 }

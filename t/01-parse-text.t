@@ -3,7 +3,7 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 9;
+plan 10;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -471,9 +471,30 @@ subtest {
 	}
 }
 
+subtest {
+	my @options =
+		Q{~1,1@t},
+		Q{~A~v,vt},
+		Q{~v,1@T~0,v@t},
+		Q{~v,1@t},
+		Q{~v,v@t},
+		Q{~~~d,~d@t},
+		Q{ ~v,vT},
+		Q{XXXXX~2,0T},
+		Q{~0,0T},
+		Q{~0,1T},
+		Q{~0,vT},
+		Q{~1,0T},
+		Q{~A~~~D,~DT},
+		Q{~v,0T},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
 # ----------------------------------
 
-# " ~v,vT"
 # "'~c,"
 # "(~:@{~A~:^,~})"
 # "(~:{~A~:^,~})"
@@ -498,7 +519,6 @@ subtest {
 # "B ~_"
 # "D ~_"
 # "X"
-# "XXXXX~2,0T"
 # "XXX~<MMM~-1I~:@_MMMMM~:>"
 # "XXX~<MMM~1I~:@_MMMMM~:>"
 # "XXX~<MMM~I~:@_MMMMM~:>"
@@ -578,9 +598,6 @@ subtest {
 # "~/pPrINt-lINeaR/"
 # "~/pprint-linear/"
 # "~0&"
-# "~0,0T"
-# "~0,1T"
-# "~0,vT"
 # "~0:@{~A~:}"
 # "~0:{XYZ~}"
 # "~0@{~A~^~A~}"
@@ -590,8 +607,6 @@ subtest {
 # "~0{~}"
 # "~0{~}"
 # "~0|"
-# "~1,0T"
-# "~1,1@t"
 # "~1,2,3,4,5,6,7,8,9,10@/cl-test::function-for-format-slash-19/"
 # "~100000000000000000000000000000000[a~;b~;c~;d~]"
 # "~10:<abcdef~>"
@@ -916,9 +931,7 @@ subtest {
 # "~@{~}"
 # "~A~<~A~v,v:t~:>"
 # "~A~<~v,v:@t~:>"
-# "~A~v,vt"
 # "~A~~<~A~~~D,~D:T~~:>"
-# "~A~~~D,~DT"
 # "~V%"
 # "~V&"
 # "~V&"
@@ -945,13 +958,9 @@ subtest {
 # "~v&"
 # "~v,,,v<~A~>"
 # "~v,,v<~A~>"
-# "~v,0T"
-# "~v,1@T~0,v@t"
-# "~v,1@t"
 # "~v,V@X"
 # "~v,v,v,v,v,v,v,v,v,v@/cl-test::function-for-format-slash-19/"
 # "~v,v,v,vx"
-# "~v,v@t"
 # "~v,v@x"
 # "~v,vX"
 # "~v/cl-test::function-for-format-slash-19/"
@@ -1017,7 +1026,6 @@ subtest {
 # "~~~d,"
 # "~~~d,,,'~c,~d:R"
 # "~~~d,,,'~c<~~A~~>"
-# "~~~d,~d@t"
 # "~~~d:R"
 # "~~~dR"
 # (signals-error (format nil "~:@{~A ~A~}" '(x . y)) type-error)
