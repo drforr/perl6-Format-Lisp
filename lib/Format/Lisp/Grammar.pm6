@@ -206,6 +206,35 @@ grammar Format::Lisp::Grammar {
 	<[ p P ]>
 	}
 
+	token tilde-R {
+	'~'	[
+		| '#'
+		| '10,#'
+		| '10,' <V>
+		| '10,' <signed-integer>
+		| '10,,,v:'
+		| '10,12,' <V>
+		| '16,,,,#:'
+		| <unsigned-integer>
+		| '2,,,,' <unsigned-integer>
+		| '2,12,,\'*:'
+		| '2:'
+		| '3,14,\'X,\',:'
+		| '3@:'
+		| '8,,,,v:'
+		| '8,10:@'
+		| '8@'
+		| ':'
+		| ':@'
+		| '@'
+		| '@:'
+		| 'v,v,v,v,' <V>
+		| <V>
+		| <signed-integer>
+		]?
+	<[ r R ]>
+	}
+
 	token tilde-Caret {
 	'~'	[
 		|	<unsigned-integer> ',#'
@@ -275,20 +304,27 @@ grammar Format::Lisp::Grammar {
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
+	| <tilde-D> ' cat' <tilde-P>
+	| <tilde-D> ' penn' <tilde-P>
 	| <tilde-D> 'b'
 	| <tilde-D> 'd'
 	| <tilde-D> 'o'
+	| <tilde-D> 'r'
 	| <tilde-F>
 	| <tilde-O>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> 'X' <tilde-A>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-OBracket> 'X' <tilde-CBracket> 'Y' <tilde-A>
+	| <tilde-P>
 	| <tilde-Ques> ' ' <tilde-A>
+	| <tilde-R>
 	| <tilde-Tilde> ',,,,\'' <tilde-C> 'f'
 	| <tilde-Tilde> ',,\'' <tilde-C> ':' <tilde-C>
 	| <tilde-Tilde> ',,\'' <tilde-C> ':d'
 	| <tilde-Tilde> '~d@o'
 	| <tilde-Tilde> '~do'
+	| <tilde-Tilde> <tilde-D> ',' <tilde-D> ',\'*r'
+	| <tilde-Tilde> <tilde-D> ',' <tilde-D> 'R'
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> 'd'
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> <tilde-C>
 	| <tilde-Tilde> <tilde-D> ':a'
@@ -301,8 +337,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'b'
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
-	| <tilde-P>
-	| <tilde-D> ' cat' <tilde-P>
-	| <tilde-D> ' penn' <tilde-P>
+	| <tilde-Tilde> <tilde-R>
 	}
 }
