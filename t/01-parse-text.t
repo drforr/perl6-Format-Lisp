@@ -3,7 +3,7 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 1;
+plan 4;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -11,7 +11,7 @@ my $*FALL-THROUGH = True;
 my $parsed;
 
 subtest {
-	my @a-options =
+	my @options =
 		Q{~#,#@A},
 		Q{~#,#A},
 		Q{~#@A},
@@ -116,7 +116,132 @@ subtest {
 		Q{~~~d@a},
 		Q{~~~da},
 	;
-	for @a-options -> $str {
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
+subtest {
+	my @options =
+		Q{~b},
+		Q{~@b},
+		Q{~~~db},
+		Q{~~~d@b},
+		Q{~v,vb},
+		Q{~:b},
+		Q{~,,v:b},
+		Q{~,,V,V:b},
+		Q{~,,v,v:@b},
+		Q{~vb},
+		Q{~,,v:b},
+		Q{~:@b},
+		Q{~#b},
+		Q{~,,,#:b},
+		Q{~+10b},
+		Q{~-1b},
+		Q{~vb},
+		Q{~db},
+		Q{~v,v,v,vb},
+		Q{~B},
+		Q{~@B},
+		Q{~v,vB},
+		Q{~:B},
+		Q{~,,v:B},
+		Q{~,,V,V@:B},
+		Q{~@B},
+		Q{~,,v,v:B},
+		Q{~6,vB},
+		Q{~,,'*,v:B},
+		Q{~:B},
+		Q{~@:B},
+		Q{~#B},
+		Q{~,,,#:B},
+		Q{~,,,#@:B},
+		Q{~+10@B},
+		Q{~-1000000000000000000B},
+		Q{~V,V,V,VB},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
+subtest {
+	my @options =
+		Q{~~~d,'~c~c},
+		Q{~~,,'~c:~c},
+		Q{~:c},
+		Q{~@c},
+		Q{'~c},
+		Q{~~~d,'~c~c},
+		Q{~~,,'~c:~c},
+		Q{#\\~:c},
+		Q{~c},
+		Q{~@:c},
+		Q{~~~d~c},
+		Q{~~~d@~c},
+		Q{~~~d,'~c~c},
+		Q{~~,,'~c:~c},
+		Q{~C},
+		Q{~:C},
+		Q{~@C},
+		Q{~:@C},
+		Q{~C},
+		Q{~:C},
+		Q{~@C},
+		Q{~@:C},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
+subtest {
+	my @options =
+		Q{~@d},
+		Q{~~~dd},
+		Q{~d},
+		Q{~~~dd},
+		Q{~~~d@d},
+		Q{~~~d,'~cd},
+		Q{~v,vd},
+		Q{~@d},
+		Q{~v,v@d},
+		Q{~:d},
+		Q{~,,v:d},
+		Q{~,,v:d},
+		Q{~~,,'~c:d},
+		Q{~,,v,v:d},
+		Q{~@d},
+		Q{~,,v,v:@d},
+		Q{~,,v:d},
+		Q{~,,'*,v:d},
+		Q{~@d},
+		Q{~@:d},
+		Q{~#d},
+		Q{~,,,#:d},
+		Q{~,,,#:@d},
+		Q{~+10d},
+		Q{~+10@d},
+		Q{~-1d},
+		Q{~-1000000000000000000d},
+		Q{~vd},
+		Q{~dd},
+		Q{~v,v,v,vd},
+		Q{~,,,#@:D},
+		Q{~v,v,v,vD},
+		Q{~D},
+		Q{~@D},
+		Q{~v,vD},
+		Q{~v,v@D},
+		Q{~,,v,v:D},
+		Q{~,,v,v:@D},
+		Q{~vD},
+		Q{~6,vD},
+		Q{~#D},
+		Q{~,,,#:D},
+	;
+	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
@@ -144,88 +269,9 @@ subtest {
 #  "X~#%"
 #  "X~#%"
 #
-#  "~b"
-#  "~B"
-#
-#  "~@b"
-#
-#         "~b"
-#          "~~~db"
-#
-#         "~@B"
-#          "~~~d@b"
-#
-#          "~~~d,'~c~c"
-#
-#          "~~~d,'~c~c"
-#
-#  "~v,vB"
-#           "~v,vb"
-#
-#  "~v,v@B"
-#           "~@B"
-#           "~v,v@b"
-#
-#  "~:B"
-#          "~:b"
-#
-#  "~,,v:B"
-#           "~b"
-#           "~,,v:b"
-#
-#         for fmt = (format nil "~~,,'~c:~c" commachar (random-from-seq "bB"))
-#
-#  (let ((fn (formatter "~,,V,V:b")))
-#           for s2 = (format nil "~,,v,v:B" commachar commaint i)
-#
-#  (let ((fn (formatter "~,,V,V@:B")))
-#           for s1 = (format nil "~@B" i)
-#           for s2 = (format nil "~,,v,v:@b" commachar commaint i)
-#
-#  "~vb"
-#
-#  "~6,vB"
-#
-#  "~,,v:b"
-#
-#  "~,,'*,v:B"
-#
-#  (let ((fn (formatter "~b")))
-#
-#  (let ((fn (formatter "~:b")))
-#          for s1 = (format nil "~:B" x)
-#
-#  (let ((fn (formatter "~@b")))
-#          for s1 = (format nil "~@b" x)
-#
-#  (let ((fn (formatter "~:@b")))
-#          for s2 = (format nil "~@:B" x)
-#
-#   (let ((fn (formatter "~#B"))
-#           for s = (apply #'format nil "~#b" bv args)
-#
-#   (let ((fn (formatter "~,,,#:b"))
-#         for s = (apply #'format nil "~,,,#:B" bv args)
-#
-#   (let ((fn (formatter "~,,,#@:B"))
-#           for s = (apply #'format nil "~,,,#@:B" bv args)
-#
-#  "~+10b"
-#
-#  "~+10@B"
-#
-#  "~-1b"
-#
-#  "~-1000000000000000000B"
-#
-#  "~vb"
-#
-#  (let ((fn (formatter "~V,V,V,VB")))
 #                (if mincol (format nil "~~~d," mincol) "~,")
 #                (if padchar (format nil "'~c," padchar) ",")
 #                (if commachar (format nil "'~c," commachar) ",")
-#                (if commaint (format nil "~db" commaint) "b"))
-#     for s2 = (format nil "~v,v,v,vb" mincol padchar commachar commaint x)
 #
 #  "~{~}"
 #
@@ -832,30 +878,6 @@ subtest {
 #
 #  "~{~@:(~CA ~Cb ~0^~C~)W~}"
 #
-#  "~C"
-#
-#        for s = (and c (format nil "~c" c))
-#
-#        for s = (format nil "~:c" c)
-#
-#        for s = (and c (format nil "~:C" c))
-#
-#  "~:C" (#\Space) #.(char-name #\Space))
-#
-#        for s = (format nil "~:C" c)
-#
-#        for s = (and c (format nil "~:c" c))
-#
-#        for s = (format nil "~@c" c)
-#
-#        for s = (and c (format nil "~@C" c))
-#
-#        for s1 = (format nil "~:C" c)
-#        for s2 = (format nil "~:@C" c)
-#
-#        for s1 = (and c (format nil "~:C" c))
-#        for s2 = (and c (format nil "~@:C" c))
-#
 #  "~[~]"
 #
 #  "~[a~]"
@@ -926,92 +948,9 @@ subtest {
 #
 #  (let ((fn (formatter "~:[a~;b~]")))
 #
-#         for s1 = (format nil "~D" i)
-#
-#  (let ((fn (formatter "~D")))
-#
-#         for s1 = (format nil "~@d" i)
-#
-#  (let ((fn (formatter "~@D")))
-#
-#         for s2 = (format nil (format nil "~~~dd" mincol) i)
-#
-#         for s1 = (format nil "~d" i)
-#         for format-string = (format nil "~~~dd" mincol)
-#
-#         for s1 = (format nil "~@D" i)
-#         for format-string = (format nil "~~~d@d" mincol)
-#
-#         for s1 = (format nil "~@D" i)
-#         for format-string = (format nil "~~~d@d" mincol)
-#
-#         for s1 = (format nil "~d" i)
-#         for s2 = (format nil (format nil "~~~d,'~cd" mincol padchar) i)
-#
-#         for s1 = (format nil "~d" i)
-#         for format-string = (format nil "~~~d,'~cd" mincol padchar)
-#
-#  (let ((fn (formatter "~v,vd")))
-#           for s1 = (format nil "~d" i)
-#           for s2 = (format nil "~v,vD" mincol padchar i)
-#
-#  (let ((fn (formatter "~v,v@D")))
-#           for s1 = (format nil "~@d" i)
-#           for s2 = (format nil "~v,v@d" mincol padchar i)
-#
-#  (let ((fn1 (formatter "~d"))
-#        (fn2 (formatter "~:d")))
-#
-#  (let ((fn (formatter "~,,v:d")))
-#           for s2 = (format nil "~,,v:d" commachar i)
-#
-#         for format-string = (format nil "~~,,'~c:d" commachar)
-#
-#  (let ((fn (formatter "~,,v,v:d")))
-#           for s2 = (format nil "~,,v,v:D" commachar commaint i)
-#
-#  (let ((fn (formatter "~,,v,v:@D")))
-#           for s1 = (format nil "~@d" i)
-#           for s2 = (format nil "~,,v,v:@d" commachar commaint i)
-#
-#  "~vD" (nil 100) "100")
-#
-#  "~6,vD" (nil 100) "   100")
-#
-#  "~,,v:d" (nil 12345) "12,345")
-#
-#  "~,,'*,v:d" (nil 12345) "12*345")
-#
-#        for s1 = (format nil "~@d" x)
-#
-#        for s2 = (format nil "~@:d" x)
-#
-#         for s = (apply #'format nil "~#d" 12345 args)
-#
-#   (let ((fn (formatter "~#D")))
-#
-#   (let ((fn (formatter "~,,,#:D")))
-#           for s = (apply #'format nil "~,,,#:d" 1234567890 args)
-#
-#   (let ((fn (formatter "~,,,#:@d")))
-#           for s = (apply #'format nil "~,,,#@:D" 1234567890 args)
-#
-#  "~+10d" (1234) "      1234")
-#
-#  "~+10@d" (1234) "     +1234")
-#
-#  "~-1d" (1234) "1234")
-#
-#  "~-1000000000000000000d" (1234) "1234")
-#
-#  "~vd" ((1- most-negative-fixnum) 1234) "1234")
-#
-#  (let ((fn (formatter "~v,v,v,vD")))
 #                (if mincol (format nil "~~~d," mincol) "~,")
 #                (if padchar (format nil "'~c," padchar) ",")
 #                (if commachar (format nil "'~c," commachar) ",")
-#                (if commaint (format nil "~dd" commaint) "d"))
-#     for s2 = (format nil "~v,v,v,vd" mincol padchar commachar commaint x)
 #
 #        (fn (formatter "~F")))
 #     for s1 = (let ((*read-default-float-format* type)) (format nil "~f" x))
@@ -1123,8 +1062,6 @@ subtest {
 #
 #           for s = (format nil "~v,vf" w d sf)
 #
-#                           (if overflowchar (format nil "'~c" overflowchar) "")
-#                           (if padchar (format nil "'~c" padchar) "")
 #     for s1 = (format nil f1 x)
 #     for s2 = (format nil "~v,v,v,v,vf" w d k overflowchar padchar x)
 #
@@ -1287,12 +1224,9 @@ subtest {
 #         for fmt = (format nil "~~~d@o" mincol)
 #
 #         for s1 = (format nil "~o" i)
-#         for fmt = (format nil "~~~d,'~c~c" mincol padchar
-#                           (random-from-seq "oO"))
 #         for s2 = (format nil fmt i)
 #
 #         for s1 = (format nil "~o" i)
-#         for fmt = (format nil "~~~d,'~c~c" mincol padchar
 #
 #  (let ((fn (formatter "~V,Vo")))
 #           for s1 = (format nil "~o" i)
@@ -1316,11 +1250,9 @@ subtest {
 #           for s3 = (formatter-call-to-string fn commachar i)
 #
 #         for s1 = (format nil "~o" i)
-#         for fmt = (format nil "~~,,'~c:~c" commachar (random-from-seq "oO"))
 #         for s2 = (format nil fmt i)
 #
 #         for s1 = (format nil "~o" i)
-#         for fmt = (format nil "~~,,'~c:~c" commachar (random-from-seq "oO"))
 #
 #  (let ((fn (formatter "~,,V,v:O")))
 #           for s1 = (format nil "~o" i)
@@ -1675,7 +1607,6 @@ subtest {
 #             for s = (format nil "~S" c)
 #
 #  (let ((fn (formatter "~s")))
-#             for s1 = (and c (format nil "#\\~:c" c))
 #             for s2 = (and c (format nil "~S" c))
 #
 #            for fmt = (format nil "~~~d@s" i)
@@ -1723,33 +1654,33 @@ subtest {
 #         (fn (formatter "~V,,2s")))
 #           for s = (format nil "~v,,2S" i 'ABC)
 #
-#  "~3,,+2S" ('ABC) "ABC  ")
+#  "~3,,+2S"
 #
-#  "~3,,0S" ('ABC) "ABC")
+#  "~3,,0S"
 #
-#  "~3,,-1S" ('ABC) "ABC")
+#  "~3,,-1S"
 #
-#  "~3,,0S" ('ABCD) "ABCD")
+#  "~3,,0S"
 #
-#  "~3,,-1S" ('ABCD) "ABCD")
+#  "~3,,-1S"
 #
-#  "~4,,,'XS" ('AB) "ABXX")
+#  "~4,,,'XS"
 #
-#  "~4,,,s" ('AB) "AB  ")
+#  "~4,,,s"
 #
-#  "~4,,,'X@s" ('AB) "XXAB")
+#  "~4,,,'X@s"
 #
-#  "~4,,,@S" ('AB) "  AB")
+#  "~4,,,@S"
 #
-#  "~10,,,vS" (nil 'ABCDE) "ABCDE     ")
+#  "~10,,,vS"
 #
-#  "~10,,,v@S" (nil 'ABCDE) "     ABCDE")
+#  "~10,,,v@S"
 #
-#  "~10,,,vs" (#\* 'ABCDE) "ABCDE*****")
+#  "~10,,,vs"
 #
-#  "~10,,,v@s" (#\* 'ABCDE) "*****ABCDE")
+#  "~10,,,v@s"
 #
-#  "~3,,vS" (nil 246) "246")
+#  "~3,,vS"
 #
 #         (fn (formatter "~3,,vs")))
 #           for s = (format nil "~3,,vS" i 'ABC)
@@ -1764,16 +1695,6 @@ subtest {
 #  "~5,vS" (3 456) "456   ")
 #
 #  "~5,v@S" (3 789) "   789")
-#
-#  (let ((fn (formatter "~C")))
-#
-#  (let ((fn (formatter "~c")))
-#
-#  (let ((fn (formatter "~:C")))
-#
-#  (let ((fn (formatter "~@C"))
-#
-#        (fn (formatter "~@:c")))
 #
 #  "~~" nil "~")
 #
@@ -1937,24 +1858,18 @@ subtest {
 #           for s1 = (format nil "~@x" i)
 #
 #         for s1 = (format nil "~x" i)
-#         for fmt = (format nil "~~~d~c" mincol (random-from-seq "xX"))
 #         for s2 = (format nil fmt i)
 #
 #         for s1 = (format nil "~x" i)
-#         for fmt = (format nil "~~~d~c" mincol (random-from-seq "xX"))
 #
 #         for s1 = (format nil "~@X" i)
-#         for fmt = (format nil "~~~d@~c" mincol (random-from-seq "xX"))
 #         for s2 = (format nil fmt i)
 #
 #         for s1 = (format nil "~@X" i)
-#         for fmt = (format nil "~~~d@~c" mincol (random-from-seq "xX"))
 #
 #         for s1 = (format nil "~x" i)
-#         for fmt = (format nil "~~~d,'~c~c" mincol padchar (random-from-seq "xX"))
 #
 #         for s1 = (format nil "~x" i)
-#         for fmt = (format nil "~~~d,'~c~c" mincol padchar (random-from-seq "xX"))
 #
 #  (let ((fn (formatter "~V,vx")))
 #           for s1 = (format nil "~x" i)
@@ -1977,11 +1892,9 @@ subtest {
 #           for s2 = (format nil "~,,v:X" commachar i)
 #
 #         for s1 = (format nil "~x" i)
-#         for fmt = (format nil "~~,,'~c:~c" commachar (random-from-seq "xX"))
 #         for s2 = (format nil fmt i)
 #
 #         for s1 = (format nil "~x" i)
-#         for fmt = (format nil "~~,,'~c:~c" commachar (random-from-seq "xX"))
 #
 #  (let ((fn (formatter "~,,v,v:X")))
 #           for s1 = (format nil "~x" i)
