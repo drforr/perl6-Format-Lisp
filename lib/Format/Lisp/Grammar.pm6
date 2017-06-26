@@ -17,45 +17,57 @@ grammar Format::Lisp::Grammar {
 	|	'~~'
 	}
 
+	token A { <[ a A ]> }
+
 	token tilde-A {
-	|	'~#@a'
-	|	'~#a'
-	|	'~@a'
-	|	'~:a'
-	|	'~a'
-	|	'~#A'
-	|	'~@A'
-	|	'~:A'
-	|	'~A'
+	|	'~#@' <A>
+	|	'~#' <A>
+	|	'~V@:' <A>
+	|	'~V@' <A>
+	|	'~@' <A>
+	|	'~:' <A>
+	|	'~V:@' <A>
+	|	'~V:' <A>
+	|	'~V' <A>
+	|	'~v@:' <A>
+	|	'~v@' <A>
+	|	'~v:@' <A>
+	|	'~v:' <A>
+	|	'~v' <A>
+	|	'~' <A>
 	}
+
+	token B { <[ b B ]> }
 
 	token tilde-B {
-	|	'~#b'
-	|	'~@b'
-	|	'~:b'
-	|	'~b'
-	|	'~#B'
-	|	'~@B'
-	|	'~:B'
-	|	'~B'
+	|	'~:@' <B>
+	|	'~#' <B>
+	|	'~@:' <B>
+	|	'~@' <B>
+	|	'~:' <B>
+	|	'~v' <B>
+	|	'~' <B>
 	}
+
+	token C { <[ c C ]> }
 
 	token tilde-C {
-	|	'~@:c'
-	|	'~@c'
-	|	'~:c'
-	|	'~c'
-	|	'~:C'
-	|	'~C'
+	|	'~:@' <C>
+	|	'~@:' <C>
+	|	'~@' <C>
+	|	'~:' <C>
+	|	'~' <C>
 	}
 
+	token D { <[ d D ]> }
+
 	token tilde-D {
-	|	'~#d'
-	|	'~:d'
-	|	'~d'
-	|	'~#D'
-	|	'~:D'
-	|	'~D'
+	|	'~#' <D>
+	|	'~@:' <D>
+	|	'~@' <D>
+	|	'~:' <D>
+	|	'~v' <D>
+	|	'~' <D>
 	}
 
 	token tilde-Caret {
@@ -63,11 +75,25 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-Ques {
+	|	'~@?'
 	|	'~?'
 	}
 
 	token tilde-Star {
+	|	'~0*'
+	|	'~4:*'
+	|	'~3:*'
+	|	'~2:*'
+	|	'~0:*'
 	|	'~:*'
+	|	'~3@*'
+	|	'~2@*'
+	|	'~1@*'
+	|	'~0@*'
+	|	'~v@*'
+	|	'~@*'
+	|	'~v:*'
+	|	'~v*'
 	|	'~*'
 	}
 
@@ -76,7 +102,6 @@ grammar Format::Lisp::Grammar {
 	| '\'' <tilde-C>
 	| '~#,#@A'
 	| '~#,#A'
-	| '~#@A'
 	| '~+10@B'
 	| '~+10@d'
 	| '~+10b'
@@ -137,28 +162,9 @@ grammar Format::Lisp::Grammar {
 	| '~6,vD'
 	| '~7,3@a'
 	| '~7,3A'
-	| '~:@C'
-	| '~:@b'
-	| '~@:B'
-	| '~@:C'
-	| '~@:d'
-	| '~@?' ' ' <tilde-A>
-	| '~@C'
-	| '~@D'
 	| '~@[' 'X' '~]' 'Y' <tilde-A>
-	| '~@d'
 	| '~@{' '~2,#^' <tilde-A> '~}' 'X' <tilde-A>
 	| '~V,V,V,VB'
-	| '~V:@A'
-	| '~V:@a'
-	| '~V:A'
-	| '~V:a'
-	| '~V@:A'
-	| '~V@:a'
-	| '~V@A'
-	| '~V@a'
-	| '~VA'
-	| '~Va'
 	| '~v,,2A'
 	| '~v,v,v,vD'
 	| '~v,v,v,vb'
@@ -169,58 +175,30 @@ grammar Format::Lisp::Grammar {
 	| '~v,vD'
 	| '~v,vb'
 	| '~v,vd'
-	| '~v:@A'
-	| '~v:@a'
-	| '~v:A'
-	| '~v:a'
-	| '~v@:A'
-	| '~v@:a'
-	| '~v@A'
-	| '~v@a'
-	| '~vA'
-	| '~vD'
-	| '~va'
-	| '~vb'
-	| '~vd'
 	| '~{' '~2,#^' <tilde-A> '~}' <tilde-A>
 	| <tilde-A>
-	| <tilde-A>
-	| <tilde-A> 'Y' '~@?' 'X' <tilde-A>
 	| <tilde-A> 'Y' <tilde-Ques> 'X' <tilde-A>
-	| <tilde-A> '~0*' <tilde-A>
-	| <tilde-A> '~1{' <tilde-A> '~0*' <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~1{' <tilde-A> <tilde-A> '~v@*' <tilde-A> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~1{' <tilde-A> <tilde-A> <tilde-A> '~2:*' <tilde-A> <tilde-A> '~}' <tilde-A>
 	| <tilde-A> '~1{' <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~1{' <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~1{' <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> '~}' <tilde-A>
 	| <tilde-A> '~1{' <tilde-A> <tilde-Star> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~1{' <tilde-A> <tilde-Star> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~@?' 'X' <tilde-A>
-	| <tilde-A> '~v*' <tilde-A>
-	| <tilde-A> '~{' <tilde-A> <tilde-A> '~0@*' <tilde-A> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~{' <tilde-A> <tilde-A> '~1@*' <tilde-A> '~}' <tilde-A>
 	| <tilde-A> '~{' <tilde-A> <tilde-A> '~@*' <tilde-A> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> '~3:*' <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~4:*' <tilde-Caret> <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~v*' <tilde-Caret> <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~v:*' <tilde-Caret> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> <tilde-A> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-Star> <tilde-A> '~}' <tilde-A>
+	| <tilde-A> '~{' <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> '~}' <tilde-A>
 	| <tilde-A> '~{' <tilde-A> <tilde-Star> <tilde-A> '~}' <tilde-A>
-	| <tilde-A> <tilde-A> '~0:*' <tilde-A>
-	| <tilde-A> <tilde-A> '~1@*' <tilde-A> <tilde-A>
-	| <tilde-A> <tilde-A> '~2:*' <tilde-A>
-	| <tilde-A> <tilde-A> '~2@*' <tilde-A> <tilde-A>
-	| <tilde-A> <tilde-A> '~3@*' <tilde-A> <tilde-A>
-	| <tilde-A> <tilde-A> '~@*' <tilde-A> <tilde-A>
-	| <tilde-A> <tilde-A> '~v:*' <tilde-A>
-	| <tilde-A> <tilde-A> '~v@*' <tilde-A> <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
+	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A>
 	| <tilde-A> <tilde-Ques> 'X' <tilde-A>
-	| <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
 	| <tilde-D> 'b'
 	| <tilde-D> 'd'
+	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-Tilde> ',,\'' <tilde-C> ':' <tilde-C>
 	| <tilde-Tilde> ',,\'' <tilde-C> ':d'
