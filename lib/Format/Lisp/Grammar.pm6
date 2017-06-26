@@ -25,54 +25,52 @@ grammar Format::Lisp::Grammar {
 	|	'~~'
 	}
 
+	token V { <[ v V ]> }
+
 	token tilde-A {
 	'~'	[
 		|	'#'
 		|	'#,#'
 		|	'#,#@'
 		|	'#@'
-		|	'-100'
-		|	'-100000000000000000000'
-		|	'10,,,v'
+		|	'10,,,' <V>
 		|	'10,,,v@'
-		|	'3,,+2'
-		|	'3,,-1'
-		|	'3,,0'
-		|	'3,,v'
+		|	'3,' <unsigned-integer>
+		|	'3,,' <V>
+		|	'3,,' <signed-integer>
 		|	'3,,v@'
-		|	'3,1'
 		|	'3,3@'
 		|	'4,#'
 		|	'4,#@'
+		|	'4,' <unsigned-integer>
+		|	'4,,' <V>
 		|	'4,,,'
 		|	'4,,,@'
 		|	'4,,,\'X'
 		|	'4,,,\'X@'
-		|	'4,,v'
-		|	'4,3'
 		|	'4,4@'
 		|	'5,#'
 		|	'5,#@'
-		|	'5,3'
+		|	'5,' <V>
+		|	'5,' <unsigned-integer>
 		|	'5,3@'
-		|	'5,v'
 		|	'5,v@'
-		|	'6,v'
-		|	'7,3'
+		|	'6,' <V>
+		|	'7,' <unsigned-integer>
 		|	'7,3@'
 		|	':'
 		|	'@'
-		|	'V'
 		|	'V:'
 		|	'V:@'
 		|	'V@'
 		|	'V@:'
-		|	'v'
-		|	'v,,2'
+		|	'v,,' <unsigned-integer>
 		|	'v:'
 		|	'v:@'
 		|	'v@'
 		|	'v@:'
+		|	<V>
+		|	<signed-integer>
 		]?
 	<[ a A ]>
 	}
@@ -80,7 +78,6 @@ grammar Format::Lisp::Grammar {
 	token tilde-B {
 	'~'	[
 		|	'#'
-		|	'+10'
 		|	'+10@'
 		|	',,,#:'
 		|	',,,#@:'
@@ -90,17 +87,16 @@ grammar Format::Lisp::Grammar {
 		|	',,v,v:'
 		|	',,v,v:@'
 		|	',,v:'
-		|	'-1'
-		|	'-1000000000000000000'
-		|	'6,v'
+		|	'6,' <V>
 		|	':'
 		|	':@'
 		|	'@'
 		|	'@:'
-		|	'V,V,V,V'
-		|	'v'
-		|	'v,v'
-		|	'v,v,v,v'
+		|	'V,V,V,' <V>
+		|	'v,' <V>
+		|	'v,v,v,' <V>
+		|	<V>
+		|	<signed-integer>
 		]?
 	<[ b B ]>
 	}
@@ -118,7 +114,6 @@ grammar Format::Lisp::Grammar {
 	token tilde-D {
 	'~'	[
 		|	'#'
-		|	'+10'
 		|	'+10@'
 		|	',,,#:'
 		|	',,,#:@'
@@ -127,16 +122,15 @@ grammar Format::Lisp::Grammar {
 		|	',,v,v:'
 		|	',,v,v:@'
 		|	',,v:'
-		|	'-1'
-		|	'-1000000000000000000'
 		|	'6,v'
 		|	':'
 		|	'@'
 		|	'@:'
-		|	'v'
-		|	'v,v'
-		|	'v,v,v,v'
+		|	'v,' <V>
+		|	'v,v,v,' <V>
 		|	'v,v@'
+		|	<V>
+		|	<signed-integer>
 		]?
 	<[ d D ]>
 	}
@@ -157,10 +151,10 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Star {
 	'~'	[
-		|	'0'
+		|	<unsigned-integer>
 		|	':'
 		|	'@'
-		|	'v'
+		|	<V>
 		|	'v:'
 		|	'v@'
 		|	<unsigned-integer> ':'
