@@ -3,7 +3,7 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 11;
+plan 12;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -538,6 +538,18 @@ subtest {
 	}
 }
 
+subtest {
+	my @options =
+		Q{XX~10,20:@tYY},
+		Q{XX~10,20@:tYY},
+		Q{XX~10:tYY},
+		Q{X~AY},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
 # ----------------------------------
 
 # "'~c,"
@@ -569,14 +581,10 @@ subtest {
 # "XXX~<MMM~I~:@_MMMMM~:>"
 # "XXX~<MMM~vI~:@_MMMMM~:>"
 # "XXX~<MMM~vI~:@_MMMMM~:>"
-# "XX~10,20:@tYY"
-# "XX~10,20@:tYY"
-# "XX~10:tYY"
 # "X~#%"
 # "X~#%"
 # "X~%~&"
 # "X~&"
-# "X~AY"
 # "X~V%"
 # "X~v&"
 # "X~~~D&"

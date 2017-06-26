@@ -284,6 +284,9 @@ grammar Format::Lisp::Grammar {
 		| 'v,' <unsigned-integer>
 		| 'v,1@'
 		| 'v,v@'
+		| '10,20:@'
+		| '10,20@:'
+		| '10:'
 		]?
 	<[ t T ]>
 	}
@@ -434,5 +437,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
 	| <tilde-X>
+	| 'XX' <tilde-T> 'YY'
+	| 'X' <tilde-A> 'Y'
 	}
 }
