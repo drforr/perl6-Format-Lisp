@@ -3,7 +3,7 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 6;
+plan 7;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -348,6 +348,24 @@ subtest {
 		Q{~vo},
 		Q{~~~d@o},
 		Q{~~~do},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
+subtest {
+	my @options =
+		Q{~@p},
+		Q{~D cat~:p},
+		Q{~D penn~:@p},
+		Q{~D penn~@:p},
+		Q{~p},
+		Q{~@P},
+		Q{~D cat~:P},
+		Q{~D penn~:@P},
+		Q{~D penn~@:P},
+		Q{~P},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -819,12 +837,10 @@ subtest {
 # "~@<~@{~A~^*~}~:>"
 # "~@<~A~:>"
 # "~@?"
-# "~@P"
 # "~@R"
 # "~@S"
 # "~@X"
 # "~@_A~%"
-# "~@p"
 # "~@r"
 # "~@x"
 # "~@{ ~}"
@@ -863,13 +879,6 @@ subtest {
 # "~A~v,vt"
 # "~A~~<~A~~~D,~D:T~~:>"
 # "~A~~~D,~DT"
-# "~D cat~:P"
-# "~D cat~:p"
-# "~D penn~:@P"
-# "~D penn~:@p"
-# "~D penn~@:P"
-# "~D penn~@:p"
-# "~P"
 # "~S"
 # "~S"
 # "~V%"
@@ -899,7 +908,6 @@ subtest {
 # "~d,"
 # "~dr"
 # "~dx"
-# "~p"
 # "~r"
 # "~s"
 # "~v&"

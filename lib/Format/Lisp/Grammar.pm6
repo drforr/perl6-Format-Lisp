@@ -196,6 +196,16 @@ grammar Format::Lisp::Grammar {
 	<[ o O ]>
 	}
 
+	token tilde-P {
+	'~'	[
+		| ':@'
+		| ':'
+		| '@:'
+		| '@'
+		]?
+	<[ p P ]>
+	}
+
 	token tilde-Caret {
 	'~'	[
 		|	<unsigned-integer> ',#'
@@ -291,5 +301,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'b'
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
+	| <tilde-P>
+	| <tilde-D> ' cat' <tilde-P>
+	| <tilde-D> ' penn' <tilde-P>
 	}
 }
