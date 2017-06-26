@@ -237,44 +237,38 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-S {
 	'~'	[
+		| '10,,,' <V>
 		| '10,,,v@'
-		| '10,,,v'
-		| '3,,v'
-		| '3,1'
+		| '3,' <unsigned-integer>
+		| '3,,' <V>
+		| '3,,' <signed-integer>
+		| '3,,V@'
 		| '3,3@'
-		| '4,,,\'X@'
+		| '4,' <unsigned-integer>
+		| '4,,' <V>
 		| '4,,,'
-		| '4,,v'
-		| '4,3'
+		| '4,,,@'
+		| '4,,,\'X'
+		| '4,,,\'X@'
 		| '4,4@'
+		| '5,' <V>
+		| '5,' <signed-integer>
 		| '5,3@'
+		| '5,v@'
+		| '7,' <unsigned-integer>
 		| '7,3@'
 		| ':'
-		| 'V,,2'
+		| '@'
+		| 'V,,' <unsigned-integer>
 		| 'V:'
 		| 'V@:'
+		| 'v,,' <unsigned-integer>
+		| 'v:'
 		| 'v:@'
 		| 'v:@'
-		| 'v@:'
-		| '10,,,v@'
-		| '10,,,v'
-		| '3,,+2'
-		| '3,,-1S'
-		| '3,,0'
-		| '3,,V@'
-		| '3,,v'
-		| '4,,,\'X'
-		| '4,,,@'
-		| '5,3'
-		| '5,v@'
-		| '5,v'
-		| '7,3'
-		| '@'
-		| 'v,,2'
-		| 'v:'
-		| 'v:'
 		| 'v@'
-		| 'v'
+		| 'v@:'
+		| <V>
 		]?
 	<[ s S ]>
 	}
@@ -382,18 +376,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
-#	| '~:s'
-#	| '~V,,2s'
-#	| '~V:s'
-	| '~V@:s'
-	| '~s'
-	| '~v:@s'
-	| '~v:@s'
-	| '~v@:s'
-	| '~10,,,v@S'
-	| '~10,,,vS'
-	| '~3,,+2S'
-	| '~3,,-1S'
 	| <tilde-S>
 	| <tilde-Tilde> <tilde-D> ':s'
 	| <tilde-Tilde> <tilde-D> '@s'
