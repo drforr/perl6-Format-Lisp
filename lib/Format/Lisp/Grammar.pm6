@@ -288,6 +288,34 @@ grammar Format::Lisp::Grammar {
 	<[ t T ]>
 	}
 
+	token tilde-X {
+	'~'	[
+		| '#'
+		| '+10@'
+		| ',,,#:'
+		| ',,,#@:'
+		| ',,V:'
+		| ',,\'*,v:'
+		| ',,v,V:@'
+		| ',,v,v:'
+		| ',,v,v:@'
+		| ',,v:'
+		| '6,' <V>
+		| ':'
+		| ':@'
+		| '@'
+		| '@:'
+		| 'V,' <V>
+		| 'v,' <V>
+		| 'v,V@'
+		| 'v,v,v,' <V>
+		| 'v,v@'
+		| <V>
+		| <signed-integer>
+		]?
+	<[ x X ]>
+	}
+
 	token tilde-Caret {
 	'~'	[
 		|	<unsigned-integer> ',#'
@@ -340,6 +368,7 @@ grammar Format::Lisp::Grammar {
 	token TOP {
 	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
+	| 'X'
 	| 'XXXXX' <tilde-T>
 	| '\'' <tilde-C>
 	| <tilde-A>
@@ -367,6 +396,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-D> 'd'
 	| <tilde-D> 'o'
 	| <tilde-D> 'r'
+	| <tilde-D> 'x'
 	| <tilde-F>
 	| <tilde-O>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> 'X' <tilde-A>
@@ -403,5 +433,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'o'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
+	| <tilde-X>
 	}
 }
