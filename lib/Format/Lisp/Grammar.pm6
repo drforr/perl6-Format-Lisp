@@ -165,6 +165,37 @@ grammar Format::Lisp::Grammar {
 	<[ f F ]>
 	}
 
+	token tilde-O {
+	'~'	[
+		| '#'
+		| '+10@'
+		| ',,,#:'
+		| ',,,#:@'
+		| ',,,#@:'
+		| ',,V,v:'
+		| ',,\'*,v:'
+		| ',,v,V@:'
+		| ',,v,v:'
+		| ',,v,v:@'
+		| ',,v:'
+		| '6,' <V>
+		| ':'
+		| ':@'
+		| '@'
+		| '@:'
+		| 'V,' <V>
+		| 'd'
+		| 'v,' <V>
+		| 'v,V@'
+		| 'v,v,v,' <V>
+		| 'v,v@'
+		| <V>
+		| <signed-integer>
+		| <unsigned-integer> <V>
+		]?
+	<[ o O ]>
+	}
+
 	token tilde-Caret {
 	'~'	[
 		|	<unsigned-integer> ',#'
@@ -181,12 +212,12 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Star {
 	'~'	[
-		|	<unsigned-integer>
 		|	':'
 		|	'@'
-		|	<V>
 		|	'v:'
 		|	'v@'
+		|	<V>
+		|	<unsigned-integer>
 		|	<unsigned-integer> ':'
 		|	<unsigned-integer> '@'
 		]?
@@ -236,12 +267,18 @@ grammar Format::Lisp::Grammar {
 	| <tilde-D>
 	| <tilde-D> 'b'
 	| <tilde-D> 'd'
+	| <tilde-D> 'o'
+	| <tilde-F>
+	| <tilde-O>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> 'X' <tilde-A>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-OBracket> 'X' <tilde-CBracket> 'Y' <tilde-A>
 	| <tilde-Ques> ' ' <tilde-A>
+	| <tilde-Tilde> ',,,,\'' <tilde-C> 'f'
 	| <tilde-Tilde> ',,\'' <tilde-C> ':' <tilde-C>
 	| <tilde-Tilde> ',,\'' <tilde-C> ':d'
+	| <tilde-Tilde> '~d@o'
+	| <tilde-Tilde> '~do'
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> 'd'
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> <tilde-C>
 	| <tilde-Tilde> <tilde-D> ':a'
@@ -254,53 +291,5 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'b'
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
-	| '~,,,,\',f'
-	| '~,,,,VF'
-	| '~,,,,vf'
-	| '~,,,vF'
-	| '~,,2f'
-	| '~,,Vf'
-	| '~,,vf'
-	| '~,2F'
-	| '~,vf'
-	| '~0,0f'
-	| '~0f'
-	| '~1,1,,f'
-	| '~10,1,,,\'*F'
-	| '~10,1,,,\'*f'
-	| '~10,1,,f'
-	| '~2,1F'
-	| '~2,1f'
-	| '~2,2F'
-	| '~2,2f'
-	| '~2f'
-	| '~3,2F'
-	| '~3,2f'
-	| '~3@F'
-	| '~3F'
-	| '~3f'
-	| '~4,0,,\'*f'
-	| '~4,2,-1F'
-	| '~4,2,-1f'
-	| '~4,2,0F'
-	| '~4,2,0f'
-	| '~4,2,1f'
-	| '~4,2@F'
-	| '~4,2@f'
-	| '~4,2F'
-	| '~4,2f'
-	| '~4@F'
-	| '~4@f'
-	| '~4F'
-	| '~4f'
-	| '~5,1,,\'*F'
-	| '~5,1,,\'*f'
-	| '~F'
-	| '~VF'
-	| '~f'
-	| '~v,v,v,v,vf'
-	| '~v,vf'
-	| '~vf'
-	| <tilde-Tilde> ',,,,\'' '~cf'
 	}
 }
