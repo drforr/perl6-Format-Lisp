@@ -3,7 +3,7 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 4;
+plan 5;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -246,10 +246,65 @@ subtest {
 	}
 }
 
+# XXX No ~e tests?
+
+subtest {
+	my @options =
+		Q{~,,,,',f},
+		Q{~,,,,VF},
+		Q{~,,,,vf},
+		Q{~,,,vF},
+		Q{~,,2f},
+		Q{~,,Vf},
+		Q{~,,vf},
+		Q{~,2F},
+		Q{~,vf},
+		Q{~0,0f},
+		Q{~0f},
+		Q{~1,1,,f},
+		Q{~10,1,,,'*F},
+		Q{~10,1,,,'*f},
+		Q{~10,1,,f},
+		Q{~2,1F},
+		Q{~2,1f},
+		Q{~2,2F},
+		Q{~2,2f},
+		Q{~2f},
+		Q{~3,2F},
+		Q{~3,2f},
+		Q{~3@F},
+		Q{~3F},
+		Q{~3f},
+		Q{~4,0,,'*f},
+		Q{~4,2,-1F},
+		Q{~4,2,-1f},
+		Q{~4,2,0F},
+		Q{~4,2,0f},
+		Q{~4,2,1f},
+		Q{~4,2@F},
+		Q{~4,2@f},
+		Q{~4,2F},
+		Q{~4,2f},
+		Q{~4@F},
+		Q{~4@f},
+		Q{~4F},
+		Q{~4f},
+		Q{~5,1,,'*F},
+		Q{~5,1,,'*f},
+		Q{~F},
+		Q{~VF},
+		Q{~f},
+		Q{~v,v,v,v,vf},
+		Q{~v,vf},
+		Q{~vf},
+		Q{~~,,,,'~cf},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
 # ----------------------------------
-
-
-
 
 #  "~0&"
 #  "~&"
@@ -952,136 +1007,6 @@ subtest {
 #                (if padchar (format nil "'~c," padchar) ",")
 #                (if commachar (format nil "'~c," commachar) ",")
 #
-#        (fn (formatter "~F")))
-#     for s1 = (let ((*read-default-float-format* type)) (format nil "~f" x))
-#
-#        (fn (formatter "~f")))
-#
-#     for s1 = (let ((*read-default-float-format* type)) (format nil "~f" x))
-#
-#  (let ((fn (formatter "~3f")))
-#          for s = (format nil "~3f" x)
-#
-#  (let ((fn (formatter "~2f")))
-#          for s = (format nil "~2f" x)
-#
-#  (let ((fn (formatter "~4F")))
-#          for s = (format nil "~4F" x)
-#
-#  (let ((fn (formatter "~4@F")))
-#          for s = (format nil "~4@f" x)
-#
-#  (let ((fn (formatter "~3@F")))
-#          for s = (format nil "~3@F" x)
-#
-#  (let ((fn (formatter "~4f")))
-#          for s = (format nil "~4f" (- x))
-#
-#  (let ((fn (formatter "~3F")))
-#          for s = (format nil "~3f" x)
-#
-#  (let ((fn (formatter "~4f")))
-#          for s = (format nil "~4f" x)
-#
-#  (let ((fn (formatter "~4,2F")))
-#          for s = (format nil "~4,2f" x)
-#
-#  (let ((fn (formatter "~3,2F")))
-#          for s = (format nil "~3,2f" x)
-#
-#  (let ((fn (formatter "~2,1F")))
-#          for s = (format nil "~2,1f" x)
-#
-#  (let ((fn (formatter "~4,2@F")))
-#          for s = (format nil "~4,2@f" x)
-#
-#  (let ((fn (formatter "~2,2F")))
-#          for s = (format nil "~2,2f" x)
-#
-#  (let ((fn (formatter "~,2F")))
-#          for s = (format nil "~,2f" x)
-#
-#  (let ((fn (formatter "~,2F")))
-#          for s = (format nil "~,2f" x)
-#
-#  (let ((fn (formatter "~4,2,-1F")))
-#          for s = (format nil "~4,2,-1f" x)
-#
-#  (let ((fn (formatter "~4,2,0F")))
-#          for s = (format nil "~4,2,0f" x)
-#
-#  (let ((fn (formatter "~4,2,1f")))
-#          for s = (format nil "~4,2,1f" x)
-#
-#  (let ((fn (formatter "~5,1,,'*F")))
-#          for s = (format nil "~5,1,,'*f" x)
-#
-#  (let ((fn (formatter "~5,1,,'*f")))
-#          for s = (format nil "~5,1,,'*f" x)
-#
-#  (let ((fn (formatter "~4,0,,'*F")))
-#          for s = (format nil "~4,0,,'*f" x)
-#
-#  (let ((fn (formatter "~1,1,,f")))
-#          for s = (format nil "~1,1,,f" x)
-#
-#  (let ((fn (formatter "~10,1,,f")))
-#          for s = (format nil "~10,1,,f" x)
-#
-#  (let ((fn (formatter "~10,1,,,'*F")))
-#          for s = (format nil "~10,1,,,'*f" x)
-#
-#  (let ((fn (formatter "~VF")))
-#          for s1 = (format nil "~f" x)
-#          for s2 = (format nil "~vf" nil x)
-#
-#  (let ((fn (formatter "~,vf")))
-#          for s1 = (format nil "~f" x)
-#          for s2 = (format nil "~,vf" nil x)
-#
-#  (let ((fn (formatter "~,,Vf")))
-#          for s1 = (format nil "~f" x)
-#          for s2 = (format nil "~,,vf" nil x)
-#
-#  (let ((fn (formatter "~,,,vF")))
-#          for s1 = (format nil "~f" x)
-#          for s2 = (format nil "~,,,vf" nil x)
-#
-#  (let ((fn (formatter "~,,,,VF")))
-#          for s1 = (format nil "~f" x)
-#          for s2 = (format nil "~,,,,vf" nil x)
-#          for s3 = (formatter-call-to-string fn nil x)
-#
-#           for s = (format nil "~f" sf)
-#
-#                      for s = (format nil "~v,vf" w d sf)
-#
-#           for s = (format nil "~v,vf" w d sf)
-#
-#           for s = (format nil "~v,vf" w d sf)
-#
-#           for s = (format nil "~v,vf" w d sf)
-#
-#     for s1 = (format nil f1 x)
-#     for s2 = (format nil "~v,v,v,v,vf" w d k overflowchar padchar x)
-#
-#  "~,,,,',f" (0.0) "0.0")
-#
-#        for f1 = (and c (format nil "~~,,,,'~cf" c))
-#        for s2 = (and c (format nil "~,,,,vf" c x))
-#
-#    "~2f" (1.1) "1.0")
-#
-#    "~3f" (1.1) "1.1")
-#
-#    "~0f" (0.01) ".0")
-#
-#    "~0,0f" (0.01) "0.")
-#
-#    "~3f" (0.000001) "0.0")
-#
-#    "~,,2f" (0.1) "10.0")
-#
 #  "~<M~3:i~:@_M~:>"
 #  "~:<M~1:I~@:_M~:>"
 #  "~<(~;M~-1:i~:@_M~;)~:>"
@@ -1451,9 +1376,9 @@ subtest {
 #
 #        for s1 = (format nil "~r" i)
 #
-#  "~vr" (nil 5) "five")
+#  "~vr"
 #
-#  "~#r" (4 nil nil) "11" 2)
+#  "~#r"
 #
 #     (format nil "~10r" 123)))
 #

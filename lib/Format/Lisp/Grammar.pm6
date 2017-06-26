@@ -135,6 +135,36 @@ grammar Format::Lisp::Grammar {
 	<[ d D ]>
 	}
 
+	token tilde-F {
+	'~'	[
+		| ',' <V>
+		| ',' <unsigned-integer>
+		| ',,' <V>
+		| ',,' <unsigned-integer>
+		| ',,,,' <V>
+		| ',,,,\','
+		| ',,,v'
+		| '0,' <unsigned-integer>
+		| '1,1,,'
+		| '10,1,,'
+		| '10,1,,,\'*'
+		| '2,' <unsigned-integer>
+		| '3,' <unsigned-integer>
+		| '3@'
+		| '4,' <unsigned-integer>
+		| '4,0,,\'*'
+		| '4,2,' <signed-integer>
+		| '4,2@'
+		| '4@'
+		| '5,1,,\'*'
+		| 'v,' <V>
+		| 'v,v,v,v,' <V>
+		| <V>
+		| <unsigned-integer>
+		]?
+	<[ f F ]>
+	}
+
 	token tilde-Caret {
 	'~'	[
 		|	<unsigned-integer> ',#'
@@ -224,5 +254,53 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'b'
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
+	| '~,,,,\',f'
+	| '~,,,,VF'
+	| '~,,,,vf'
+	| '~,,,vF'
+	| '~,,2f'
+	| '~,,Vf'
+	| '~,,vf'
+	| '~,2F'
+	| '~,vf'
+	| '~0,0f'
+	| '~0f'
+	| '~1,1,,f'
+	| '~10,1,,,\'*F'
+	| '~10,1,,,\'*f'
+	| '~10,1,,f'
+	| '~2,1F'
+	| '~2,1f'
+	| '~2,2F'
+	| '~2,2f'
+	| '~2f'
+	| '~3,2F'
+	| '~3,2f'
+	| '~3@F'
+	| '~3F'
+	| '~3f'
+	| '~4,0,,\'*f'
+	| '~4,2,-1F'
+	| '~4,2,-1f'
+	| '~4,2,0F'
+	| '~4,2,0f'
+	| '~4,2,1f'
+	| '~4,2@F'
+	| '~4,2@f'
+	| '~4,2F'
+	| '~4,2f'
+	| '~4@F'
+	| '~4@f'
+	| '~4F'
+	| '~4f'
+	| '~5,1,,\'*F'
+	| '~5,1,,\'*f'
+	| '~F'
+	| '~VF'
+	| '~f'
+	| '~v,v,v,v,vf'
+	| '~v,vf'
+	| '~vf'
+	| <tilde-Tilde> ',,,,\'' '~cf'
 	}
 }
