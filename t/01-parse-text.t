@@ -2,8 +2,7 @@ use v6;
 
 use Test;
 use Format::Lisp;
-
-plan 22;
+plan 23;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -100,36 +99,34 @@ subtest {
 # XXX No -" tests?
 # XXX No ." tests?
 
-#`(
 subtest {
 	my @options =
-# "~',@/cl-test::function-for-format-slash-19/"
-# "~'X:/cl-test::function-for-format-slash-19/"
-# "~-1@/cl-test::function-for-format-slash-19/"
-# "~/CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/"
-# "~/PPRINT-LINEAR/"
-# "~/cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/"
-# "~/cl-test::function-for-format-slash-19/"
-# "~/cl-test:FUNCTION-FOR-FORMAT-SLASH-10/"
-# "~/pPrINt-lINeaR/"
-# "~/pprint-linear/"
-# "~1,2,3,4,5,6,7,8,9,10@/cl-test::function-for-format-slash-19/"
-# "~18@:/cl-test::function-for-format-slash-19/"
-# "~:/cl-test::function-for-format-slash-19/"
-# "~:/pprint-linear/"
-# "~:@/cl-test::function-for-format-slash-19/"
-# "~@/cl-test::function-for-format-slash-19/"
-# "~@/pprint-linear/"
-# "~@:/cl-test::function-for-format-slash-19/"
-# "~@:/pprint-linear/"
-# "~v,v,v,v,v,v,v,v,v,v@/cl-test::function-for-format-slash-19/"
-# "~v/cl-test::function-for-format-slash-19/"
+		Q{~',@/cl-test::function-for-format-slash-19/},
+		Q{~'X:/cl-test::function-for-format-slash-19/},
+		Q{~-1@/cl-test::function-for-format-slash-19/},
+		Q{~/CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/},
+		Q{~/PPRINT-LINEAR/},
+		Q{~/cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/},
+		Q{~/cl-test::function-for-format-slash-19/},
+		Q{~/cl-test:FUNCTION-FOR-FORMAT-SLASH-10/},
+		Q{~/pPrINt-lINeaR/},
+		Q{~/pprint-linear/},
+		Q{~1,2,3,4,5,6,7,8,9,10@/cl-test::function-for-format-slash-19/},
+		Q{~18@:/cl-test::function-for-format-slash-19/},
+		Q{~:/cl-test::function-for-format-slash-19/},
+		Q{~:/pprint-linear/},
+		Q{~:@/cl-test::function-for-format-slash-19/},
+		Q{~@/cl-test::function-for-format-slash-19/},
+		Q{~@/pprint-linear/},
+		Q{~@:/cl-test::function-for-format-slash-19/},
+		Q{~@:/pprint-linear/},
+		Q{~v,v,v,v,v,v,v,v,v,v@/cl-test::function-for-format-slash-19/},
+		Q{~v/cl-test::function-for-format-slash-19/},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No [0-9]" tests?
 # XXX No :" tests?

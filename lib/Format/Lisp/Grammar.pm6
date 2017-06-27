@@ -126,7 +126,7 @@ grammar Format::Lisp::Grammar {
 		| ',,v,v:'
 		| ',,v,v:@'
 		| ',,v:'
-		| '6,v'
+		| '6,' <V>
 		| ':'
 		| '@'
 		| '@:'
@@ -458,6 +458,23 @@ grammar Format::Lisp::Grammar {
 	'_'
 	}
 
+	token tilde-Slash {
+	'~'	[
+		| '\',@'
+		| '\'X:'
+		| '-1@'
+		| '1,2,3,4,5,6,7,8,9,10@'
+		| 'v,v,v,v,v,v,v,v,v,v@'
+		| '18@:'
+		| ':@'
+		| ':'
+		| '@:'
+		| '@'
+		| <V>
+		]?
+	'/'
+	}
+
 	token TOP {
 	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
@@ -540,6 +557,13 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-R>
 	| <tilde-S>
+	| <tilde-Slash> 'CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/'
+	| <tilde-Slash> 'PPRINT-LINEAR/'
+	| <tilde-Slash> 'cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/'
+	| <tilde-Slash> 'cl-test::function-for-format-slash-19/'
+	| <tilde-Slash> 'cl-test:FUNCTION-FOR-FORMAT-SLASH-10/'
+	| <tilde-Slash> 'pPrINt-lINeaR/'
+	| <tilde-Slash> 'pprint-linear/'
 	| <tilde-T>
 	| <tilde-T> <tilde-T>
 	| <tilde-Tilde>
