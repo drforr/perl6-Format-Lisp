@@ -298,6 +298,12 @@ grammar Format::Lisp::Grammar {
 	<[ z Z ]>
 	}
 
+	token tilde-W {
+	'~'	#[
+		#]?
+	<[ w W ]>
+	}
+
 	token tilde-X {
 	'~'	[
 		| '#'
@@ -389,9 +395,32 @@ grammar Format::Lisp::Grammar {
 	|	'~]'
 	}
 
+	token tilde-Percent {
+	|	'~%'
+	}
+
+	token tilde-Under {
+	'~'	[
+		|	':@'
+		|	':'
+		|	'@:'
+		|	'@'
+		]?
+	'_'
+	}
+
 	token TOP {
 	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
+	| 'A             ' <tilde-Under>
+	| 'A ' <tilde-Under> 'A '
+	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
+	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
+	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
+	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> <tilde-Percent> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
+	| 'AAAA ' <tilde-Under>
+	| 'B ' <tilde-Under>
+	| 'D ' <tilde-Under>
 	| 'X'
 	| 'X' <tilde-A> 'Y'
 	| 'XX' <tilde-T> 'YY'
@@ -439,6 +468,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OBracket> <tilde-CBracket>
 	| <tilde-OBracket> <tilde-Semi> 'a' <tilde-CBracket>
 	| <tilde-P>
+	| <tilde-Percent> 'A' <tilde-Under>
 	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-R>
 	| <tilde-S>
@@ -469,6 +499,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'o'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
+	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
 	}
 }
