@@ -3,12 +3,14 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 12;
+plan 14;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
 my $*FALL-THROUGH = True;
 my $parsed;
+
+# XXX No @" tests?
 
 subtest {
 	my @options =
@@ -550,6 +552,44 @@ subtest {
 	}
 }
 
+subtest {
+	my @options =
+		Q{a~?z},
+		Q{a~@?z},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
+# XXX no [" tests
+# XXX no \" tests
+
+subtest {
+	my @options =
+		Q{~#[A~:;B~]},
+		Q{~#[A~;B~]},
+		Q{~-1[a~;b~;c~;d~]},
+		Q{~0[a~;b~;c~;d~]},
+		Q{~100000000000000000000000000000000[a~;b~;c~;d~]},
+		Q{~1[a~;b~;c~;d~]},
+		Q{~4[a~;b~;c~;d~]},
+		Q{~:[a~;b~]},
+		Q{~V[a~;b~;c~;d~;e~;f~;g~;h~;i~]},
+		Q{~[a~:;b~]},
+		Q{~[a~;b~;c~;d~:;e~]},
+		Q{~[a~;b~;c~;d~;e~;f~;g~;h~;i~]},
+		Q{~[a~]},
+		Q{~[~:;a~]},
+		Q{~[~]},
+		Q{~v[a~;b~;c~;d~:;e~]},
+		Q{~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+
 # ----------------------------------
 
 # "'~c,"
@@ -588,8 +628,6 @@ subtest {
 # "X~V%"
 # "X~v&"
 # "X~~~D&"
-# "a~?z"
-# "a~@?z"
 # "~#%"
 # "~#%"
 # "~#&"
@@ -597,8 +635,6 @@ subtest {
 # "~#:@{A~:}"
 # "~#:{~A~}"
 # "~#@{~A~}"
-# "~#[A~:;B~]"
-# "~#[A~;B~]"
 # "~#{~A~}"
 # "~#{~}"
 # "~#~"
@@ -625,7 +661,6 @@ subtest {
 # "~,v<~A~;~A~>"
 # "~,v<~A~>"
 # "~-1@/cl-test::function-for-format-slash-19/"
-# "~-1[a~;b~;c~;d~]"
 # "~/CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/"
 # "~/PPRINT-LINEAR/"
 # "~/cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/"
@@ -637,14 +672,12 @@ subtest {
 # "~0:@{~A~:}"
 # "~0:{XYZ~}"
 # "~0@{~A~^~A~}"
-# "~0[a~;b~;c~;d~]"
 # "~0{FOO~:}"
 # "~0{~A~^~A~}"
 # "~0{~}"
 # "~0{~}"
 # "~0|"
 # "~1,2,3,4,5,6,7,8,9,10@/cl-test::function-for-format-slash-19/"
-# "~100000000000000000000000000000000[a~;b~;c~;d~]"
 # "~10:<abcdef~>"
 # "~10:@<abcdef~>"
 # "~10@<abcdef~>"
@@ -652,7 +685,6 @@ subtest {
 # "~18@:/cl-test::function-for-format-slash-19/"
 # "~1@{FOO~}"
 # "~1@{~A~^~A~}"
-# "~1[a~;b~;c~;d~]"
 # "~1{FOO~:}"
 # "~1{~A~^~A~}"
 # "~1{~}"
@@ -663,7 +695,6 @@ subtest {
 # "~2{FOO~}"
 # "~3{~}"
 # "~4@<~>"
-# "~4[a~;b~;c~;d~]"
 # "~5:@<~>"
 # "~6:<~>"
 # "~6<abc~;def~^~>"
@@ -776,7 +807,6 @@ subtest {
 # "~:@{~v^~A~}"
 # "~:@{~}"
 # "~:@{~}"
-# "~:[a~;b~]"
 # "~:{(~A ~A)~}"
 # "~:{ABC~:}"
 # "~:{~#,#,#:^~A~}"
@@ -967,19 +997,12 @@ subtest {
 # "~V:@{~A~}"
 # "~V:{X~}"
 # "~V@:{~A~}"
-# "~V[a~;b~;c~;d~;e~;f~;g~;h~;i~]"
 # "~V{FOO~:}"
 # "~V{~A~}"
 # "~V{~}"
 # "~V|"
 # "~V~"
 # "~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_"
-# "~[a~:;b~]"
-# "~[a~;b~;c~;d~:;e~]"
-# "~[a~;b~;c~;d~;e~;f~;g~;h~;i~]"
-# "~[a~]"
-# "~[~:;a~]"
-# "~[~]"
 # "~d,"
 # "~v&"
 # "~v,,,v<~A~>"
@@ -993,8 +1016,6 @@ subtest {
 # "~v<~A~>"
 # "~v@{~A~}"
 # "~v@{~}"
-# "~v[a~;b~;c~;d~:;e~]"
-# "~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]"
 # "~v{~A~}"
 # "~v{~a~}"
 # "~v|"

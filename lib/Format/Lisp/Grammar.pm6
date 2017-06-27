@@ -29,108 +29,108 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-A {
 	'~'	[
-		|	'#'
-		|	'#,#'
-		|	'#,#@'
-		|	'#@'
-		|	'10,,,' <V>
-		|	'10,,,v@'
-		|	'3,' <unsigned-integer>
-		|	'3,,' <V>
-		|	'3,,' <signed-integer>
-		|	'3,,v@'
-		|	'3,3@'
-		|	'4,#'
-		|	'4,#@'
-		|	'4,' <unsigned-integer>
-		|	'4,,' <V>
-		|	'4,,,'
-		|	'4,,,@'
-		|	'4,,,\'X'
-		|	'4,,,\'X@'
-		|	'4,4@'
-		|	'5,#'
-		|	'5,#@'
-		|	'5,' <V>
-		|	'5,' <unsigned-integer>
-		|	'5,3@'
-		|	'5,v@'
-		|	'6,' <V>
-		|	'7,' <unsigned-integer>
-		|	'7,3@'
-		|	':'
-		|	'@'
-		|	'V:'
-		|	'V:@'
-		|	'V@'
-		|	'V@:'
-		|	'v,,' <unsigned-integer>
-		|	'v:'
-		|	'v:@'
-		|	'v@'
-		|	'v@:'
-		|	<V>
-		|	<signed-integer>
+		| '#'
+		| '#,#'
+		| '#,#@'
+		| '#@'
+		| '10,,,' <V>
+		| '10,,,v@'
+		| '3,' <unsigned-integer>
+		| '3,,' <V>
+		| '3,,' <signed-integer>
+		| '3,,v@'
+		| '3,3@'
+		| '4,#'
+		| '4,#@'
+		| '4,' <unsigned-integer>
+		| '4,,' <V>
+		| '4,,,'
+		| '4,,,@'
+		| '4,,,\'X'
+		| '4,,,\'X@'
+		| '4,4@'
+		| '5,#'
+		| '5,#@'
+		| '5,' <V>
+		| '5,' <unsigned-integer>
+		| '5,3@'
+		| '5,v@'
+		| '6,' <V>
+		| '7,' <unsigned-integer>
+		| '7,3@'
+		| ':'
+		| '@'
+		| 'V:'
+		| 'V:@'
+		| 'V@'
+		| 'V@:'
+		| 'v,,' <unsigned-integer>
+		| 'v:'
+		| 'v:@'
+		| 'v@'
+		| 'v@:'
+		| <V>
+		| <signed-integer>
 		]?
 	<[ a A ]>
 	}
 
 	token tilde-B {
 	'~'	[
-		|	'#'
-		|	'+10@'
-		|	',,,#:'
-		|	',,,#@:'
-		|	',,V,V:'
-		|	',,V,V@:'
-		|	',,\'*,v:'
-		|	',,v,v:'
-		|	',,v,v:@'
-		|	',,v:'
-		|	'6,' <V>
-		|	':'
-		|	':@'
-		|	'@'
-		|	'@:'
-		|	'V,V,V,' <V>
-		|	'v,' <V>
-		|	'v,v,v,' <V>
-		|	<V>
-		|	<signed-integer>
+		| '#'
+		| '+10@'
+		| ',,,#:'
+		| ',,,#@:'
+		| ',,V,V:'
+		| ',,V,V@:'
+		| ',,\'*,v:'
+		| ',,v,v:'
+		| ',,v,v:@'
+		| ',,v:'
+		| '6,' <V>
+		| ':'
+		| ':@'
+		| '@'
+		| '@:'
+		| 'V,V,V,' <V>
+		| 'v,' <V>
+		| 'v,v,v,' <V>
+		| <V>
+		| <signed-integer>
 		]?
 	<[ b B ]>
 	}
 
 	token tilde-C {
 	'~'	[
-		|	':'
-		|	':@'
-		|	'@'
-		|	'@:'
+		| ':'
+		| ':@'
+		| '@'
+		| '@:'
 		]?
 	<[ c C ]>
 	}
 
 	token tilde-D {
 	'~'	[
-		|	'#'
-		|	'+10@'
-		|	',,,#:'
-		|	',,,#:@'
-		|	',,,#@:'
-		|	',,\'*,v:'
-		|	',,v,v:'
-		|	',,v,v:@'
-		|	',,v:'
-		|	'6,v'
-		|	':'
-		|	'@'
-		|	'@:'
-		|	'v,' <V>
-		|	'v,v,v,' <V>
-		|	'v,v@'
-		|	<V>
-		|	<signed-integer>
+		| '#'
+		| '+10@'
+		| ',,,#:'
+		| ',,,#:@'
+		| ',,,#@:'
+		| ',,\'*,v:'
+		| ',,v,v:'
+		| ',,v,v:@'
+		| ',,v:'
+		| '6,v'
+		| ':'
+		| '@'
+		| '@:'
+		| 'v,' <V>
+		| 'v,v,v,' <V>
+		| 'v,v@'
+		| <V>
+		| <signed-integer>
 		]?
 	<[ d D ]>
 	}
@@ -184,7 +184,6 @@ grammar Format::Lisp::Grammar {
 		| '@'
 		| '@:'
 		| 'V,' <V>
-		| 'd'
 		| 'v,' <V>
 		| 'v,V@'
 		| 'v,v,v,' <V>
@@ -291,6 +290,14 @@ grammar Format::Lisp::Grammar {
 	<[ t T ]>
 	}
 
+	token tilde-Z {
+	'~'	[
+		| '?'
+		| '@?'
+		]?
+	<[ z Z ]>
+	}
+
 	token tilde-X {
 	'~'	[
 		| '#'
@@ -361,7 +368,21 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-OBracket {
-	|	'~@['
+	'~'	[
+		|	<signed-integer>
+		|	'@'
+		|	'#'
+		|	':'
+		|	<V>
+		]?
+	'['
+	}
+
+	token tilde-Semi {
+	'~'	[
+		|	':'
+		]?
+	';'
 	}
 
 	token tilde-CBracket {
@@ -372,8 +393,12 @@ grammar Format::Lisp::Grammar {
 	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
 	| 'X'
+	| 'X' <tilde-A> 'Y'
+	| 'XX' <tilde-T> 'YY'
 	| 'XXXXX' <tilde-T>
 	| '\'' <tilde-C>
+	| 'a' <tilde-Z>
+	| '~100000000000000000000000000000000[' 'a' <tilde-Semi> 'b' <tilde-Semi> 'c' <tilde-Semi> 'd' <tilde-CBracket>
 	| <tilde-A>
 	| <tilde-A> 'Y' <tilde-Ques> 'X' <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
@@ -404,7 +429,15 @@ grammar Format::Lisp::Grammar {
 	| <tilde-O>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> 'X' <tilde-A>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> <tilde-A>
+	| <tilde-OBracket> 'A' <tilde-Semi> 'B' <tilde-CBracket>
 	| <tilde-OBracket> 'X' <tilde-CBracket> 'Y' <tilde-A>
+	| <tilde-OBracket> 'a' <tilde-CBracket>
+	| <tilde-OBracket> 'a' <tilde-Semi> 'b' <tilde-CBracket>
+	| <tilde-OBracket> 'a' <tilde-Semi> 'b' <tilde-Semi> 'c' <tilde-Semi> 'd' <tilde-CBracket>
+	| <tilde-OBracket> 'a' <tilde-Semi> 'b' <tilde-Semi> 'c' <tilde-Semi> 'd' <tilde-Semi> 'e' <tilde-CBracket>
+	| <tilde-OBracket> 'a' <tilde-Semi> 'b' <tilde-Semi> 'c' <tilde-Semi> 'd' <tilde-Semi> 'e' <tilde-Semi> 'f' <tilde-Semi> 'g' <tilde-Semi> 'h' <tilde-Semi> 'i' <tilde-CBracket>
+	| <tilde-OBracket> <tilde-CBracket>
+	| <tilde-OBracket> <tilde-Semi> 'a' <tilde-CBracket>
 	| <tilde-P>
 	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-R>
@@ -437,7 +470,5 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-R>
 	| <tilde-X>
-	| 'XX' <tilde-T> 'YY'
-	| 'X' <tilde-A> 'Y'
 	}
 }
