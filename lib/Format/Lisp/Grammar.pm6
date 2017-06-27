@@ -501,5 +501,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-R>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
+	| <tilde-Ques>
 	}
 }

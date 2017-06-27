@@ -3,14 +3,270 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 15;
+plan 16;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
 my $*FALL-THROUGH = True;
 my $parsed;
 
-# XXX No @" tests?
+# XXX No !" tests?
+# XXX No "" tests?
+# XXX No #" tests?
+# XXX No $" tests?
+
+#`(
+subtest {
+	my @options =
+# "X~#%"
+# "X~V%"
+# "~#%"
+# "~%"
+# "~@_A~%"
+# "~V%"
+# "~~~D%"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
+# "X~%~&"
+# "X~&"
+# "X~v&"
+# "X~~~D&"
+# "~#&"
+# "~&"
+# "~0&"
+# "~v&"
+# "~~~D&"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+# XXX No `" tests?
+
+#`(
+subtest {
+	my @options =
+# "(~:@{~A~:^,~})"
+# "(~:{~A~:^,~})"
+# "(~A ~A)"
+# "~(XXyy~AuuVV~)"
+# "~(aBc ~(def~) GHi~)"
+# "~(aBc ~:(def~) GHi~)"
+# "~(aBc ~@(def~) GHi~)"
+# "~(~c~)"
+# "~:(aBc ~(def~) GHi~)"
+# "~:(aBc ~:(def~) GHi~)"
+# "~:(aBc ~@(def~) GHi~)"
+# "~:(aBc ~@:(def~) GHi~)"
+# "~:(this is a TEST.~)"
+# "~:(this is7a TEST.~)"
+# "~:@(aBc ~(def~) GHi~)"
+# "~:@(aBc ~@(def~) GHi~)"
+# "~:@(this is AlSo A teSt~)"
+# "~@(!@#$%^&*this is a TEST.~)"
+# "~@(aBc ~(def~) GHi~)"
+# "~@(aBc ~:(def~) GHi~)"
+# "~@(aBc ~@(def~) GHi~)"
+# "~@(aBc ~@:(def~) GHi~)"
+# "~@(this is a TEST.~)"
+# "~@:(aBc ~:(def~) GHi~)"
+# "~@:(aBc ~@:(def~) GHi~)"
+# "~@:(~c~)"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+# XXX No *" tests?
+# XXX No +" tests?
+
+#`(
+subtest {
+	my @options =
+# "'~c,"
+# "~d,"
+# "~~~d,"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+# XXX No -" tests?
+# XXX No ." tests?
+
+#`(
+subtest {
+	my @options =
+# "~',@/cl-test::function-for-format-slash-19/"
+# "~'X:/cl-test::function-for-format-slash-19/"
+# "~-1@/cl-test::function-for-format-slash-19/"
+# "~/CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/"
+# "~/PPRINT-LINEAR/"
+# "~/cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/"
+# "~/cl-test::function-for-format-slash-19/"
+# "~/cl-test:FUNCTION-FOR-FORMAT-SLASH-10/"
+# "~/pPrINt-lINeaR/"
+# "~/pprint-linear/"
+# "~1,2,3,4,5,6,7,8,9,10@/cl-test::function-for-format-slash-19/"
+# "~18@:/cl-test::function-for-format-slash-19/"
+# "~:/cl-test::function-for-format-slash-19/"
+# "~:/pprint-linear/"
+# "~:@/cl-test::function-for-format-slash-19/"
+# "~@/cl-test::function-for-format-slash-19/"
+# "~@/pprint-linear/"
+# "~@:/cl-test::function-for-format-slash-19/"
+# "~@:/pprint-linear/"
+# "~v,v,v,v,v,v,v,v,v,v@/cl-test::function-for-format-slash-19/"
+# "~v/cl-test::function-for-format-slash-19/"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+# XXX No [0-9]" tests?
+# XXX No :" tests?
+# XXX No ;" tests?
+# XXX No <" tests?
+# XXX No =" tests?
+
+#`(
+subtest {
+	my @options =
+# "XXX~<MMM~-1I~:@_MMMMM~:>"
+# "XXX~<MMM~1I~:@_MMMMM~:>"
+# "XXX~<MMM~I~:@_MMMMM~:>"
+# "XXX~<MMM~vI~:@_MMMMM~:>"
+# "XXX~<MMM~vI~:@_MMMMM~:>"
+# "~%X ~,,1<~%X ~:;AAA~;BBB~;CCC~>"
+# "~%X ~<~%X ~0,30:;AAA~>~<~%X ~0,30:;BBB~>~<~%X ~0,30:;CCC~>"
+# "~%X ~<~%X ~0,3:;AAA~>,~<~%X ~0,3:;BBB~>,~<~%X ~0,3:;CCC~>"
+# "~%X ~<~%X ~0,3:;AAA~>~<~%X ~0,3:;BBB~>~<~%X ~0,3:;CCC~>"
+# "~,,1,',<~A~;~A~>"
+# "~,,1,v<~A~;~A~>"
+# "~,,1,v<~A~;~A~>"
+# "~,,1<~A~;~A~>"
+# "~,,2<~A~;~A~>"
+# "~,,v<~A~;~A~>"
+# "~,v<~A~;~A~>"
+# "~,v<~A~>"
+# "~10:<abcdef~>"
+# "~10:@<abcdef~>"
+# "~10@<abcdef~>"
+# "~13,,2<aaa~;bbb~;ccc~>"
+# "~4@<~>"
+# "~5:@<~>"
+# "~6:<~>"
+# "~6<abc~;def~^~>"
+# "~6@<abc~;def~^~>"
+# "~:<MMM~I~:@_MMMMM~:>"
+# "~:<M~-1:i~:@_M~:>"
+# "~:<M~-2:i~:@_M~:>"
+# "~:<M~1:I~@:_M~:>"
+# "~:<[~;~@{~A~^/~}~:>"
+# "~:<[~;~@{~A~^/~}~;]~:>"
+# "~:<~;~@{~A~^/~}~;]~:>"
+# "~:<~@{~A~^ ~}~:>"
+# "~:<~@{~A~^*~}~:>"
+# "~:<~A~:>"
+# "~:@<**~@;~@{~A~^       ~}~:@>"
+# "~:@<~@{~A~^            ~:_~}~:>"
+# "~:@<~@{~A~^            ~}~:@>"
+# "~:@<~@{~A~^ ~_~}~:>"
+# "~:@<~@{~A~^ ~}~:@>"
+# "~:@<~@{~A~^~}~:@>"
+# "~:@<~A~:>"
+# "~<(~;M~-1:i~:@_M~;)~:>"
+# "~<(~;M~:I~:@_M~;)~:>"
+# "~<(~;M~v:i~:@_M~;)~:>"
+# "~<ABC~;~v,0:T~;DEF~:>"
+# "~<MMM~1I~:@_MMMMM~:>"
+# "~<MMM~I~:@_MMMMM~:>"
+# "~<M~3:i~:@_M~:>"
+# "~<M~:i~:@_M~:>"
+# "~<XXXXXX~;YYYYYYY~^~;ZZZZZ~>"
+# "~<XXXXXX~;YYYYYYY~^~>"
+# "~<XXXXXX~^~>"
+# "~<XXXX~;~v,1:@t~:>"
+# "~<XXX~;~,1:@t~;YYY~:>"
+# "~<XXX~;~1,1:@t~;YYY~:>"
+# "~<XXX~;~1,:@t~;YYY~:>"
+# "~<XXX~;~1:@t~;YYY~:>"
+# "~<XXX~;~:@t~;YYY~:>"
+# "~<X~;~0,v:T~;Y~:>"
+# "~<[~;XXXX~2,0:T~;]~:>"
+# "~<[~;~,0:T~;]~:>"
+# "~<[~;~0,0:T~;]~:>"
+# "~<[~;~0,1:T~;]~:>"
+# "~<[~;~0,:T~;]~:>"
+# "~<[~;~0:T~;]~:>"
+# "~<[~;~1,0:T~;]~:>"
+# "~<[~;~2,0:T~;]~:>"
+# "~<~/pprint-tabular/~:>"
+# "~<~4:/pprint-tabular/~:>"
+# "~<~:/pprint-tabular/~:>"
+# "~<~:@/pprint-tabular/~:>"
+# "~<~;~A~:>"
+# "~<~;~A~;~:>"
+# "~<~<XXXXXX~;YYYYYYY~^~>~>"
+# "~<~<~A~^xxx~:>yyy~:>"
+# "~<~>"
+# "~<~@/pprint-tabular/~:>"
+# "~<~@{~A~^*~}~:>"
+# "~<~A~:>"
+# "~<~A~;~A~>"
+# "~<~A~>"
+# "~<~A~^xxxx~:>"
+# "~<~v:/pprint-tabular/~:>"
+# "~<~v:/pprint-tabular/~:>"
+# "~@:<~@{~A~^ ~:_~}~:>"
+# "~@:<~@{~A~^ ~}~:>"
+# "~@:<~A~:>"
+# "~@<**~@;~@{~A~^       ~}~:@>"
+# "~@<**~@;~@{~A~^       ~}~;XX~:@>"
+# "~@<~;~A~:>"
+# "~@<~;~A~;~:>"
+# "~@<~@{~A~^ ~_~}~:>"
+# "~@<~@{~A~^*~}~:>"
+# "~@<~A~:>"
+# "~A~<~A~v,v:t~:>"
+# "~A~<~v,v:@t~:>"
+# "~A~~<~A~~~D,~D:T~~:>"
+# "~v,,,v<~A~>"
+# "~v,,v<~A~>"
+# "~v<~A~>"
+# "~~~d,,,'~c<~~A~~>"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+subtest {
+	my @options =
+		Q{~?},
+		Q{~@?},
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
 
 subtest {
 	my @options =
@@ -413,6 +669,9 @@ subtest {
 		Q{~@:R},
 		Q{~@R},
 		Q{~~~D,~DR},
+# "~~~d,,,'~c,~d:R"
+# "~~~d:R"
+# "~~~dR"
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -619,125 +878,46 @@ subtest {
 	}
 }
 
-# ----------------------------------
+# XXX No {" tests?
 
-# "'~c,"
-# "(~:@{~A~:^,~})"
-# "(~:{~A~:^,~})"
-# "(~A ~A)"
-# "X"
-# "XXX~<MMM~-1I~:@_MMMMM~:>"
-# "XXX~<MMM~1I~:@_MMMMM~:>"
-# "XXX~<MMM~I~:@_MMMMM~:>"
-# "XXX~<MMM~vI~:@_MMMMM~:>"
-# "XXX~<MMM~vI~:@_MMMMM~:>"
-# "X~#%"
-# "X~#%"
-# "X~%~&"
-# "X~&"
-# "X~V%"
-# "X~v&"
-# "X~~~D&"
-# "~#%"
-# "~#%"
-# "~#&"
-# "~#&"
+#`(
+subtest {
+	my @options =
+# "~0|"
+# "~V|"
+# "~|"
+# "~~~D|"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
 # "~#:@{A~:}"
 # "~#:{~A~}"
 # "~#@{~A~}"
 # "~#{~A~}"
 # "~#{~}"
-# "~#~"
-# "~%"
-# "~%X ~,,1<~%X ~:;AAA~;BBB~;CCC~>"
-# "~%X ~<~%X ~0,30:;AAA~>~<~%X ~0,30:;BBB~>~<~%X ~0,30:;CCC~>"
-# "~%X ~<~%X ~0,3:;AAA~>,~<~%X ~0,3:;BBB~>,~<~%X ~0,3:;CCC~>"
-# "~%X ~<~%X ~0,3:;AAA~>~<~%X ~0,3:;BBB~>~<~%X ~0,3:;CCC~>"
-# "~&"
-# "~',@/cl-test::function-for-format-slash-19/"
-# "~'X:/cl-test::function-for-format-slash-19/"
-# "~(XXyy~AuuVV~)"
-# "~(aBc ~(def~) GHi~)"
-# "~(aBc ~:(def~) GHi~)"
-# "~(aBc ~@(def~) GHi~)"
-# "~(~c~)"
-# "~,,1,',<~A~;~A~>"
-# "~,,1,v<~A~;~A~>"
-# "~,,1,v<~A~;~A~>"
-# "~,,1<~A~;~A~>"
-# "~,,2<~A~;~A~>"
-# "~,,v<~A~;~A~>"
-# "~,v<~A~;~A~>"
-# "~,v<~A~>"
-# "~-1@/cl-test::function-for-format-slash-19/"
-# "~/CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/"
-# "~/PPRINT-LINEAR/"
-# "~/cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/"
-# "~/cl-test::function-for-format-slash-19/"
-# "~/cl-test:FUNCTION-FOR-FORMAT-SLASH-10/"
-# "~/pPrINt-lINeaR/"
-# "~/pprint-linear/"
-# "~0&"
 # "~0:@{~A~:}"
 # "~0:{XYZ~}"
 # "~0@{~A~^~A~}"
 # "~0{FOO~:}"
 # "~0{~A~^~A~}"
 # "~0{~}"
-# "~0{~}"
-# "~0|"
-# "~1,2,3,4,5,6,7,8,9,10@/cl-test::function-for-format-slash-19/"
-# "~10:<abcdef~>"
-# "~10:@<abcdef~>"
-# "~10@<abcdef~>"
-# "~13,,2<aaa~;bbb~;ccc~>"
-# "~18@:/cl-test::function-for-format-slash-19/"
 # "~1@{FOO~}"
 # "~1@{~A~^~A~}"
 # "~1{FOO~:}"
 # "~1{~A~^~A~}"
-# "~1{~}"
 # "~1{~}"
 # "~2:{XYZ~}"
 # "~2:{~A~}"
 # "~2{FOO~:}"
 # "~2{FOO~}"
 # "~3{~}"
-# "~4@<~>"
-# "~5:@<~>"
-# "~6:<~>"
-# "~6<abc~;def~^~>"
-# "~6@<abc~;def~^~>"
-# "~:(aBc ~(def~) GHi~)"
-# "~:(aBc ~:(def~) GHi~)"
-# "~:(aBc ~@(def~) GHi~)"
-# "~:(aBc ~@:(def~) GHi~)"
-# "~:(this is a TEST.~)"
-# "~:(this is7a TEST.~)"
-# "~:/cl-test::function-for-format-slash-19/"
-# "~:/pprint-linear/"
-# "~:<MMM~I~:@_MMMMM~:>"
-# "~:<M~-1:i~:@_M~:>"
-# "~:<M~-2:i~:@_M~:>"
-# "~:<M~1:I~@:_M~:>"
-# "~:<[~;~@{~A~^/~}~:>"
-# "~:<[~;~@{~A~^/~}~;]~:>"
-# "~:<~;~@{~A~^/~}~;]~:>"
-# "~:<~@{~A~^ ~}~:>"
-# "~:<~@{~A~^*~}~:>"
-# "~:<~A~:>"
-# "~:@(aBc ~(def~) GHi~)"
-# "~:@(aBc ~@(def~) GHi~)"
-# "~:@(this is AlSo A teSt~)"
-# "~:@/cl-test::function-for-format-slash-19/"
-# "~:@<**~@;~@{~A~^       ~}~:@>"
-# "~:@<~@{~A~^            ~:_~}~:>"
-# "~:@<~@{~A~^            ~}~:@>"
-# "~:@<~@{~A~^ ~_~}~:>"
-# "~:@<~@{~A~^ ~}~:@>"
-# "~:@<~@{~A~^/~
-# "~:@<~@{~A~^~}~:@>"
-# "~:@<~A~:>"
 # "~:@{(~A ~A)~}"
 # "~:@{~#,#,#:^~A~}"
 # "~:@{~#,#,#^~A~}"
@@ -812,9 +992,6 @@ subtest {
 # "~:@{~v,v^~A~}"
 # "~:@{~v:^~A~}"
 # "~:@{~v^~A~}"
-# "~:@{~v^~A~}"
-# "~:@{~v^~A~}"
-# "~:@{~}"
 # "~:@{~}"
 # "~:{(~A ~A)~}"
 # "~:{ABC~:}"
@@ -893,79 +1070,9 @@ subtest {
 # "~:{~v:^~A~}"
 # "~:{~v^~A~}"
 # "~:{~}"
-# "~<(~;M~-1:i~:@_M~;)~:>"
-# "~<(~;M~:I~:@_M~;)~:>"
-# "~<(~;M~v:i~:@_M~;)~:>"
-# "~<ABC~;~v,0:T~;DEF~:>"
-# "~<MMM~1I~:@_MMMMM~:>"
-# "~<MMM~I~:@_MMMMM~:>"
-# "~<M~3:i~:@_M~:>"
-# "~<M~:i~:@_M~:>"
-# "~<XXXXXX~;YYYYYYY~^~;ZZZZZ~>"
-# "~<XXXXXX~;YYYYYYY~^~>"
-# "~<XXXXXX~^~>"
-# "~<XXXX~;~v,1:@t~:>"
-# "~<XXX~;~,1:@t~;YYY~:>"
-# "~<XXX~;~1,1:@t~;YYY~:>"
-# "~<XXX~;~1,:@t~;YYY~:>"
-# "~<XXX~;~1:@t~;YYY~:>"
-# "~<XXX~;~:@t~;YYY~:>"
-# "~<X~;~0,v:T~;Y~:>"
-# "~<[~;XXXX~2,0:T~;]~:>"
-# "~<[~;~,0:T~;]~:>"
-# "~<[~;~0,0:T~;]~:>"
-# "~<[~;~0,1:T~;]~:>"
-# "~<[~;~0,:T~;]~:>"
-# "~<[~;~0:T~;]~:>"
-# "~<[~;~1,0:T~;]~:>"
-# "~<[~;~2,0:T~;]~:>"
-# "~<~/pprint-tabular/~:>"
-# "~<~4:/pprint-tabular/~:>"
-# "~<~:/pprint-tabular/~:>"
-# "~<~:@/pprint-tabular/~:>"
-# "~<~;~A~:>"
-# "~<~;~A~;~:>"
-# "~<~<XXXXXX~;YYYYYYY~^~>~>"
-# "~<~<~A~^xxx~:>yyy~:>"
-# "~<~>"
-# "~<~@/pprint-tabular/~:>"
-# "~<~@{~A~^*~}~:>"
-# "~<~A~:>"
-# "~<~A~;~A~>"
-# "~<~A~>"
-# "~<~A~^xxxx~:>"
-# "~<~v:/pprint-tabular/~:>"
-# "~<~v:/pprint-tabular/~:>"
-# "~?"
-# "~@(!@#$%^&*this is a TEST.~)"
-# "~@(aBc ~(def~) GHi~)"
-# "~@(aBc ~:(def~) GHi~)"
-# "~@(aBc ~@(def~) GHi~)"
-# "~@(aBc ~@:(def~) GHi~)"
-# "~@(this is a TEST.~)"
-# "~@/cl-test::function-for-format-slash-19/"
-# "~@/pprint-linear/"
-# "~@:(aBc ~:(def~) GHi~)"
-# "~@:(aBc ~@:(def~) GHi~)"
-# "~@:(~c~)"
-# "~@:(~c~)"
-# "~@:/cl-test::function-for-format-slash-19/"
-# "~@:/pprint-linear/"
-# "~@:<~@{~A~^ ~:_~}~:>"
-# "~@:<~@{~A~^ ~}~:>"
-# "~@:<~A~:>"
 # "~@:{~#^~A~#^~A~#^~A~#^~A~}"
 # "~@:{~3,v^~A~}"
 # "~@:{~A~0^~A~A~}"
-# "~@<**~@;~@{~A~^       ~}~:@>"
-# "~@<**~@;~@{~A~^       ~}~;XX~:@>"
-# "~@<~;~A~:>"
-# "~@<~;~A~;~:>"
-# "~@<~@{~A~^ ~_~}~:>"
-# "~@<~@{~A~^*~}~:>"
-# "~@<~A~:>"
-# "~@?"
-# "~@_A~%"
 # "~@{ ~}"
 # "~@{X ~A Y Z~}"
 # "~@{X ~A~^ Y ~A~^ ~}"
@@ -978,7 +1085,6 @@ subtest {
 # "~@{~',,',^~A~}"
 # "~@{~'X,v^~A~}"
 # "~@{~'X^~A~}"
-# "~@{~0,v,v^~A~}"
 # "~@{~0,v,v^~A~}"
 # "~@{~0,v^~A~}"
 # "~@{~1,1,v^~A~}"
@@ -996,38 +1102,20 @@ subtest {
 # "~@{~v,v^~A~}"
 # "~@{~{~A~}~}"
 # "~@{~}"
-# "~@{~}"
-# "~A~<~A~v,v:t~:>"
-# "~A~<~v,v:@t~:>"
-# "~A~~<~A~~~D,~D:T~~:>"
-# "~V%"
-# "~V&"
-# "~V&"
 # "~V:@{~A~}"
 # "~V:{X~}"
 # "~V@:{~A~}"
 # "~V{FOO~:}"
 # "~V{~A~}"
 # "~V{~}"
-# "~V|"
-# "~V~"
-# "~d,"
-# "~v&"
-# "~v,,,v<~A~>"
-# "~v,,v<~A~>"
-# "~v,v,v,v,v,v,v,v,v,v@/cl-test::function-for-format-slash-19/"
-# "~v/cl-test::function-for-format-slash-19/"
 # "~v:@{~A~}"
 # "~v:{ABC~:}"
 # "~v:{~A~:}"
 # "~v:{~A~}"
-# "~v<~A~>"
 # "~v@{~A~}"
 # "~v@{~}"
 # "~v{~A~}"
 # "~v{~a~}"
-# "~v|"
-# "~v~"
 # "~{ ~}"
 # "~{FOO~:}"
 # "~{X Y Z~}"
@@ -1066,25 +1154,31 @@ subtest {
 # "~{~v,v^~A~}"
 # "~{~{~A~}~}"
 # "~{~}"
-# "~|"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
+# "~#~"
+# "~v~"
 # "~~"
-# "~~~D%"
-# "~~~D&"
-# "~~~D|"
 # "~~~D~~"
-# "~~~d,"
-# "~~~d,,,'~c,~d:R"
-# "~~~d,,,'~c<~~A~~>"
-# "~~~d:R"
-# "~~~dR"
-# (signals-error (format nil "~:@{~A ~A~}" '(x . y)) type-error)
-# (signals-error (format nil "~:{~A~}" '("X")) type-error)
-# (signals-error (format nil "~:{~A~}" '(#(X Y Z))) type-error)
-# (signals-error (format nil "~:{~A~}" '((x) . y)) type-error)
-# (signals-error (format nil "~:{~A~}" '(x)) type-error)
-# (signals-error (format nil "~{~A~}" '(x y . z)) type-error)
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
 # (signals-error-always (format nil "1~<X~<Y~:>Z~>2" nil nil nil) error)
-# (signals-error-always (format nil "AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ"
 # (signals-error-always (format nil "~:<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
 # (signals-error-always (format nil "~:<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
 # (signals-error-always (format nil "~:<foo~A~;~A~:>" '(X) '(Y)) error)
@@ -1096,8 +1190,6 @@ subtest {
 # (signals-error-always (format nil "~< ~W ~>" nil) error)
 # (signals-error-always (format nil "~< ~_ ~>") error)
 # (signals-error-always (format nil "~< ~i ~>") error)
-# (signals-error-always (format nil "~<XXX~1,1:TYYY~>"
-# (signals-error-always (format nil "~<XXX~:;YYY~>ZZZ~4,5:tWWW"
 # (signals-error-always (format nil "~<X~:;Y~>~I") error)
 # (signals-error-always (format nil "~<X~:;Y~>~W" nil) error)
 # (signals-error-always (format nil "~<X~:;Y~>~_") error)
@@ -1122,6 +1214,32 @@ subtest {
 # (signals-error-always (format nil "~_~<X~:;Y~>") error)
 # (signals-error-always (format nil "~i~<X~:;Y~>") error)
 # (signals-error-always (format nil "~w~<X~:;Y~>" nil) error)
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
+# (signals-error (format nil "~:@{~A ~A~}" '(x . y)) type-error)
+# (signals-error (format nil "~:{~A~}" '("X")) type-error)
+# (signals-error (format nil "~:{~A~}" '(#(X Y Z))) type-error)
+# (signals-error (format nil "~:{~A~}" '((x) . y)) type-error)
+# (signals-error (format nil "~:{~A~}" '(x)) type-error)
+# (signals-error (format nil "~{~A~}" '(x y . z)) type-error)
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
 # (signals-type-error x "abc" (format nil "~:@{~A~}" x))
 # (signals-type-error x "foo" (format nil "~{~A~}" x))
 # (signals-type-error x #*01101 (format nil "~:@{~A~}" x))
@@ -1131,4 +1249,22 @@ subtest {
 # (signals-type-error x 'x (format nil "~:{~A~}" x))
 # (signals-type-error x 0 (format nil "~:@{~A~}" x))
 # (signals-type-error x 1 (format nil "~{~A~}" x))
-# ~}~:@>"
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
+
+#`(
+subtest {
+	my @options =
+# (signals-error-always (format nil "AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ"))
+# (signals-error-always (format nil "~<XXX~1,1:TYYY~>"))
+# (signals-error-always (format nil "~<XXX~:;YYY~>ZZZ~4,5:tWWW"))
+	;
+	for @options -> $str {
+		ok $fl._parse( $str ), $str;
+	}
+}
+)
