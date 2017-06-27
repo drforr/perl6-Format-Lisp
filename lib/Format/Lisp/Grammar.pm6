@@ -423,6 +423,24 @@ grammar Format::Lisp::Grammar {
 	|	'~]'
 	}
 
+	token tilde-OAngle {
+	'~'	[
+		|	<V>
+		|	'@'
+		|	':'
+		]?
+	'<'
+	}
+
+	token tilde-CAngle {
+	'~'	[
+		|	'@'
+		|	':@'
+		|	':'
+		]?
+	'>'
+	}
+
 	token tilde-Percent {
 	'~'	[
 		|	'#'
@@ -600,5 +618,99 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Under> 'A' <tilde-Percent>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
+	| 'XXX~<MMM~-1I' <tilde-Under> 'MMMMM' <tilde-CAngle>
+	| 'XXX~<MMM~1I' <tilde-Under> 'MMMMM' <tilde-CAngle>
+	| 'XXX~<MMM~I' <tilde-Under> 'MMMMM' <tilde-CAngle>
+	| 'XXX~<MMM~vI' <tilde-Under> 'MMMMM' <tilde-CAngle>
+	| '~,,1,\',<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~,,1,v<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~,,1,v<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~,,1<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~,,2<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~,,v<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~,v<' <tilde-A> <tilde-CAngle>
+	| '~,v<' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| '~10:<abcdef' <tilde-CAngle>
+	| '~10:@<abcdef' <tilde-CAngle>
+	| '~10@<abcdef' <tilde-CAngle>
+	| '~13,,2<aaa~;bbb~;ccc' <tilde-CAngle>
+	| '~4@<' <tilde-CAngle>
+	| '~5:@<' <tilde-CAngle>
+	| '~6:<' <tilde-CAngle>
+	| '~6<abc~;def' <tilde-Caret> <tilde-CAngle>
+	| '~6@<abc~;def' <tilde-Caret> <tilde-CAngle>
+	| '~:@<' <tilde-A> <tilde-CAngle>
+	| '~:@<**~@;~@{~A~^       ' <tilde-CBrace> <tilde-CAngle>
+	| '~:@<~@{~A~^            ' <tilde-CBrace> <tilde-CAngle>
+	| '~:@<~@{~A~^            ~:_' <tilde-CBrace> <tilde-CAngle>
+	| '~:@<~@{~A~^ ' <tilde-CBrace> <tilde-CAngle>
+	| '~:@<~@{~A~^ ~_' <tilde-CBrace> <tilde-CAngle>
+	| '~:@<~@{~A~^' <tilde-CBrace> <tilde-CAngle>
+	| '~@:<' <tilde-A> <tilde-CAngle>
+	| '~@:<~@{~A~^ ' <tilde-CBrace> <tilde-CAngle>
+	| '~@:<~@{~A~^ ~:_' <tilde-CBrace> <tilde-CAngle>
+	| '~v,,,v<' <tilde-A> <tilde-CAngle>
+	| '~v,,v<' <tilde-A> <tilde-CAngle>
+	| <tilde-A> <tilde-OAngle> '~A~v,v:t' <tilde-CAngle>
+	| <tilde-A> <tilde-OAngle> '~v,v:@t' <tilde-CAngle>
+	| <tilde-A> <tilde-Tilde> '<~A~~~D,~D:T~~:>'
+	| <tilde-OAngle>  <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> '(' <tilde-Semi> 'M~-1:i~:@_M~;)' <tilde-CAngle>
+	| <tilde-OAngle> '(' <tilde-Semi> 'M~:I~:@_M~;)' <tilde-CAngle>
+	| <tilde-OAngle> '(' <tilde-Semi> 'M~v:i~:@_M~;)' <tilde-CAngle>
+	| <tilde-OAngle> '**' '~@;~@{~A~^       ~}' <tilde-CAngle>
+	| <tilde-OAngle> '**' '~@;~@{~A~^       ~}~;XX' <tilde-CAngle>
+	| <tilde-OAngle> 'ABC' <tilde-Semi> '~v,0:T~;DEF' <tilde-CAngle>
+	| <tilde-OAngle> 'M' '~-1:i' <tilde-Under> 'M' <tilde-CAngle>
+	| <tilde-OAngle> 'M' '~-2:i' <tilde-Under> 'M' <tilde-CAngle>
+	| <tilde-OAngle> 'M' '~1:I' <tilde-Under> 'M' <tilde-CAngle>
+	| <tilde-OAngle> 'M' '~3:i~:@_M' <tilde-CAngle>
+	| <tilde-OAngle> 'M' '~:i~:@_M' <tilde-CAngle>
+	| <tilde-OAngle> 'MMM' '~1I~:@_MMMMM' <tilde-CAngle>
+	| <tilde-OAngle> 'MMM' '~I' <tilde-Under> 'MMMMM' <tilde-CAngle>
+	| <tilde-OAngle> 'MMM' '~I~:@_MMMMM' <tilde-CAngle>
+	| <tilde-OAngle> 'X' <tilde-Semi> '~0,v:T~;Y' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-Semi> '~,1:@t~;YYY' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-Semi> '~1,1:@t~;YYY' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-Semi> '~1,:@t~;YYY' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-Semi> '~1:@t~;YYY' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-Semi> '~:@t~;YYY' <tilde-CAngle>
+	| <tilde-OAngle> 'XXXX' <tilde-Semi> '~v,1:@t' <tilde-CAngle>
+	| <tilde-OAngle> 'XXXXXX' <tilde-Caret> <tilde-CAngle>
+	| <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY~^' <tilde-CAngle>
+	| <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY~^~;ZZZZZ' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> 'XXXX~2,0:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~,0:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~0,0:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~0,1:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~0,:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~0:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~1,0:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~2,0:T~;]' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~@{~A~^/~}' <tilde-CAngle>
+	| <tilde-OAngle> '[' <tilde-Semi> '~@{~A~^/~}~;]' <tilde-CAngle>
+	| <tilde-OAngle> '~/pprint-tabular/' <tilde-CAngle>
+	| <tilde-OAngle> '~4:/pprint-tabular/' <tilde-CAngle>
+	| <tilde-OAngle> '~:/pprint-tabular/' <tilde-CAngle>
+	| <tilde-OAngle> '~:@/pprint-tabular/' <tilde-CAngle>
+	| <tilde-OAngle> '~@/pprint-tabular/' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> ' ~_' <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> ' ' <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> '*' <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> '~v:/pprint-tabular/' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-A> <tilde-Caret> 'xxxx' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY' <tilde-Caret> <tilde-CAngle> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OAngle> <tilde-A> <tilde-Caret> 'xxx' <tilde-CAngle> 'yyy' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Semi> '~@{~A~^/~}~;]' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> <tilde-CAngle>
+	| <tilde-Percent> 'X ~,,1<~%X ' <tilde-Semi> 'AAA' <tilde-Semi> 'BBB' <tilde-Semi> 'CCC' <tilde-CAngle>
+	| <tilde-Percent> 'X ' <tilde-OAngle> <tilde-Percent> 'X ~0,30:;AAA' <tilde-CAngle> '~<~%X ~0,30:;BBB' <tilde-CAngle> '~<~%X ~0,30:;CCC' <tilde-CAngle>
+	| <tilde-Percent> 'X ' <tilde-OAngle> <tilde-Percent> 'X ~0,3:;AAA' <tilde-CAngle> ',~<~%X ~0,3:;BBB' <tilde-CAngle> ',~<~%X ~0,3:;CCC' <tilde-CAngle>
+	| <tilde-Percent> 'X ' <tilde-OAngle> <tilde-Percent> 'X ~0,3:;AAA' <tilde-CAngle> '~<~%X ~0,3:;BBB' <tilde-CAngle> '~<~%X ~0,3:;CCC' <tilde-CAngle>
+	| <tilde-Tilde> <tilde-D> ',,,\'' <tilde-C> '<' <tilde-Tilde> 'A' <tilde-Tilde> '>'
 	}
 }
