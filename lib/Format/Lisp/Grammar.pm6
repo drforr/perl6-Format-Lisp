@@ -22,7 +22,11 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-Tilde {
-	|	'~~'
+	'~'	[
+		| '#'
+		| <V>
+		]?
+	'~'
 	}
 
 	token V { <[ v V ]> }
@@ -334,7 +338,8 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Caret {
 	'~'	[
-		|	<unsigned-integer> ',#'
+		| <unsigned-integer> ',#'
+		| ':'
 		]?
 	'^'
 	}
@@ -360,10 +365,33 @@ grammar Format::Lisp::Grammar {
 	'*'
 	}
 
+	token tilde-OParen {
+	'~'	[
+		| ':@'
+		| '@:'
+		| '@'
+		| ':'
+		| <unsigned-integer>
+		]?
+	'('
+	}
+
+	token tilde-CParen {
+	'~'	[
+		| ':@'
+		| '@'
+		| ':'
+		| <unsigned-integer>
+		]?
+	')'
+	}
+
 	token tilde-OBrace {
 	'~'	[
-		|	'@'
-		|	<unsigned-integer>
+		| ':@'
+		| '@'
+		| ':'
+		| <unsigned-integer>
 		]?
 	'{'
 	}
@@ -396,7 +424,28 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-Percent {
-	|	'~%'
+	'~'	[
+		|	'#'
+		|	<V>
+		]?
+	'%'
+	}
+
+	token tilde-Pipe {
+	'~'	[
+		| <unsigned-integer>
+		| <V>
+		]?
+	'|'
+	}
+
+	token tilde-Amp {
+	'~'	[
+		| <unsigned-integer>
+		| '#'
+		| <V>
+		]?
+	'&'
 	}
 
 	token tilde-Under {
@@ -412,6 +461,8 @@ grammar Format::Lisp::Grammar {
 	token TOP {
 	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
+	| '(' <tilde-A> ' ' <tilde-A> ')'
+	| '(' <tilde-OBrace> <tilde-A> <tilde-Caret> ',' <tilde-CBrace> ')'
 	| 'A             ' <tilde-Under>
 	| 'A ' <tilde-Under> 'A '
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
@@ -423,9 +474,14 @@ grammar Format::Lisp::Grammar {
 	| 'D ' <tilde-Under>
 	| 'X'
 	| 'X' <tilde-A> 'Y'
+	| 'X' <tilde-Amp>
+	| 'X' <tilde-Percent>
+	| 'X' <tilde-Percent> <tilde-Amp>
+	| 'X' <tilde-Tilde> <tilde-D> '&'
 	| 'XX' <tilde-T> 'YY'
 	| 'XXXXX' <tilde-T>
 	| '\'' <tilde-C>
+	| '\'' <tilde-C> ','
 	| 'a' <tilde-Z>
 	| '~100000000000000000000000000000000[' 'a' <tilde-Semi> 'b' <tilde-Semi> 'c' <tilde-Semi> 'd' <tilde-CBracket>
 	| <tilde-A>
@@ -444,11 +500,13 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-T>
 	| <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> 'T'
+	| <tilde-Amp>
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
 	| <tilde-D> ' cat' <tilde-P>
 	| <tilde-D> ' penn' <tilde-P>
+	| <tilde-D> ','
 	| <tilde-D> 'b'
 	| <tilde-D> 'd'
 	| <tilde-D> 'o'
@@ -467,16 +525,30 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OBracket> 'a' <tilde-Semi> 'b' <tilde-Semi> 'c' <tilde-Semi> 'd' <tilde-Semi> 'e' <tilde-Semi> 'f' <tilde-Semi> 'g' <tilde-Semi> 'h' <tilde-Semi> 'i' <tilde-CBracket>
 	| <tilde-OBracket> <tilde-CBracket>
 	| <tilde-OBracket> <tilde-Semi> 'a' <tilde-CBracket>
+	| <tilde-OParen> '!@#$%^&*this is a TEST.' <tilde-CParen>
+	| <tilde-OParen> 'XXyy' <tilde-A> 'uuVV' <tilde-CParen>
+	| <tilde-OParen> 'aBc ' <tilde-OParen> 'def' <tilde-CParen> ' GHi' <tilde-CParen>
+	| <tilde-OParen> 'this is AlSo A teSt' <tilde-CParen>
+	| <tilde-OParen> 'this is a TEST.' <tilde-CParen>
+	| <tilde-OParen> 'this is7a TEST.' <tilde-CParen>
+	| <tilde-OParen> <tilde-C> <tilde-CParen>
 	| <tilde-P>
+	| <tilde-Percent>
 	| <tilde-Percent> 'A' <tilde-Under>
+	| <tilde-Pipe>
+	| <tilde-Ques>
 	| <tilde-Ques> ' ' <tilde-A>
 	| <tilde-R>
 	| <tilde-S>
 	| <tilde-T>
 	| <tilde-T> <tilde-T>
+	| <tilde-Tilde>
 	| <tilde-Tilde> ',,,,\'' <tilde-C> 'f'
 	| <tilde-Tilde> ',,\'' <tilde-C> ':' <tilde-C>
 	| <tilde-Tilde> ',,\'' <tilde-C> ':d'
+	| <tilde-Tilde> <tilde-D> '%'
+	| <tilde-Tilde> <tilde-D> '&'
+	| <tilde-Tilde> <tilde-D> ','
 	| <tilde-Tilde> <tilde-D> ',' <tilde-D> ',\'*r'
 	| <tilde-Tilde> <tilde-D> ',' <tilde-D> '@t'
 	| <tilde-Tilde> <tilde-D> ',' <tilde-D> 'R'
@@ -497,10 +569,12 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> 'b'
 	| <tilde-Tilde> <tilde-D> 'd'
 	| <tilde-Tilde> <tilde-D> 'o'
+	| <tilde-Tilde> <tilde-D> '|'
 	| <tilde-Tilde> <tilde-D> <tilde-C>
+	| <tilde-Tilde> <tilde-D> <tilde-Tilde>
 	| <tilde-Tilde> <tilde-R>
+	| <tilde-Under> 'A' <tilde-Percent>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
-	| <tilde-Ques>
 	}
 }

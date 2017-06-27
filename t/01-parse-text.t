@@ -3,7 +3,7 @@ use v6;
 use Test;
 use Format::Lisp;
 
-plan 16;
+plan 22;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -15,95 +15,87 @@ my $parsed;
 # XXX No #" tests?
 # XXX No $" tests?
 
-#`(
 subtest {
 	my @options =
-# "X~#%"
-# "X~V%"
-# "~#%"
-# "~%"
-# "~@_A~%"
-# "~V%"
-# "~~~D%"
+		Q{X~#%},
+		Q{X~V%},
+		Q{~#%},
+		Q{~%},
+		Q{~@_A~%},
+		Q{~V%},
+		Q{~~~D%},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
-#`(
 subtest {
 	my @options =
-# "X~%~&"
-# "X~&"
-# "X~v&"
-# "X~~~D&"
-# "~#&"
-# "~&"
-# "~0&"
-# "~v&"
-# "~~~D&"
+		Q{X~%~&},
+		Q{X~&},
+		Q{X~v&},
+		Q{X~~~D&},
+		Q{~#&},
+		Q{~&},
+		Q{~0&},
+		Q{~v&},
+		Q{~~~D&},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No `" tests?
 
-#`(
 subtest {
 	my @options =
-# "(~:@{~A~:^,~})"
-# "(~:{~A~:^,~})"
-# "(~A ~A)"
-# "~(XXyy~AuuVV~)"
-# "~(aBc ~(def~) GHi~)"
-# "~(aBc ~:(def~) GHi~)"
-# "~(aBc ~@(def~) GHi~)"
-# "~(~c~)"
-# "~:(aBc ~(def~) GHi~)"
-# "~:(aBc ~:(def~) GHi~)"
-# "~:(aBc ~@(def~) GHi~)"
-# "~:(aBc ~@:(def~) GHi~)"
-# "~:(this is a TEST.~)"
-# "~:(this is7a TEST.~)"
-# "~:@(aBc ~(def~) GHi~)"
-# "~:@(aBc ~@(def~) GHi~)"
-# "~:@(this is AlSo A teSt~)"
-# "~@(!@#$%^&*this is a TEST.~)"
-# "~@(aBc ~(def~) GHi~)"
-# "~@(aBc ~:(def~) GHi~)"
-# "~@(aBc ~@(def~) GHi~)"
-# "~@(aBc ~@:(def~) GHi~)"
-# "~@(this is a TEST.~)"
-# "~@:(aBc ~:(def~) GHi~)"
-# "~@:(aBc ~@:(def~) GHi~)"
-# "~@:(~c~)"
+		Q{(~:@{~A~:^,~})},
+		Q{(~:{~A~:^,~})},
+		Q{(~A ~A)},
+		Q{~(XXyy~AuuVV~)},
+		Q{~(aBc ~(def~) GHi~)},
+		Q{~(aBc ~:(def~) GHi~)},
+		Q{~(aBc ~@(def~) GHi~)},
+		Q{~(~c~)},
+		Q{~:(aBc ~(def~) GHi~)},
+		Q{~:(aBc ~:(def~) GHi~)},
+		Q{~:(aBc ~@(def~) GHi~)},
+		Q{~:(aBc ~@:(def~) GHi~)},
+		Q{~:(this is a TEST.~)},
+		Q{~:(this is7a TEST.~)},
+		Q{~:@(aBc ~(def~) GHi~)},
+		Q{~:@(aBc ~@(def~) GHi~)},
+		Q{~:@(this is AlSo A teSt~)},
+		Q{~@(!@#$%^&*this is a TEST.~)},
+		Q{~@(aBc ~(def~) GHi~)},
+		Q{~@(aBc ~:(def~) GHi~)},
+		Q{~@(aBc ~@(def~) GHi~)},
+		Q{~@(aBc ~@:(def~) GHi~)},
+		Q{~@(this is a TEST.~)},
+		Q{~@:(aBc ~:(def~) GHi~)},
+		Q{~@:(aBc ~@:(def~) GHi~)},
+		Q{~@:(~c~)},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No *" tests?
 # XXX No +" tests?
 
-#`(
 subtest {
 	my @options =
-# "'~c,"
-# "~d,"
-# "~~~d,"
+		Q{'~c,},
+		Q{~d,},
+		Q{~~~d,},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No -" tests?
 # XXX No ." tests?
@@ -880,19 +872,17 @@ subtest {
 
 # XXX No {" tests?
 
-#`(
 subtest {
 	my @options =
-# "~0|"
-# "~V|"
-# "~|"
-# "~~~D|"
+		Q{~0|},
+		Q{~V|},
+		Q{~|},
+		Q{~~~D|},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 #`(
 subtest {
@@ -1161,19 +1151,17 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
-# "~#~"
-# "~v~"
-# "~~"
-# "~~~D~~"
+		Q{~#~},
+		Q{~v~},
+		Q{~~},
+		Q{~~~D~~},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 #`(
 subtest {
