@@ -2,7 +2,7 @@ use v6;
 
 use Test;
 use Format::Lisp;
-plan 28;
+plan 30;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -1156,51 +1156,49 @@ subtest {
 	}
 }
 
-#`(
 subtest {
 	my @options =
-# (signals-error-always (format nil "1~<X~<Y~:>Z~>2" nil nil nil) error)
-# (signals-error-always (format nil "~:<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<foo~A~;~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<foo~A~;~A~;bar~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<foo~A~@;~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<foo~A~@;~A~;bar~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<~;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~:<~@;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~< ~W ~>" nil) error)
-# (signals-error-always (format nil "~< ~_ ~>") error)
-# (signals-error-always (format nil "~< ~i ~>") error)
-# (signals-error-always (format nil "~<X~:;Y~>~I") error)
-# (signals-error-always (format nil "~<X~:;Y~>~W" nil) error)
-# (signals-error-always (format nil "~<X~:;Y~>~_") error)
-# (signals-error-always (format nil "~<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<foo~A~;~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<foo~A~;~A~;bar~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<foo~A~@;~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<foo~A~@;~A~;bar~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<~:;~>~<~:>" nil nil nil) error)
-# (signals-error-always (format nil "~<~:>~<~:;~>" nil nil nil) error)
-# (signals-error-always (format nil "~<~;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~<~@;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<foo~A~;~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<foo~A~;~A~;bar~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<foo~A~@;~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<foo~A~@;~A~;bar~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<~;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~@<~@;~A~;bar~A~:>" '(X) '(Y)) error)
-# (signals-error-always (format nil "~_~<X~:;Y~>") error)
-# (signals-error-always (format nil "~i~<X~:;Y~>") error)
-# (signals-error-always (format nil "~w~<X~:;Y~>" nil) error)
+		Q{1~<X~<Y~:>Z~>2},
+		Q{~:<foo~;~A~;bar~A~:>},
+		Q{~:<foo~@;~A~;bar~A~:>},
+		Q{~:<foo~A~;~A~:>},
+		Q{~:<foo~A~;~A~;bar~:>},
+		Q{~:<foo~A~@;~A~:>},
+		Q{~:<foo~A~@;~A~;bar~:>},
+		Q{~:<~;~A~;bar~A~:>},
+		Q{~:<~@;~A~;bar~A~:>},
+		Q{~< ~W ~>},
+		Q{~< ~_ ~>},
+		Q{~< ~i ~>},
+		Q{~<X~:;Y~>~I},
+		Q{~<X~:;Y~>~W},
+		Q{~<X~:;Y~>~_},
+		Q{~<foo~;~A~;bar~A~:>},
+		Q{~<foo~@;~A~;bar~A~:>},
+		Q{~<foo~A~;~A~:>},
+		Q{~<foo~A~;~A~;bar~:>},
+		Q{~<foo~A~@;~A~:>},
+		Q{~<foo~A~@;~A~;bar~:>},
+		Q{~<~:;~>~<~:>},
+		Q{~<~:>~<~:;~>},
+		Q{~<~;~A~;bar~A~:>},
+		Q{~<~@;~A~;bar~A~:>},
+		Q{~@<foo~;~A~;bar~A~:>},
+		Q{~@<foo~@;~A~;bar~A~:>},
+		Q{~@<foo~A~;~A~:>},
+		Q{~@<foo~A~;~A~;bar~:>},
+		Q{~@<foo~A~@;~A~:>},
+		Q{~@<foo~A~@;~A~;bar~:>},
+		Q{~@<~;~A~;bar~A~:>},
+		Q{~@<~@;~A~;bar~A~:>},
+		Q{~_~<X~:;Y~>},
+		Q{~i~<X~:;Y~>},
+		Q{~w~<X~:;Y~>},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 subtest {
 	my @options =
@@ -1213,24 +1211,22 @@ subtest {
 	}
 }
 
-#`(
 subtest {
 	my @options =
-# (signals-type-error x "abc" (format nil "~:@{~A~}" x))
-# (signals-type-error x "foo" (format nil "~{~A~}" x))
-# (signals-type-error x #*01101 (format nil "~:@{~A~}" x))
-# (signals-type-error x #*01101 (format nil "~{~A~}" x))
-# (signals-type-error x 'A (format nil "~{~A~}" x))
-# (signals-type-error x 'x (format nil "~:@{~A~}" x))
-# (signals-type-error x 'x (format nil "~:{~A~}" x))
-# (signals-type-error x 0 (format nil "~:@{~A~}" x))
-# (signals-type-error x 1 (format nil "~{~A~}" x))
+		Q{~:@{~A~}},
+		Q{~{~A~}},
+		Q{~:@{~A~}},
+		Q{~{~A~}},
+		Q{~{~A~}},
+		Q{~:@{~A~}},
+		Q{~:{~A~}},
+		Q{~:@{~A~}},
+		Q{~{~A~}},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 subtest {
 	my @options =

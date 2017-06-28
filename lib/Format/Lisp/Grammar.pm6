@@ -367,6 +367,12 @@ grammar Format::Lisp::Grammar {
 	'&'
 	}
 
+	token tilde-Comma {
+	'~'	#[
+		#]
+	','
+	}
+
 	token tilde-Under {
 	'~'	[
 		|	':' '@'
@@ -399,6 +405,7 @@ grammar Format::Lisp::Grammar {
 	| '#\\\\' <tilde-C>
 	| '(' <tilde-A> ' ' <tilde-A> ')'
 	| '(' <tilde-OBrace> <tilde-A> <tilde-Caret> ',' <tilde-CBrace> ')'
+	| '1' <tilde-OAngle> 'X' <tilde-OAngle> 'Y' <tilde-CAngle> 'Z' <tilde-CAngle> '2'
 	| 'A             ' <tilde-Under>
 	| 'A ' <tilde-Under> 'A '
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
@@ -454,13 +461,20 @@ grammar Format::Lisp::Grammar {
 	| <tilde-D> 'r'
 	| <tilde-D> 'x'
 	| <tilde-F>
+	| <tilde-I> <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle>
 	| <tilde-O>
+	| <tilde-OAngle> ' ' <tilde-I> ' ' <tilde-CAngle>
+	| <tilde-OAngle> ' ' <tilde-Under> ' ' <tilde-CAngle>
+	| <tilde-OAngle> ' ' <tilde-W> ' ' <tilde-CAngle>
 	| <tilde-OAngle> '(' <tilde-Semi> 'M' <tilde-I> <tilde-Under> 'M' <tilde-Semi> ')' <tilde-CAngle>
 	| <tilde-OAngle> '**' <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '       ' <tilde-CBrace> <tilde-CAngle>
 	| <tilde-OAngle> '**' <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '       ' <tilde-CBrace> <tilde-Semi> 'XX' <tilde-CAngle>
 	| <tilde-OAngle> 'ABC' <tilde-Semi> <tilde-T> <tilde-Semi> 'DEF' <tilde-CAngle>
 	| <tilde-OAngle> 'M' <tilde-I> <tilde-Under> 'M' <tilde-CAngle>
 	| <tilde-OAngle> 'MMM' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
+	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-I>
+	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-Under>
+	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-W>
 	| <tilde-OAngle> 'X' <tilde-Semi> <tilde-T> <tilde-Semi> 'Y' <tilde-CAngle>
 	| <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ' <tilde-T> 'WWW'
 	| <tilde-OAngle> 'XXX' <tilde-Semi> <tilde-T> <tilde-Semi> 'YYY' <tilde-CAngle>
@@ -476,10 +490,15 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OAngle> 'aaa' <tilde-Semi> 'bbb' <tilde-Semi> 'ccc' <tilde-CAngle>
 	| <tilde-OAngle> 'abc' <tilde-Semi> 'def' <tilde-Caret> <tilde-CAngle>
 	| <tilde-OAngle> 'abcdef' <tilde-CAngle>
+	| <tilde-OAngle> 'foo' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> 'foo' <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> 'bar' <tilde-CAngle>
+	| <tilde-OAngle> 'foo' <tilde-A> <tilde-Semi> <tilde-A> <tilde-Semi> 'bar' <tilde-CAngle>
+	| <tilde-OAngle> 'foo' <tilde-Semi> <tilde-A> <tilde-Semi> 'bar' <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-A> <tilde-Caret> 'xxxx' <tilde-CAngle>
 	| <tilde-OAngle> <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-CAngle> <tilde-OAngle> <tilde-Semi> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY' <tilde-Caret> <tilde-CAngle> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OAngle> <tilde-A> <tilde-Caret> 'xxx' <tilde-CAngle> 'yyy' <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret>  <tilde-CBrace> <tilde-CAngle>
@@ -489,9 +508,10 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> ' ' <tilde-Under> <tilde-CBrace> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> '*' <tilde-CBrace> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OSlash> 'pprint-tabular' <tilde-CSlash> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OSlash> 'pprint-tabular' <tilde-CSlash> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> 'bar' <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Semi> <tilde-CAngle> <tilde-OAngle> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '/' <tilde-CBrace> <tilde-Semi> ']' <tilde-CAngle>
 	| <tilde-OBrace> ' ' <tilde-CBrace>
 	| <tilde-OBrace> '(' <tilde-A> ' ' <tilde-A> ')' <tilde-CBrace>
@@ -503,6 +523,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OBrace> 'X Y Z' <tilde-CBrace>
 	| <tilde-OBrace> 'X' <tilde-CBrace>
 	| <tilde-OBrace> 'XYZ' <tilde-CBrace>
+	| <tilde-OBrace> <tilde-A> ' ' <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-A> <tilde-Caret> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-Caret> <tilde-A> <tilde-A> <tilde-CBrace>
@@ -591,8 +612,9 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> <tilde-Tilde>
 	| <tilde-Tilde> <tilde-R>
 	| <tilde-Under> 'A' <tilde-Percent>
+	| <tilde-Under> <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle>
+	| <tilde-W> <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
-	| <tilde-OBrace> <tilde-A> ' ' <tilde-A> <tilde-CBrace>
 	}
 }
