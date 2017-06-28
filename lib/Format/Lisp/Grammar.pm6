@@ -371,14 +371,6 @@ grammar Format::Lisp::Grammar {
 	token tilde-Angle {
 	<tilde-OAngle>
 		[
-		#| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-CAngle> <not-Tilde>
-		#| <tilde-CAngle> <tilde-OAngle> <tilde-Semi>
-		#| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CAngle>
-		#| <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CAngle> <not-Tilde>
-		#| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
-		#| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
-		#| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
-		#| <tilde-Semi> <tilde-CAngle> <tilde-OAngle>
 		| <not-Tilde>
 		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A>
 		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> <not-Tilde>
@@ -386,6 +378,7 @@ grammar Format::Lisp::Grammar {
 		| <not-Tilde> <tilde-Caret>
 		| <not-Tilde> <tilde-I> <not-Tilde>
 		| <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde>
+		| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-CAngle> <not-Tilde>
 		| <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-Semi> <not-Tilde>
@@ -409,7 +402,9 @@ grammar Format::Lisp::Grammar {
 		| <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde> <tilde-Under> <tilde-CBrace>
 		| <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace>
 		| <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-Under> <tilde-CBrace>
+		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <tilde-Semi>
 		| <tilde-Semi> <tilde-A>
 		| <tilde-Semi> <tilde-A> <tilde-Semi>
 		| <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde> <tilde-A>
@@ -426,9 +421,9 @@ grammar Format::Lisp::Grammar {
 	| <not-Tilde> <tilde-A> <not-Tilde> <tilde-A> <not-Tilde>
 	| <not-Tilde> <tilde-Amp>
 	| <not-Tilde> <tilde-Angle>
+	| <not-Tilde> <tilde-Angle> <not-Tilde>
 	| <not-Tilde> <tilde-C>
 	| <not-Tilde> <tilde-C> <not-Tilde>
-	| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-CAngle> <not-Tilde>
 	| <not-Tilde> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <not-Tilde>
 	| <not-Tilde> <tilde-Percent>
 	| <not-Tilde> <tilde-Percent> <tilde-Amp>
@@ -448,7 +443,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A>
 	| <tilde-A> <tilde-Angle>
-	| <tilde-A> <tilde-Angle>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-CBrace> <tilde-A>
@@ -464,6 +458,11 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-D> <not-Tilde>
 	| <tilde-Amp>
 	| <tilde-Angle>
+	| <tilde-Angle> <not-Tilde> <tilde-T> <not-Tilde>
+	| <tilde-Angle> <tilde-Angle>
+	| <tilde-Angle> <tilde-I>
+	| <tilde-Angle> <tilde-Under>
+	| <tilde-Angle> <tilde-W>
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
@@ -472,14 +471,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-F>
 	| <tilde-I> <tilde-Angle>
 	| <tilde-O>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-T> <not-Tilde>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-I>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-Under>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-W>
-	| <tilde-OAngle> <tilde-CAngle> <tilde-OAngle> <tilde-Semi> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CAngle> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Semi> <tilde-CAngle> <tilde-OAngle> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Angle> <not-Tilde> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-Angle> <tilde-CAngle>
 	| <tilde-OBrace> <not-Tilde> <tilde-A> <not-Tilde> <tilde-A> <not-Tilde> <tilde-CBrace>
 	| <tilde-OBrace> <not-Tilde> <tilde-A> <not-Tilde> <tilde-CBrace>
 	| <tilde-OBrace> <not-Tilde> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace>
@@ -518,10 +511,10 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OParen> <tilde-C> <tilde-CParen>
 	| <tilde-P>
 	| <tilde-Percent>
-	| <tilde-Percent> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-Percent> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-Percent> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-Percent> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
+	| <tilde-Percent> <not-Tilde> <tilde-Angle>
+	| <tilde-Percent> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle>
+	| <tilde-Percent> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
+	| <tilde-Percent> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
 	| <tilde-Percent> <not-Tilde> <tilde-Under>
 	| <tilde-Pipe>
 	| <tilde-Ques>
@@ -544,8 +537,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde> <tilde-D> <tilde-Tilde>
 	| <tilde-Tilde> <tilde-R>
 	| <tilde-Under> <not-Tilde> <tilde-Percent>
-	| <tilde-Under> <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-W> <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
+	| <tilde-Under> <tilde-Angle>
+	| <tilde-W> <tilde-Angle>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
 	}
