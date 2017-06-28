@@ -32,132 +32,122 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Tilde {
 	'~'	[
-		|	'#'
-		|	<V>
+		|	<value>
 		]?
 	'~'
 	}
 
 	token tilde-A {
 	'~'	[
-		| '#@'
-		| '10,,,' <V>
-		| '10,,,v@'
-		| <value> ',' <value> '@'
-		| <value> ',' <value>
-		| '3,,' <value>
-		| '3,,v@'
-		| '4,,' <V>
-		| '4,,,'
-		| '4,,,@'
-		| '4,,,\'X'
-		| '4,,,\'X@'
-		| ':'
-		| '@'
-		| 'V:'
-		| 'V:@'
-		| 'V@'
-		| 'V@:'
-		| 'v,,' <signed-integer>
-		| 'v:'
-		| 'v:@'
-		| 'v@'
-		| 'v@:'
-		| <value>
+		|	'10,,,' <V>
+		|	'10,,,v@'
+		|	'3,,' <value>
+		|	'3,,v@'
+		|	'4,,' <V>
+		|	'4,,,'
+		|	'4,,,@'
+		|	'4,,,\'X'
+		|	'4,,,\'X@'
+		|	':'
+		|	'@'
+		|	'V:'
+		|	'V:@'
+		|	'V@:'
+		|	'v,,' <signed-integer>
+		|	'v:'
+		|	'v:@'
+		|	'v@:'
+		|	<value>
+		|	<value> '@'
+		|	<value> ',' <value>
+		|	<value> ',' <value> '@'
 		]?
 	<[ a A ]>
 	}
 
 	token tilde-B {
 	'~'	[
-		| ',,,#:'
-		| ',,,#@:'
-		| ',,V,V:'
-		| ',,V,V@:'
-		| ',,\'*,v:'
-		| ',,v,v:'
-		| ',,v,v:@'
-		| ',,v:'
-		| '6,' <V>
-		| ':'
-		| ':@'
-		| '@'
-		| '@:'
-		| 'V,V,V,' <V>
-		| 'v,' <V>
-		| 'v,v,v,' <V>
-		| <value> '@'
-		| <value>
+		|	',,,#:'
+		|	',,,#@:'
+		|	',,V,V:'
+		|	',,V,V@:'
+		|	',,\'*,v:'
+		|	',,v,v:'
+		|	',,v,v:@'
+		|	',,v:'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> ',' <value> ',' <value>
+		|	<value> '@'
 		]?
 	<[ b B ]>
 	}
 
 	token tilde-C {
 	'~'	[
-		| ':'
-		| ':@'
-		| '@'
-		| '@:'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
 		]?
 	<[ c C ]>
 	}
 
 	token tilde-D {
 	'~'	[
-		| '+10@'
-		| ',,,#:'
-		| ',,,#:@'
-		| ',,,#@:'
-		| ',,\'*,v:'
-		| ',,v,v:'
-		| ',,v,v:@'
-		| ',,v:'
-		| '6,' <V>
-		| ':'
-		| '@'
-		| '@:'
-		| 'v,' <V>
-		| 'v,v,v,' <V>
-		| 'v,v@'
-		| <value>
+		|	',,,#:'
+		|	',,,#:@'
+		|	',,,#@:'
+		|	',,\'*,v:'
+		|	',,v,v:'
+		|	',,v,v:@'
+		|	',,v:'
+		|	':'
+		|	'@'
+		|	'@:'
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> ',' <value> ',' <value>
+		|	<value> ',' <value> '@'
+		|	<value> '@'
 		]?
 	<[ d D ]>
 	}
 
 	token tilde-F {
 	'~'	[
-		| ',' <V>
-		| ',' <signed-integer>
-		| ',,' <V>
-		| ',,' <signed-integer>
-		| ',,,,' <V>
-		| ',,,,\','
-		| ',,,v'
-		| '0,' <signed-integer>
-		| '1,1,,'
-		| '10,1,,'
-		| '10,1,,,\'*'
-		| '2,' <signed-integer>
-		| '3,' <signed-integer>
-		| '4,' <signed-integer>
-		| '4,0,,\'*'
-		| '4,2,' <signed-integer>
-		| '4,2@'
-		| '5,1,,\'*'
-		| 'v,' <V>
-		| 'v,v,v,v,' <V>
-		| <value> '@'
-		| <value>
+		|	',' <V>
+		|	',' <signed-integer>
+		|	',,' <V>
+		|	',,' <signed-integer>
+		|	',,,,' <V>
+		|	',,,,\','
+		|	',,,v'
+		|	'1,1,,'
+		|	'10,1,,'
+		|	'10,1,,,\'*'
+		|	'4,0,,\'*'
+		|	'4,2,' <signed-integer>
+		|	'5,1,,\'*'
+		|	'v,v,v,v,' <V>
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> ',' <value>
+		|	<value> ',' <value> '@'
+		|	<value> '@'
 		]?
 	<[ f F ]>
 	}
 
 	token tilde-I {
 	'~'	[
-		| ':'
-		| 'v:'
-		| <value> ':'
-		| <value>
+		|	':'
+		|	<value>
+		|	<value> ':'
 		]?
 	<[ i I ]>
 	}
@@ -173,126 +163,107 @@ grammar Format::Lisp::Grammar {
 		| ',,v,v:'
 		| ',,v,v:@'
 		| ',,v:'
-		| '6,' <V>
 		| ':'
 		| ':@'
 		| '@'
 		| '@:'
-		| 'V,' <V>
-		| 'v,' <V>
-		| 'v,V@'
 		| 'v,v,v,' <V>
-		| 'v,v@'
-		| <value> '@'
 		| <value>
-		| <signed-integer> <V>
+		| <value> ',' <value>
+		| <value> ',' <value> '@'
+		| <value> '@'
 		]?
 	<[ o O ]>
 	}
 
 	token tilde-P {
 	'~'	[
-		| ':@'
-		| ':'
-		| '@:'
-		| '@'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
 		]?
 	<[ p P ]>
 	}
 
 	token tilde-R {
 	'~'	[
-		| '10,#'
-		| '10,' <V>
-		| '10,' <signed-integer>
-		| '10,,,v:'
-		| '10,12,' <V>
-		| '16,,,,#:'
-		| '2,,,,' <signed-integer>
-		| '2,12,,\'*:'
-		| '3,14,\'X,\',:'
-		| '3@:'
-		| '8,,,,v:'
-		| '8,10:@'
-		| '8@'
-		| ':'
-		| ':@'
-		| '@'
-		| '@:'
-		| 'v,v,v,v,' <V>
-		| <value> ':'
-		| <value>
+		|	'10,,,v:'
+		|	'10,12,' <V>
+		|	'16,,,,#:'
+		|	'2,,,,' <signed-integer>
+		|	'2,12,,\'*:'
+		|	'3,14,\'X,\',:'
+		|	'3@:'
+		|	'8,,,,v:'
+		|	'8,10:@'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	'v,v,v,v,' <V>
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ':'
+		|	<value> '@'
 		]?
 	<[ r R ]>
 	}
 
 	token tilde-S {
 	'~'	[
-		| '10,,,' <V>
-		| '10,,,v@'
-		| '3,,' <V>
-		| '3,,' <signed-integer>
-		| '3,,V@'
-		| '3,3@'
-		| '4,,' <V>
-		| '4,,,'
-		| '4,,,@'
-		| '4,,,\'X'
-		| '4,,,\'X@'
-		| '4,4@'
-		| <value> ',' <value>
-		| '5,3@'
-		| '5,v@'
-		| '7,3@'
-		| ':'
-		| '@'
-		| 'V,,' <signed-integer>
-		| 'V:'
-		| 'V@:'
-		| 'v,,' <signed-integer>
-		| 'v:'
-		| 'v:@'
-		| 'v@'
-		| 'v@:'
-		| <V>
+		|	'10,,,' <V>
+		|	'10,,,v@'
+		|	'3,,' <value>
+		|	'3,,V@'
+		|	'4,,' <V>
+		|	'4,,,'
+		|	'4,,,@'
+		|	'4,,,\'X'
+		|	'4,,,\'X@'
+		|	':'
+		|	'@'
+		|	'V,,' <signed-integer>
+		|	'V:'
+		|	'V@:'
+		|	'v,,' <signed-integer>
+		|	'v:'
+		|	'v:@'
+		|	'v@:'
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> '@'
+		|	<value> '@'
 		]?
 	<[ s S ]>
 	}
 
 	token tilde-T {
 	'~'	[
-		| '0,' <V> ':'
-		| <value> ',' <value>
-		| '0,' <signed-integer> ':'
-		| '0,' ':' 
-		| '0,v@'
-		| '1,' <signed-integer> ':'
-		| '1,1:@'
-		| '1,1@'
-		| '1,:@'
-		| '2,' <signed-integer> ':'
-		| 'v,' <signed-integer> ':@'
-		| 'v,' <signed-integer> ':'
-		| 'v,1@'
-		| 'v,v:@'
-		| 'v,v:'
-		| 'v,v@'
-		| '10,20:@'
-		| '10,20@:'
-		| '10:'
-		| '1:@'
-		| ':@'
-		| ',1:@'
-		| ',0:'
-		| '0:'
+		|	',0:'
+		|	',1:@'
+		|	'0,' ':' 
+		|	'1,1:@'
+		|	'1,:@'
+		|	'10,20:@'
+		|	'10,20@:'
+		|	'1:@'
+		|	':@'
+		|	'v,' <signed-integer> ':@'
+		|	'v,v:@'
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> ':'
+		|	<value> ',' <value> '@'
+		|	<value> ':'
 		]?
 	<[ t T ]>
 	}
 
 	token tilde-Z {
 	'~'	[
-		| '?'
-		| '@?'
+		|	'?'
+		|	'@?'
 		]?
 	<[ z Z ]>
 	}
@@ -305,41 +276,38 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-X {
 	'~'	[
-		| '+10@'
-		| ',,,#:'
-		| ',,,#@:'
-		| ',,V:'
-		| ',,\'*,v:'
-		| ',,v,V:@'
-		| ',,v,v:'
-		| ',,v,v:@'
-		| ',,v:'
-		| '6,' <V>
-		| ':'
-		| ':@'
-		| '@'
-		| '@:'
-		| 'V,' <V>
-		| 'v,' <V>
-		| 'v,V@'
-		| 'v,v,v,' <V>
-		| 'v,v@'
-		| <value>
+		|	',,,#:'
+		|	',,,#@:'
+		|	',,V:'
+		|	',,\'*,v:'
+		|	',,v,V:@'
+		|	',,v,v:'
+		|	',,v,v:@'
+		|	',,v:'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	'v,v,v,' <V>
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> '@'
+		|	<value> '@'
 		]?
 	<[ x X ]>
 	}
 
 	token tilde-Caret {
 	'~'	[
-		|	<value> ',' <value> ',' <value> ',' <value> ':'
-		|	<value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> ',' <value> ':'
-		|	<value> ',' <value> ',' <value>
-		|	<value> ',' <value> ':'
-		|	<value> ',' <value>
-		|	<value> ':'
-		|	<value>
 		|	':'
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> ',' <value>
+		|	<value> ',' <value> ',' <value> ',' <value>
+		|	<value> ',' <value> ',' <value> ',' <value> ':'
+		|	<value> ',' <value> ',' <value> ':'
+		|	<value> ',' <value> ':'
+		|	<value> ':'
 		]?
 	'^'
 	}
@@ -355,53 +323,47 @@ grammar Format::Lisp::Grammar {
 	'~'	[
 		|	':'
 		|	'@'
-		|	'v:'
-		|	'v@'
 		|	<value>
-		|	<signed-integer> ':'
-		|	<signed-integer> '@'
+		|	<value> ':'
+		|	<value> '@'
 		]?
 	'*'
 	}
 
 	token tilde-OParen {
 	'~'	[
-		| ':@'
-		| '@:'
-		| '@'
-		| ':'
-		| <signed-integer>
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	<value>
 		]?
 	'('
 	}
 
 	token tilde-CParen {
 	'~'	[
-		| ':@'
-		| '@'
-		| ':'
-		| <signed-integer>
+		|	':@'
+		|	'@'
+		|	':'
+		|	<value>
 		]?
 	')'
 	}
 
 	token tilde-OBrace {
 	'~'	[
-		|	<V> ':@'
-		|	':@'
-		|	<V> '@:'
-		|	'@:'
-		|	'@'
-		|	<V> ':'
-		|	<V> '@'
-		|	':'
 		|	'#:@'
-		|	'#@'
-		|	'#:'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	<V> ':@'
+		|	<V> '@:'
 		|	<signed-integer> ':@'
-		|	<signed-integer> ':'
-		|	<signed-integer> '@'
 		|	<value>
+		|	<value> ':'
+		|	<value> '@'
 		]?
 	'{'
 	}
@@ -409,7 +371,7 @@ grammar Format::Lisp::Grammar {
 	token tilde-CBrace {
 	# {
 	'~'	[
-		| ':'
+		|	':'
 		]?
 	'}'
 	}
@@ -425,10 +387,9 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Semi {
 	'~'	[
-		| '0,30:'
-		| '0,3:'
-		| '@'
-		| ':'
+		|	':'
+		|	'@'
+		|	<value> ',' <value> ':'
 		]?
 	';'
 	}
@@ -439,23 +400,21 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OAngle {
 	'~'	[
-		|	',,1,\','
-		|	<V> ',,,' <V>
-		|	',,' <signed-integer> ',' <V>
-		|	',,' <signed-integer> ','
-		|	<signed-integer> ',,' <signed-integer>
-		|	',,' <signed-integer>
-		|	<V> ',,' <V>
-		|	',,' <V>
 		|	',' <V>
-		|	'@:'
-		|	'6@'
-		|	'@'
-		|	<signed-integer> ':@'
-		|	':@'
+		|	',,' <V>
+		|	',,' <signed-integer>
+		|	',,' <signed-integer> ','
+		|	',,' <signed-integer> ',' <V>
+		|	',,1,\','
 		|	':'
-		|	<signed-integer> ':'
-		|	<signed-integer> '@'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	<V> ',,,' <V>
+		|	<value> ',,' <value>
+		|	<value> ':'
+		|	<value> ':@'
+		|	<value> '@'
 		|	<value>
 		]?
 	'<'
@@ -503,19 +462,19 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OSlash {
 	'~'	[
-		| '\',@'
-		| '\'X:'
-		| '-1@'
-		| '1,2,3,4,5,6,7,8,9,10@'
-		| 'v,v,v,v,v,v,v,v,v,v@'
-		| '18@:'
-		| ':@'
-		| '4:'
-		| ':'
-		| 'v:'
-		| '@:'
-		| '@'
-		| <V>
+#		|	'-1@'
+		|	'1,2,3,4,5,6,7,8,9,10@'
+		|	'18@:'
+		|	':'
+		|	':@'
+		|	'@'
+		|	'@:'
+		|	'\',@'
+#		|	'\'X:'
+		|	'v,v,v,v,v,v,v,v,v,v@'
+		|	<value>
+		|	<value> ':'
+		|	<value> '@'
 		]?
 	'/'
 	}
