@@ -373,36 +373,30 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token TOP {
-	| ' ' <tilde-T>
-	| '#\\\\' <tilde-C>
-	| '(' <tilde-A> ' ' <tilde-A> <not-Tilde>+
-	| '(' <tilde-OBrace> <tilde-A> <tilde-Caret> ',' <tilde-CBrace> <not-Tilde>+
-	| '1' <tilde-OAngle> 'X' <tilde-OAngle> 'Y' <tilde-CAngle> 'Z' <tilde-CAngle> <not-Tilde>+
-	| 'A             ' <tilde-Under>
-	| 'A ' <tilde-Under> <not-Tilde>+
-	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
-	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
-	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
-	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> <tilde-Percent> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
-	| 'AAAA ' <tilde-Under>
-	| 'AAAA' <tilde-T> 'BBB' <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> <not-Tilde>+
-	| 'B ' <tilde-Under>
-	| 'D ' <tilde-Under>
 	| <not-Tilde>+
-	| 'X' <tilde-A> <not-Tilde>+
-	| 'X' <tilde-Amp>
-	| 'X' <tilde-Percent>
-	| 'X' <tilde-Percent> <tilde-Amp>
-	| 'X' <tilde-Tilde> <tilde-D> <not-Tilde>+
-	| 'XX' <tilde-T> <not-Tilde>+
-	| 'XXX' <tilde-OAngle> 'MMM' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
-	| 'XXX' <tilde-OAngle> 'MMMI' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
-	| 'XXXXX' <tilde-T>
-	| '\'' <tilde-C>
-	| '\'' <tilde-C> <not-Tilde>+
-	| 'a' <tilde-Ques> <not-Tilde>+
+	| <not-Tilde>+ <tilde-A> <not-Tilde>+
+	| <not-Tilde>+ <tilde-A> <not-Tilde>+ <tilde-A> <not-Tilde>+
+	| <not-Tilde>+ <tilde-Amp>
+	| <not-Tilde>+ <tilde-C>
+	| <not-Tilde>+ <tilde-C> <not-Tilde>+
+	| <not-Tilde>+ <tilde-OAngle> <not-Tilde>+ <tilde-I> <tilde-Under> <not-Tilde>+ <tilde-CAngle>
+	| <not-Tilde>+ <tilde-OAngle> <not-Tilde>+ <tilde-OAngle> <not-Tilde>+ <tilde-CAngle> <not-Tilde>+ <tilde-CAngle> <not-Tilde>+
+	| <not-Tilde>+ <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CBrace> <not-Tilde>+
+	| <not-Tilde>+ <tilde-Percent>
+	| <not-Tilde>+ <tilde-Percent> <tilde-Amp>
+	| <not-Tilde>+ <tilde-Ques> <not-Tilde>+
+	| <not-Tilde>+ <tilde-T>
+	| <not-Tilde>+ <tilde-T> <not-Tilde>+
+	| <not-Tilde>+ <tilde-T> <not-Tilde>+ <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle> <not-Tilde>+
+	| <not-Tilde>+ <tilde-Tilde> <tilde-D> <not-Tilde>+
+	| <not-Tilde>+ <tilde-Under>
+	| <not-Tilde>+ <tilde-Under> <not-Tilde>+
+	| <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under>
+	| <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under>
+	| <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under>
+	| <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <tilde-Percent> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-Under>
 	| <tilde-A>
-	| <tilde-A> 'Y' <tilde-Ques> 'X' <tilde-A>
+	| <tilde-A> <not-Tilde>+ <tilde-Ques> <not-Tilde>+ <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A>
 	| <tilde-A> <tilde-OAngle> <tilde-A> <tilde-T> <tilde-CAngle>
@@ -415,81 +409,80 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-Star> <tilde-A> <tilde-CBrace> <tilde-A>
-	| <tilde-A> <tilde-Ques> 'X' <tilde-A>
+	| <tilde-A> <tilde-Ques> <not-Tilde>+ <tilde-A>
 	| <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-T>
-	| <tilde-A> <tilde-Tilde> '<' <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> ':T' <tilde-Tilde> <not-Tilde>+
-	| <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> <not-Tilde>+
+	| <tilde-A> <tilde-Tilde> <not-Tilde>+ <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde>+ <tilde-D> <not-Tilde>+ <tilde-Tilde> <not-Tilde>+
+	| <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde>+ <tilde-D> <not-Tilde>+
 	| <tilde-Amp>
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
-	| <tilde-D> ' cat' <tilde-P>
-	| <tilde-D> ' penn' <tilde-P>
 	| <tilde-D> <not-Tilde>+
+	| <tilde-D> <not-Tilde>+ <tilde-P>
 	| <tilde-F>
-	| <tilde-I> <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle>
+	| <tilde-I> <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
 	| <tilde-O>
-	| <tilde-OAngle> ' ' <tilde-I> ' ' <tilde-CAngle>
-	| <tilde-OAngle> ' ' <tilde-Under> ' ' <tilde-CAngle>
-	| <tilde-OAngle> ' ' <tilde-W> ' ' <tilde-CAngle>
-	| <tilde-OAngle> '(' <tilde-Semi> 'M' <tilde-I> <tilde-Under> 'M' <tilde-Semi> ')' <tilde-CAngle>
-	| <tilde-OAngle> '**' <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '       ' <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> '**' <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '       ' <tilde-CBrace> <tilde-Semi> 'XX' <tilde-CAngle>
-	| <tilde-OAngle> 'ABC' <tilde-Semi> <tilde-T> <tilde-Semi> 'DEF' <tilde-CAngle>
-	| <tilde-OAngle> 'M' <tilde-I> <tilde-Under> 'M' <tilde-CAngle>
-	| <tilde-OAngle> 'MMM' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
-	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-I>
-	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-Under>
-	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-W>
-	| <tilde-OAngle> 'X' <tilde-Semi> <tilde-T> <tilde-Semi> 'Y' <tilde-CAngle>
-	| <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ' <tilde-T> <not-Tilde>+
-	| <tilde-OAngle> 'XXX' <tilde-Semi> <tilde-T> <tilde-Semi> 'YYY' <tilde-CAngle>
-	| <tilde-OAngle> 'XXX' <tilde-T> 'YYY' <tilde-CAngle>
-	| <tilde-OAngle> 'XXXX' <tilde-Semi> <tilde-T> <tilde-CAngle>
-	| <tilde-OAngle> 'XXXXXX' <tilde-Caret> <tilde-CAngle>
-	| <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY' <tilde-Caret> <tilde-CAngle>
-	| <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY' <tilde-Caret> <tilde-Semi> 'ZZZZZ' <tilde-CAngle>
-	| <tilde-OAngle> '[' <tilde-Semi> 'XXXX' <tilde-T> <tilde-Semi> ']' <tilde-CAngle>
-	| <tilde-OAngle> '[' <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '/' <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> '[' <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '/' <tilde-CBrace> <tilde-Semi> ']' <tilde-CAngle>
-	| <tilde-OAngle> '[' <tilde-Semi> <tilde-T> <tilde-Semi> ']' <tilde-CAngle>
-	| <tilde-OAngle> 'aaa' <tilde-Semi> 'bbb' <tilde-Semi> 'ccc' <tilde-CAngle>
-	| <tilde-OAngle> 'abc' <tilde-Semi> 'def' <tilde-Caret> <tilde-CAngle>
-	| <tilde-OAngle> 'abcdef' <tilde-CAngle>
-	| <tilde-OAngle> 'foo' <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> 'foo' <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> 'bar' <tilde-CAngle>
-	| <tilde-OAngle> 'foo' <tilde-A> <tilde-Semi> <tilde-A> <tilde-Semi> 'bar' <tilde-CAngle>
-	| <tilde-OAngle> 'foo' <tilde-Semi> <tilde-A> <tilde-Semi> 'bar' <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-A> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Caret> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-I> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-I> <tilde-Under> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-I> <tilde-Under> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle> <not-Tilde>+ <tilde-T> <not-Tilde>+
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle> <tilde-I>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle> <tilde-Under>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle> <tilde-W>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-Caret> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-Caret> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-Caret> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-I> <tilde-Under> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-T> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde>+ <tilde-A> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CBrace> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CBrace> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-T> <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-T> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-Under> <not-Tilde>+ <tilde-CAngle>
+	| <tilde-OAngle> <not-Tilde>+ <tilde-W> <not-Tilde>+ <tilde-CAngle>
 	| <tilde-OAngle> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-A> <tilde-Caret> 'xxxx' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CAngle>
 	| <tilde-OAngle> <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-CAngle> <tilde-OAngle> <tilde-Semi> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY' <tilde-Caret> <tilde-CAngle> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OAngle> <tilde-A> <tilde-Caret> 'xxx' <tilde-CAngle> 'yyy' <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OAngle> <not-Tilde>+ <tilde-Semi> <not-Tilde>+ <tilde-Caret> <tilde-CAngle> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CAngle> <not-Tilde>+ <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret>  <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> '            ' <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> '            ' <tilde-Under> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> ' ' <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> ' ' <tilde-Under> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> '*' <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde>+ <tilde-Under> <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde>+ <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde>+ <tilde-Under> <tilde-CBrace> <tilde-CAngle>
+	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde>+ <tilde-CBrace> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OSlash> 'pprint-tabular' <tilde-CSlash> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> 'bar' <tilde-A> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-CAngle> <tilde-OAngle> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> '/' <tilde-CBrace> <tilde-Semi> ']' <tilde-CAngle>
-	| <tilde-OBrace> ' ' <tilde-CBrace>
-	| <tilde-OBrace> '(' <tilde-A> ' ' <tilde-A> ')' <tilde-CBrace>
-	| <tilde-OBrace> 'A' <tilde-CBrace>
-	| <tilde-OBrace> 'ABC' <tilde-CBrace>
-	| <tilde-OBrace> 'FOO' <tilde-CBrace>
 	| <tilde-OBrace> 'X ' <tilde-A> ' Y Z' <tilde-CBrace>
 	| <tilde-OBrace> 'X ' <tilde-A> <tilde-Caret> ' Y ' <tilde-A> <tilde-Caret> ' ' <tilde-CBrace>
 	| <tilde-OBrace> 'X Y Z' <tilde-CBrace>
 	| <tilde-OBrace> 'X' <tilde-CBrace>
 	| <tilde-OBrace> 'XYZ' <tilde-CBrace>
+	| <tilde-OBrace> <not-Tilde>+ <tilde-A> <not-Tilde>+ <tilde-A> ')' <tilde-CBrace>
+	| <tilde-OBrace> <not-Tilde>+ <tilde-CBrace>
+	| <tilde-OBrace> <not-Tilde>+ <tilde-CBrace>
+	| <tilde-OBrace> <not-Tilde>+ <tilde-CBrace>
+	| <tilde-OBrace> <not-Tilde>+ <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> ' ' <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-A> <tilde-Caret> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-CBrace>
