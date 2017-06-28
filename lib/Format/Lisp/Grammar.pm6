@@ -39,10 +39,14 @@ grammar Format::Lisp::Grammar {
 	'~'
 	}
 
+	token options {
+	|	'@' ':'?
+	|	':' '@'?
+	}
+
 	token tilde-A {
 	'~'	[
-		|	':'
-		|	'@'
+		|	<options>
 		|	<value> ',' ',' ',' '@'?
 		|	<value> ',' ',' ',' <value> '@'?
 		|	<value> ',' ',' <value> '@'?
@@ -61,10 +65,7 @@ grammar Format::Lisp::Grammar {
 		|	',' ',' <value> ',' <value> ':' '@'?
 		|	',' ',' <value> ',' <value> '@' ':'
 		|	',' ',' <value> ':'
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	<options>
 		|	<value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> '@'?
@@ -74,9 +75,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-C {
 	'~'	[
-		|	':' '@'?
-		|	'@'
-		|	'@' ':'
+		|	<options>
 		]?
 	<[ c C ]>
 	}
@@ -87,8 +86,7 @@ grammar Format::Lisp::Grammar {
 		|	',' ',' ',' <value> '@' ':'
 		|	',' ',' <value> ',' <value> ':' '@'?
 		|	',' ',' <value> ':'
-		|	':'
-		|	'@' ':'?
+		|	<options>
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
@@ -115,7 +113,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-I {
 	'~'	[
-		|	':'
+		|	<options>
 		|	<value> ':'?
 		]?
 	<[ i I ]>
@@ -128,8 +126,7 @@ grammar Format::Lisp::Grammar {
 		|	',' ',' <value> ',' <value> ':' '@'?
 		|	',' ',' <value> ',' <value> '@' ':'
 		|	',' ',' <value> ':'
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
@@ -139,16 +136,14 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-P {
 	'~'	[
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		]?
 	<[ p P ]>
 	}
 
 	token tilde-R {
 	'~'	[
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value> ',' ',' ',' ',' <value> ':'?
 		|	<value> ',' ',' ',' <value> ':'
 		|	<value> ',' <value>
@@ -165,8 +160,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-S {
 	'~'	[
-		|	':'
-		|	'@'
+		|	<options>
 		|	<value> ',' ',' ',' '@'?
 		|	<value> ',' ',' ',' <value> '@'?
 		|	<value> ',' ',' <value> '@'?
@@ -181,7 +175,7 @@ grammar Format::Lisp::Grammar {
 	token tilde-T {
 	'~'	[
 		|	',' <value> ':' '@'?
-		|	':' '@'
+		|	<options>
 		|	<value> ',' ':' '@'?
 		|	<value> ',' <value> ':' '@'
 		|	<value> ',' <value> '@' ':'
@@ -204,8 +198,7 @@ grammar Format::Lisp::Grammar {
 		|	',' ',' ',' <value> '@' ':'
 		|	',' ',' <value> ',' <value> ':' '@'?
 		|	',' ',' <value> ':'
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
@@ -215,7 +208,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Caret {
 	'~'	[
-		|	':'
+		|	<options>
 		|	<value> ',' <value> ',' <value> ',' <value> ':'?
 		|	<value> ',' <value> ',' <value> ':'?
 		|	<value> ',' <value> ':'?
@@ -233,8 +226,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Star {
 	'~'	[
-		|	':'
-		|	'@'
+		|	<options>
 		|	<value> <[ @ : ]>?
 		]?
 	'*'
@@ -242,8 +234,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OParen {
 	'~'	[
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value>
 		]?
 	'('
@@ -251,8 +242,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-CParen {
 	'~'	[
-		|	':' '@'?
-		|	'@'
+		|	<options>
 		|	<value>
 		]?
 	')'
@@ -260,8 +250,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OBrace {
 	'~'	[
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value> ':' '@'
 		|	<value> '@' ':'
 		|	<value> <[ @ : ]>?
@@ -278,8 +267,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OBracket {
 	'~'	[
-		|	':'
-		|	'@'
+		|	<options>
 		|	<value>
 		]?
 	'['
@@ -287,8 +275,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Semi {
 	'~'	[
-		|	':'
-		|	'@'
+		|	<options>
 		|	<value> ',' <value> ':'
 		]?
 	';'
@@ -303,8 +290,7 @@ grammar Format::Lisp::Grammar {
 		|	',' ',' <value> ',' <value>
 		|	',' ',' <value> ','?
 		|	',' <value>
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value> ',' ',' ',' <value>
 		|	<value> ',' ',' <value>
 		|	<value> ':' '@'
@@ -315,8 +301,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-CAngle {
 	'~'	[
-		|	':' '@'?
-		|	'@'
+		|	<options>
 		]?
 	'>'
 	}
@@ -350,16 +335,14 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Under {
 	'~'	[
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		]?
 	'_'
 	}
 
 	token tilde-Slash {
 	'~'	[
-		|	':' '@'?
-		|	'@' ':'?
+		|	<options>
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> '@'
 		|	<value> '@' ':'
 		|	<value> <[ @ : ]>?
@@ -425,8 +408,6 @@ grammar Format::Lisp::Grammar {
 		| <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A>
 		| <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> <tilde-A> <tilde-A> <tilde-A>
 		| <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
-		| <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
-		| <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A>
 		| <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A>
 		| <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> <tilde-A> <tilde-A>
 		| <tilde-A> <tilde-A> <tilde-Caret> <tilde-A>
