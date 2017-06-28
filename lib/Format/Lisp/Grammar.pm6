@@ -54,8 +54,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-B {
 	'~'	[
-		|	',,' <value> ',' <value> ':'
-		|	',,' <value> ',' <value> ':' '@'
+		|	',,' <value> ',' <value> ':' '@'?
 		|	',,' <value> ',' <value> '@' ':'
 		|	',,' <value> ':'
 		|	',,,' <value> ':'
@@ -73,8 +72,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-C {
 	'~'	[
-		|	':'
-		|	':' '@'
+		|	':' '@'?
 		|	'@'
 		|	'@' ':'
 		]?
@@ -83,11 +81,9 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-D {
 	'~'	[
-		|	',,' <value> ',' <value> ':'
-		|	',,' <value> ',' <value> ':' '@'
+		|	',,' <value> ',' <value> ':' '@'?
 		|	',,' <value> ':'
-		|	',,,' <value> ':'
-		|	',,,' <value> ':' '@'
+		|	',,,' <value> ':' '@'?
 		|	',,,' <value> '@' ':'
 		|	':'
 		|	'@'
@@ -126,17 +122,13 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-O {
 	'~'	[
-		|	',,' <value> ',' <value> ':'
-		|	',,' <value> ',' <value> ':' '@'
+		|	',,' <value> ',' <value> ':' '@'?
 		|	',,' <value> ',' <value> '@' ':'
 		|	',,' <value> ':'
-		|	',,,' <value> ':'
-		|	',,,' <value> ':' '@'
+		|	',,,' <value> ':' '@'?
 		|	',,,' <value> '@' ':'
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
@@ -146,20 +138,16 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-P {
 	'~'	[
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		]?
 	<[ p P ]>
 	}
 
 	token tilde-R {
 	'~'	[
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value> ',' <value>
 		|	<value> ',' <value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value>
@@ -167,8 +155,7 @@ grammar Format::Lisp::Grammar {
 		|	<value> ',' <value> ',,' <value> ':'
 		|	<value> ',' <value> ':' '@'
 		|	<value> ',,,' <value> ':'
-		|	<value> ',,,,' <value>
-		|	<value> ',,,,' <value> ':'
+		|	<value> ',,,,' <value> ':'?
 		|	<value> '@' ':'
 		|	<value> <[ @ : ]>?
 		]?
@@ -192,16 +179,14 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-T {
 	'~'	[
-		|	',' <value> ':'
-		|	',' <value> ':' '@'
+		|	',' <value> ':' '@'?
 		|	':' '@'
-		|	<value> ',' ':' 
+		|	<value> ',' ':' '@'?
 		|	<value> ',' <value> ':' '@'
-		|	<value> ',' <value> <[ @ : ]>?
 		|	<value> ',' <value> '@' ':'
-		|	<value> ',' ':' '@'
-		|	<value> ':'?
+		|	<value> ',' <value> <[ @ : ]>?
 		|	<value> ':' '@'
+		|	<value> ':'?
 		]?
 	<[ t T ]>
 	}
@@ -214,15 +199,12 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-X {
 	'~'	[
-		|	',,' <value> ',' <value> ':'
-		|	',,' <value> ',' <value> ':' '@'
+		|	',,' <value> ',' <value> ':' '@'?
 		|	',,' <value> ':'
 		|	',,,' <value> ':'
 		|	',,,' <value> '@' ':'
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
@@ -259,10 +241,8 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OParen {
 	'~'	[
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value>
 		]?
 	'('
@@ -270,9 +250,8 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-CParen {
 	'~'	[
-		|	':' '@'
+		|	':' '@'?
 		|	'@'
-		|	':'
 		|	<value>
 		]?
 	')'
@@ -280,10 +259,8 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OBrace {
 	'~'	[
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value> <[ @ : ]>?
 		|	<value> ':' '@'
 		|	<value> '@' ':'
@@ -325,14 +302,12 @@ grammar Format::Lisp::Grammar {
 		|	',' <value>
 		|	',,' <value> ',' <value>
 		|	',,' <value> ','?
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value> ',,' <value>
 		|	<value> ',,,' <value>
-		|	<value> <[ @ : ]>?
 		|	<value> ':' '@'
+		|	<value> <[ @ : ]>?
 		]?
 	'<'
 	}
@@ -340,8 +315,7 @@ grammar Format::Lisp::Grammar {
 	token tilde-CAngle {
 	'~'	[
 		|	'@'
-		|	':' '@'
-		|	':'
+		|	':' '@'?
 		]?
 	'>'
 	}
@@ -375,20 +349,16 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Under {
 	'~'	[
-		|	':' '@'
-		|	':'
-		|	'@' ':'
-		|	'@'
+		|	':' '@'?
+		|	'@' ':'?
 		]?
 	'_'
 	}
 
 	token tilde-OSlash {
 	'~'	[
-		|	':'
-		|	':' '@'
-		|	'@'
-		|	'@' ':'
+		|	':' '@'?
+		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> '@'
 		|	<value> <[ @ : ]>?
 		|	<value> '@' ':'
