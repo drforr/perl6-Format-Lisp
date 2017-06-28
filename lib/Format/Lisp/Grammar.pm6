@@ -444,10 +444,7 @@ grammar Format::Lisp::Grammar {
 		| <tilde-Caret> <tilde-A>
 		| <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A>
 		| <tilde-Bracket>
-		| <tilde-OParen> <tilde-C> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
-		| <tilde-OParen> <tilde-C> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
-		| <tilde-OParen> <tilde-C> <tilde-C> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
-		| <tilde-OParen> <tilde-C> <tilde-C> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
+		| <tilde-Paren> <not-Tilde>
 		]?
 	<tilde-CBrace>
 	}
@@ -466,6 +463,19 @@ grammar Format::Lisp::Grammar {
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret>
 		]?
 	<tilde-CBracket>
+	}
+
+	token tilde-Paren {
+	<tilde-OParen>
+		[
+		| <not-Tilde> <tilde-A> <not-Tilde>
+		| <not-Tilde>
+		| <not-Tilde> <tilde-Paren> <not-Tilde>
+		| <tilde-C>
+		| <tilde-C> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Caret> <tilde-C>
+		| <tilde-C> <tilde-C> <tilde-Caret> <tilde-C>
+		]
+	<tilde-CParen>
 	}
 
 	token TOP {
@@ -524,10 +534,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Brace> <tilde-A>
 	| <tilde-Bracket>
 	| <tilde-Bracket> <not-Tilde> <tilde-A>
-	| <tilde-OParen> <not-Tilde> <tilde-A> <not-Tilde> <tilde-CParen>
-	| <tilde-OParen> <not-Tilde> <tilde-CParen>
-	| <tilde-OParen> <not-Tilde> <tilde-OParen> <not-Tilde> <tilde-CParen> <not-Tilde> <tilde-CParen>
-	| <tilde-OParen> <tilde-C> <tilde-CParen>
+	| <tilde-Paren>
 	| <tilde-P>
 	| <tilde-Percent>
 	| <tilde-Percent> <not-Tilde> <tilde-Angle>
