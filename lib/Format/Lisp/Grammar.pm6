@@ -27,6 +27,7 @@ grammar Format::Lisp::Grammar {
 	|	<signed-integer>
 	|	<V>
 	|	'#'
+	|	'\'' <[ a..z A..Z , ]>
 	}
 
 	token tilde-Tilde {
@@ -330,18 +331,15 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Caret {
 	'~'	[
-		| <signed-integer> ',#:'
-		| <signed-integer> ',#'
-		| <V> ',' <V> ',' <V> ':'
-		| <V> ',' <V> ',' <V>
-		| <V> ',' <V> ':'
-		| <V> ',' <V>
-		| <V> ',' <signed-integer> ':'
-		| <V> ',' <signed-integer>
-		| <V> ':'
-		| <signed-integer> ':'
-		| ':'
-		| <value>
+		|	<value> ',' <value> ',' <value> ',' <value> ':'
+		|	<value> ',' <value> ',' <value> ',' <value>
+		|	<value> ',' <value> ',' <value> ':'
+		|	<value> ',' <value> ',' <value>
+		|	<value> ',' <value> ':'
+		|	<value> ',' <value>
+		|	<value> ':'
+		|	<value>
+		|	':'
 		]?
 	'^'
 	}
@@ -632,73 +630,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OBrace> 'X Y Z' <tilde-CBrace>
 	| <tilde-OBrace> 'X' <tilde-CBrace>
 	| <tilde-OBrace> 'XYZ' <tilde-CBrace>
-	| <tilde-OBrace> '~#,#,#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,#,#^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,#,2:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,#,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,#,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,#^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,1,2^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,1:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,1^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,2,#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,2,2:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,3,#^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,3,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#,v:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~#^~A~#^~A~#^~A~#^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~(~C~C~0^~C~)W' <tilde-CBrace>
-	| <tilde-OBrace> '~0,1:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~0,3,#^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~0,v,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~0,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,0,1^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,1,1^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,1,v:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,1,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,1:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,2,1:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,2,1^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,2,3:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,2,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,2,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,3,#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,V:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,v,2:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,v,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,v,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~1,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~2,#,3:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~2,#,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~2,1,3:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~2,V,v:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~2,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~3,#,#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~3,#,#^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~3,2,1^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~3,\'x^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~3,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~:(' <tilde-C> <tilde-C> '~0^~C~)U' <tilde-CBrace>
-	| <tilde-OBrace> '~@(' '~CA ~Cb ~0^~C' '~)' 'V' <tilde-CBrace>
-	| <tilde-OBrace> '~@:(' '~CA ~Cb ~0^~C' '~)' 'W' <tilde-CBrace>
-	| <tilde-OBrace> '~V,#:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~V,v,3:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\',,\',^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'X,\'X:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'X,\'Y:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'X,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'X:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'X^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'x,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~\'x,\'x^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~v,1,v^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~v,2,2:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~v,2,3^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~v,2,v:^' <tilde-A> <tilde-CBrace>
-	| <tilde-OBrace> '~v,\'X^' <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-A> <tilde-Caret> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-A> <tilde-Caret> <tilde-A> <tilde-A> <tilde-CBrace>
@@ -708,10 +639,15 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> 'X' <tilde-A>
 	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-CBrace> <tilde-A>
+	| <tilde-OBrace> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-OBrace> <tilde-A> <tilde-CBrace> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-OBracket> 'X' <tilde-Semi> 'Y' <tilde-Caret> 'NO' <tilde-Semi> 'Z' <tilde-Semi> <tilde-Caret> <tilde-CBracket> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-OBracket> 'X' <tilde-Semi> 'Y' <tilde-Semi> 'Z' <tilde-Semi> ';' <tilde-Caret> <tilde-CBracket> <tilde-CBrace>
 	| <tilde-OBrace> <tilde-OBracket> 'X' <tilde-Semi> 'Y' <tilde-Semi> 'Z' <tilde-Semi> <tilde-Caret> <tilde-CBracket> <tilde-CBrace>
+	| <tilde-OBrace> <tilde-OParen> <tilde-C> 'A ' <tilde-C> 'b ' <tilde-Caret> <tilde-C> <tilde-CParen> 'V' <tilde-CBrace>
+	| <tilde-OBrace> <tilde-OParen> <tilde-C> 'A ' <tilde-C> 'b ' <tilde-Caret> <tilde-C> <tilde-CParen> 'W' <tilde-CBrace>
+	| <tilde-OBrace> <tilde-OParen> <tilde-C> <tilde-C> <tilde-Caret> <tilde-C> <tilde-CParen> 'U' <tilde-CBrace>
+	| <tilde-OBrace> <tilde-OParen> <tilde-C> <tilde-C> <tilde-Caret> <tilde-C> <tilde-CParen> 'W' <tilde-CBrace>
 	| <tilde-OBracket> 'A' <tilde-Semi> 'B' <tilde-CBracket>
 	| <tilde-OBracket> 'X' <tilde-CBracket> 'Y' <tilde-A>
 	| <tilde-OBracket> 'a' <tilde-CBracket>
