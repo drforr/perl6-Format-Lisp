@@ -443,15 +443,29 @@ grammar Format::Lisp::Grammar {
 		| <tilde-Caret> <tilde-A>
 		| <tilde-Caret> <tilde-A>
 		| <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A>
-		| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret> <tilde-CBracket>
-		| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CBracket>
-		| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret> <tilde-CBracket>
+		| <tilde-Bracket>
 		| <tilde-OParen> <tilde-C> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
 		| <tilde-OParen> <tilde-C> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
 		| <tilde-OParen> <tilde-C> <tilde-C> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
 		| <tilde-OParen> <tilde-C> <tilde-C> <tilde-Caret> <tilde-C> <tilde-CParen> <not-Tilde>
 		]?
 	<tilde-CBrace>
+	}
+
+	token tilde-Bracket {
+	<tilde-OBracket>
+		[
+		| <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret>
+		]?
+	<tilde-CBracket>
 	}
 
 	token TOP {
@@ -508,15 +522,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OAngle> <tilde-Angle> <tilde-CAngle>
 	| <tilde-Brace> <not-Tilde> <tilde-A>
 	| <tilde-Brace> <tilde-A>
-	| <tilde-OBracket> <not-Tilde> <tilde-CBracket>
-	| <tilde-OBracket> <not-Tilde> <tilde-CBracket> <not-Tilde> <tilde-A>
-	| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CBracket>
-	| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CBracket>
-	| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CBracket>
-	| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CBracket>
-	| <tilde-OBracket> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CBracket>
-	| <tilde-OBracket> <tilde-CBracket>
-	| <tilde-OBracket> <tilde-Semi> <not-Tilde> <tilde-CBracket>
+	| <tilde-Bracket>
+	| <tilde-Bracket> <not-Tilde> <tilde-A>
 	| <tilde-OParen> <not-Tilde> <tilde-A> <not-Tilde> <tilde-CParen>
 	| <tilde-OParen> <not-Tilde> <tilde-CParen>
 	| <tilde-OParen> <not-Tilde> <tilde-OParen> <not-Tilde> <tilde-CParen> <not-Tilde> <tilde-CParen>
