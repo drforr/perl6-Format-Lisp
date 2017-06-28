@@ -23,6 +23,8 @@ grammar Format::Lisp::Grammar {
 
 	token V { <[ v V ]> }
 
+	token not-Tilde { <-[ ~ ]> }
+
 	token value {
 	|	'#'
 	|	'\'' <[ a..z A..Z , * ]>
@@ -373,32 +375,32 @@ grammar Format::Lisp::Grammar {
 	token TOP {
 	| ' ' <tilde-T>
 	| '#\\\\' <tilde-C>
-	| '(' <tilde-A> ' ' <tilde-A> ')'
-	| '(' <tilde-OBrace> <tilde-A> <tilde-Caret> ',' <tilde-CBrace> ')'
-	| '1' <tilde-OAngle> 'X' <tilde-OAngle> 'Y' <tilde-CAngle> 'Z' <tilde-CAngle> '2'
+	| '(' <tilde-A> ' ' <tilde-A> <not-Tilde>+
+	| '(' <tilde-OBrace> <tilde-A> <tilde-Caret> ',' <tilde-CBrace> <not-Tilde>+
+	| '1' <tilde-OAngle> 'X' <tilde-OAngle> 'Y' <tilde-CAngle> 'Z' <tilde-CAngle> <not-Tilde>+
 	| 'A             ' <tilde-Under>
-	| 'A ' <tilde-Under> 'A '
+	| 'A ' <tilde-Under> <not-Tilde>+
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> <tilde-Percent> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
 	| 'AAAA ' <tilde-Under>
-	| 'AAAA' <tilde-T> 'BBB' <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ'
+	| 'AAAA' <tilde-T> 'BBB' <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> <not-Tilde>+
 	| 'B ' <tilde-Under>
 	| 'D ' <tilde-Under>
-	| 'X'
-	| 'X' <tilde-A> 'Y'
+	| <not-Tilde>+
+	| 'X' <tilde-A> <not-Tilde>+
 	| 'X' <tilde-Amp>
 	| 'X' <tilde-Percent>
 	| 'X' <tilde-Percent> <tilde-Amp>
-	| 'X' <tilde-Tilde> <tilde-D> '&'
-	| 'XX' <tilde-T> 'YY'
+	| 'X' <tilde-Tilde> <tilde-D> <not-Tilde>+
+	| 'XX' <tilde-T> <not-Tilde>+
 	| 'XXX' <tilde-OAngle> 'MMM' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
 	| 'XXX' <tilde-OAngle> 'MMMI' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
 	| 'XXXXX' <tilde-T>
 	| '\'' <tilde-C>
-	| '\'' <tilde-C> ','
-	| 'a' <tilde-Ques> 'z'
+	| '\'' <tilde-C> <not-Tilde>+
+	| 'a' <tilde-Ques> <not-Tilde>+
 	| <tilde-A>
 	| <tilde-A> 'Y' <tilde-Ques> 'X' <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
@@ -416,20 +418,15 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-Ques> 'X' <tilde-A>
 	| <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-T>
-	| <tilde-A> <tilde-Tilde> '<' <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> ':T' <tilde-Tilde> ':>'
-	| <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> 'T'
+	| <tilde-A> <tilde-Tilde> '<' <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> ':T' <tilde-Tilde> <not-Tilde>+
+	| <tilde-A> <tilde-Tilde> <tilde-D> ',' <tilde-D> <not-Tilde>+
 	| <tilde-Amp>
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
 	| <tilde-D> ' cat' <tilde-P>
 	| <tilde-D> ' penn' <tilde-P>
-	| <tilde-D> ','
-	| <tilde-D> 'b'
-	| <tilde-D> 'd'
-	| <tilde-D> 'o'
-	| <tilde-D> 'r'
-	| <tilde-D> 'x'
+	| <tilde-D> <not-Tilde>+
 	| <tilde-F>
 	| <tilde-I> <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle>
 	| <tilde-O>
@@ -446,7 +443,7 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-Under>
 	| <tilde-OAngle> 'X' <tilde-Semi> 'Y' <tilde-CAngle> <tilde-W>
 	| <tilde-OAngle> 'X' <tilde-Semi> <tilde-T> <tilde-Semi> 'Y' <tilde-CAngle>
-	| <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ' <tilde-T> 'WWW'
+	| <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ' <tilde-T> <not-Tilde>+
 	| <tilde-OAngle> 'XXX' <tilde-Semi> <tilde-T> <tilde-Semi> 'YYY' <tilde-CAngle>
 	| <tilde-OAngle> 'XXX' <tilde-T> 'YYY' <tilde-CAngle>
 	| <tilde-OAngle> 'XXXX' <tilde-Semi> <tilde-T> <tilde-CAngle>
@@ -550,34 +547,15 @@ grammar Format::Lisp::Grammar {
 	| <tilde-T>
 	| <tilde-T> <tilde-T>
 	| <tilde-Tilde>
-	| <tilde-Tilde> ',,,,\'' <tilde-C> 'f'
+	| <tilde-Tilde> ',,,,\'' <tilde-C> <not-Tilde>+
 	| <tilde-Tilde> ',,\'' <tilde-C> ':' <tilde-C>
-	| <tilde-Tilde> ',,\'' <tilde-C> ':d'
-	| <tilde-Tilde> <tilde-D> '%'
-	| <tilde-Tilde> <tilde-D> '&'
-	| <tilde-Tilde> <tilde-D> ','
-	| <tilde-Tilde> <tilde-D> ',' <tilde-D> ',\'*r'
-	| <tilde-Tilde> <tilde-D> ',' <tilde-D> '@t'
-	| <tilde-Tilde> <tilde-D> ',' <tilde-D> 'R'
-	| <tilde-Tilde> <tilde-D> ',,,\'' <tilde-C> '<' <tilde-Tilde> 'A' <tilde-Tilde> '>'
-	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> 'd'
+	| <tilde-Tilde> ',,\'' <tilde-C> <not-Tilde>+
+	| <tilde-Tilde> <tilde-D> ',' <tilde-D> <not-Tilde>+
+	| <tilde-Tilde> <tilde-D> ',,,\'' <tilde-C> '<' <tilde-Tilde> 'A' <tilde-Tilde> <not-Tilde>+
+	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> <not-Tilde>+
 	| <tilde-Tilde> <tilde-D> ',\'' <tilde-C> <tilde-C>
-	| <tilde-Tilde> <tilde-D> ':a'
-	| <tilde-Tilde> <tilde-D> ':s'
 	| <tilde-Tilde> <tilde-D> '@' <tilde-C>
-	| <tilde-Tilde> <tilde-D> '@:A'
-	| <tilde-Tilde> <tilde-D> '@:S'
-	| <tilde-Tilde> <tilde-D> '@a'
-	| <tilde-Tilde> <tilde-D> '@b'
-	| <tilde-Tilde> <tilde-D> '@d'
-	| <tilde-Tilde> <tilde-D> '@o'
-	| <tilde-Tilde> <tilde-D> '@s'
-	| <tilde-Tilde> <tilde-D> 'S'
-	| <tilde-Tilde> <tilde-D> 'a'
-	| <tilde-Tilde> <tilde-D> 'b'
-	| <tilde-Tilde> <tilde-D> 'd'
-	| <tilde-Tilde> <tilde-D> 'o'
-	| <tilde-Tilde> <tilde-D> '|'
+	| <tilde-Tilde> <tilde-D> <not-Tilde>+
 	| <tilde-Tilde> <tilde-D> <tilde-C>
 	| <tilde-Tilde> <tilde-D> <tilde-Tilde>
 	| <tilde-Tilde> <tilde-R>
