@@ -43,10 +43,10 @@ grammar Format::Lisp::Grammar {
 	'~'	[
 		|	':'
 		|	'@'
+		|	<value> ',' ',' ',' '@'?
+		|	<value> ',' ',' ',' <value> '@'?
+		|	<value> ',' ',' <value> '@'?
 		|	<value> ',' <value> '@'?
-		|	<value> ',,' <value> '@'?
-		|	<value> ',,,' '@'?
-		|	<value> ',,,' <value> '@'?
 		|	<value> ':' '@'
 		|	<value> '@' ':'
 		|	<value> <[ @ : ]>?
@@ -56,11 +56,11 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-B {
 	'~'	[
-		|	',,' <value> ',' <value> ':' '@'?
-		|	',,' <value> ',' <value> '@' ':'
-		|	',,' <value> ':'
-		|	',,,' <value> ':'
-		|	',,,' <value> '@' ':'
+		|	',' ',' ',' <value> ':'
+		|	',' ',' ',' <value> '@' ':'
+		|	',' ',' <value> ',' <value> ':' '@'?
+		|	',' ',' <value> ',' <value> '@' ':'
+		|	',' ',' <value> ':'
 		|	':'
 		|	':' '@'
 		|	'@'
@@ -83,13 +83,12 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-D {
 	'~'	[
-		|	',,' <value> ',' <value> ':' '@'?
-		|	',,' <value> ':'
-		|	',,,' <value> ':' '@'?
-		|	',,,' <value> '@' ':'
+		|	',' ',' ',' <value> ':' '@'?
+		|	',' ',' ',' <value> '@' ':'
+		|	',' ',' <value> ',' <value> ':' '@'?
+		|	',' ',' <value> ':'
 		|	':'
-		|	'@'
-		|	'@' ':'
+		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
@@ -99,15 +98,15 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-F {
 	'~'	[
+		|	',' ',' ',' ',' <value>
+		|	',' ',' ',' <value>
+		|	',' ',' <value>
 		|	',' <value>
-		|	',,' <value>
-		|	',,,' <value>
-		|	',,,,' <value>
+		|	<value> ',' <value> ',' ','
+		|	<value> ',' <value> ',' ',' ',' <value>
+		|	<value> ',' <value> ',' ',' <value>
 		|	<value> ',' <value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> ',,'
-		|	<value> ',' <value> ',,' <value>
-		|	<value> ',' <value> ',,,' <value>
 		|	<value> ',' <value> '@'?
 		|	<value> '@'?
 		]?
@@ -124,11 +123,11 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-O {
 	'~'	[
-		|	',,' <value> ',' <value> ':' '@'?
-		|	',,' <value> ',' <value> '@' ':'
-		|	',,' <value> ':'
-		|	',,,' <value> ':' '@'?
-		|	',,,' <value> '@' ':'
+		|	',' ',' ',' <value> ':' '@'?
+		|	',' ',' ',' <value> '@' ':'
+		|	',' ',' <value> ',' <value> ':' '@'?
+		|	',' ',' <value> ',' <value> '@' ':'
+		|	',' ',' <value> ':'
 		|	':' '@'?
 		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value>
@@ -150,14 +149,14 @@ grammar Format::Lisp::Grammar {
 	'~'	[
 		|	':' '@'?
 		|	'@' ':'?
+		|	<value> ',' ',' ',' ',' <value> ':'?
+		|	<value> ',' ',' ',' <value> ':'
 		|	<value> ',' <value>
+		|	<value> ',' <value> ',' ',' <value> ':'
 		|	<value> ',' <value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value> ':'
-		|	<value> ',' <value> ',,' <value> ':'
 		|	<value> ',' <value> ':' '@'
-		|	<value> ',,,' <value> ':'
-		|	<value> ',,,,' <value> ':'?
 		|	<value> '@' ':'
 		|	<value> <[ @ : ]>?
 		]?
@@ -168,10 +167,10 @@ grammar Format::Lisp::Grammar {
 	'~'	[
 		|	':'
 		|	'@'
+		|	<value> ',' ',' ',' '@'?
+		|	<value> ',' ',' ',' <value> '@'?
+		|	<value> ',' ',' <value> '@'?
 		|	<value> ',' <value> '@'?
-		|	<value> ',,' <value> '@'?
-		|	<value> ',,,' '@'?
-		|	<value> ',,,' <value> '@'?
 		|	<value> ':' '@'
 		|	<value> '@' ':'
 		|	<value> <[ @ : ]>?
@@ -201,10 +200,10 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-X {
 	'~'	[
-		|	',,' <value> ',' <value> ':' '@'?
-		|	',,' <value> ':'
-		|	',,,' <value> ':'
-		|	',,,' <value> '@' ':'
+		|	',' ',' ',' <value> ':'
+		|	',' ',' ',' <value> '@' ':'
+		|	',' ',' <value> ',' <value> ':' '@'?
+		|	',' ',' <value> ':'
 		|	':' '@'?
 		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value>
@@ -263,9 +262,9 @@ grammar Format::Lisp::Grammar {
 	'~'	[
 		|	':' '@'?
 		|	'@' ':'?
-		|	<value> <[ @ : ]>?
 		|	<value> ':' '@'
 		|	<value> '@' ':'
+		|	<value> <[ @ : ]>?
 		]?
 	'{'
 	}
@@ -279,9 +278,9 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OBracket {
 	'~'	[
-		|	<value>
-		|	'@'
 		|	':'
+		|	'@'
+		|	<value>
 		]?
 	'['
 	}
@@ -301,13 +300,13 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OAngle {
 	'~'	[
+		|	',' ',' <value> ',' <value>
+		|	',' ',' <value> ','?
 		|	',' <value>
-		|	',,' <value> ',' <value>
-		|	',,' <value> ','?
 		|	':' '@'?
 		|	'@' ':'?
-		|	<value> ',,' <value>
-		|	<value> ',,,' <value>
+		|	<value> ',' ',' ',' <value>
+		|	<value> ',' ',' <value>
 		|	<value> ':' '@'
 		|	<value> <[ @ : ]>?
 		]?
@@ -316,8 +315,8 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-CAngle {
 	'~'	[
-		|	'@'
 		|	':' '@'?
+		|	'@'
 		]?
 	'>'
 	}
@@ -362,8 +361,8 @@ grammar Format::Lisp::Grammar {
 		|	':' '@'?
 		|	'@' ':'?
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> '@'
-		|	<value> <[ @ : ]>?
 		|	<value> '@' ':'
+		|	<value> <[ @ : ]>?
 		]?
 	'/' <-[ / ]>+ '/'
 	}
@@ -375,11 +374,11 @@ grammar Format::Lisp::Grammar {
 		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A>
 		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> <not-Tilde>
 		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Angle> <not-Tilde>
 		| <not-Tilde> <tilde-Caret>
 		| <not-Tilde> <tilde-I> <not-Tilde>
 		| <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde>
 		| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-CAngle> <not-Tilde>
-		| <not-Tilde> <tilde-Angle> <not-Tilde>
 		| <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-Semi> <not-Tilde>
@@ -398,6 +397,8 @@ grammar Format::Lisp::Grammar {
 		| <tilde-A> <tilde-Caret> <not-Tilde>
 		| <tilde-A> <tilde-Semi> <tilde-A>
 		| <tilde-A> <tilde-T>
+		| <tilde-Angle>
+		| <tilde-Angle> <not-Tilde>
 		| <tilde-Brace>
 		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
@@ -439,11 +440,9 @@ grammar Format::Lisp::Grammar {
 		| <tilde-A> <tilde-Ques> <tilde-A>
 		| <tilde-A> <tilde-Star> <tilde-A>
 		| <tilde-Brace>
-		| <tilde-Caret> <tilde-A>
-		| <tilde-Caret> <tilde-A>
+		| <tilde-Bracket>
 		| <tilde-Caret> <tilde-A>
 		| <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A> <tilde-Caret> <tilde-A>
-		| <tilde-Bracket>
 		| <tilde-Paren> <not-Tilde>
 		]?
 	<tilde-CBrace>
@@ -454,13 +453,13 @@ grammar Format::Lisp::Grammar {
 		[
 		| <not-Tilde>
 		| <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
-		| <tilde-Semi> <not-Tilde>
-		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret>
-		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret>
 		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <tilde-Caret>
+		| <tilde-Semi> <not-Tilde>
 		]?
 	<tilde-CBracket>
 	}
@@ -468,8 +467,8 @@ grammar Format::Lisp::Grammar {
 	token tilde-Paren {
 	<tilde-OParen>
 		[
-		| <not-Tilde> <tilde-A> <not-Tilde>
 		| <not-Tilde>
+		| <not-Tilde> <tilde-A> <not-Tilde>
 		| <not-Tilde> <tilde-Paren> <not-Tilde>
 		| <tilde-C>
 		| <tilde-C> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Caret> <tilde-C>
@@ -485,9 +484,9 @@ grammar Format::Lisp::Grammar {
 	| <not-Tilde> <tilde-Amp>
 	| <not-Tilde> <tilde-Angle>
 	| <not-Tilde> <tilde-Angle> <not-Tilde>
+	| <not-Tilde> <tilde-Brace> <not-Tilde>
 	| <not-Tilde> <tilde-C>
 	| <not-Tilde> <tilde-C> <not-Tilde>
-	| <not-Tilde> <tilde-Brace> <not-Tilde>
 	| <not-Tilde> <tilde-Percent>
 	| <not-Tilde> <tilde-Percent> <tilde-Amp>
 	| <not-Tilde> <tilde-Ques> <not-Tilde>
@@ -520,6 +519,11 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Angle> <tilde-Under>
 	| <tilde-Angle> <tilde-W>
 	| <tilde-B>
+	| <tilde-Brace>
+	| <tilde-Brace> <not-Tilde> <tilde-A>
+	| <tilde-Brace> <tilde-A>
+	| <tilde-Bracket>
+	| <tilde-Bracket> <not-Tilde> <tilde-A>
 	| <tilde-C>
 	| <tilde-D>
 	| <tilde-D> <not-Tilde>
@@ -527,19 +531,11 @@ grammar Format::Lisp::Grammar {
 	| <tilde-F>
 	| <tilde-I> <tilde-Angle>
 	| <tilde-O>
-	| <tilde-Brace>
-	| <tilde-OAngle> <tilde-Angle> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Angle> <tilde-CAngle>
-	| <tilde-Brace> <not-Tilde> <tilde-A>
-	| <tilde-Brace> <tilde-A>
-	| <tilde-Bracket>
-	| <tilde-Bracket> <not-Tilde> <tilde-A>
-	| <tilde-Paren>
 	| <tilde-P>
+	| <tilde-Paren>
 	| <tilde-Percent>
 	| <tilde-Percent> <not-Tilde> <tilde-Angle>
 	| <tilde-Percent> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle>
-	| <tilde-Percent> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
 	| <tilde-Percent> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
 	| <tilde-Percent> <not-Tilde> <tilde-Under>
 	| <tilde-Pipe>
