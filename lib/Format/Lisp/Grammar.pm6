@@ -406,6 +406,7 @@ grammar Format::Lisp::Grammar {
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
 	| 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> <tilde-Percent> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under> 'A ' <tilde-Under>
 	| 'AAAA ' <tilde-Under>
+	| 'AAAA' <tilde-T> 'BBB' <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ'
 	| 'B ' <tilde-Under>
 	| 'D ' <tilde-Under>
 	| 'X'
@@ -461,7 +462,9 @@ grammar Format::Lisp::Grammar {
 	| <tilde-OAngle> 'M' <tilde-I> <tilde-Under> 'M' <tilde-CAngle>
 	| <tilde-OAngle> 'MMM' <tilde-I> <tilde-Under> 'MMMMM' <tilde-CAngle>
 	| <tilde-OAngle> 'X' <tilde-Semi> <tilde-T> <tilde-Semi> 'Y' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-Semi> 'YYY' <tilde-CAngle> 'ZZZ' <tilde-T> 'WWW'
 	| <tilde-OAngle> 'XXX' <tilde-Semi> <tilde-T> <tilde-Semi> 'YYY' <tilde-CAngle>
+	| <tilde-OAngle> 'XXX' <tilde-T> 'YYY' <tilde-CAngle>
 	| <tilde-OAngle> 'XXXX' <tilde-Semi> <tilde-T> <tilde-CAngle>
 	| <tilde-OAngle> 'XXXXXX' <tilde-Caret> <tilde-CAngle>
 	| <tilde-OAngle> 'XXXXXX' <tilde-Semi> 'YYYYYYY' <tilde-Caret> <tilde-CAngle>
@@ -590,5 +593,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Under> 'A' <tilde-Percent>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
 	| <tilde-X>
+	| <tilde-OBrace> <tilde-A> ' ' <tilde-A> <tilde-CBrace>
 	}
 }

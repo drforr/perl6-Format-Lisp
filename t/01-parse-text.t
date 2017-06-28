@@ -2,7 +2,7 @@ use v6;
 
 use Test;
 use Format::Lisp;
-plan 25;
+plan 28;
 
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
@@ -1202,21 +1202,16 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
-# (signals-error (format nil "~:@{~A ~A~}" '(x . y)) type-error)
-# (signals-error (format nil "~:{~A~}" '("X")) type-error)
-# (signals-error (format nil "~:{~A~}" '(#(X Y Z))) type-error)
-# (signals-error (format nil "~:{~A~}" '((x) . y)) type-error)
-# (signals-error (format nil "~:{~A~}" '(x)) type-error)
-# (signals-error (format nil "~{~A~}" '(x y . z)) type-error)
+		Q{~:@{~A ~A~}},
+		Q{~:{~A~}},
+		Q{~{~A~}},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 #`(
 subtest {
@@ -1237,15 +1232,27 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
-# (signals-error-always (format nil "AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ"))
-# (signals-error-always (format nil "~<XXX~1,1:TYYY~>"))
-# (signals-error-always (format nil "~<XXX~:;YYY~>ZZZ~4,5:tWWW"))
+		Q{AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ},
+		Q{~<XXX~1,1:TYYY~>},
+		Q{~<XXX~:;YYY~>ZZZ~4,5:tWWW},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
+
+subtest {
+	my @failing-options =
+		Q[~{],
+		Q[~}],
+		Q[~(],
+		Q[~)],
+		Q[~<],
+		Q[~>],
+	;
+	for @failing-options -> $str {
+		nok $fl._parse( $str ), $str;
+	}
+}
