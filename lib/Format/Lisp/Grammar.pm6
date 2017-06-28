@@ -46,30 +46,26 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-A {
 	'~'	[
-		|	<options>
-		|	<value> ',' ',' ',' '@'?
-		|	<value> ',' ',' ',' <value> '@'?
-		|	<value> ',' ',' <value> '@'?
-		|	<value> ',' <value> '@'?
-		|	<value> ':' '@'
-		|	<value> '@' ':'
-		|	<value> <[ @ : ]>?
+		|	<value>
+		|	<value> ',' ',' ','
+		|	<value> ',' ',' ',' <value>
+		|	<value> ',' ',' <value>
+		|	<value> ',' <value>
 		]?
+	<options>?
 	<[ a A ]>
 	}
 
 	token tilde-B {
 	'~'	[
-		|	',' ',' ',' <value> ':'
-		|	',' ',' ',' <value> '@' ':'
-		|	',' ',' <value> ',' <value> ':' '@'?
-		|	',' ',' <value> ',' <value> '@' ':'
-		|	',' ',' <value> ':'
-		|	<options>
+		|	',' ',' ',' <value>
+		|	',' ',' <value>
+		|	',' ',' <value> ',' <value>
+		|	<value>
 		|	<value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value>
-		|	<value> '@'?
 		]?
+	<options>?
 	<[ b B ]>
 	}
 
@@ -82,15 +78,14 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-D {
 	'~'	[
-		|	',' ',' ',' <value> ':' '@'?
-		|	',' ',' ',' <value> '@' ':'
-		|	',' ',' <value> ',' <value> ':' '@'?
-		|	',' ',' <value> ':'
-		|	<options>
+		|	',' ',' ',' <value>
+		|	',' ',' <value>
+		|	',' ',' <value> ',' <value>
+		|	<value>
+		|	<value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> '@'?
-		|	<value> '@'?
 		]?
+	<options>?
 	<[ d D ]>
 	}
 
@@ -100,37 +95,36 @@ grammar Format::Lisp::Grammar {
 		|	',' ',' ',' <value>
 		|	',' ',' <value>
 		|	',' <value>
+		|	<value>
+		|	<value> ',' <value>
 		|	<value> ',' <value> ',' ','
 		|	<value> ',' <value> ',' ',' ',' <value>
 		|	<value> ',' <value> ',' ',' <value>
 		|	<value> ',' <value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> '@'?
-		|	<value> '@'?
 		]?
+	<options>?
 	<[ f F ]>
 	}
 
 	token tilde-I {
 	'~'	[
-		|	<options>
-		|	<value> ':'?
+		|	<value>
 		]?
+	<options>?
 	<[ i I ]>
 	}
 
 	token tilde-O {
 	'~'	[
-		|	',' ',' ',' <value> ':' '@'?
-		|	',' ',' ',' <value> '@' ':'
-		|	',' ',' <value> ',' <value> ':' '@'?
-		|	',' ',' <value> ',' <value> '@' ':'
-		|	',' ',' <value> ':'
-		|	<options>
+		|	',' ',' ',' <value>
+		|	',' ',' <value>
+		|	',' ',' <value> ',' <value>
+		|	<value>
+		|	<value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> '@'?
-		|	<value> '@'?
 		]?
+	<options>?
 	<[ o O ]>
 	}
 
@@ -143,46 +137,42 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-R {
 	'~'	[
-		|	<options>
-		|	<value> ',' ',' ',' ',' <value> ':'?
-		|	<value> ',' ',' ',' <value> ':'
+		|	<value>
+		|	<value> ',' ',' ',' ',' <value>
+		|	<value> ',' ',' ',' <value>
 		|	<value> ',' <value>
-		|	<value> ',' <value> ',' ',' <value> ':'
+		|	<value> ',' <value>
+		|	<value> ',' <value> ',' ',' <value>
 		|	<value> ',' <value> ',' <value>
+		|	<value> ',' <value> ',' <value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> ',' <value> ',' <value> ':'
-		|	<value> ',' <value> ':' '@'
-		|	<value> '@' ':'
-		|	<value> <[ @ : ]>?
 		]?
+	<options>?
 	<[ r R ]>
 	}
 
 	token tilde-S {
 	'~'	[
-		|	<options>
-		|	<value> ',' ',' ',' '@'?
-		|	<value> ',' ',' ',' <value> '@'?
-		|	<value> ',' ',' <value> '@'?
-		|	<value> ',' <value> '@'?
-		|	<value> ':' '@'
-		|	<value> '@' ':'
-		|	<value> <[ @ : ]>?
+		|	<value>
+		|	<value> ',' ',' ','
+		|	<value> ',' ',' ',' <value>
+		|	<value> ',' ',' <value>
+		|	<value> ',' <value>
 		]?
+	<options>?
 	<[ s S ]>
 	}
 
 	token tilde-T {
 	'~'	[
-		|	',' <value> ':' '@'?
-		|	<options>
-		|	<value> ',' ':' '@'?
-		|	<value> ',' <value> ':' '@'
-		|	<value> ',' <value> '@' ':'
-		|	<value> ',' <value> <[ @ : ]>?
-		|	<value> ':' '@'
-		|	<value> ':'?
+		|	',' <value>
+		|	<value>
+		|	<value> ','
+		|	<value> ',' <value>
+		|	<value> ',' <value>
+		|	<value> ',' <value>
 		]?
+	<options>?
 	<[ t T ]>
 	}
 
@@ -194,26 +184,25 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-X {
 	'~'	[
-		|	',' ',' ',' <value> ':'
-		|	',' ',' ',' <value> '@' ':'
-		|	',' ',' <value> ',' <value> ':' '@'?
-		|	',' ',' <value> ':'
-		|	<options>
+		|	',' ',' ',' <value>
+		|	',' ',' <value>
+		|	',' ',' <value> ',' <value>
+		|	<value>
+		|	<value> ',' <value>
 		|	<value> ',' <value> ',' <value> ',' <value>
-		|	<value> ',' <value> '@'?
-		|	<value> '@'?
 		]?
+	<options>?
 	<[ x X ]>
 	}
 
 	token tilde-Caret {
 	'~'	[
-		|	<options>
-		|	<value> ',' <value> ',' <value> ',' <value> ':'?
-		|	<value> ',' <value> ',' <value> ':'?
-		|	<value> ',' <value> ':'?
-		|	<value> ':'?
+		|	<value>
+		|	<value> ',' <value>
+		|	<value> ',' <value> ',' <value>
+		|	<value> ',' <value> ',' <value> ',' <value>
 		]?
+	<options>?
 	'^'
 	}
 
@@ -226,35 +215,33 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Star {
 	'~'	[
-		|	<options>
-		|	<value> <[ @ : ]>?
+		|	<value>
 		]?
+	<options>?
 	'*'
 	}
 
 	token tilde-OParen {
 	'~'	[
-		|	<options>
 		|	<value>
 		]?
+	<options>?
 	'('
 	}
 
 	token tilde-CParen {
 	'~'	[
-		|	<options>
 		|	<value>
 		]?
+	<options>?
 	')'
 	}
 
 	token tilde-OBrace {
 	'~'	[
-		|	<options>
-		|	<value> ':' '@'
-		|	<value> '@' ':'
-		|	<value> <[ @ : ]>?
+		|	<value>
 		]?
+	<options>?
 	'{'
 	}
 
@@ -267,17 +254,17 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OBracket {
 	'~'	[
-		|	<options>
 		|	<value>
 		]?
+	<options>?
 	'['
 	}
 
 	token tilde-Semi {
 	'~'	[
-		|	<options>
-		|	<value> ',' <value> ':'
+		|	<value> ',' <value>
 		]?
+	<options>?
 	';'
 	}
 
@@ -287,15 +274,15 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-OAngle {
 	'~'	[
+		|	',' ',' <value>
+		|	',' ',' <value> ','
 		|	',' ',' <value> ',' <value>
-		|	',' ',' <value> ','?
 		|	',' <value>
-		|	<options>
+		|	<value>
 		|	<value> ',' ',' ',' <value>
 		|	<value> ',' ',' <value>
-		|	<value> ':' '@'
-		|	<value> <[ @ : ]>?
 		]?
+	<options>?
 	'<'
 	}
 
@@ -342,11 +329,10 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Slash {
 	'~'	[
-		|	<options>
-		|	<value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> '@'
-		|	<value> '@' ':'
-		|	<value> <[ @ : ]>?
+		|	<value>
+		|	<value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value> ',' <value>
 		]?
+	<options>?
 	'/' <-[ / ]>+ '/'
 	}
 
