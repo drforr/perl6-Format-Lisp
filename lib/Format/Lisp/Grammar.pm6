@@ -368,14 +368,66 @@ grammar Format::Lisp::Grammar {
 	'/' <-[ / ]>+ '/'
 	}
 
+	token tilde-Angle {
+	<tilde-OAngle>
+		[
+		#| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-CAngle> <not-Tilde>
+		#| <tilde-CAngle> <tilde-OAngle> <tilde-Semi>
+		#| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CAngle>
+		#| <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CAngle> <not-Tilde>
+		#| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
+		#| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
+		#| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-OAngle> <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
+		#| <tilde-Semi> <tilde-CAngle> <tilde-OAngle>
+		| <not-Tilde>
+		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A>
+		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> <not-Tilde>
+		| <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Caret>
+		| <not-Tilde> <tilde-I> <not-Tilde>
+		| <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-T> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde> <tilde-A>
+		| <not-Tilde> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace>
+		| <not-Tilde> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-Semi> <tilde-T>
+		| <not-Tilde> <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde>
+		| <not-Tilde> <tilde-T> <not-Tilde>
+		| <not-Tilde> <tilde-Under> <not-Tilde>
+		| <not-Tilde> <tilde-W> <not-Tilde>
+		| <tilde-A>
+		| <tilde-A> <tilde-Caret> <not-Tilde>
+		| <tilde-A> <tilde-Semi> <tilde-A>
+		| <tilde-A> <tilde-T>
+		| <tilde-OBrace> <tilde-A> <tilde-Caret>  <tilde-CBrace>
+		| <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde> <tilde-CBrace>
+		| <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde> <tilde-Under> <tilde-CBrace>
+		| <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace>
+		| <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-Under> <tilde-CBrace>
+		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <tilde-Semi> <tilde-A>
+		| <tilde-Semi> <tilde-A> <tilde-Semi>
+		| <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde> <tilde-A>
+		| <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-Semi> <not-Tilde>
+		| <tilde-Slash>
+		| <tilde-T>
+		]?
+	<tilde-CAngle>
+	}
+
 	token TOP {
 	| <not-Tilde>
 	| <not-Tilde> <tilde-A> <not-Tilde>
 	| <not-Tilde> <tilde-A> <not-Tilde> <tilde-A> <not-Tilde>
 	| <not-Tilde> <tilde-Amp>
+	| <not-Tilde> <tilde-Angle>
 	| <not-Tilde> <tilde-C>
 	| <not-Tilde> <tilde-C> <not-Tilde>
-	| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde> <tilde-CAngle>
 	| <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-CAngle> <not-Tilde>
 	| <not-Tilde> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <not-Tilde>
 	| <not-Tilde> <tilde-Percent>
@@ -383,7 +435,7 @@ grammar Format::Lisp::Grammar {
 	| <not-Tilde> <tilde-Ques> <not-Tilde>
 	| <not-Tilde> <tilde-T>
 	| <not-Tilde> <tilde-T> <not-Tilde>
-	| <not-Tilde> <tilde-T> <not-Tilde> <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde>
+	| <not-Tilde> <tilde-T> <not-Tilde> <tilde-Angle> <not-Tilde>
 	| <not-Tilde> <tilde-Tilde> <tilde-D> <not-Tilde>
 	| <not-Tilde> <tilde-Under>
 	| <not-Tilde> <tilde-Under> <not-Tilde>
@@ -395,8 +447,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <not-Tilde> <tilde-Ques> <not-Tilde> <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A>
-	| <tilde-A> <tilde-OAngle> <tilde-A> <tilde-T> <tilde-CAngle>
-	| <tilde-A> <tilde-OAngle> <tilde-T> <tilde-CAngle>
+	| <tilde-A> <tilde-Angle>
+	| <tilde-A> <tilde-Angle>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-Caret> <tilde-A> <tilde-CBrace> <tilde-A>
 	| <tilde-A> <tilde-OBrace> <tilde-A> <tilde-A> <tilde-A> <tilde-Star> <tilde-A> <tilde-A> <tilde-A> <tilde-A> <tilde-CBrace> <tilde-A>
@@ -411,64 +463,23 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-Tilde> <not-Tilde> <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-D> <not-Tilde> <tilde-Tilde> <not-Tilde>
 	| <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-D> <not-Tilde>
 	| <tilde-Amp>
+	| <tilde-Angle>
 	| <tilde-B>
 	| <tilde-C>
 	| <tilde-D>
 	| <tilde-D> <not-Tilde>
 	| <tilde-D> <not-Tilde> <tilde-P>
 	| <tilde-F>
-	| <tilde-I> <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
+	| <tilde-I> <tilde-Angle>
 	| <tilde-O>
-	| <tilde-OAngle> <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Comma> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-A> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Caret> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-I> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde> <tilde-CAngle>
 	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-T> <not-Tilde>
 	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-I>
 	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-Under>
 	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle> <tilde-W>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-I> <tilde-Under> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-T> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-T> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Semi> <tilde-T> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-T> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <not-Tilde> <tilde-W> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-A> <tilde-Semi> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-CAngle> <tilde-OAngle> <tilde-Semi> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OAngle> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Caret> <tilde-CAngle> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-OAngle> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CAngle> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret>  <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <non-Tilde> <tilde-Under> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-Under> <tilde-CBrace> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> <not-Tilde> <tilde-A> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Semi> <tilde-A> <tilde-Semi> <tilde-CAngle>
 	| <tilde-OAngle> <tilde-Semi> <tilde-CAngle> <tilde-OAngle> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Semi> <tilde-OBrace> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace> <tilde-Semi> <not-Tilde> <tilde-CAngle>
-	| <tilde-OAngle> <tilde-Slash> <tilde-CAngle>
 	| <tilde-OBrace> <not-Tilde> <tilde-A> <not-Tilde> <tilde-A> <not-Tilde> <tilde-CBrace>
 	| <tilde-OBrace> <not-Tilde> <tilde-A> <not-Tilde> <tilde-CBrace>
 	| <tilde-OBrace> <not-Tilde> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-A> <tilde-Caret> <not-Tilde> <tilde-CBrace>
