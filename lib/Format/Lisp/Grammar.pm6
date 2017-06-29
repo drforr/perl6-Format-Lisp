@@ -169,6 +169,14 @@ grammar Format::Lisp::Grammar {
 		'~' <value-comma> ** 0..9 <value>? <options>? '/' <-[ / ]>+ '/'
 	}
 
+	token tilde-Radix {
+	|	<tilde-R>
+	|	<tilde-D>
+	|	<tilde-B>
+	|	<tilde-O>
+	|	<tilde-X>
+	}
+
 	token tilde-Angle {
 	<tilde-OAngle>
 		[
@@ -293,7 +301,7 @@ grammar Format::Lisp::Grammar {
 	| <not-Tilde> <tilde-T>
 	| <not-Tilde> <tilde-T> <not-Tilde>
 	| <not-Tilde> <tilde-T> <not-Tilde> <tilde-Angle> <not-Tilde>
-	| <not-Tilde> <tilde-Tilde> <tilde-D> <not-Tilde>
+	| <not-Tilde> <tilde-Tilde> <tilde-Radix> <not-Tilde>
 	| <not-Tilde> <tilde-Under>
 	| <not-Tilde> <tilde-Under> <not-Tilde>
 	| <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under>
@@ -309,8 +317,8 @@ grammar Format::Lisp::Grammar {
 	| <tilde-A> <tilde-Ques> <not-Tilde> <tilde-A>
 	| <tilde-A> <tilde-Star> <tilde-A>
 	| <tilde-A> <tilde-T>
-	| <tilde-A> <tilde-Tilde> <not-Tilde> <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-D> <not-Tilde> <tilde-Tilde> <not-Tilde>
-	| <tilde-A> <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-D> <not-Tilde>
+	| <tilde-A> <tilde-Tilde> <not-Tilde> <tilde-A> <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-Radix> <not-Tilde> <tilde-Tilde> <not-Tilde>
+	| <tilde-A> <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-Radix> <not-Tilde>
 	| <tilde-Amp>
 	| <tilde-Angle>
 	| <tilde-Angle> <not-Tilde> <tilde-T> <not-Tilde>
@@ -318,19 +326,14 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Angle> <tilde-I>
 	| <tilde-Angle> <tilde-Under>
 	| <tilde-Angle> <tilde-W>
-	| <tilde-B>
 	| <tilde-Brace>
 	| <tilde-Brace> <not-Tilde> <tilde-A>
 	| <tilde-Brace> <tilde-A>
 	| <tilde-Bracket>
 	| <tilde-Bracket> <not-Tilde> <tilde-A>
 	| <tilde-C>
-	| <tilde-D>
-	| <tilde-D> <not-Tilde>
-	| <tilde-D> <not-Tilde> <tilde-P>
 	| <tilde-F>
 	| <tilde-I> <tilde-Angle>
-	| <tilde-O>
 	| <tilde-P>
 	| <tilde-Paren>
 	| <tilde-Percent>
@@ -341,7 +344,9 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Pipe>
 	| <tilde-Ques>
 	| <tilde-Ques> <not-Tilde> <tilde-A>
-	| <tilde-R>
+	| <tilde-Radix>
+	| <tilde-Radix> <not-Tilde>
+	| <tilde-Radix> <not-Tilde> <tilde-P>
 	| <tilde-S>
 	| <tilde-Slash>
 	| <tilde-T>
@@ -349,19 +354,18 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Tilde>
 	| <tilde-Tilde> <not-Tilde> <tilde-C> <not-Tilde>
 	| <tilde-Tilde> <not-Tilde> <tilde-C> <not-Tilde> <tilde-C>
-	| <tilde-Tilde> <tilde-D> <not-Tilde>
-	| <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-C>
-	| <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-C> <not-Tilde>
-	| <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Tilde> <not-Tilde> <tilde-Tilde> <not-Tilde>
-	| <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-C> <tilde-C>
-	| <tilde-Tilde> <tilde-D> <not-Tilde> <tilde-D> <not-Tilde>
-	| <tilde-Tilde> <tilde-D> <tilde-C>
-	| <tilde-Tilde> <tilde-D> <tilde-Tilde>
-	| <tilde-Tilde> <tilde-R>
+	| <tilde-Tilde> <tilde-Radix>
+	| <tilde-Tilde> <tilde-Radix> <not-Tilde>
+	| <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-C>
+	| <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-C> <not-Tilde>
+	| <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-C> <not-Tilde> <tilde-Tilde> <not-Tilde> <tilde-Tilde> <not-Tilde>
+	| <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-C> <tilde-C>
+	| <tilde-Tilde> <tilde-Radix> <not-Tilde> <tilde-Radix> <not-Tilde>
+	| <tilde-Tilde> <tilde-Radix> <tilde-C>
+	| <tilde-Tilde> <tilde-Radix> <tilde-Tilde>
 	| <tilde-Under> <not-Tilde> <tilde-Percent>
 	| <tilde-Under> <tilde-Angle>
 	| <tilde-W> <tilde-Angle>
 	| <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under> <tilde-W> <tilde-W> <tilde-Under>
-	| <tilde-X>
 	}
 }
