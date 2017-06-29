@@ -187,6 +187,9 @@ grammar Format::Lisp::Grammar {
 	|	<tilde-Radix>
 	|	<tilde-Printer>
 	|	<tilde-C>
+	|	<tilde-Percent>
+	|	<tilde-Amp>
+	|	<tilde-Tilde>
 	}
 
 	token tilde-Angle {
@@ -218,12 +221,12 @@ grammar Format::Lisp::Grammar {
 		| <tilde-Angle>
 		| <tilde-Angle> <not-Tilde>
 		| <tilde-Atom>
+		| <tilde-Atom> <not-Tilde> <tilde-Semi> <not-Tilde>
+		| <tilde-Atom> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <tilde-Atom> <tilde-Caret> <not-Tilde>
 		| <tilde-Atom> <tilde-Semi> <tilde-Atom>
 		| <tilde-Atom> <tilde-T>
 		| <tilde-Brace>
-		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde>
-		| <tilde-Percent> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde> <tilde-Semi> <not-Tilde>
 		| <tilde-Semi>
 		| <tilde-Semi> <tilde-Atom>
 		| <tilde-Semi> <tilde-Atom> <tilde-Semi>
@@ -299,27 +302,24 @@ grammar Format::Lisp::Grammar {
 
 	token TOP {
 	| <not-Tilde>
-	| <not-Tilde> <tilde-Amp>
 	| <not-Tilde> <tilde-Angle>
 	| <not-Tilde> <tilde-Angle> <not-Tilde>
 	| <not-Tilde> <tilde-Atom>
 	| <not-Tilde> <tilde-Atom> <not-Tilde>
 	| <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+	| <not-Tilde> <tilde-Atom> <tilde-Atom>
+	| <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
 	| <not-Tilde> <tilde-Brace> <not-Tilde>
-	| <not-Tilde> <tilde-Percent>
-	| <not-Tilde> <tilde-Percent> <tilde-Amp>
 	| <not-Tilde> <tilde-Ques> <not-Tilde>
 	| <not-Tilde> <tilde-T>
 	| <not-Tilde> <tilde-T> <not-Tilde>
 	| <not-Tilde> <tilde-T> <not-Tilde> <tilde-Angle> <not-Tilde>
-	| <not-Tilde> <tilde-Tilde> <tilde-Atom> <not-Tilde>
 	| <not-Tilde> <tilde-Under>
 	| <not-Tilde> <tilde-Under> <not-Tilde>
 	| <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under>
 	| <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under>
 	| <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under>
-	| <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <tilde-Percent> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under>
-	| <tilde-Amp>
+	| <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <tilde-Atom> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under> <not-Tilde> <tilde-Under>
 	| <tilde-Angle>
 	| <tilde-Angle> <not-Tilde> <tilde-T> <not-Tilde>
 	| <tilde-Angle> <tilde-Angle>
@@ -328,9 +328,25 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Angle> <tilde-Under>
 	| <tilde-Atom>
 	| <tilde-Atom> <not-Tilde>
+	| <tilde-Atom> <not-Tilde> <tilde-Angle>
+	| <tilde-Atom> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle>
+	| <tilde-Atom> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
+	| <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+	| <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
 	| <tilde-Atom> <not-Tilde> <tilde-P>
 	| <tilde-Atom> <not-Tilde> <tilde-Ques> <not-Tilde> <tilde-Atom>
+	| <tilde-Atom> <not-Tilde> <tilde-Under>
 	| <tilde-Atom> <tilde-Angle>
+	| <tilde-Atom> <tilde-Atom>
+	| <tilde-Atom> <tilde-Atom> <not-Tilde>
+	| <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
+	| <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+	| <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+	| <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
+	| <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+	| <tilde-Atom> <tilde-Atom> <tilde-Atom>
+	| <tilde-Atom> <tilde-Atom> <tilde-Atom>
+	| <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 	| <tilde-Atom> <tilde-Atom> <tilde-Star> <tilde-Atom>
 	| <tilde-Atom> <tilde-Atom> <tilde-Star> <tilde-Atom> <tilde-Atom>
 	| <tilde-Atom> <tilde-Atom> <tilde-Under> <tilde-Atom> <tilde-Atom> <tilde-Under> <tilde-Atom> <tilde-Atom> <tilde-Under> <tilde-Atom> <tilde-Atom> <tilde-Under> <tilde-Atom> <tilde-Atom> <tilde-Under>
@@ -338,8 +354,6 @@ grammar Format::Lisp::Grammar {
 	| <tilde-Atom> <tilde-Ques> <not-Tilde> <tilde-Atom>
 	| <tilde-Atom> <tilde-Star> <tilde-Atom>
 	| <tilde-Atom> <tilde-T>
-	| <tilde-Atom> <tilde-Tilde> <not-Tilde> <tilde-Atom> <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Tilde> <not-Tilde>
-	| <tilde-Atom> <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 	| <tilde-Brace>
 	| <tilde-Brace> <not-Tilde> <tilde-Atom>
 	| <tilde-Brace> <tilde-Atom>
@@ -349,30 +363,13 @@ grammar Format::Lisp::Grammar {
 	| <tilde-I> <tilde-Angle>
 	| <tilde-P>
 	| <tilde-Paren>
-	| <tilde-Percent>
-	| <tilde-Percent> <not-Tilde> <tilde-Angle>
-	| <tilde-Percent> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle>
-	| <tilde-Percent> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
-	| <tilde-Percent> <not-Tilde> <tilde-Under>
 	| <tilde-Pipe>
 	| <tilde-Ques>
 	| <tilde-Ques> <not-Tilde> <tilde-Atom>
 	| <tilde-Slash>
 	| <tilde-T>
 	| <tilde-T> <tilde-T>
-	| <tilde-Tilde>
-	| <tilde-Tilde> <not-Tilde> <tilde-Atom> <not-Tilde>
-	| <tilde-Tilde> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
-	| <tilde-Tilde> <tilde-Atom>
-	| <tilde-Tilde> <tilde-Atom> <not-Tilde>
-	| <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
-	| <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-	| <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-	| <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Tilde> <not-Tilde> <tilde-Tilde> <not-Tilde>
-	| <tilde-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
-	| <tilde-Tilde> <tilde-Atom> <tilde-Atom>
-	| <tilde-Tilde> <tilde-Atom> <tilde-Tilde>
-	| <tilde-Under> <not-Tilde> <tilde-Percent>
+	| <tilde-Under> <not-Tilde> <tilde-Atom>
 	| <tilde-Under> <tilde-Angle>
 	}
 }
