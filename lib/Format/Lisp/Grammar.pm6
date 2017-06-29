@@ -32,16 +32,16 @@ grammar Format::Lisp::Grammar {
 	|	<signed-integer>
 	}
 
-	token tilde-Tilde {
-	'~'	[
-		|	<value>
-		]?
-	'~'
-	}
-
 	token options {
 	|	'@' ':'?
 	|	':' '@'?
+	}
+
+	token tilde-Tilde {
+	'~'	#[
+		#]?
+	<value>?
+	'~'
 	}
 
 	token tilde-A {
@@ -69,9 +69,9 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-C {
-	'~'	[
-		|	<options>
-		]?
+	'~'	#[
+		#]?
+	<options>?
 	<[ c C ]>
 	}
 
@@ -106,9 +106,9 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-I {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	<options>?
 	<[ i I ]>
 	}
@@ -127,9 +127,9 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-P {
-	'~'	[
-		|	<options>
-		]?
+	'~'	#[
+		#]?
+	<options>?
 	<[ p P ]>
 	}
 
@@ -200,55 +200,55 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-Ques {
-	'~'	[
-		|	'@'
-		]?
+	'~'	#[
+		#]?
+	<options>?
 	'?'
 	}
 
 	token tilde-Star {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	<options>?
 	'*'
 	}
 
 	token tilde-OParen {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	<options>?
 	'('
 	}
 
 	token tilde-CParen {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	<options>?
 	')'
 	}
 
 	token tilde-OBrace {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	<options>?
 	'{'
 	}
 
 	token tilde-CBrace {
-	'~'	[
-		|	':'
-		]?
+	'~'	#[
+		#]?
+	<options>?
 	'}'
 	}
 
 	token tilde-OBracket {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	<options>?
 	'['
 	}
@@ -262,7 +262,7 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-CBracket {
-	|	'~]'
+		'~]'
 	}
 
 	token tilde-OAngle {
@@ -280,43 +280,43 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-CAngle {
-	'~'	[
-		|	<options>
-		]?
+	'~'	#[
+		#]?
+	<options>?
 	'>'
 	}
 
 	token tilde-Percent {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	'%'
 	}
 
 	token tilde-Pipe {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	'|'
 	}
 
 	token tilde-Amp {
-	'~'	[
-		|	<value>
-		]?
+	'~'	#[
+		#]?
+	<value>?
 	'&'
 	}
 
 	token tilde-Comma {
 	'~'	#[
-		#]
+		#]?
 	','
 	}
 
 	token tilde-Under {
-	'~'	[
-		|	<options>
-		]?
+	'~'	#[
+		#]?
+	<options>?
 	'_'
 	}
 
