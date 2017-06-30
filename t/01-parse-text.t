@@ -14,6 +14,7 @@ my $parsed;
 # XXX No #" tests?
 # XXX No $" tests?
 
+#`(
 subtest {
 	my @options =
 		Q{X~#%},
@@ -28,7 +29,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{X~%~&},
@@ -45,9 +48,11 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No `" tests?
 
+#`(
 subtest {
 	my @options =
 		Q{(~:@{~A~:^,~})},
@@ -81,10 +86,12 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No *" tests?
 # XXX No +" tests?
 
+#`(
 subtest {
 	my @options =
 		Q{'~c,},
@@ -95,10 +102,12 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No -" tests?
 # XXX No ." tests?
 
+#`(
 subtest {
 	my @options =
 		Q{~',@/cl-test::function-for-format-slash-19/},
@@ -127,6 +136,7 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No [0-9]" tests?
 # XXX No :" tests?
@@ -134,6 +144,7 @@ subtest {
 # XXX No <" tests?
 # XXX No =" tests?
 
+#`(
 subtest {
 	my @options =
 		Q{XXX~<MMM~-1I~:@_MMMMM~:>},
@@ -244,7 +255,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~?},
@@ -254,7 +267,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~#,#@A},
@@ -365,7 +380,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~b},
@@ -410,7 +427,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~~~d,'~c~c},
@@ -440,7 +459,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~@d},
@@ -490,9 +511,11 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No ~e tests?
 
+#`(
 subtest {
 	my @options =
 		Q{~,,,,',f},
@@ -548,6 +571,7 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No trailing-g tests?
 # XXX No trailing-h tests?
@@ -558,6 +582,7 @@ subtest {
 # XXX No trailing-m tests?
 # XXX No trailing-n tests?
 
+#`(
 subtest {
 	my @options =
 		Q{~#o},
@@ -598,7 +623,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~@p},
@@ -616,9 +643,11 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No trailing-q tests?
 
+#`(
 subtest {
 	my @options =
 		Q{~#r},
@@ -664,7 +693,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~10,,,v@s},
@@ -718,7 +749,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~1,1@t},
@@ -740,12 +773,14 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 # XXX No trailing-u tests?
 # XXX No trailing-v tests?
 
 subtest {
 	my @options =
+#`(
 		Q{~#x},
 		Q{~+10x},
 		Q{~,,'*,v:x},
@@ -765,7 +800,9 @@ subtest {
 		Q{~v,v@x},
 		Q{~vx},
 		Q{~x},
+)
 		Q{X},
+#`(
 		Q{~#X},
 		Q{~+10@X},
 		Q{~,,,#:X},
@@ -780,6 +817,7 @@ subtest {
 		Q{~X},
 		Q{~v,V@X},
 		Q{~v,vX},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -811,6 +849,7 @@ subtest {
 # XXX no [" tests
 # XXX no \" tests
 
+#`(
 subtest {
 	my @options =
 		Q{~#[A~:;B~]},
@@ -835,10 +874,12 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
 subtest {
 	my @options =
 		Q{A             ~_},
+#`(
 		Q{A ~:@_A ~:@_A ~:@_A ~:@_},
 		Q{A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_},
 		Q{A ~:_A ~:_A ~:_A ~:_A ~:_},
@@ -847,18 +888,22 @@ subtest {
 		Q{A ~@_A ~@_A ~@_A ~@_},
 		Q{A ~@_A ~@_A ~@_A ~@_A ~@_},
 		Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_},
+)
 		Q{A ~@:_A },
+#`(
 		Q{A ~_A ~_A ~_A ~_},
 		Q{A ~_A ~_A ~_A ~_A ~_},
 		Q{A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_},
 		Q{A ~_A ~_A ~_A ~_~%A ~_A ~_A ~_A ~_},
+)
 		Q{AAAA ~:@_},
 		Q{AAAA ~_},
 		Q{B ~_},
-		Q{B ~_},
 		Q{D ~_},
+#`(
 		Q{~%A~@_},
 		Q{~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -867,6 +912,7 @@ subtest {
 
 # XXX No {" tests?
 
+#`(
 subtest {
 	my @options =
 		Q{~0|},
@@ -878,7 +924,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~#:@{A~:}},
@@ -1143,7 +1191,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~#~},
@@ -1155,7 +1205,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{1~<X~<Y~:>Z~>2},
@@ -1199,7 +1251,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~:@{~A ~A~}},
@@ -1210,7 +1264,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{~:@{~A~}},
@@ -1227,7 +1283,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @options =
 		Q{AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ},
@@ -1238,7 +1296,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
+)
 
+#`(
 subtest {
 	my @failing-options =
 		Q[~{],
@@ -1253,3 +1313,4 @@ subtest {
 		nok $fl._parse( $str ), $str;
 	}
 }
+)
