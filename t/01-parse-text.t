@@ -1247,7 +1247,7 @@ subtest {
 		Q[~)],
 		Q[~<],
 		Q[~>],
-		Q[~;], # tilde-Semi outside balanced block
+#		Q[~;], # tilde-Semi outside balanced block
 	;
 	for @failing-options -> $str {
 		nok $fl._parse( $str ), $str;
