@@ -9,6 +9,12 @@ my $*CONSISTENCY-CHECK = True;
 my $*FALL-THROUGH = True;
 my $parsed;
 
+#
+# It may not be apparent why I'm sorting on the last character. Mostly it's
+# because figuring out what directive the first dirctive of a string is
+# amounts to building a fairly complex regexp.
+#
+
 # XXX No !" tests?
 # XXX No "" tests?
 # XXX No #" tests?
@@ -18,11 +24,13 @@ subtest {
 	my @options =
 		Q{X~#%},
 		Q{X~V%},
-#`(
 		Q{~#%},
 		Q{~%},
+#`(
 		Q{~@_A~%},
+)
 		Q{~V%},
+#`(
 		Q{~~~D%},
 )
 	;
@@ -37,11 +45,11 @@ subtest {
 		Q{X~&},
 		Q{X~v&},
 		Q{X~~~D&},
-#`(
 		Q{~#&},
 		Q{~&},
 		Q{~0&},
 		Q{~v&},
+#`(
 		Q{~~~D&},
 )
 	;
@@ -109,7 +117,6 @@ subtest {
 # XXX No -" tests?
 # XXX No ." tests?
 
-#`(
 subtest {
 	my @options =
 		Q{~',@/cl-test::function-for-format-slash-19/},
@@ -138,7 +145,6 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No [0-9]" tests?
 # XXX No :" tests?
@@ -259,7 +265,6 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
 		Q{~?},
@@ -269,9 +274,7 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
-#`(
 subtest {
 	my @options =
 		Q{~#,#@A},
@@ -312,13 +315,20 @@ subtest {
 		Q{~7,3A},
 		Q{~:A},
 		Q{~:a},
+#`(
 		Q{~? ~A},
 		Q{~@? ~A},
+)
 		Q{~@A},
+#`(
 		Q{~@[X~]Y~A},
+)
 		Q{~@a},
+#`(
 		Q{~@{~2,#^~A~}X~A},
+)
 		Q{~A},
+#`(
 		Q{~AY~?X~A},
 		Q{~AY~@?X~A},
 		Q{~A~*~A},
@@ -350,6 +360,7 @@ subtest {
 		Q{~A~{~A~A~A~A~4:*~^~A~A~A~A~}~A},
 		Q{~A~{~A~A~A~A~v*~^~A~A~A~A~}~A},
 		Q{~A~{~A~A~A~A~v:*~^~A~}~A},
+)
 		Q{~V:@A},
 		Q{~V:@a},
 		Q{~V:A},
@@ -372,25 +383,27 @@ subtest {
 		Q{~v@a},
 		Q{~vA},
 		Q{~va},
+#`(
 		Q{~{~2,#^~A~}~A},
 		Q{~~~d:a},
 		Q{~~~d@:A},
 		Q{~~~d@a},
 		Q{~~~da},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
-#`(
 subtest {
 	my @options =
 		Q{~b},
 		Q{~@b},
+#`(
 		Q{~~~db},
 		Q{~~~d@b},
+)
 		Q{~v,vb},
 		Q{~:b},
 		Q{~,,v:b},
@@ -404,7 +417,9 @@ subtest {
 		Q{~+10b},
 		Q{~-1b},
 		Q{~vb},
+#`(
 		Q{~db},
+)
 		Q{~v,v,v,vb},
 		Q{~B},
 		Q{~@B},
@@ -429,29 +444,23 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 subtest {
 	my @options =
 #`(
 		Q{~~~d,'~c~c},
 		Q{~~,,'~c:~c},
+)
 		Q{~:c},
 		Q{~@c},
-)
 		Q{'~c},
-#`(
-		Q{~~~d,'~c~c},
-		Q{~~,,'~c:~c},
-)
 		Q{#\\~:c},
-#`(
 		Q{~c},
 		Q{~@:c},
+#`(
 		Q{~~~d~c},
 		Q{~~~d@~c},
-		Q{~~~d,'~c~c},
-		Q{~~,,'~c:~c},
+)
 		Q{~C},
 		Q{~:C},
 		Q{~@C},
@@ -460,29 +469,32 @@ subtest {
 		Q{~:C},
 		Q{~@C},
 		Q{~@:C},
-)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
 
-#`(
 subtest {
 	my @options =
 		Q{~@d},
+#`(
 		Q{~~~dd},
+)
 		Q{~d},
-		Q{~~~dd},
+#`(
 		Q{~~~d@d},
 		Q{~~~d,'~cd},
+)
 		Q{~v,vd},
 		Q{~@d},
 		Q{~v,v@d},
 		Q{~:d},
 		Q{~,,v:d},
 		Q{~,,v:d},
+#`(
 		Q{~~,,'~c:d},
+)
 		Q{~,,v,v:d},
 		Q{~@d},
 		Q{~,,v,v:@d},
@@ -498,7 +510,9 @@ subtest {
 		Q{~-1d},
 		Q{~-1000000000000000000d},
 		Q{~vd},
+#`(
 		Q{~dd},
+)
 		Q{~v,v,v,vd},
 		Q{~,,,#@:D},
 		Q{~v,v,v,vD},
@@ -517,11 +531,9 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No ~e tests?
 
-#`(
 subtest {
 	my @options =
 		Q{~,,,,',f},
@@ -571,13 +583,14 @@ subtest {
 		Q{~v,v,v,v,vf},
 		Q{~v,vf},
 		Q{~vf},
+#`(
 		Q{~~,,,,'~cf},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No trailing-g tests?
 # XXX No trailing-h tests?
@@ -588,7 +601,6 @@ subtest {
 # XXX No trailing-m tests?
 # XXX No trailing-n tests?
 
-#`(
 subtest {
 	my @options =
 		Q{~#o},
@@ -622,38 +634,40 @@ subtest {
 		Q{~v,vO},
 		Q{~vO},
 		Q{~vo},
+#`(
 		Q{~~~d@o},
 		Q{~~~do},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
-#`(
 subtest {
 	my @options =
 		Q{~@p},
+#`(
 		Q{~D cat~:p},
 		Q{~D penn~:@p},
 		Q{~D penn~@:p},
+)
 		Q{~p},
 		Q{~@P},
+#`(
 		Q{~D cat~:P},
 		Q{~D penn~:@P},
 		Q{~D penn~@:P},
+)
 		Q{~P},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No trailing-q tests?
 
-#`(
 subtest {
 	my @options =
 		Q{~#r},
@@ -680,17 +694,23 @@ subtest {
 		Q{~:@r},
 		Q{~:r},
 		Q{~@r},
+#`(
 		Q{~dr},
+)
 		Q{~r},
 		Q{~v,v,v,v,vr},
 		Q{~vr},
+#`(
 		Q{~~~D,~D,'*r},
+)
 		Q{~3,14,'X,',:R},
 		Q{~8,,,,v:R},
 		Q{~8@R},
 		Q{~@:R},
 		Q{~@R},
+#`(
 		Q{~~~D,~DR},
+)
 # "~~~d,,,'~c,~d:R"
 # "~~~d:R"
 # "~~~dR"
@@ -699,9 +719,7 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
-#`(
 subtest {
 	my @options =
 		Q{~10,,,v@s},
@@ -724,8 +742,10 @@ subtest {
 		Q{~v:@s},
 		Q{~v:@s},
 		Q{~v@:s},
+#`(
 		Q{~~~d:s},
 		Q{~~~d@s},
+)
 		Q{~10,,,v@S},
 		Q{~10,,,vS},
 		Q{~3,,+2S},
@@ -742,41 +762,43 @@ subtest {
 		Q{~7,3S},
 		Q{~@S},
 		Q{~S},
-		Q{~S},
 		Q{~v,,2S},
 		Q{~v:S},
 		Q{~v:S},
 		Q{~v@S},
 		Q{~vS},
+#`(
 		Q{~~~d@:S},
 		Q{~~~dS},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 subtest {
 	my @options =
-#`(
 		Q{~1,1@t},
+#`(
 		Q{~A~v,vt},
 		Q{~v,1@T~0,v@t},
+)
 		Q{~v,1@t},
 		Q{~v,v@t},
+#`(
 		Q{~~~d,~d@t},
 )
 		Q{ ~v,vT},
 		Q{XXXXX~2,0T},
-#`(
 		Q{~0,0T},
 		Q{~0,1T},
 		Q{~0,vT},
 		Q{~1,0T},
+#`(
 		Q{~A~~~D,~DT},
-		Q{~v,0T},
 )
+		Q{~v,0T},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -788,7 +810,6 @@ subtest {
 
 subtest {
 	my @options =
-#`(
 		Q{~#x},
 		Q{~+10x},
 		Q{~,,'*,v:x},
@@ -803,14 +824,14 @@ subtest {
 		Q{~@:x},
 		Q{~@x},
 		Q{~V,vx},
+#`(
 		Q{~dx},
+)
 		Q{~v,v,v,vx},
 		Q{~v,v@x},
 		Q{~vx},
 		Q{~x},
-)
 		Q{X},
-#`(
 		Q{~#X},
 		Q{~+10@X},
 		Q{~,,,#:X},
@@ -825,7 +846,6 @@ subtest {
 		Q{~X},
 		Q{~v,V@X},
 		Q{~v,vX},
-)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -916,19 +936,19 @@ subtest {
 
 # XXX No {" tests?
 
-#`(
 subtest {
 	my @options =
 		Q{~0|},
 		Q{~V|},
 		Q{~|},
+#`(
 		Q{~~~D|},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 #`(
 subtest {
@@ -1197,19 +1217,19 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
 		Q{~#~},
 		Q{~v~},
 		Q{~~},
+#`(
 		Q{~~~D~~},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 #`(
 subtest {

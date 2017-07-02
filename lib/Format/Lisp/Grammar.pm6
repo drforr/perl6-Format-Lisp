@@ -312,6 +312,7 @@ grammar Format::Lisp::Grammar {
 		||	<not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom>
 		||	<not-Tilde>
+		||	<tilde-Atom>
 #		||	<not-Tilde> <tilde-Angle>
 #		||	<not-Tilde> <tilde-Angle> <not-Tilde>
 #		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Angle> <not-Tilde>
