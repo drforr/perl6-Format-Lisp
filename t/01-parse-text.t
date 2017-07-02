@@ -14,50 +14,52 @@ my $parsed;
 # XXX No #" tests?
 # XXX No $" tests?
 
-#`(
 subtest {
 	my @options =
 		Q{X~#%},
 		Q{X~V%},
+#`(
 		Q{~#%},
 		Q{~%},
 		Q{~@_A~%},
 		Q{~V%},
 		Q{~~~D%},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
-#`(
 subtest {
 	my @options =
 		Q{X~%~&},
 		Q{X~&},
 		Q{X~v&},
 		Q{X~~~D&},
+#`(
 		Q{~#&},
 		Q{~&},
 		Q{~0&},
 		Q{~v&},
 		Q{~~~D&},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No `" tests?
 
-#`(
 subtest {
 	my @options =
+#`(
 		Q{(~:@{~A~:^,~})},
 		Q{(~:{~A~:^,~})},
+)
 		Q{(~A ~A)},
+#`(
 		Q{~(XXyy~AuuVV~)},
 		Q{~(aBc ~(def~) GHi~)},
 		Q{~(aBc ~:(def~) GHi~)},
@@ -81,28 +83,28 @@ subtest {
 		Q{~@:(aBc ~:(def~) GHi~)},
 		Q{~@:(aBc ~@:(def~) GHi~)},
 		Q{~@:(~c~)},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No *" tests?
 # XXX No +" tests?
 
-#`(
 subtest {
 	my @options =
 		Q{'~c,},
+#`(
 		Q{~d,},
 		Q{~~~d,},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No -" tests?
 # XXX No ." tests?
@@ -429,17 +431,21 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
+#`(
 		Q{~~~d,'~c~c},
 		Q{~~,,'~c:~c},
 		Q{~:c},
 		Q{~@c},
+)
 		Q{'~c},
+#`(
 		Q{~~~d,'~c~c},
 		Q{~~,,'~c:~c},
+)
 		Q{#\\~:c},
+#`(
 		Q{~c},
 		Q{~@:c},
 		Q{~~~d~c},
@@ -454,12 +460,12 @@ subtest {
 		Q{~:C},
 		Q{~@C},
 		Q{~@:C},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 #`(
 subtest {
@@ -751,29 +757,31 @@ subtest {
 }
 )
 
-#`(
 subtest {
 	my @options =
+#`(
 		Q{~1,1@t},
 		Q{~A~v,vt},
 		Q{~v,1@T~0,v@t},
 		Q{~v,1@t},
 		Q{~v,v@t},
 		Q{~~~d,~d@t},
+)
 		Q{ ~v,vT},
 		Q{XXXXX~2,0T},
+#`(
 		Q{~0,0T},
 		Q{~0,1T},
 		Q{~0,vT},
 		Q{~1,0T},
 		Q{~A~~~D,~DT},
 		Q{~v,0T},
+)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 # XXX No trailing-u tests?
 # XXX No trailing-v tests?
@@ -879,7 +887,6 @@ subtest {
 subtest {
 	my @options =
 		Q{A             ~_},
-#`(
 		Q{A ~:@_A ~:@_A ~:@_A ~:@_},
 		Q{A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_},
 		Q{A ~:_A ~:_A ~:_A ~:_A ~:_},
@@ -888,14 +895,11 @@ subtest {
 		Q{A ~@_A ~@_A ~@_A ~@_},
 		Q{A ~@_A ~@_A ~@_A ~@_A ~@_},
 		Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_},
-)
 		Q{A ~@:_A },
-#`(
 		Q{A ~_A ~_A ~_A ~_},
 		Q{A ~_A ~_A ~_A ~_A ~_},
 		Q{A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_},
 		Q{A ~_A ~_A ~_A ~_~%A ~_A ~_A ~_A ~_},
-)
 		Q{AAAA ~:@_},
 		Q{AAAA ~_},
 		Q{B ~_},
