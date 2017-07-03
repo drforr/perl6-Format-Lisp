@@ -333,7 +333,6 @@ subtest {
 		Q{~A~:*~A},
 		Q{~A~?X~A},
 		Q{~A~@?X~A},
-#`(
 		Q{~A~A~0:*~A},
 		Q{~A~A~1@*~A~A},
 		Q{~A~A~2:*~A},
@@ -343,7 +342,6 @@ subtest {
 		Q{~A~A~@*~A~A},
 		Q{~A~A~v:*~A},
 		Q{~A~A~v@*~A~A},
-)
 		Q{~A~v*~A},
 #`(
 		Q{~A~{~A~*~A~}~A},
@@ -437,9 +435,7 @@ subtest {
 
 subtest {
 	my @options =
-#`(
 		Q{~~~d,'~c~c},
-)
 		Q{~~,,'~c:~c},
 		Q{~:c},
 		Q{~@c},
@@ -753,9 +749,7 @@ subtest {
 		Q{~0,1T},
 		Q{~0,vT},
 		Q{~1,0T},
-#`(
 		Q{~A~~~D,~DT},
-)
 		Q{~v,0T},
 	;
 	for @options -> $str {
@@ -881,9 +875,7 @@ subtest {
 		Q{B ~_},
 		Q{D ~_},
 		Q{~%A~@_},
-#`(
 		Q{~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_},
-)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;

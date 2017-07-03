@@ -302,8 +302,15 @@ grammar Format::Lisp::Grammar {
 
 	token TOP
 		{
+#		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> # unused?
+#		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> # unused?
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde>
@@ -334,14 +341,6 @@ grammar Format::Lisp::Grammar {
 #		||	<tilde-Atom> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle>
 #		||	<tilde-Atom> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
 #		||	<tilde-Atom> <tilde-Angle>
-#		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-#		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-#		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
-#		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-#		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-#		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-#		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-#		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 #		||	<tilde-Atom> <tilde-Brace> <tilde-Atom>
 #		||	<tilde-Brace>
 #		||	<tilde-Brace> <not-Tilde> <tilde-Atom>
