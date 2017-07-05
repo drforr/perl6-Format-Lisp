@@ -61,31 +61,39 @@ subtest {
 		Q{(~:{~A~:^,~})},
 )
 		Q{(~A ~A)},
-#`(
 		Q{~(XXyy~AuuVV~)},
+#`(
 		Q{~(aBc ~(def~) GHi~)},
 		Q{~(aBc ~:(def~) GHi~)},
 		Q{~(aBc ~@(def~) GHi~)},
+)
 		Q{~(~c~)},
+#`(
 		Q{~:(aBc ~(def~) GHi~)},
 		Q{~:(aBc ~:(def~) GHi~)},
 		Q{~:(aBc ~@(def~) GHi~)},
 		Q{~:(aBc ~@:(def~) GHi~)},
+)
 		Q{~:(this is a TEST.~)},
 		Q{~:(this is7a TEST.~)},
+#`(
 		Q{~:@(aBc ~(def~) GHi~)},
 		Q{~:@(aBc ~@(def~) GHi~)},
+)
 		Q{~:@(this is AlSo A teSt~)},
 		Q{~@(!@#$%^&*this is a TEST.~)},
+#`(
 		Q{~@(aBc ~(def~) GHi~)},
 		Q{~@(aBc ~:(def~) GHi~)},
 		Q{~@(aBc ~@(def~) GHi~)},
 		Q{~@(aBc ~@:(def~) GHi~)},
+)
 		Q{~@(this is a TEST.~)},
+#`(
 		Q{~@:(aBc ~:(def~) GHi~)},
 		Q{~@:(aBc ~@:(def~) GHi~)},
-		Q{~@:(~c~)},
 )
+		Q{~@:(~c~)},
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -310,9 +318,7 @@ subtest {
 		Q{~? ~A},
 		Q{~@? ~A},
 		Q{~@A},
-#`(
 		Q{~@[X~]Y~A},
-)
 		Q{~@a},
 #`(
 		Q{~@{~2,#^~A~}X~A},
@@ -827,7 +833,6 @@ subtest {
 # XXX no [" tests
 # XXX no \" tests
 
-#`(
 subtest {
 	my @options =
 		Q{~#[A~:;B~]},
@@ -852,7 +857,6 @@ subtest {
 		ok $fl._parse( $str ), $str;
 	}
 }
-)
 
 subtest {
 	my @options =
