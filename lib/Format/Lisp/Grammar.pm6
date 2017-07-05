@@ -41,11 +41,26 @@ grammar Format::Lisp::Grammar {
 		<value>? ','
 	}
 
+	token Tilde-Options {
+		<value-comma> ** 0..9 <value>? <options>?
+	}
+
 	token tilde-Tilde { '~' }
+
+	token tilde-OAngle { <Tilde-Options> '<' }
+	token tilde-CAngle { <Tilde-Options> '>' }
 
 	token tilde-A { <[ a A ]> }
 
+	token tilde-OBrace { <Tilde-Options> '{' }
+	token tilde-CBrace { <Tilde-Options> '}' }
+
+	token tilde-OBracket { <Tilde-Options> '[' }
+	token tilde-CBracket { <Tilde-Options> ']' }
+
 	token tilde-B { <[ b B ]> }
+
+	token tilde-Caret { '^' }
 
 	token tilde-C { <[ c C ]> }
 
@@ -57,9 +72,16 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-O { <[ o O ]> }
 
+	token tilde-OParen { <Tilde-Options> '(' }
+	token tilde-CParen { <Tilde-Options> ')' }
+
 	token tilde-P { <[ p P ]> }
 
+	token tilde-Ques { '?' }
+
 	token tilde-R { <[ r R ]> }
+
+	token tilde-Star { '*' }
 
 	token tilde-S { <[ s S ]> }
 
@@ -69,45 +91,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-X { <[ x X ]> }
 
-	token tilde-Caret { '^' }
-
-	token tilde-Ques { '?' }
-
-	token tilde-Star { '*' }
-
-	token tilde-OParen {
-		<value-comma> ** 0..9 <value>? <options>? '('
-	}
-
-	token tilde-CParen {
-		<value-comma> ** 0..9 <value>? <options>? ')'
-	}
-
-	token tilde-OBrace {
-		<value-comma> ** 0..9 <value>? <options>? '{'
-	}
-
-	token tilde-CBrace {
-		<value-comma> ** 0..9 <value>? <options>? '}'
-	}
-
-	token tilde-OBracket {
-		<value-comma> ** 0..9 <value>? <options>? '['
-	}
-
 	token tilde-Semi { ';' }
-
-	token tilde-CBracket {
-		<value-comma> ** 0..9 <value>? <options>? ']'
-	}
-
-	token tilde-OAngle {
-		<value-comma> ** 0..9 <value>? <options>? '<'
-	}
-
-	token tilde-CAngle {
-		<value-comma> ** 0..9 <value>? <options>? '>'
-	}
 
 	token tilde-Percent { '%' }
 
@@ -120,7 +104,7 @@ grammar Format::Lisp::Grammar {
 	token tilde-Slash { '/' <-[ / ]>+ '/' }
 
 	token Atom {
-	|	'~' <value-comma> ** 0..9 <value>? <options>?
+	|	'~' <Tilde-Options>
 		[
 		|	<tilde-A>
 		|	<tilde-Amp>
@@ -149,24 +133,17 @@ grammar Format::Lisp::Grammar {
 	|	<not-Tilde>
 	}
 
-	token tilde-Angle {
-		<tilde-OAngle> <TOP>? '~' <tilde-CAngle>
-	}
+	token tilde-Angle { <tilde-OAngle> <TOP>? '~' <tilde-CAngle> }
 
-	token tilde-Brace {
-		<tilde-OBrace> <TOP>? '~' <tilde-CBrace>
-	}
+	token tilde-Brace { <tilde-OBrace> <TOP>? '~' <tilde-CBrace> }
 
-	token tilde-Bracket {
-		<tilde-OBracket> <TOP>? '~' <tilde-CBracket>
-	}
+	token tilde-Bracket { <tilde-OBracket> <TOP>? '~' <tilde-CBracket> }
 
-	token tilde-Paren {
-		<tilde-OParen> <TOP>? '~' <tilde-CParen>
-	}
+	token tilde-Paren { <tilde-OParen> <TOP>? '~' <tilde-CParen> }
 
 	token Non-Terminal {
-	'~'	[
+	'~'
+		[
 		||	<tilde-Angle>
 		||	<tilde-Brace>
 		||	<tilde-Bracket>
