@@ -255,6 +255,8 @@ grammar Format::Lisp::Grammar {
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom>
+		||	<tilde-Brace> <not-Tilde>
+		||	<tilde-Brace>
 		]?
 	<tilde-CBrace>
 	}
