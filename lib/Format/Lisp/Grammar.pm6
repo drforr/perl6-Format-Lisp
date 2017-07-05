@@ -262,6 +262,8 @@ grammar Format::Lisp::Grammar {
 		||	<tilde-Atom>
 		||	<tilde-Brace> <not-Tilde>
 		||	<tilde-Brace>
+		||	<tilde-Bracket>
+		||	<tilde-Paren> <not-Tilde>
 		]?
 	<tilde-CBrace>
 	}
@@ -269,6 +271,8 @@ grammar Format::Lisp::Grammar {
 	token tilde-Bracket {
 	<tilde-OBracket>
 		[
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
@@ -282,6 +286,7 @@ grammar Format::Lisp::Grammar {
 	token tilde-Paren {
 	<tilde-OParen>
 		[
+		||	<tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <TOP> <not-Tilde>
