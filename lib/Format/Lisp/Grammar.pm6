@@ -41,170 +41,157 @@ grammar Format::Lisp::Grammar {
 		<value>? ','
 	}
 
-	token four-values {
-		'~' <value-comma> ** 0..3 <value>? <options>?
-	}
-
 	token tilde-Tilde {
-		'~' <value>? '~'
+		<value-comma> ** 0..9 <value>? <options>? '~'
 	}
 
 	token tilde-A {
-		<four-values> <[ a A ]>
-#		'~' <value-comma> ** 0..3 <value>? <options>? <[ a A ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ a A ]>
 	}
 
 	token tilde-B {
-		<four-values> <[ b B ]>
-#		'~' <value-comma> ** 0..3 <value>? <options>? <[ b B ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ b B ]>
 	}
 
 	token tilde-C {
-		'~' <options>? <[ c C ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ c C ]>
 	}
 
 	token tilde-D {
-		<four-values> <[ d D ]>
-#		'~' <value-comma> ** 0..3 <value>? <options>? <[ d D ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ d D ]>
 	}
 
 	token tilde-F {
-		'~' <value-comma> ** 0..4 <value>? <options>? <[ f F ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ f F ]>
 	}
 
 	token tilde-I {
-		'~' <value>? <options>? <[ i I ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ i I ]>
 	}
 
 	token tilde-O {
-		<four-values> <[ o O ]>
-#		'~' <value-comma> ** 0..3 <value>? <options>? <[ o O ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ o O ]>
 	}
 
 	token tilde-P {
-		'~' <value>? <options>? <[ p P ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ p P ]>
 	}
 
 	token tilde-R {
-		'~' <value-comma> ** 0..4 <value>? <options>? <[ r R ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ r R ]>
 	}
 
 	token tilde-S {
-		<four-values> <[ s S ]>
-#		'~' <value-comma> ** 0..3 <value>? <options>? <[ s S ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ s S ]>
 	}
 
 	token tilde-T {
-		'~' <value-comma> ** 0..1 <value>? <options>? <[ t T ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ t T ]>
 	}
 
 	token tilde-W {
-		'~' <value>? <options>? <[ w W ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ w W ]>
 	}
 
 	token tilde-X {
-		<four-values> <[ x X ]>
-#		'~' <value-comma> ** 0..3 <value>? <options>? <[ x X ]>
+		<value-comma> ** 0..9 <value>? <options>? <[ x X ]>
 	}
 
 	token tilde-Caret {
-		<four-values> '^'
-#		'~' <value-comma> ** 0..3 <value>? <options>? '^'
+		<value-comma> ** 0..9 <value>? <options>? '^'
 	}
 
 	token tilde-Ques {
-		'~' <value>? <options>? '?'
+		<value-comma> ** 0..9 <value>? <options>? '?'
 	}
 
 	token tilde-Star {
-		'~' <value>? <options>? '*'
+		<value-comma> ** 0..9 <value>? <options>? '*'
 	}
 
 	token tilde-OParen {
-		'~' <value>? <options>? '('
+		'~' <value-comma> ** 0..9 <value>? <options>? '('
 	}
 
 	token tilde-CParen {
-		'~' <value>? <options>? ')'
+		'~' <value-comma> ** 0..9 <value>? <options>? ')'
 	}
 
 	token tilde-OBrace {
-		'~' <value>? <options>? '{'
+		'~' <value-comma> ** 0..9 <value>? <options>? '{'
 	}
 
 	token tilde-CBrace {
-		'~' <value>? <options>? '}'
+		'~' <value-comma> ** 0..9 <value>? <options>? '}'
 	}
 
 	token tilde-OBracket {
-		'~' <value>? <options>? '['
+		'~' <value-comma> ** 0..9 <value>? <options>? '['
 	}
 
 	token tilde-Semi {
-		'~' <value-comma> ** 0..1 <value>? <options>? ';'
+		<value-comma> ** 0..9 <value>? <options>? ';'
 	}
 
 	token tilde-CBracket {
-		'~' ']'
+		'~' <value-comma> ** 0..9 <value>? <options>? ']'
 	}
 
 	token tilde-OAngle {
-		<four-values> '<'
-#		'~' <value-comma> ** 0..3 <value>? <options>? '<'
+		'~' <value-comma> ** 0..9 <value>? <options>? '<'
 	}
 
 	token tilde-CAngle {
-		'~' <value>? <options>? '>'
+		'~' <value-comma> ** 0..9 <value>? <options>? '>'
 	}
 
 	token tilde-Percent {
-		'~' <value>? '%'
+		<value-comma> ** 0..9 <value>? <options>? '%'
 	}
 
 	token tilde-Pipe {
-		'~' <value>? '|'
+		<value-comma> ** 0..9 <value>? <options>? '|'
 	}
 
 	token tilde-Amp {
-		'~' <value>? '&'
-	}
-
-	token tilde-Comma {
-		'~' ','
+		<value-comma> ** 0..9 <value>? <options>? '&'
 	}
 
 	token tilde-Under {
-		'~' <options>? '_'
+		<value-comma> ** 0..9 <value>? <options>? '_'
 	}
 
 	token tilde-Slash {
-		'~' <value-comma> ** 0..9 <value>? <options>? '/' <-[ / ]>+ '/'
+		<value-comma> ** 0..9 <value>? <options>? '/' <-[ / ]>+ '/'
 	}
 
 	token Atom {
-	|	<tilde-A>
-	|	<tilde-Amp>
-	|	<tilde-B>
-	|	<tilde-C>
-	|	<tilde-Caret>
-	|	<tilde-D>
-	|	<tilde-F>
-	|	<tilde-I>
-	|	<tilde-O>
-	|	<tilde-P>
-	|	<tilde-Percent>
-	|	<tilde-Pipe>
-	|	<tilde-Ques>
-	|	<tilde-R>
-	|	<tilde-S>
-	|	<tilde-Semi>
-	|	<tilde-Slash>
-	|	<tilde-Star>
-	|	<tilde-T>
-	|	<tilde-Tilde>
-	|	<tilde-Under>
-	|	<tilde-W>
-	|	<tilde-X>
+	|	'~'
+		[
+		|	<tilde-A>
+		|	<tilde-Amp>
+		|	<tilde-B>
+		|	<tilde-C>
+		|	<tilde-Caret>
+		|	<tilde-D>
+		|	<tilde-F>
+		|	<tilde-I>
+		|	<tilde-O>
+		|	<tilde-P>
+		|	<tilde-Percent>
+		|	<tilde-Pipe>
+		|	<tilde-Ques>
+		|	<tilde-R>
+		|	<tilde-S>
+		|	<tilde-Semi>
+		|	<tilde-Slash>
+		|	<tilde-Star>
+		|	<tilde-T>
+		|	<tilde-Tilde>
+		|	<tilde-Under>
+		|	<tilde-W>
+		|	<tilde-X>
+		]
 	|	<not-Tilde>
 	}
 
