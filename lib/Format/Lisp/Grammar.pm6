@@ -181,7 +181,7 @@ grammar Format::Lisp::Grammar {
 		'~' <value-comma> ** 0..9 <value>? <options>? '/' <-[ / ]>+ '/'
 	}
 
-	token tilde-Atom {
+	token Atom {
 	|	<tilde-A>
 	|	<tilde-Amp>
 	|	<tilde-B>
@@ -205,66 +205,38 @@ grammar Format::Lisp::Grammar {
 	|	<tilde-Under>
 	|	<tilde-W>
 	|	<tilde-X>
+	|	<not-Tilde>
 	}
 
-	token tilde-Angle { <tilde-OAngle> <TOP>? <tilde-CAngle> }
+	token tilde-Angle {
+		<tilde-OAngle> <TOP>? <tilde-CAngle>
+	}
 
-	token tilde-Brace { <tilde-OBrace> <TOP>? <tilde-CBrace> }
+	token tilde-Brace {
+		<tilde-OBrace> <TOP>? <tilde-CBrace>
+	}
 
-	token tilde-Bracket { <tilde-OBracket> <TOP>? <tilde-CBracket> }
+	token tilde-Bracket {
+		<tilde-OBracket> <TOP>? <tilde-CBracket>
+	}
 
-	token tilde-Paren { <tilde-OParen> <TOP>? <tilde-CParen> }
+	token tilde-Paren {
+		<tilde-OParen> <TOP>? <tilde-CParen>
+	}
 
 	token Non-Terminal {
-		||	<tilde-Angle>
-		||	<tilde-Brace>
-		||	<tilde-Bracket>
-		||	<tilde-Paren>
+	||	<tilde-Angle>
+	||	<tilde-Brace>
+	||	<tilde-Bracket>
+	||	<tilde-Paren>
 	}
 
-	token Atoms {
-		<tilde-Atom>+
+	token Term {
+		<Non-Terminal> <Atom>*
 	}
 
 	token TOP {
-		||	<Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<Atoms> <not-Tilde> <Atoms>
-		||	<Atoms> <not-Tilde> <Non-Terminal> <not-Tilde> <Non-Terminal> <not-Tilde> <Non-Terminal>
-		||	<Atoms> <not-Tilde> <Non-Terminal> <Non-Terminal> <Non-Terminal>
-		||	<Atoms> <Non-Terminal> <Atoms> <not-Tilde>
-		||	<Atoms> <not-Tilde> <Non-Terminal>
-		||	<Atoms> <Non-Terminal> <Atoms>
-		||	<Atoms> <Non-Terminal>
-		||	<Non-Terminal> <not-Tilde> <Atoms> <not-Tilde>
-		||	<Non-Terminal> <not-Tilde> <Atoms>
-		||	<Non-Terminal> <Non-Terminal>
-		||	<Non-Terminal> <Atoms>
-		||	<Non-Terminal> <not-Tilde>
-		||	<Atoms> <not-Tilde>
-		||	<Atoms>
-		||	<Non-Terminal>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Non-Terminal> <not-Tilde>
-		||	<not-Tilde> <Atoms> <Non-Terminal> <Atoms> <not-Tilde>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms> <not-Tilde>
-		||	<not-Tilde> <Atoms> <not-Tilde> <Atoms>
-		||	<not-Tilde> <Atoms> <Non-Terminal>
-		||	<not-Tilde> <Atoms> <not-Tilde>
-		||	<not-Tilde> <Non-Terminal> <not-Tilde>
-		||	<not-Tilde> <Atoms>
-		||	<not-Tilde> <Non-Terminal>
-		||	<not-Tilde>
+		||	<Atom>+ <Term>*
+		||	<Term>+
 	}
 }
