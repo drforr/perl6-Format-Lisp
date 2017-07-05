@@ -157,12 +157,10 @@ subtest {
 		Q{XXX~<MMM~I~:@_MMMMM~:>},
 		Q{XXX~<MMM~vI~:@_MMMMM~:>},
 		Q{XXX~<MMM~vI~:@_MMMMM~:>},
-#`(
 		Q{~%X ~,,1<~%X ~:;AAA~;BBB~;CCC~>},
 		Q{~%X ~<~%X ~0,30:;AAA~>~<~%X ~0,30:;BBB~>~<~%X ~0,30:;CCC~>},
 		Q{~%X ~<~%X ~0,3:;AAA~>,~<~%X ~0,3:;BBB~>,~<~%X ~0,3:;CCC~>},
 		Q{~%X ~<~%X ~0,3:;AAA~>~<~%X ~0,3:;BBB~>~<~%X ~0,3:;CCC~>},
-)
 		Q{~,,1,',<~A~;~A~>},
 		Q{~,,1,v<~A~;~A~>},
 		Q{~,,1<~A~;~A~>},
@@ -200,11 +198,9 @@ subtest {
 		Q{~:@<~@{~A~^~}~:@>},
 )
 		Q{~:@<~A~:>},
-#`(
 		Q{~<(~;M~-1:i~:@_M~;)~:>},
 		Q{~<(~;M~:I~:@_M~;)~:>},
 		Q{~<(~;M~v:i~:@_M~;)~:>},
-)
 		Q{~<ABC~;~v,0:T~;DEF~:>},
 		Q{~<MMM~1I~:@_MMMMM~:>},
 		Q{~<MMM~I~:@_MMMMM~:>},
@@ -264,17 +260,13 @@ subtest {
 		Q{~@<~@{~A~^*~}~:>},
 )
 		Q{~@<~A~:>},
-#`(
 		Q{~A~<~A~v,v:t~:>},
 		Q{~A~<~v,v:@t~:>},
-		Q{~A~~<~A~~~D,~D:T~~:>},
-)
+		Q{~A~~<~A~~~D,~D:T~~:>}, # Actually not a <>
 		Q{~v,,,v<~A~>},
 		Q{~v,,v<~A~>},
 		Q{~v<~A~>},
-#`(
-		Q{~~~d,,,'~c<~~A~~>},
-)
+		Q{~~~d,,,'~c<~~A~~>}, # Actually not a <>
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -687,9 +679,7 @@ subtest {
 		Q{~@:R},
 		Q{~@R},
 		Q{~~~D,~DR},
-#`(
 		Q{~~~d,,,'~c,~d:R},
-)
 		Q{~~~d:R},
 		Q{~~~dR},
 	;
@@ -1222,10 +1212,8 @@ subtest {
 		Q{~<foo~A~;~A~;bar~:>},
 		Q{~<foo~A~@;~A~:>},
 		Q{~<foo~A~@;~A~;bar~:>},
-#`(
 		Q{~<~:;~>~<~:>},
 		Q{~<~:>~<~:;~>},
-)
 		Q{~<~;~A~;bar~A~:>},
 		Q{~<~@;~A~;bar~A~:>},
 		Q{~@<foo~;~A~;bar~A~:>},
@@ -1236,11 +1224,9 @@ subtest {
 		Q{~@<foo~A~@;~A~;bar~:>},
 		Q{~@<~;~A~;bar~A~:>},
 		Q{~@<~@;~A~;bar~A~:>},
-#`(
 		Q{~_~<X~:;Y~>},
 		Q{~i~<X~:;Y~>},
 		Q{~w~<X~:;Y~>},
-)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
@@ -1277,13 +1263,9 @@ subtest {
 
 subtest {
 	my @options =
-#`(
 		Q{AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ},
-)
 		Q{~<XXX~1,1:TYYY~>},
-#`(
 		Q{~<XXX~:;YYY~>ZZZ~4,5:tWWW},
-)
 	;
 	for @options -> $str {
 		ok $fl._parse( $str ), $str;
