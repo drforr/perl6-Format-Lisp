@@ -60,37 +60,27 @@ subtest {
 		Q{(~:{~A~:^,~})},
 		Q{(~A ~A)},
 		Q{~(XXyy~AuuVV~)},
-#`(
 		Q{~(aBc ~(def~) GHi~)},
 		Q{~(aBc ~:(def~) GHi~)},
 		Q{~(aBc ~@(def~) GHi~)},
-)
 		Q{~(~c~)},
-#`(
 		Q{~:(aBc ~(def~) GHi~)},
 		Q{~:(aBc ~:(def~) GHi~)},
 		Q{~:(aBc ~@(def~) GHi~)},
 		Q{~:(aBc ~@:(def~) GHi~)},
-)
 		Q{~:(this is a TEST.~)},
 		Q{~:(this is7a TEST.~)},
-#`(
 		Q{~:@(aBc ~(def~) GHi~)},
 		Q{~:@(aBc ~@(def~) GHi~)},
-)
 		Q{~:@(this is AlSo A teSt~)},
 		Q{~@(!@#$%^&*this is a TEST.~)},
-#`(
 		Q{~@(aBc ~(def~) GHi~)},
 		Q{~@(aBc ~:(def~) GHi~)},
 		Q{~@(aBc ~@(def~) GHi~)},
 		Q{~@(aBc ~@:(def~) GHi~)},
-)
 		Q{~@(this is a TEST.~)},
-#`(
 		Q{~@:(aBc ~:(def~) GHi~)},
 		Q{~@:(aBc ~@:(def~) GHi~)},
-)
 		Q{~@:(~c~)},
 	;
 	for @options -> $str {
