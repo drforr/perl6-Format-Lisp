@@ -220,10 +220,8 @@ subtest {
 		Q{~<~:@/pprint-tabular/~:>},
 		Q{~<~;~A~:>},
 		Q{~<~;~A~;~:>},
-#`(
 		Q{~<~<XXXXXX~;YYYYYYY~^~>~>},
 		Q{~<~<~A~^xxx~:>yyy~:>},
-)
 		Q{~<~>},
 		Q{~<~@/pprint-tabular/~:>},
 #`(
@@ -1179,9 +1177,7 @@ subtest {
 
 subtest {
 	my @options =
-#`(
 		Q{1~<X~<Y~:>Z~>2},
-)
 		Q{~:<foo~;~A~;bar~A~:>},
 		Q{~:<foo~@;~A~;bar~A~:>},
 		Q{~:<foo~A~;~A~:>},

@@ -221,6 +221,7 @@ grammar Format::Lisp::Grammar {
 		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<not-Tilde> <tilde-Angle> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom>
 		||	<not-Tilde>
 		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
@@ -230,6 +231,8 @@ grammar Format::Lisp::Grammar {
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom>
+		||	<tilde-Angle> <not-Tilde>
+		||	<tilde-Angle>
 		]?
 	<tilde-CAngle>
 	}
@@ -315,6 +318,7 @@ grammar Format::Lisp::Grammar {
 		||	<not-Tilde> <tilde-Atom> <tilde-Atom>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Brace> <not-Tilde>
+		||	<not-Tilde> <tilde-Angle> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom>
 		||	<not-Tilde> <tilde-Angle>
 		||	<not-Tilde>
