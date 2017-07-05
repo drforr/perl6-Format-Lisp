@@ -41,132 +41,86 @@ grammar Format::Lisp::Grammar {
 		<value>? ','
 	}
 
-	token tilde-Tilde {
-		<value-comma> ** 0..9 <value>? <options>? '~'
-	}
+	token tilde-Tilde { '~' }
 
-	token tilde-A {
-		<value-comma> ** 0..9 <value>? <options>? <[ a A ]>
-	}
+	token tilde-A { <[ a A ]> }
 
-	token tilde-B {
-		<value-comma> ** 0..9 <value>? <options>? <[ b B ]>
-	}
+	token tilde-B { <[ b B ]> }
 
-	token tilde-C {
-		<value-comma> ** 0..9 <value>? <options>? <[ c C ]>
-	}
+	token tilde-C { <[ c C ]> }
 
-	token tilde-D {
-		<value-comma> ** 0..9 <value>? <options>? <[ d D ]>
-	}
+	token tilde-D { <[ d D ]> }
 
-	token tilde-F {
-		<value-comma> ** 0..9 <value>? <options>? <[ f F ]>
-	}
+	token tilde-F { <[ f F ]> }
 
-	token tilde-I {
-		<value-comma> ** 0..9 <value>? <options>? <[ i I ]>
-	}
+	token tilde-I { <[ i I ]> }
 
-	token tilde-O {
-		<value-comma> ** 0..9 <value>? <options>? <[ o O ]>
-	}
+	token tilde-O { <[ o O ]> }
 
-	token tilde-P {
-		<value-comma> ** 0..9 <value>? <options>? <[ p P ]>
-	}
+	token tilde-P { <[ p P ]> }
 
-	token tilde-R {
-		<value-comma> ** 0..9 <value>? <options>? <[ r R ]>
-	}
+	token tilde-R { <[ r R ]> }
 
-	token tilde-S {
-		<value-comma> ** 0..9 <value>? <options>? <[ s S ]>
-	}
+	token tilde-S { <[ s S ]> }
 
-	token tilde-T {
-		<value-comma> ** 0..9 <value>? <options>? <[ t T ]>
-	}
+	token tilde-T { <[ t T ]> }
 
-	token tilde-W {
-		<value-comma> ** 0..9 <value>? <options>? <[ w W ]>
-	}
+	token tilde-W { <[ w W ]> }
 
-	token tilde-X {
-		<value-comma> ** 0..9 <value>? <options>? <[ x X ]>
-	}
+	token tilde-X { <[ x X ]> }
 
-	token tilde-Caret {
-		<value-comma> ** 0..9 <value>? <options>? '^'
-	}
+	token tilde-Caret { '^' }
 
-	token tilde-Ques {
-		<value-comma> ** 0..9 <value>? <options>? '?'
-	}
+	token tilde-Ques { '?' }
 
-	token tilde-Star {
-		<value-comma> ** 0..9 <value>? <options>? '*'
-	}
+	token tilde-Star { '*' }
 
 	token tilde-OParen {
-		'~' <value-comma> ** 0..9 <value>? <options>? '('
+		<value-comma> ** 0..9 <value>? <options>? '('
 	}
 
 	token tilde-CParen {
-		'~' <value-comma> ** 0..9 <value>? <options>? ')'
+		<value-comma> ** 0..9 <value>? <options>? ')'
 	}
 
 	token tilde-OBrace {
-		'~' <value-comma> ** 0..9 <value>? <options>? '{'
+		<value-comma> ** 0..9 <value>? <options>? '{'
 	}
 
 	token tilde-CBrace {
-		'~' <value-comma> ** 0..9 <value>? <options>? '}'
+		<value-comma> ** 0..9 <value>? <options>? '}'
 	}
 
 	token tilde-OBracket {
-		'~' <value-comma> ** 0..9 <value>? <options>? '['
+		<value-comma> ** 0..9 <value>? <options>? '['
 	}
 
-	token tilde-Semi {
-		<value-comma> ** 0..9 <value>? <options>? ';'
-	}
+	token tilde-Semi { ';' }
 
 	token tilde-CBracket {
-		'~' <value-comma> ** 0..9 <value>? <options>? ']'
+		<value-comma> ** 0..9 <value>? <options>? ']'
 	}
 
 	token tilde-OAngle {
-		'~' <value-comma> ** 0..9 <value>? <options>? '<'
+		<value-comma> ** 0..9 <value>? <options>? '<'
 	}
 
 	token tilde-CAngle {
-		'~' <value-comma> ** 0..9 <value>? <options>? '>'
+		<value-comma> ** 0..9 <value>? <options>? '>'
 	}
 
-	token tilde-Percent {
-		<value-comma> ** 0..9 <value>? <options>? '%'
-	}
+	token tilde-Percent { '%' }
 
-	token tilde-Pipe {
-		<value-comma> ** 0..9 <value>? <options>? '|'
-	}
+	token tilde-Pipe { '|' }
 
-	token tilde-Amp {
-		<value-comma> ** 0..9 <value>? <options>? '&'
-	}
+	token tilde-Amp { '&' }
 
-	token tilde-Under {
-		<value-comma> ** 0..9 <value>? <options>? '_'
-	}
+	token tilde-Under { '_' }
 
-	token tilde-Slash {
-		<value-comma> ** 0..9 <value>? <options>? '/' <-[ / ]>+ '/'
-	}
+	token tilde-Slash { '/' <-[ / ]>+ '/' }
 
 	token Atom {
-	|	'~'
+	|	'~' <value-comma> ** 0..9 <value>? <options>?
 		[
 		|	<tilde-A>
 		|	<tilde-Amp>
@@ -196,26 +150,28 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token tilde-Angle {
-		<tilde-OAngle> <TOP>? <tilde-CAngle>
+		<tilde-OAngle> <TOP>? '~' <tilde-CAngle>
 	}
 
 	token tilde-Brace {
-		<tilde-OBrace> <TOP>? <tilde-CBrace>
+		<tilde-OBrace> <TOP>? '~' <tilde-CBrace>
 	}
 
 	token tilde-Bracket {
-		<tilde-OBracket> <TOP>? <tilde-CBracket>
+		<tilde-OBracket> <TOP>? '~' <tilde-CBracket>
 	}
 
 	token tilde-Paren {
-		<tilde-OParen> <TOP>? <tilde-CParen>
+		<tilde-OParen> <TOP>? '~' <tilde-CParen>
 	}
 
 	token Non-Terminal {
-	||	<tilde-Angle>
-	||	<tilde-Brace>
-	||	<tilde-Bracket>
-	||	<tilde-Paren>
+	'~'	[
+		||	<tilde-Angle>
+		||	<tilde-Brace>
+		||	<tilde-Bracket>
+		||	<tilde-Paren>
+		]
 	}
 
 	token Term {
@@ -223,7 +179,7 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token TOP {
-		||	<Atom>+ <Term>*
-		||	<Term>+
+	||	<Atom>+ <Term>*
+	||	<Term>+
 	}
 }
