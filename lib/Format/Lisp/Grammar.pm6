@@ -207,71 +207,27 @@ grammar Format::Lisp::Grammar {
 	|	<tilde-X>
 	}
 
-	token tilde-Angle {
-	<tilde-OAngle>
-		[
-		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
-		||	<tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<tilde-Atom> <tilde-Brace> <tilde-Atom> <not-Tilde>
-		||	<tilde-Angle> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
-		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <tilde-Brace> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
-		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-		||	<not-Tilde> <tilde-Atom> <tilde-Brace>
-		||	<TOP>
-		]?
-	<tilde-CAngle>
-	}
+	token tilde-Angle { <tilde-OAngle> <TOP>? <tilde-CAngle> }
 
-	token tilde-Brace {
-	<tilde-OBrace>
-		[
-		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
-		||	<tilde-Paren> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
-		||	<TOP>
-		]?
-	<tilde-CBrace>
-	}
+	token tilde-Brace { <tilde-OBrace> <TOP>? <tilde-CBrace> }
 
-	token tilde-Bracket {
-	<tilde-OBracket>
-		[
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<TOP>
-		]?
-	<tilde-CBracket>
-	}
+	token tilde-Bracket { <tilde-OBracket> <TOP>? <tilde-CBracket> }
 
-	token tilde-Paren {
-	<tilde-OParen>
-		[
-		||	<not-Tilde> <tilde-Paren> <not-Tilde>
-		||	<TOP>
-		]
-	<tilde-CParen>
-	}
+	token tilde-Paren { <tilde-OParen> <TOP>? <tilde-CParen> }
 
 	token TOP {
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
+		||	<tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
+		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
@@ -283,6 +239,7 @@ grammar Format::Lisp::Grammar {
 		||	<tilde-Atom> <not-Tilde> <tilde-Atom>
 		||	<tilde-Atom> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle> <not-Tilde> <tilde-Angle>
 		||	<tilde-Atom> <not-Tilde> <tilde-Angle> <tilde-Angle> <tilde-Angle>
+		||	<tilde-Atom> <tilde-Brace> <tilde-Atom> <not-Tilde>
 		||	<tilde-Atom> <not-Tilde> <tilde-Angle>
 		||	<tilde-Atom> <tilde-Atom> <tilde-Atom>
 		||	<tilde-Atom> <tilde-Brace> <tilde-Atom>
@@ -293,24 +250,42 @@ grammar Format::Lisp::Grammar {
 		||	<tilde-Angle> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<tilde-Angle> <tilde-Angle>
 		||	<tilde-Angle> <tilde-Atom>
+		||	<tilde-Angle> <not-Tilde>
 		||	<tilde-Angle>
 		||	<tilde-Bracket> <not-Tilde> <tilde-Atom>
 		||	<tilde-Bracket>
 		||	<tilde-Brace> <not-Tilde> <tilde-Atom>
 		||	<tilde-Brace> <tilde-Atom>
 		||	<tilde-Brace>
+		||	<tilde-Paren> <not-Tilde>
 		||	<tilde-Paren>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
-		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Angle> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <tilde-Brace> <tilde-Atom> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <not-Tilde>
+		||	<not-Tilde> <tilde-Atom> <tilde-Atom> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <not-Tilde> <tilde-Atom>
 		||	<not-Tilde> <tilde-Atom> <tilde-Atom>
+		||	<not-Tilde> <tilde-Atom> <tilde-Brace>
 		||	<not-Tilde> <tilde-Atom> <not-Tilde>
-		||	<not-Tilde> <tilde-Brace> <not-Tilde>
 		||	<not-Tilde> <tilde-Angle> <not-Tilde>
+		||	<not-Tilde> <tilde-Paren> <not-Tilde>
+		||	<not-Tilde> <tilde-Brace> <not-Tilde>
 		||	<not-Tilde> <tilde-Atom>
 		||	<not-Tilde> <tilde-Angle>
 		||	<not-Tilde>
