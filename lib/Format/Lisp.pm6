@@ -52,13 +52,18 @@ class Format::Lisp {
 	has $.grammar = Format::Lisp::Grammar.new;
 	has $.actions = Format::Lisp::Actions.new;
 
+	method _match( Str $source ) {
+		my $parsed = $.grammar.parse( $source );
+		$parsed;
+	}
+
 	method _parse( Str $source ) {
 		my $parsed = $.grammar.parse(
 			$source,
 			:actions( $.actions )
 		);
 
-		$parsed;
+		$parsed.ast;
 	}
 
 }

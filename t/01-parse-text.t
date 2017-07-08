@@ -7,7 +7,6 @@ plan 30;
 my $fl = Format::Lisp.new;
 my $*CONSISTENCY-CHECK = True;
 my $*FALL-THROUGH = True;
-my $parsed;
 
 #
 # It may not be apparent why I'm sorting on the last character. Mostly it's
@@ -31,7 +30,7 @@ subtest {
 		Q{~~~D%},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -48,7 +47,7 @@ subtest {
 		Q{~~~D&},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -84,7 +83,7 @@ subtest {
 		Q{~@:(~c~)},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -98,7 +97,7 @@ subtest {
 		Q{~~~d,},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -130,7 +129,7 @@ subtest {
 		Q{~v/cl-test::function-for-format-slash-19/},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -245,7 +244,7 @@ subtest {
 		Q{~~~d,,,'~c<~~A~~>}, # Actually not a <>
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -255,7 +254,7 @@ subtest {
 		Q{~@?},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -366,7 +365,7 @@ subtest {
 		Q{~~~da},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -411,7 +410,7 @@ subtest {
 		Q{~V,V,V,VB},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -437,7 +436,7 @@ subtest {
 		Q{~@:C},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -486,7 +485,7 @@ subtest {
 		Q{~,,,#:D},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -544,7 +543,7 @@ subtest {
 		Q{~~,,,,'~cf},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -594,7 +593,7 @@ subtest {
 		Q{~~~do},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -612,7 +611,7 @@ subtest {
 		Q{~P},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -660,7 +659,7 @@ subtest {
 		Q{~~~dR},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -713,7 +712,7 @@ subtest {
 		Q{~~~dS},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -735,7 +734,7 @@ subtest {
 		Q{~v,0T},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -780,7 +779,7 @@ subtest {
 		Q{~v,vX},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -792,7 +791,7 @@ subtest {
 		Q{X~AY},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -802,7 +801,7 @@ subtest {
 		Q{a~@?z},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -830,7 +829,7 @@ subtest {
 		Q{~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -858,7 +857,7 @@ subtest {
 		Q{~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -872,7 +871,7 @@ subtest {
 		Q{~~~D|},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1135,7 +1134,7 @@ subtest {
 		Q{~{~}},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1147,7 +1146,7 @@ subtest {
 		Q{~~~D~~},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1191,7 +1190,7 @@ subtest {
 		Q{~w~<X~:;Y~>},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1202,7 +1201,7 @@ subtest {
 		Q{~{~A~}},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1219,7 +1218,7 @@ subtest {
 		Q{~{~A~}},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1230,7 +1229,7 @@ subtest {
 		Q{~<XXX~:;YYY~>ZZZ~4,5:tWWW},
 	;
 	for @options -> $str {
-		ok $fl._parse( $str ), $str;
+		ok $fl._match( $str ), $str;
 	}
 }
 
@@ -1245,6 +1244,6 @@ subtest {
 #		Q[~;], # tilde-Semi outside balanced block
 	;
 	for @failing-options -> $str {
-		nok $fl._parse( $str ), $str;
+		nok $fl._match( $str ), $str;
 	}
 }
