@@ -23,101 +23,31 @@ class Format::Lisp::Text {
 	also does Stringify;
 }
 
-class Format::Lisp::Directive::A {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Amp {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::B {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Caret {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::D {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::E {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::F {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::G {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::I {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::O {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Percent {
-	has @.options;
-}
-
-class Format::Lisp::Directive::Pipe {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::P {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Ques {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::R {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Semi {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Slash {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Star {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::S {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Tilde {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::T {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::Under {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::W {
-	also does Stringify;
-}
-
-class Format::Lisp::Directive::X {
-	also does Stringify;
-}
+class Format::Lisp::Directive::A { also does Stringify; }
+class Format::Lisp::Directive::Amp { also does Stringify; }
+class Format::Lisp::Directive::B { also does Stringify; }
+class Format::Lisp::Directive::Caret { also does Stringify; }
+class Format::Lisp::Directive::C { also does Stringify; }
+class Format::Lisp::Directive::D { also does Stringify; }
+class Format::Lisp::Directive::E { also does Stringify; }
+class Format::Lisp::Directive::F { also does Stringify; }
+class Format::Lisp::Directive::G { also does Stringify; }
+class Format::Lisp::Directive::I { also does Stringify; }
+class Format::Lisp::Directive::O { also does Stringify; }
+class Format::Lisp::Directive::Percent { also does Stringify; }
+class Format::Lisp::Directive::Pipe { also does Stringify; }
+class Format::Lisp::Directive::P { also does Stringify; }
+class Format::Lisp::Directive::Ques { also does Stringify; }
+class Format::Lisp::Directive::R { also does Stringify; }
+class Format::Lisp::Directive::Semi { also does Stringify; }
+class Format::Lisp::Directive::Slash { also does Stringify; }
+class Format::Lisp::Directive::Star { also does Stringify; }
+class Format::Lisp::Directive::S { also does Stringify; }
+class Format::Lisp::Directive::Tilde { also does Stringify; }
+class Format::Lisp::Directive::T { also does Stringify; }
+class Format::Lisp::Directive::Under { also does Stringify; }
+class Format::Lisp::Directive::W { also does Stringify; }
+class Format::Lisp::Directive::X { also does Stringify; }
 
 class Format::Lisp::Actions {
 	method signed-integer( $/ ) {
@@ -143,7 +73,7 @@ class Format::Lisp::Actions {
 	}
 
 	method Tilde-Options( $/ ) {
-		make [ $/<value-comma>[0] ]
+		make $/<value-comma>>>.ast
 	}
 
 	method tilde-OAngle( $/ ) {
