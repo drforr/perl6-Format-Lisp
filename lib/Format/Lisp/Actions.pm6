@@ -23,31 +23,37 @@ class Format::Lisp::Text {
 	also does Stringify;
 }
 
-class Format::Lisp::Directive::A { also does Stringify; }
-class Format::Lisp::Directive::Amp { also does Stringify; }
-class Format::Lisp::Directive::B { also does Stringify; }
-class Format::Lisp::Directive::Caret { also does Stringify; }
-class Format::Lisp::Directive::C { also does Stringify; }
-class Format::Lisp::Directive::D { also does Stringify; }
-class Format::Lisp::Directive::E { also does Stringify; }
-class Format::Lisp::Directive::F { also does Stringify; }
-class Format::Lisp::Directive::G { also does Stringify; }
-class Format::Lisp::Directive::I { also does Stringify; }
-class Format::Lisp::Directive::O { also does Stringify; }
-class Format::Lisp::Directive::Percent { also does Stringify; }
-class Format::Lisp::Directive::Pipe { also does Stringify; }
-class Format::Lisp::Directive::P { also does Stringify; }
-class Format::Lisp::Directive::Ques { also does Stringify; }
-class Format::Lisp::Directive::R { also does Stringify; }
-class Format::Lisp::Directive::Semi { also does Stringify; }
-class Format::Lisp::Directive::Slash { also does Stringify; }
-class Format::Lisp::Directive::Star { also does Stringify; }
-class Format::Lisp::Directive::S { also does Stringify; }
-class Format::Lisp::Directive::Tilde { also does Stringify; }
-class Format::Lisp::Directive::T { also does Stringify; }
-class Format::Lisp::Directive::Under { also does Stringify; }
-class Format::Lisp::Directive::W { also does Stringify; }
-class Format::Lisp::Directive::X { also does Stringify; }
+class Format::Lisp::Directive {
+	has @.options;
+}
+
+class Format::Lisp::Directive::A is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
+class Format::Lisp::Directive::B is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Caret is Format::Lisp::Directive { }
+class Format::Lisp::Directive::C is Format::Lisp::Directive { }
+class Format::Lisp::Directive::D is Format::Lisp::Directive { }
+class Format::Lisp::Directive::E is Format::Lisp::Directive { }
+class Format::Lisp::Directive::F is Format::Lisp::Directive { }
+class Format::Lisp::Directive::G is Format::Lisp::Directive { }
+class Format::Lisp::Directive::I is Format::Lisp::Directive { }
+class Format::Lisp::Directive::O is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Percent is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { }
+class Format::Lisp::Directive::P is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Ques is Format::Lisp::Directive { }
+class Format::Lisp::Directive::R is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Semi is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
+	also does Stringify;
+}
+class Format::Lisp::Directive::Star is Format::Lisp::Directive { }
+class Format::Lisp::Directive::S is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Tilde is Format::Lisp::Directive { }
+class Format::Lisp::Directive::T is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Under is Format::Lisp::Directive { }
+class Format::Lisp::Directive::W is Format::Lisp::Directive { }
+class Format::Lisp::Directive::X is Format::Lisp::Directive { }
 
 class Format::Lisp::Actions {
 	method signed-integer( $/ ) {
@@ -70,10 +76,10 @@ class Format::Lisp::Actions {
 	}
 
 	method value-comma( $/ ) {
+		make ~$/<value>
 	}
 
 	method Tilde-Options( $/ ) {
-		make $/<value-comma>>>.ast
 	}
 
 	method tilde-OAngle( $/ ) {
@@ -103,19 +109,13 @@ class Format::Lisp::Actions {
 	method Atom( $/ ) {
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
 		elsif $/<tilde-A> {
-			make Format::Lisp::Directive::A.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::A.new
 		}
 		elsif $/<tilde-Amp> {
-			make Format::Lisp::Directive::Amp.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::Amp.new
 		}
 		elsif $/<tilde-B> {
-			make Format::Lisp::Directive::B.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::B.new
 		}
 		elsif $/<tilde-Caret> {
 			make Format::Lisp::Directive::Caret.new(
@@ -123,14 +123,10 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-C> {
-			make Format::Lisp::Directive::C.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::C.new
 		}
 		elsif $/<tilde-D> {
-			make Format::Lisp::Directive::D.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::D.new
 		}
 		elsif $/<tilde-E> {
 			make Format::Lisp::Directive::E.new(
@@ -138,9 +134,7 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-F> {
-			make Format::Lisp::Directive::F.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::F.new
 		}
 		elsif $/<tilde-G> {
 			make Format::Lisp::Directive::G.new(
@@ -153,34 +147,22 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-O> {
-			make Format::Lisp::Directive::O.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::O.new
 		}
 		elsif $/<tilde-Percent> {
-			make Format::Lisp::Directive::Percent.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::Percent.new
 		}
 		elsif $/<tilde-Pipe> {
-			make Format::Lisp::Directive::Pipe.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::Pipe.new
 		}
 		elsif $/<tilde-P> {
-			make Format::Lisp::Directive::P.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::P.new
 		}
 		elsif $/<tilde-Ques> {
-			make Format::Lisp::Directive::Ques.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::Ques.new
 		}
 		elsif $/<tilde-R> {
-			make Format::Lisp::Directive::R.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::R.new
 		}
 		elsif $/<tilde-Semi> {
 			make Format::Lisp::Directive::Semi.new(
@@ -198,34 +180,22 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-S> {
-			make Format::Lisp::Directive::S.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::S.new
 		}
 		elsif $/<tilde-Tilde> {
-			make Format::Lisp::Directive::Tilde.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::Tilde.new
 		}
 		elsif $/<tilde-T> {
-			make Format::Lisp::Directive::T.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::T.new
 		}
 		elsif $/<tilde-Under> {
-			make Format::Lisp::Directive::Under.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::Under.new
 		}
 		elsif $/<tilde-W> {
-			make Format::Lisp::Directive::W.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::W.new
 		}
 		elsif $/<tilde-X> {
-			make Format::Lisp::Directive::X.new(
-				options => $/<Tilde-Options>
-			)
+			make Format::Lisp::Directive::X.new
 		}
 	}
 
@@ -248,9 +218,9 @@ class Format::Lisp::Actions {
 #	}
 
 	method TOP( $/ ) {
-		my @x;
-		@x.append( $/<Atom>>>.ast ) if $/<Atom>;
-		@x.append( $/<Term>>>.ast ) if $/<Term>;
-		make @x;
+		make 
+			#$/<Atom>[0].ast
+			$/<Atom>>>.ast
+		;
 	}
 }
