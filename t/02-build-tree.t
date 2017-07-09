@@ -40,13 +40,21 @@ subtest {
 	is-deeply $fl._parse( Q{~V%} ), [
 		Format::Lisp::Directive::Percent.new( options => ['V'] ),
 	];
-# Q{~~~D%},
+	is-deeply $fl._parse( Q{~~~D%} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => '%' ),
+	];
 
 	done-testing;
 }
 
 subtest {
-# Q{X~%~&},
+	is-deeply $fl._parse( Q{X~%~&} ), [
+		Format::Lisp::Text.new( text => 'X' ),
+		Format::Lisp::Directive::Percent.new( options => [] ),
+		Format::Lisp::Directive::Amp.new( options => [] ),
+	];
 	is-deeply $fl._parse( Q{X~&} ), [
 		Format::Lisp::Text.new( text => 'X' ),
 		Format::Lisp::Directive::Amp.new( options => [] ),
@@ -55,7 +63,12 @@ subtest {
 		Format::Lisp::Text.new( text => 'X' ),
 		Format::Lisp::Directive::Amp.new( options => ['v'] ),
 	];
-# Q{X~~~D&},
+	is-deeply $fl._parse( Q{X~~~D&} ), [
+		Format::Lisp::Text.new( text => 'X' ),
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => '&' ),
+	];
 	is-deeply $fl._parse( Q{~#&} ), [
 		Format::Lisp::Directive::Amp.new( options => ['#'] ),
 	];
@@ -68,7 +81,11 @@ subtest {
 	is-deeply $fl._parse( Q{~v&} ), [
 		Format::Lisp::Directive::Amp.new( options => ['v'] ),
 	];
-# Q{~~~D&},
+	is-deeply $fl._parse( Q{~~~D%} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => '%' ),
+	];
 
 	done-testing;
 }
@@ -281,7 +298,9 @@ subtest {
 
 subtest {
 # Q{~#,#@A},
-# Q{~#,#A},
+	is-deeply $fl._parse( Q{~#,#A} ), [
+		Format::Lisp::Directive::A.new( options => ['#','#'] ),
+	];
 # Q{~#@A},
 # Q{~#@a},
 	is-deeply $fl._parse( Q{~#A} ), [
@@ -301,10 +320,14 @@ subtest {
 # Q{~10,,,v@A},
 # Q{~10,,,v@a},
 	is-deeply $fl._parse( Q{~-10,,,vA} ), [
-		Format::Lisp::Directive::A.new( options => [-10,Any,Any,Any,'v'] ),
+		Format::Lisp::Directive::A.new(
+			options => [-10,Any,Any,Any,'v']
+		),
 	];
 	is-deeply $fl._parse( Q{~-10,,,va} ), [
-		Format::Lisp::Directive::A.new( options => [-10,Any,Any,Any,'v'] ),
+		Format::Lisp::Directive::A.new(
+			options => [-10,Any,Any,Any,'v']
+		),
 	];
 	is-deeply $fl._parse( Q{~3,,+2A} ), [
 		Format::Lisp::Directive::A.new( options => [3,Any,Any,2] ),
@@ -316,7 +339,6 @@ subtest {
 		Format::Lisp::Directive::A.new( options => [3,Any,Any,0] ),
 	];
 # Q{~3,,v@A},
-# Q{~3,,vA},
 	is-deeply $fl._parse( Q{~3,,vA} ), [
 		Format::Lisp::Directive::A.new( options => [3,Any,Any,'v'] ),
 	];
@@ -372,7 +394,6 @@ subtest {
 	is-deeply $fl._parse( Q{~A} ), [
 		Format::Lisp::Directive::A.new( options => [] ),
 	];
-# Q{~AY~?X~A},
 	is-deeply $fl._parse( Q{~AY~?X~A} ), [
 		Format::Lisp::Directive::A.new( options => [] ),
 		Format::Lisp::Text.new( text => 'Y' ),
@@ -381,13 +402,16 @@ subtest {
 		Format::Lisp::Directive::A.new( options => [] ),
 	];
 # Q{~AY~@?X~A},
-# Q{~A~*~A},
 	is-deeply $fl._parse( Q{~A~*~A} ), [
 		Format::Lisp::Directive::A.new( options => [] ),
 		Format::Lisp::Directive::Star.new( options => [] ),
 		Format::Lisp::Directive::A.new( options => [] ),
 	];
-# Q{~A~0*~A},
+	is-deeply $fl._parse( Q{~A~*~A} ), [
+		Format::Lisp::Directive::A.new( options => [] ),
+		Format::Lisp::Directive::Star.new( options => [0] ),
+		Format::Lisp::Directive::A.new( options => [] ),
+	];
 # Q{~A~1{~A~*~A~}~A},
 # Q{~A~1{~A~0*~A~}~A},
 # Q{~A~1{~A~:*~A~}~A},
@@ -395,7 +419,12 @@ subtest {
 # Q{~A~1{~A~A~A~:*~A~}~A},
 # Q{~A~1{~A~A~v@*~A~A~}~A},
 # Q{~A~:*~A},
-# Q{~A~?X~A},
+	is-deeply $fl._parse( Q{~A~?X~A} ), [
+		Format::Lisp::Directive::A.new( options => [] ),
+		Format::Lisp::Directive::Ques.new( options => [] ),
+		Format::Lisp::Text.new( text => 'X' ),
+		Format::Lisp::Directive::A.new( options => [] ),
+	];
 # Q{~A~@?X~A},
 # Q{~A~A~0:*~A},
 # Q{~A~A~1@*~A~A},
@@ -406,7 +435,11 @@ subtest {
 # Q{~A~A~@*~A~A},
 # Q{~A~A~v:*~A},
 # Q{~A~A~v@*~A~A},
-# Q{~A~v*~A},
+	is-deeply $fl._parse( Q{~A~v*~A} ), [
+		Format::Lisp::Directive::A.new( options => [] ),
+		Format::Lisp::Directive::Star.new( options => ['v'] ),
+		Format::Lisp::Directive::A.new( options => [] ),
+	];
 # Q{~A~{~A~*~A~}~A},
 # Q{~A~{~A~A~0@*~A~A~}~A},
 # Q{~A~{~A~A~1@*~A~}~A},
@@ -429,8 +462,12 @@ subtest {
 	is-deeply $fl._parse( Q{~Va} ), [
 		Format::Lisp::Directive::A.new( options => ['V'] ),
 	];
-# Q{~a},
-# Q{~v,,2A},
+	is-deeply $fl._parse( Q{~a} ), [
+		Format::Lisp::Directive::A.new( options => [] ),
+	];
+	is-deeply $fl._parse( Q{~v,,2A} ), [
+		Format::Lisp::Directive::A.new( options => ['v',Any,Any,2] ),
+	];
 # Q{~v:@A},
 # Q{~v:@a},
 # Q{~v:A},
@@ -439,28 +476,55 @@ subtest {
 # Q{~v@:a},
 # Q{~v@A},
 # Q{~v@a},
-# Q{~vA},
-# Q{~va},
+	is-deeply $fl._parse( Q{~vA} ), [
+		Format::Lisp::Directive::A.new( options => ['v'] ),
+	];
+	is-deeply $fl._parse( Q{~va} ), [
+		Format::Lisp::Directive::A.new( options => ['v'] ),
+	];
 # Q{~{~2,#^~A~}~A},
-# Q{~~~d:a},
-# Q{~~~d@:A},
-# Q{~~~d@a},
-# Q{~~~da},
+	is-deeply $fl._parse( Q{~~~d:a} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => ':a' ),
+	];
+	is-deeply $fl._parse( Q{~~~d@:a} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => '@:a' ),
+	];
+	is-deeply $fl._parse( Q{~~~d@a} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => '@a' ),
+	];
+	is-deeply $fl._parse( Q{~~~da} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'a' ),
+	];
 
 	done-testing;
 }
 
 subtest {
-# Q{~b},
+	is-deeply $fl._parse( Q{~b} ), [
+		Format::Lisp::Directive::B.new( options => [] ),
+	];
 # Q{~@b},
-# Q{~~~db},
+	is-deeply $fl._parse( Q{~~~db} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'b' ),
+	];
 # Q{~~~d@b},
-# Q{~v,vb},
+	is-deeply $fl._parse( Q{~v,vb} ), [
+		Format::Lisp::Directive::B.new( options => ['v','v'] ),
+	];
 # Q{~:b},
 # Q{~,,v:b},
 # Q{~,,V,V:b},
 # Q{~,,v,v:@b},
-# Q{~vb},
 	is-deeply $fl._parse( Q{~vb} ), [
 		Format::Lisp::Directive::B.new( options => ['v'] ),
 	];
@@ -480,11 +544,16 @@ subtest {
 	is-deeply $fl._parse( Q{~vb} ), [
 		Format::Lisp::Directive::B.new( options => ['v'] ),
 	];
-# Q{~db},
+	is-deeply $fl._parse( Q{~db} ), [
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'b' ),
+	];
 	is-deeply $fl._parse( Q{~v,v,v,vb} ), [
 		Format::Lisp::Directive::B.new( options => ['v','v','v','v'] ),
 	];
-# Q{~B},
+	is-deeply $fl._parse( Q{~B} ), [
+		Format::Lisp::Directive::B.new( options => [] ),
+	];
 # Q{~@B},
 	is-deeply $fl._parse( Q{~v,vb} ), [
 		Format::Lisp::Directive::B.new( options => ['v','v'] ),
@@ -520,21 +589,51 @@ subtest {
 }
 
 subtest {
-# Q{~~~d,'~c~c},
-# Q{~~,,'~c:~c},
+	is-deeply $fl._parse( Q{~~~d,'~c~c} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => ',\'' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
+	is-deeply $fl._parse( Q{~~,,'~c:~c} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Text.new( text => ',,\'' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+		Format::Lisp::Text.new( text => ':' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
 # Q{~:c},
 # Q{~@c},
-# Q{'~c},
+	is-deeply $fl._parse( Q{'~c} ), [
+		Format::Lisp::Text.new( text => '\'' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
 # Q{#\\~:c},
-# Q{~c},
+	is-deeply $fl._parse( Q{~c} ), [
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
 # Q{~@:c},
-# Q{~~~d~c},
-# Q{~~~d@~c},
-# Q{~C},
+	is-deeply $fl._parse( Q{~~~d~c} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
+	is-deeply $fl._parse( Q{~~~d@~c} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => '@' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
+	is-deeply $fl._parse( Q{~C} ), [
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
 # Q{~:C},
 # Q{~@C},
 # Q{~:@C},
-# Q{~C},
+	is-deeply $fl._parse( Q{~C} ), [
+		Format::Lisp::Directive::C.new( options => [] ),
+	];
 # Q{~:C},
 # Q{~@C},
 # Q{~@:C},
@@ -545,10 +644,20 @@ subtest {
 subtest {
 # Q{~@d},
 # Q{~~~dd},
-# Q{~d},
+	is-deeply $fl._parse( Q{~d} ), [
+		Format::Lisp::Directive::D.new( options => [] ),
+	];
 # Q{~~~d@d},
-# Q{~~~d,'~cd},
-# Q{~v,vd},
+	is-deeply $fl._parse( Q{~~~d,'~cd} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => ',\'' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+		Format::Lisp::Text.new( text => 'd' ),
+	];
+	is-deeply $fl._parse( Q{~v,vd} ), [
+		Format::Lisp::Directive::D.new( options => ['v','v'] ),
+	];
 # Q{~@d},
 # Q{~v,v@d},
 # Q{~:d},
@@ -583,7 +692,10 @@ subtest {
 	is-deeply $fl._parse( Q{~vd} ), [
 		Format::Lisp::Directive::D.new( options => ['v'] ),
 	];
-# Q{~dd},
+	is-deeply $fl._parse( Q{~dd} ), [
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'd' ),
+	];
 	is-deeply $fl._parse( Q{~v,v,v,vd} ), [
 		Format::Lisp::Directive::D.new( options => ['v','v','v','v'] ),
 	];
@@ -591,7 +703,9 @@ subtest {
 	is-deeply $fl._parse( Q{~v,v,v,vD} ), [
 		Format::Lisp::Directive::D.new( options => ['v','v','v','v'] ),
 	];
-# Q{~D},
+	is-deeply $fl._parse( Q{~D} ), [
+		Format::Lisp::Directive::D.new( options => [] ),
+	];
 # Q{~@D},
 	is-deeply $fl._parse( Q{~v,vD} ), [
 		Format::Lisp::Directive::D.new( options => ['v','v'] ),
@@ -653,10 +767,18 @@ subtest {
 	is-deeply $fl._parse( Q{~0f} ), [
 		Format::Lisp::Directive::F.new( options => [0] ),
 	];
-# Q{~1,1,,f},
-# Q{~10,1,,,'*F},
-# Q{~10,1,,,'*f},
-# Q{~10,1,,f},
+	is-deeply $fl._parse( Q{~1,1,,f} ), [
+		Format::Lisp::Directive::F.new( options => [1,1,Any,Any] ),
+	];
+	is-deeply $fl._parse( Q{~10,1,,,'*F} ), [
+		Format::Lisp::Directive::F.new( options => [10,1,Any,Any,'*'] ),
+	];
+	is-deeply $fl._parse( Q{~10,1,,,'*f} ), [
+		Format::Lisp::Directive::F.new( options => [10,1,Any,Any,'*'] ),
+	];
+	is-deeply $fl._parse( Q{~10,1,,f} ), [
+		Format::Lisp::Directive::F.new( options => [10,1,Any,Any] ),
+	];
 	is-deeply $fl._parse( Q{~2,1F} ), [
 		Format::Lisp::Directive::F.new( options => [2,1] ),
 	];
@@ -685,7 +807,9 @@ subtest {
 	is-deeply $fl._parse( Q{~3f} ), [
 		Format::Lisp::Directive::F.new( options => [3] ),
 	];
-# Q{~4,0,,'*f},
+	is-deeply $fl._parse( Q{~4,0,,'*f} ), [
+		Format::Lisp::Directive::F.new( options => [4,0,Any,'*'] ),
+	];
 	is-deeply $fl._parse( Q{~4,2,-1F} ), [
 		Format::Lisp::Directive::F.new( options => [4,2,-1] ),
 	];
@@ -717,8 +841,12 @@ subtest {
 	is-deeply $fl._parse( Q{~4f} ), [
 		Format::Lisp::Directive::F.new( options => [4] ),
 	];
-# Q{~5,1,,'*F},
-# Q{~5,1,,'*f},
+	is-deeply $fl._parse( Q{~5,1,,'*F} ), [
+		Format::Lisp::Directive::F.new( options => [5,1,Any,'*'] ),
+	];
+	is-deeply $fl._parse( Q{~5,1,,'*f} ), [
+		Format::Lisp::Directive::F.new( options => [5,1,Any,'*'] ),
+	];
 	is-deeply $fl._parse( Q{~F} ), [
 		Format::Lisp::Directive::F.new( options => [] ),
 	];
@@ -728,14 +856,21 @@ subtest {
 	is-deeply $fl._parse( Q{~f} ), [
 		Format::Lisp::Directive::F.new( options => [] ),
 	];
-# Q{~v,v,v,v,vf},
+	is-deeply $fl._parse( Q{~v,v,v,vf} ), [
+		Format::Lisp::Directive::F.new( options => ['v','v','v','v'] ),
+	];
 	is-deeply $fl._parse( Q{~v,vf} ), [
 		Format::Lisp::Directive::F.new( options => ['v','v'] ),
 	];
 	is-deeply $fl._parse( Q{~vf} ), [
 		Format::Lisp::Directive::F.new( options => ['v'] ),
 	];
-# Q{~~,,,,'~cf},
+	is-deeply $fl._parse( Q{~~,,,,'~cf} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Text.new( text => ',,,,\'' ),
+		Format::Lisp::Directive::C.new( options => [] ),
+		Format::Lisp::Text.new( text => 'f' ),
+	];
 
 	done-testing;
 }
@@ -781,9 +916,14 @@ subtest {
 	is-deeply $fl._parse( Q{~V,Vo} ), [
 		Format::Lisp::Directive::O.new( options => ['V','V'] ),
 	];
-# Q{~o},
+	is-deeply $fl._parse( Q{~o} ), [
+		Format::Lisp::Directive::O.new( options => [] ),
+	];
 # Q{~v,V@O},
 # Q{~v,v,v,vo},
+	is-deeply $fl._parse( Q{~v,v,v,vo} ), [
+		Format::Lisp::Directive::O.new( options => ['v','v','v','v'] ),
+	];
 # Q{~v,v@o},
 	is-deeply $fl._parse( Q{~v,vO} ), [
 		Format::Lisp::Directive::O.new( options => ['v','v'] ),
@@ -795,7 +935,11 @@ subtest {
 		Format::Lisp::Directive::O.new( options => ['v'] ),
 	];
 # Q{~~~d@o},
-# Q{~~~do},
+	is-deeply $fl._parse( Q{~~~do} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'o' ),
+	];
 
 	done-testing;
 }
@@ -813,7 +957,9 @@ subtest {
 # Q{~D cat~:P},
 # Q{~D penn~:@P},
 # Q{~D penn~@:P},
-# Q{~P},
+	is-deeply $fl._parse( Q{~P} ), [
+		Format::Lisp::Directive::P.new( options => [] ),
+	];
 
 	done-testing;
 }
@@ -824,34 +970,56 @@ subtest {
 	is-deeply $fl._parse( Q{~#r} ), [
 		Format::Lisp::Directive::R.new( options => ['#'] ),
 	];
-
-# Q{~+10r},
-# Q{~10,#r},
-# Q{~10,+8r},
+	is-deeply $fl._parse( Q{~+10r} ), [
+		Format::Lisp::Directive::R.new( options => [10] ),
+	];
+	is-deeply $fl._parse( Q{~10,#r} ), [
+		Format::Lisp::Directive::R.new( options => [10,'#'] ),
+	];
+	is-deeply $fl._parse( Q{~10,+8r} ), [
+		Format::Lisp::Directive::R.new( options => [10,8] ),
+	];
 # Q{~10,,,v:r},
 # Q{~10,-1000000000000000r},
-# Q{~10,-1r},
-# Q{~10,0r},
+	is-deeply $fl._parse( Q{~10,-1r} ), [
+		Format::Lisp::Directive::R.new( options => [10,-1] ),
+	];
+	is-deeply $fl._parse( Q{~10,0r} ), [
+		Format::Lisp::Directive::R.new( options => [10,0] ),
+	];
 # Q{~10,12,vr},
-# Q{~10,vr},
-# Q{~10,vr},
-# Q{~10r},
-# Q{~10r},
+	is-deeply $fl._parse( Q{~10,vR} ), [
+		Format::Lisp::Directive::R.new( options => [10,'v'] ),
+	];
+	is-deeply $fl._parse( Q{~10,vr} ), [
+		Format::Lisp::Directive::R.new( options => [10,'v'] ),
+	];
+	is-deeply $fl._parse( Q{~10r} ), [
+		Format::Lisp::Directive::R.new( options => [10] ),
+	];
 # Q{~16,,,,#:r},
 # Q{~2,,,,1000000000000000000r},
 # Q{~2,12,,'*:r},
 # Q{~2:r},
-# Q{~2r},
+	is-deeply $fl._parse( Q{~2r} ), [
+		Format::Lisp::Directive::R.new( options => [2] ),
+	];
 # Q{~3@:r},
-# Q{~3r},
+	is-deeply $fl._parse( Q{~3r} ), [
+		Format::Lisp::Directive::R.new( options => [3] ),
+	];
 # Q{~8,10:@r},
 # Q{~:@r},
 # Q{~:r},
 # Q{~@r},
 # Q{~dr},
-# Q{~r},
+	is-deeply $fl._parse( Q{~r} ), [
+		Format::Lisp::Directive::R.new( options => [] ),
+	];
 # Q{~v,v,v,v,vr},
-# Q{~vr},
+	is-deeply $fl._parse( Q{~vr} ), [
+		Format::Lisp::Directive::R.new( options => ['v'] ),
+	];
 # Q{~~~D,~D,'*r},
 # Q{~3,14,'X,',:R},
 # Q{~8,,,,v:R},
@@ -861,7 +1029,11 @@ subtest {
 # Q{~~~D,~DR},
 # Q{~~~d,,,'~c,~d:R},
 # Q{~~~d:R},
-# Q{~~~dR},
+	is-deeply $fl._parse( Q{~~~dR} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'R' ),
+	];
 
 	done-testing;
 }
@@ -911,7 +1083,11 @@ subtest {
 # Q{~v@S},
 # Q{~vS},
 # Q{~~~d@:S},
-# Q{~~~dS},
+	is-deeply $fl._parse( Q{~~~dS} ), [
+		Format::Lisp::Directive::Tilde.new( options => [] ),
+		Format::Lisp::Directive::D.new( options => [] ),
+		Format::Lisp::Text.new( text => 'S' ),
+	];
 
 	done-testing;
 }
