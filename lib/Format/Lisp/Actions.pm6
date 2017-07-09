@@ -25,6 +25,7 @@ class Format::Lisp::Text {
 
 class Format::Lisp::Directive {
 	has @.options;
+	has $.at = False;
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive { }
@@ -107,95 +108,134 @@ class Format::Lisp::Actions {
 	}
 
 	method Atom( $/ ) {
+		my $has-at = ?( $/<Tilde-Options><options> and
+				$/<Tilde-Options><options>.Str eq '@' );
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
 		elsif $/<tilde-A> {
-			make Format::Lisp::Directive::A.new
+			make Format::Lisp::Directive::A.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Amp> {
-			make Format::Lisp::Directive::Amp.new
+			make Format::Lisp::Directive::Amp.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-B> {
-			make Format::Lisp::Directive::B.new
+			make Format::Lisp::Directive::B.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Caret> {
 			make Format::Lisp::Directive::Caret.new(
-				options => $/<Tilde-Options>
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-C> {
-			make Format::Lisp::Directive::C.new
+			make Format::Lisp::Directive::C.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-D> {
-			make Format::Lisp::Directive::D.new
+			make Format::Lisp::Directive::D.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-E> {
 			make Format::Lisp::Directive::E.new(
-				options => $/<Tilde-Options>
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-F> {
-			make Format::Lisp::Directive::F.new
+			make Format::Lisp::Directive::F.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-G> {
 			make Format::Lisp::Directive::G.new(
-				options => $/<Tilde-Options>
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-I> {
 			make Format::Lisp::Directive::I.new(
-				options => $/<Tilde-Options>
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-O> {
-			make Format::Lisp::Directive::O.new
+			make Format::Lisp::Directive::O.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Percent> {
-			make Format::Lisp::Directive::Percent.new
+			make Format::Lisp::Directive::Percent.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Pipe> {
-			make Format::Lisp::Directive::Pipe.new
+			make Format::Lisp::Directive::Pipe.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-P> {
-			make Format::Lisp::Directive::P.new
+			make Format::Lisp::Directive::P.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Ques> {
-			make Format::Lisp::Directive::Ques.new
+			make Format::Lisp::Directive::Ques.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-R> {
-			make Format::Lisp::Directive::R.new
+			make Format::Lisp::Directive::R.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Semi> {
 			make Format::Lisp::Directive::Semi.new(
-				options => $/<Tilde-Options>
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-Slash> {
 			make Format::Lisp::Directive::Slash.new(
-				options => $/<Tilde-Options>
+				text => $/<tilde-Slash>[0],
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-Star> {
 			make Format::Lisp::Directive::Star.new(
-				options => $/<Tilde-Options>
+				at => $has-at
 			)
 		}
 		elsif $/<tilde-S> {
-			make Format::Lisp::Directive::S.new
+			make Format::Lisp::Directive::S.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Tilde> {
-			make Format::Lisp::Directive::Tilde.new
+			make Format::Lisp::Directive::Tilde.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-T> {
-			make Format::Lisp::Directive::T.new
+			make Format::Lisp::Directive::T.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-Under> {
-			make Format::Lisp::Directive::Under.new
+			make Format::Lisp::Directive::Under.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-W> {
-			make Format::Lisp::Directive::W.new
+			make Format::Lisp::Directive::W.new(
+				at => $has-at
+			)
 		}
 		elsif $/<tilde-X> {
-			make Format::Lisp::Directive::X.new
+			make Format::Lisp::Directive::X.new(
+				at => $has-at
+			)
 		}
 	}
 
@@ -219,7 +259,6 @@ class Format::Lisp::Actions {
 
 	method TOP( $/ ) {
 		make 
-			#$/<Atom>[0].ast
 			$/<Atom>>>.ast
 		;
 	}

@@ -101,7 +101,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Under { '_' }
 
-	token tilde-Slash { '/' <-[ / ]>+ '/' }
+	token tilde-Slash { '/' ( <-[ / ]>+ ) '/' }
 
 	token Atom {
 	|	'~' <Tilde-Options>
