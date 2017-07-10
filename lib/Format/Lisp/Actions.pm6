@@ -63,11 +63,11 @@ class Format::Lisp::Actions {
 	}
 
 	method Default( $/ ) {
-		make 'default'
+		make '#'
 	}
 
 	method Character( $/ ) {
-		make qq{"~$/"}
+		make ~$/
 	}
 
 	method V( $/ ) { make 'V' }
@@ -98,6 +98,8 @@ class Format::Lisp::Actions {
 		my $has-colon = ?( $/<Tilde-Options><options> and
 				   $/<Tilde-Options><options>.ast.<colon> );
 my @arguments;
+@arguments.append( $/<Tilde-Options><value-comma>>>.ast ) if
+	$/<Tilde-Options><value-comma>;
 @arguments.append( $/<Tilde-Options><value>.ast ) if
 	$/<Tilde-Options><value>;
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
