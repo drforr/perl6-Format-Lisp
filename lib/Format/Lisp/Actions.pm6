@@ -101,7 +101,8 @@ my @arguments;
 @arguments.append( $/<Tilde-Options><value-comma>>>.ast ) if
 	$/<Tilde-Options><value-comma>;
 @arguments.append( $/<Tilde-Options><value>.ast ) if
-	$/<Tilde-Options><value>;
+	#$/<Tilde-Options><value>;
+	$/<Tilde-Options><value> or $/<Tilde-Options><value-comma>;
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
 		elsif $/<tilde-A> {
 			make Format::Lisp::Directive::A.new(

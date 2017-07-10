@@ -558,17 +558,17 @@ subtest {
 			arguments => [ 4, Any, Any, Q{'X} ]
 		)
 	];
-#	is-deeply $fl._parse( Q{~4,,,@A} ), [
-#		Format::Lisp::Directive::A.new(
-#			at => True,
-#			arguments => [ 4, Any, Any, Any ]
-#		)
-#	];
-#	is-deeply $fl._parse( Q{~4,,,a} ), [
-#		Format::Lisp::Directive::A.new(
-#			arguments => [ 4, Any, Any, Any ]
-#		)
-#	];
+	is-deeply $fl._parse( Q{~4,,,@A} ), [
+		Format::Lisp::Directive::A.new(
+			at => True,
+			arguments => [ 4, Any, Any, Any ]
+		)
+	];
+	is-deeply $fl._parse( Q{~4,,,a} ), [
+		Format::Lisp::Directive::A.new(
+			arguments => [ 4, Any, Any, Any ]
+		)
+	];
 	is-deeply $fl._parse( Q{~4,,va} ), [
 		Format::Lisp::Directive::A.new(
 			arguments => [ 4, Any, 'V' ]
@@ -1503,11 +1503,11 @@ subtest {
 			arguments => [ 0 ]
 		)
 	];
-#	is-deeply $fl._parse( Q{~1,1,,f} ), [
-#		Format::Lisp::Directive::F.new(
-#			arguments => [ 1, 1, Any, Any ]
-#		)
-#	];
+	is-deeply $fl._parse( Q{~1,1,,f} ), [
+		Format::Lisp::Directive::F.new(
+			arguments => [ 1, 1, Any, Any ]
+		)
+	];
 	is-deeply $fl._parse( Q{~10,1,,,'*F} ), [
 		Format::Lisp::Directive::F.new(
 			arguments => [ 10, 1, Any, Any, Q{'*} ]
@@ -1518,11 +1518,11 @@ subtest {
 			arguments => [ 10, 1, Any, Any, Q{'*} ]
 		)
 	];
-#	is-deeply $fl._parse( Q{~10,1,,f} ), [
-#		Format::Lisp::Directive::F.new(
-#			arguments => [ 10, 1, Any, Any ]
-#		)
-#	];
+	is-deeply $fl._parse( Q{~10,1,,f} ), [
+		Format::Lisp::Directive::F.new(
+			arguments => [ 10, 1, Any, Any ]
+		)
+	];
 	is-deeply $fl._parse( Q{~2,1F} ), [
 		Format::Lisp::Directive::F.new(
 			arguments => [ 2, 1 ]
@@ -2186,7 +2186,7 @@ subtest {
 	];
 	is-deeply $fl._parse( Q{~4,,,s} ), [
 		Format::Lisp::Directive::S.new(
-			arguments => [ 4, Any, Any ]
+			arguments => [ 4, Any, Any, Any ]
 		)
 	];
 	is-deeply $fl._parse( Q{~4,,vs} ), [
@@ -2302,12 +2302,12 @@ subtest {
 			arguments => [ 4, Any, Any, Q{'X} ]
 		)
 	];
-#	is-deeply $fl._parse( Q{~4,,,@S} ), [
-#		Format::Lisp::Directive::S.new(
-#			at => True,
-#			arguments => [ 4, Any, Any ]
-#		)
-#	];
+	is-deeply $fl._parse( Q{~4,,,@S} ), [
+		Format::Lisp::Directive::S.new(
+			at => True,
+			arguments => [ 4, Any, Any, Any ]
+		)
+	];
 	is-deeply $fl._parse( Q{~5,3S} ), [
 		Format::Lisp::Directive::S.new(
 			arguments => [ 5, 3 ]
