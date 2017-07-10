@@ -72,7 +72,7 @@ class Format::Lisp::Actions {
 
 	method V( $/ ) { make 'V' }
 
-	method signed-integer( $/ ) { +$/ }
+	method signed-integer( $/ ) { make +$/ }
 
 	method value( $/ ) {
 		make	$/<Default>.ast
