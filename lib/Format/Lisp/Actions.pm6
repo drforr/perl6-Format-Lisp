@@ -57,6 +57,10 @@ class Format::Lisp::Directive::Under is Format::Lisp::Directive { }
 class Format::Lisp::Directive::W is Format::Lisp::Directive { }
 class Format::Lisp::Directive::X is Format::Lisp::Directive { }
 
+class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
+	has @.child;
+}
+
 class Format::Lisp::Actions {
 	method not-Tilde( $/ ) {
 		make Format::Lisp::Text.from-string( ~$/ )
@@ -179,6 +183,14 @@ my @arguments;
 				at => $has-at,
 				colon => $has-colon,
 				arguments => @arguments
+			)
+		}
+		elsif $/<tilde-Paren> {
+			make Format::Lisp::Directive::Paren.new(
+				at => $has-at,
+				colon => $has-colon,
+				arguments => @arguments,
+				child => $/<tilde-Paren><TOP><Atom>>>.ast
 			)
 		}
 		elsif $/<tilde-Percent> {

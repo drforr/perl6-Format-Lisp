@@ -57,15 +57,15 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Tilde { '~' }
 
-	token tilde-OAngle { <Tilde-Options> '<' }
+	token tilde-OAngle { '<' }
 	token tilde-CAngle { <Tilde-Options> '>' }
 
 	token tilde-A { <[ a A ]> }
 
-	token tilde-OBrace { <Tilde-Options> '{' }
+	token tilde-OBrace { '{' }
 	token tilde-CBrace { <Tilde-Options> '}' }
 
-	token tilde-OBracket { <Tilde-Options> '[' }
+	token tilde-OBracket { '[' }
 	token tilde-CBracket { <Tilde-Options> ']' }
 
 	token tilde-B { <[ b B ]> }
@@ -82,7 +82,7 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-O { <[ o O ]> }
 
-	token tilde-OParen { <Tilde-Options> '(' }
+	token tilde-OParen { '(' }
 	token tilde-CParen { <Tilde-Options> ')' }
 
 	token tilde-P { <[ p P ]> }
@@ -118,7 +118,10 @@ grammar Format::Lisp::Grammar {
 		[
 		|	<tilde-A>
 		|	<tilde-Amp>
+		|	<tilde-Angle>
 		|	<tilde-B>
+		|	<tilde-Brace>
+		|	<tilde-Bracket>
 		|	<tilde-C>
 		|	<tilde-Caret>
 		|	<tilde-D>
@@ -126,6 +129,7 @@ grammar Format::Lisp::Grammar {
 		|	<tilde-I>
 		|	<tilde-O>
 		|	<tilde-P>
+		|	<tilde-Paren>
 		|	<tilde-Percent>
 		|	<tilde-Pipe>
 		|	<tilde-Ques>
@@ -151,22 +155,5 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Paren { <tilde-OParen> <TOP>? '~' <tilde-CParen> }
 
-	token Non-Terminal {
-	'~'
-		[
-		||	<tilde-Angle>
-		||	<tilde-Brace>
-		||	<tilde-Bracket>
-		||	<tilde-Paren>
-		]
-	}
-
-	token Term {
-		<Non-Terminal> <Atom>*
-	}
-
-	token TOP {
-	||	<Atom>+ <Term>*
-	||	<Term>+
-	}
+	token TOP { <Atom>+ }
 }

@@ -124,29 +124,337 @@ subtest {
 		Format::Lisp::Directive::A.new,
 		Format::Lisp::Text.new( text => ')' )
 	];
-# Q{~(XXyy~AuuVV~)},
-# Q{~(aBc ~(def~) GHi~)},
-# Q{~(aBc ~:(def~) GHi~)},
-# Q{~(aBc ~@(def~) GHi~)},
-# Q{~(~c~)},
-# Q{~:(aBc ~(def~) GHi~)},
-# Q{~:(aBc ~:(def~) GHi~)},
-# Q{~:(aBc ~@(def~) GHi~)},
-# Q{~:(aBc ~@:(def~) GHi~)},
-# Q{~:(this is a TEST.~)},
-# Q{~:(this is7a TEST.~)},
-# Q{~:@(aBc ~(def~) GHi~)},
-# Q{~:@(aBc ~@(def~) GHi~)},
-# Q{~:@(this is AlSo A teSt~)},
-# Q{~@(!@#$%^&*this is a TEST.~)},
-# Q{~@(aBc ~(def~) GHi~)},
-# Q{~@(aBc ~:(def~) GHi~)},
-# Q{~@(aBc ~@(def~) GHi~)},
-# Q{~@(aBc ~@:(def~) GHi~)},
-# Q{~@(this is a TEST.~)},
-# Q{~@:(aBc ~:(def~) GHi~)},
-# Q{~@:(aBc ~@:(def~) GHi~)},
-# Q{~@:(~c~)},
+	is-deeply $fl._parse( Q{~(XXyy~AuuVV~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			child => [
+				Format::Lisp::Text.new( text => 'XXyy' ),
+				Format::Lisp::Directive::A.new,
+				Format::Lisp::Text.new( text => 'uuVV' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~(aBc ~:(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~(aBc ~@(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~(~c~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			child => [
+				Format::Lisp::Directive::C.new
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:(this is a TEST.~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			colon => True,
+			child => [
+				Format::Lisp::Text.new(
+					text => 'this is a TEST.'
+				)
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:(this is7 a TEST.~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			colon => True,
+			child => [
+				Format::Lisp::Text.new(
+					text => 'this is7 a TEST.'
+				)
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:@(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:@(aBc ~@(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~:@(this is AlSo A teSt~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			colon => True,
+			child => [
+				Format::Lisp::Text.new(
+					text => 'this is AlSo A teSt'
+				)
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@(!@#$%^&*this is a TEST.~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			child => [
+				Format::Lisp::Text.new(
+					text => '!@#$%^&*this is a TEST.'
+				)
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@(aBc ~(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@(aBc ~:(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@(aBc ~@(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@(aBc ~@:(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@(this is a TEST.~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			child => [
+				Format::Lisp::Text.new(
+					text => 'this is a TEST.'
+				)
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@:(aBc ~:(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@:(aBc ~@:(def~) GHi~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			colon => True,
+			child => [
+				Format::Lisp::Text.new( text => 'aBc ' ),
+				Format::Lisp::Directive::Paren.new(
+					at => True,
+					colon => True,
+					child => [
+						Format::Lisp::Text.new(
+							text => 'def'
+						),
+					]
+				),
+				Format::Lisp::Text.new( text => ' GHi' )
+			]
+		)
+	];
+	is-deeply $fl._parse( Q{~@:(~c~)} ), [
+		Format::Lisp::Directive::Paren.new(
+			at => True,
+			colon => True,
+			child => [
+				Format::Lisp::Directive::C.new
+			]
+		)
+	];
 
 	done-testing;
 }
