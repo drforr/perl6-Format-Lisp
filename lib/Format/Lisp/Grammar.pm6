@@ -22,6 +22,8 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token V { <[ v V ]> }
+	token At { <[ @ ]> }
+	token Colon { <[ : ]> }
 
 	token not-Tilde { <-[ ~ ]>+ }
 
@@ -33,8 +35,10 @@ grammar Format::Lisp::Grammar {
 	}
 
 	token options {
-	|	'@' ':'?
-	|	':' '@'?
+	|	<At> <Colon>
+	|	<At>
+	|	<Colon> <At>
+	|	<Colon>
 	}
 
 	token value-comma {
