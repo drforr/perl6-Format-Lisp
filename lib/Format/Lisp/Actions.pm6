@@ -26,6 +26,7 @@ class Format::Lisp::Text {
 class Format::Lisp::Directive {
 	has $.at = False;
 	has $.colon = False;
+	has @.arguments;
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive { }
@@ -57,20 +58,27 @@ class Format::Lisp::Directive::W is Format::Lisp::Directive { }
 class Format::Lisp::Directive::X is Format::Lisp::Directive { }
 
 class Format::Lisp::Actions {
-	method signed-integer( $/ ) {
-	}
-
-	method unsigned-integer( $/ ) {
-	}
-
-	method V( $/ ) {
-	}
-
 	method not-Tilde( $/ ) {
 		make Format::Lisp::Text.from-string( ~$/ )
 	}
 
+	method Default( $/ ) {
+		make 'default'
+	}
+
+	method Character( $/ ) {
+		make qq{"~$/"}
+	}
+
+	method V( $/ ) { make 'V' }
+
+	method signed-integer( $/ ) { +$/ }
+
 	method value( $/ ) {
+		make	$/<Default>.ast
+		||	$/<Character>.ast
+		||	$/<V>.ast
+		||	$/<signed-integer>.ast
 	}
 
 	method options( $/ ) {
@@ -81,34 +89,7 @@ class Format::Lisp::Actions {
 	}
 
 	method value-comma( $/ ) {
-		make ~$/<value>
-	}
-
-	method Tilde-Options( $/ ) {
-	}
-
-	method tilde-OAngle( $/ ) {
-	}
-
-	method tilde-CAngle( $/ ) {
-	}
-
-	method tilde-OBrace( $/ ) {
-	}
-
-	method tilde-CBrace( $/ ) {
-	}
-
-	method tilde-OBracket( $/ ) {
-	}
-
-	method tilde-CBracket( $/ ) {
-	}
-
-	method tilde-OParen( $/ ) {
-	}
-
-	method tilde-CParen( $/ ) {
+		make $/<value>.ast
 	}
 
 	method Atom( $/ ) {
@@ -116,177 +97,187 @@ class Format::Lisp::Actions {
 				$/<Tilde-Options><options>.ast.<at> );
 		my $has-colon = ?( $/<Tilde-Options><options> and
 				   $/<Tilde-Options><options>.ast.<colon> );
+my @arguments;
+@arguments.append( $/<Tilde-Options><value>.ast ) if
+	$/<Tilde-Options><value>;
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
 		elsif $/<tilde-A> {
 			make Format::Lisp::Directive::A.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Amp> {
 			make Format::Lisp::Directive::Amp.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-B> {
 			make Format::Lisp::Directive::B.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Caret> {
 			make Format::Lisp::Directive::Caret.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-C> {
 			make Format::Lisp::Directive::C.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-D> {
 			make Format::Lisp::Directive::D.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-E> {
 			make Format::Lisp::Directive::E.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-F> {
 			make Format::Lisp::Directive::F.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-G> {
 			make Format::Lisp::Directive::G.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-I> {
 			make Format::Lisp::Directive::I.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-O> {
 			make Format::Lisp::Directive::O.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Percent> {
 			make Format::Lisp::Directive::Percent.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Pipe> {
 			make Format::Lisp::Directive::Pipe.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-P> {
 			make Format::Lisp::Directive::P.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Ques> {
 			make Format::Lisp::Directive::Ques.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-R> {
 			make Format::Lisp::Directive::R.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Semi> {
 			make Format::Lisp::Directive::Semi.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Slash> {
 			make Format::Lisp::Directive::Slash.new(
 				text => $/<tilde-Slash>[0].Str,
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Star> {
 			make Format::Lisp::Directive::Star.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-S> {
 			make Format::Lisp::Directive::S.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Tilde> {
 			make Format::Lisp::Directive::Tilde.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-T> {
 			make Format::Lisp::Directive::T.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Under> {
 			make Format::Lisp::Directive::Under.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-W> {
 			make Format::Lisp::Directive::W.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-X> {
 			make Format::Lisp::Directive::X.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				arguments => @arguments
 			)
 		}
 	}
-
-	method tilde-Angle( $/ ) {
-	}
-
-	method tilde-Brace( $/ ) {
-	}
-
-	method tilde-Bracket( $/ ) {
-	}
-
-	method tilde-Paren( $/ ) {
-	}
-
-#	method Non-Terminal( $/ ) {
-#	}
-
-#	method Term( $/ ) {
-#	}
 
 	method TOP( $/ ) {
 		make 

@@ -21,6 +21,12 @@ grammar Format::Lisp::Grammar {
 	|	0
 	}
 
+	token Default { '#' }
+
+	token Character {
+	|	'\'' <[ a..z A..Z , * ]>
+	}
+
 	token V { <[ v V ]> }
 	token At { <[ @ ]> }
 	token Colon { <[ : ]> }
@@ -28,8 +34,8 @@ grammar Format::Lisp::Grammar {
 	token not-Tilde { <-[ ~ ]>+ }
 
 	token value {
-	|	'#'
-	|	'\'' <[ a..z A..Z , * ]>
+	|	<Default>
+	|	<Character>
 	|	<V>
 	|	<signed-integer>
 	}
