@@ -31,7 +31,10 @@ class Format::Lisp::Directive {
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Angle is Format::Lisp::Directive { has @.child; }
 class Format::Lisp::Directive::B is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Brace is Format::Lisp::Directive { has @.child; }
+class Format::Lisp::Directive::Bracket is Format::Lisp::Directive { has @.child; }
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive { }
 class Format::Lisp::Directive::C is Format::Lisp::Directive { }
 class Format::Lisp::Directive::D is Format::Lisp::Directive { }
@@ -40,6 +43,7 @@ class Format::Lisp::Directive::F is Format::Lisp::Directive { }
 class Format::Lisp::Directive::G is Format::Lisp::Directive { }
 class Format::Lisp::Directive::I is Format::Lisp::Directive { }
 class Format::Lisp::Directive::O is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Paren is Format::Lisp::Directive { has @.child; }
 class Format::Lisp::Directive::Percent is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { }
 class Format::Lisp::Directive::P is Format::Lisp::Directive { }
@@ -56,10 +60,6 @@ class Format::Lisp::Directive::T is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Under is Format::Lisp::Directive { }
 class Format::Lisp::Directive::W is Format::Lisp::Directive { }
 class Format::Lisp::Directive::X is Format::Lisp::Directive { }
-
-class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
-	has @.child;
-}
 
 class Format::Lisp::Actions {
 	method not-Tilde( $/ ) {
@@ -122,11 +122,35 @@ my @arguments;
 				arguments => @arguments
 			)
 		}
+		elsif $/<tilde-Angle> {
+			make Format::Lisp::Directive::Angle.new(
+				at => $has-at,
+				colon => $has-colon,
+				arguments => @arguments,
+				child => $/<tilde-Angle><TOP><Atom>>>.ast
+			)
+		}
 		elsif $/<tilde-B> {
 			make Format::Lisp::Directive::B.new(
 				at => $has-at,
 				colon => $has-colon,
 				arguments => @arguments
+			)
+		}
+		elsif $/<tilde-Brace> {
+			make Format::Lisp::Directive::Brace.new(
+				at => $has-at,
+				colon => $has-colon,
+				arguments => @arguments,
+				child => $/<tilde-Brace><TOP><Atom>>>.ast
+			)
+		}
+		elsif $/<tilde-Bracket> {
+			make Format::Lisp::Directive::Brace.new(
+				at => $has-at,
+				colon => $has-colon,
+				arguments => @arguments,
+				child => $/<tilde-Bracket><TOP><Atom>>>.ast
 			)
 		}
 		elsif $/<tilde-Caret> {
