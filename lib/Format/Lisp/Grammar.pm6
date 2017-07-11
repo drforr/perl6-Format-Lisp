@@ -76,7 +76,13 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-D { <[ d D ]> }
 
+	token tilde-Dollar { '$' }
+
+	token tilde-E { <[ e E ]> }
+
 	token tilde-F { <[ f F ]> }
+
+	token tilde-G { <[ g G ]> }
 
 	token tilde-I { <[ i I ]> }
 
@@ -125,7 +131,10 @@ grammar Format::Lisp::Grammar {
 		|	<tilde-C>
 		|	<tilde-Caret>
 		|	<tilde-D>
+		|	<tilde-Dollar>
+		|	<tilde-E>
 		|	<tilde-F>
+		|	<tilde-G>
 		|	<tilde-I>
 		|	<tilde-O>
 		|	<tilde-P>
