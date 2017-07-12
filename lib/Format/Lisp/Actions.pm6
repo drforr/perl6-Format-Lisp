@@ -37,6 +37,7 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
+	has $.trailing-colon = False;
 }
 class Format::Lisp::Directive::B is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
@@ -136,12 +137,16 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-Angle> {
+			my $has-trailing-colon =
+				?( $/<tilde-Angle><tilde-CAngle><Tilde-Options><options> and
+				   $/<tilde-Angle><tilde-CAngle><Tilde-Options><options>.ast.<colon> );
 			my @children;
 			@children.append( $/<tilde-Angle><TOP><Atom>>>.ast ) if
 				$/<tilde-Angle><TOP><Atom>;
 			make Format::Lisp::Directive::Angle.new(
 				at => $has-at,
 				colon => $has-colon,
+				trailing-colon => $has-trailing-colon,
 				arguments => @arguments,
 				children => @children
 			)
@@ -154,23 +159,31 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-Brace> {
+			my $has-trailing-colon =
+				?( $/<tilde-Angle><tilde-CBrace><Tilde-Options><options> and
+				   $/<tilde-Angle><tilde-CBrace><Tilde-Options><options>.ast.<colon> );
 			my @children;
 			@children.append( $/<tilde-Brace><TOP><Atom>>>.ast ) if
 				$/<tilde-Brace><TOP><Atom>;
 			make Format::Lisp::Directive::Brace.new(
 				at => $has-at,
 				colon => $has-colon,
+				trailing-colon => $has-trailing-colon,
 				arguments => @arguments,
 				children => @children
 			)
 		}
 		elsif $/<tilde-Bracket> {
+			my $has-trailing-colon =
+				?( $/<tilde-Angle><tilde-CBracket><Tilde-Options><options> and
+				   $/<tilde-Angle><tilde-CBracket><Tilde-Options><options>.ast.<colon> );
 			my @children;
 			@children.append( $/<tilde-Bracket><TOP><Atom>>>.ast ) if
 				$/<tilde-Bracket><TOP><Atom>;
 			make Format::Lisp::Directive::Bracket.new(
 				at => $has-at,
 				colon => $has-colon,
+				trailing-colon => $has-trailing-colon,
 				arguments => @arguments,
 				children => @children
 			)
@@ -239,12 +252,16 @@ class Format::Lisp::Actions {
 			)
 		}
 		elsif $/<tilde-Paren> {
+			my $has-trailing-colon =
+				?( $/<tilde-Angle><tilde-CParen><Tilde-Options><options> and
+				   $/<tilde-Angle><tilde-CParen><Tilde-Options><options>.ast.<colon> );
 			my @children;
 			@children.append( $/<tilde-Paren><TOP><Atom>>>.ast ) if
 				$/<tilde-Paren><TOP><Atom>;
 			make Format::Lisp::Directive::Paren.new(
 				at => $has-at,
 				colon => $has-colon,
+				trailing-colon => $has-trailing-colon,
 				arguments => @arguments,
 				children => @children
 			)
