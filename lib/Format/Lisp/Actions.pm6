@@ -33,7 +33,44 @@ class Format::Lisp::Directive {
 	has @.arguments;
 }
 
-class Format::Lisp::Directive::A is Format::Lisp::Directive { }
+class Format::Lisp::Directive::A is Format::Lisp::Directive {
+	has $.mincol = 0;
+	has $.colinc = 1;
+	has $.minpad = 0;
+	has $.padchar = ' ';
+	method to-string( $argument ) {
+		if @.arguments.elems == 2 {
+			my $out = 'NIL';
+			if $.at {
+				while $out.chars < $.mincol {
+					$out = ( ' ' x $.colinc ) ~ $out;
+				}
+			}
+			else {
+				while $out.chars < $.mincol {
+					$out = $out ~ ( ' ' x $.colinc );
+				}
+			}
+			return $out;
+		}
+		if $.colon {
+			if $argument ~~ Nil {
+				return '()';
+			}
+		}
+		if $*PRINT-CASE {
+			given $*PRINT-CASE {
+				when 'downcase' {
+					return 'nil';
+				}
+				when 'capitalize' {
+					return 'Nil';
+				}
+			}
+		}
+		return 'NIL';
+	}
+}
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
@@ -68,7 +105,21 @@ class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 	also does Stringify;
 }
 class Format::Lisp::Directive::Star is Format::Lisp::Directive { }
-class Format::Lisp::Directive::S is Format::Lisp::Directive { }
+class Format::Lisp::Directive::S is Format::Lisp::Directive {
+	method to-string( *@arguments ) {
+		if $*PRINT-CASE {
+			given $*PRINT-CASE {
+				when 'downcase' {
+					return 'nil';
+				}
+				when 'capitalize' {
+					return 'Nil';
+				}
+			}
+		}
+		return 'NIL';
+	}
+}
 class Format::Lisp::Directive::Tilde is Format::Lisp::Directive { }
 class Format::Lisp::Directive::T is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Under is Format::Lisp::Directive { }
@@ -126,7 +177,11 @@ class Format::Lisp::Actions {
 			make Format::Lisp::Directive::A.new(
 				at => $has-at,
 				colon => $has-colon,
-				arguments => @arguments
+				arguments => @arguments,
+				mincol => @arguments[0] // 0,
+				colinc => @arguments[1] // 1,
+				minpad => @arguments[2] // 0,
+				padchar => @arguments[3] // ' '
 			)
 		}
 		elsif $/<tilde-Amp> {

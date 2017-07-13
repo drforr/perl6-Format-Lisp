@@ -66,4 +66,15 @@ class Format::Lisp {
 		$parsed.ast;
 	}
 
+	method process-directive( $directive, *@arguments ) {
+	}
+
+	method format( Str $format, *@arguments ) {
+		my @directives = self._parse( $format );
+		my $text = '';
+		for @directives.kv -> $index, $_ {
+			$text ~= $_.to-string( @arguments[$index] );
+		}
+		return $text;
+	}
 }
