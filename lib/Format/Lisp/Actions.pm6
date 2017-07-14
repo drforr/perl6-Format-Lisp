@@ -25,6 +25,9 @@ role Nested {
 
 class Format::Lisp::Text {
 	also does Stringify;
+	method to-string( $argument ) {
+		return $argument;
+	}
 }
 
 class Format::Lisp::Directive {
@@ -39,36 +42,37 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 	has $.minpad = 0;
 	has $.padchar = ' ';
 	method to-string( $argument ) {
-		if @.arguments.elems == 2 {
-			my $out = 'NIL';
-			if $.at {
-				while $out.chars < $.mincol {
-					$out = ( ' ' x $.colinc ) ~ $out;
+		my $out = $argument ~~ Nil ?? 'NIL' !! $argument;
+		if +$.mincol {
+			my $padding = $.padchar x $.colinc;
+			while $out.chars < $.mincol {
+				if $.at {
+					$out = $padding ~ $out;
+				}
+				else {
+					$out = $out ~ $padding;
 				}
 			}
-			else {
-				while $out.chars < $.mincol {
-					$out = $out ~ ( ' ' x $.colinc );
-				}
-			}
-			return $out;
 		}
 		if $.colon {
 			if $argument ~~ Nil {
-				return '()';
+				$out = '()';
 			}
 		}
 		if $*PRINT-CASE {
 			given $*PRINT-CASE {
+				when 'upcase' {
+					$out = uc( $out );
+				}
 				when 'downcase' {
-					return 'nil';
+					$out = lc( $out );
 				}
 				when 'capitalize' {
-					return 'Nil';
+					$out = tc( lc( $out ) );
 				}
 			}
 		}
-		return 'NIL';
+		return $out;
 	}
 }
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
@@ -174,6 +178,10 @@ class Format::Lisp::Actions {
 			$/<Tilde-Options><value-comma>;
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
 		elsif $/<tilde-A> {
+			my $pad = ' ';
+			if @arguments[3] {
+				$pad = @arguments[3].substr(1,1);
+			}
 			make Format::Lisp::Directive::A.new(
 				at => $has-at,
 				colon => $has-colon,
@@ -181,7 +189,7 @@ class Format::Lisp::Actions {
 				mincol => @arguments[0] // 0,
 				colinc => @arguments[1] // 1,
 				minpad => @arguments[2] // 0,
-				padchar => @arguments[3] // ' '
+				padchar => $pad
 			)
 		}
 		elsif $/<tilde-Amp> {
