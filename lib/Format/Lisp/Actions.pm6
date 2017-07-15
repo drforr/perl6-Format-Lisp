@@ -41,11 +41,25 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 	has $.colinc = 1;
 	has $.minpad = 0;
 	has $.padchar = ' ';
-	method to-string( $argument ) {
-		my $out = $argument ~~ Nil ?? 'NIL' !! $argument;
+	method to-string( $argument, $num-remaining-args, $next-argument ) {
+		my $out = 'NIL';
+		$!mincol = $num-remaining-args if $.mincol eq '#';
+		$!colinc = $num-remaining-args if $.colinc eq '#';
+		$out = $next-argument if $.minpad eq 'V';
+
+		$out = $argument if $argument and $argument ne '';
+	 	if +$.minpad {
+			my $padding = $.padchar x $.minpad;
+			if $.at {
+				$out = $padding ~ $out;
+			}
+			else {
+				$out = $out ~ $padding;
+			}
+		}
 		if +$.mincol {
 			my $padding = $.padchar x $.colinc;
-			while $out.chars < $.mincol {
+			while $out and $out.chars < $.mincol {
 				if $.at {
 					$out = $padding ~ $out;
 				}
@@ -55,7 +69,7 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 			}
 		}
 		if $.colon {
-			if $argument ~~ Nil {
+			if $argument ~~ Nil | Any {
 				$out = '()';
 			}
 		}

@@ -73,8 +73,27 @@ class Format::Lisp {
 		my @directives = self._parse( $format );
 		my $text = '';
 		for @directives.kv -> $index, $_ {
-			$text ~= $_.to-string( @arguments[$index] );
+			my $num-remaining-args = @arguments.elems - $index;
+			my $next-argument = Nil;
+			$next-argument = @arguments[$index+1] if
+				$index + 1 < @arguments.elems;
+			$text ~= $_.to-string(
+				@arguments[$index],
+				$num-remaining-args,
+				$next-argument
+			);
 		}
 		return $text;
+	}
+
+	method formatter( Str $format ) {
+		my $fl = self;
+		return sub {
+			return $fl.format( $format, @_ );
+		}
+	}
+
+	method formatter-call-to-string( $formatter, *@arguments ) {
+		return $formatter( @arguments );
 	}
 }

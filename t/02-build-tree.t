@@ -5,8 +5,6 @@ use Format::Lisp;
 plan 10;
 
 my $fl = Format::Lisp.new;
-my $*CONSISTENCY-CHECK = True;
-my $*FALL-THROUGH = True;
 
 # Ack. I think running the permutations here will be simpler than trying to
 # match all the tests here, which really aren't full coverage. I'll leave the

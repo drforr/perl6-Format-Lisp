@@ -7,8 +7,6 @@ use Format::Lisp;
 # the object tree.
 
 my $fl = Format::Lisp.new;
-my $*CONSISTENCY-CHECK = True;
-my $*FALL-THROUGH = True;
 
 done-testing; # Because we're going to be adding tests quite often.
 

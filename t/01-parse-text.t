@@ -5,8 +5,6 @@ use Format::Lisp;
 plan 30;
 
 my $fl = Format::Lisp.new;
-my $*CONSISTENCY-CHECK = True;
-my $*FALL-THROUGH = True;
 
 #
 # It may not be apparent why I'm sorting on the last character. Mostly it's

@@ -4,8 +4,6 @@ use Test;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
-my $*CONSISTENCY-CHECK = True;
-my $*FALL-THROUGH = True;
 
 # (defun def-format-test (name args result)
 #   `(deftest ,name

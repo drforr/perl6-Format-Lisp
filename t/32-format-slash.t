@@ -4,8 +4,6 @@ use Test;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
-my $*CONSISTENCY-CHECK = True;
-my $*FALL-THROUGH = True;
 
 # (def-pprint-test format./.1
 #   (format nil "~/pprint-linear/" 1)

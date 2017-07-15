@@ -4,8 +4,6 @@ use Test;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
-my $*CONSISTENCY-CHECK = True;
-my $*FALL-THROUGH = True;
 
 # (def-format-test format.paren.1
 #   "~(XXyy~AuuVV~)" ("ABc dEF ghI") "xxyyabc def ghiuuvv")
