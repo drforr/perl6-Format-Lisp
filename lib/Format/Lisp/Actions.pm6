@@ -43,8 +43,8 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 	has $.padchar = ' ';
 	method to-string( $argument, $num-remaining-args, $next-argument ) {
 		my $out = 'NIL';
-		$!mincol = $num-remaining-args if $.mincol eq '#';
-		$!colinc = $num-remaining-args if $.colinc eq '#';
+		$!mincol = $num-remaining-args if $.mincol eq 'remaining';
+		$!colinc = $num-remaining-args if $.colinc eq 'remaining';
 		$out = $next-argument if $.minpad eq 'V';
 
 		$out = $argument if $argument and $argument ne '';
@@ -150,7 +150,7 @@ class Format::Lisp::Actions {
 	}
 
 	method Default( $/ ) {
-		make '#'
+		make 'remaining'
 	}
 
 	method Character( $/ ) {

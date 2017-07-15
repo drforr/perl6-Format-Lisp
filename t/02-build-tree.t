@@ -679,8 +679,8 @@ subtest {
 	];
 	is-deeply $fl._parse( Q{~#A} ), [
 		Format::Lisp::Directive::A.new(
-			mincol => '#',
-			arguments => [ '#' ]
+			mincol => 'remaining',
+			arguments => [ 'remaining' ]
 		)
 	];
 	is-deeply $fl._parse( Q{~-2A} ), [
@@ -789,7 +789,7 @@ subtest {
 		];
 		is-deeply $fl._parse( Q{~#<~>} ), [
 			Format::Lisp::Directive::Angle.new(
-				arguments => [ '#' ]
+				arguments => [ 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~-2<~>} ), [
@@ -901,8 +901,8 @@ subtest {
 		Format::Lisp::Directive::A.new(
 			at => True,
 			colon => True,
-			mincol => '#',
-			arguments => [ '#' ]
+			mincol => 'remaining',
+			arguments => [ 'remaining' ]
 		)
 	];
 	is-deeply $fl._parse( Q{~-2@:A} ), [
@@ -1052,8 +1052,8 @@ subtest {
 			Format::Lisp::Directive::Angle.new(
 				at => True,
 				colon => True,
-				mincol => '#',
-				arguments => [ '#' ]
+				mincol => 'remaining',
+				arguments => [ 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~-2@:<~>} ), [
@@ -1204,8 +1204,8 @@ subtest {
 		];
 		is-deeply $fl._parse( Q{~,#A} ), [
 			Format::Lisp::Directive::A.new(
-				colinc => '#',
-				arguments => [ Any, '#' ]
+				colinc => 'remaining',
+				arguments => [ Any, 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~,0A} ), [
@@ -1235,8 +1235,8 @@ subtest {
 		is-deeply $fl._parse( Q{~v,#A} ), [
 			Format::Lisp::Directive::A.new(
 				mincol => 'V',
-				colinc => '#',
-				arguments => [ 'V', '#' ]
+				colinc => 'remaining',
+				arguments => [ 'V', 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~v,0A} ), [
@@ -1253,29 +1253,29 @@ subtest {
 	subtest {
 		is-deeply $fl._parse( Q{~#,A} ), [
 			Format::Lisp::Directive::A.new(
-				mincol => '#',
-				arguments => [ '#', Any ]
+				mincol => 'remaining',
+				arguments => [ 'remaining', Any ]
 			)
 		];
 		is-deeply $fl._parse( Q{~#,vA} ), [
 			Format::Lisp::Directive::A.new(
-				mincol => '#',
+				mincol => 'remaining',
 				colinc => 'V',
-				arguments => [ '#', 'V' ]
+				arguments => [ 'remaining', 'V' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~#,#A} ), [
 			Format::Lisp::Directive::A.new(
-				mincol => '#',
-				colinc => '#',
-				arguments => [ '#', '#' ]
+				mincol => 'remaining',
+				colinc => 'remaining',
+				arguments => [ 'remaining', 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~#,0A} ), [
 			Format::Lisp::Directive::A.new(
-				mincol => '#',
+				mincol => 'remaining',
 				colinc => 0,
-				arguments => [ '#', 0 ]
+				arguments => [ 'remaining', 0 ]
 			)
 		];
 
@@ -1299,8 +1299,8 @@ subtest {
 		is-deeply $fl._parse( Q{~0,#A} ), [
 			Format::Lisp::Directive::A.new(
 				mincol => 0,
-				colinc => '#',
-				arguments => [ 0, '#' ]
+				colinc => 'remaining',
+				arguments => [ 0, 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~0,0A} ), [
@@ -1332,8 +1332,8 @@ subtest {
 		is-deeply $fl._parse( Q{~'*,#A} ), [
 			Format::Lisp::Directive::A.new(
 				mincol => Q{'*},
-				colinc => '#',
-				arguments => [ Q{'*}, '#' ]
+				colinc => 'remaining',
+				arguments => [ Q{'*}, 'remaining' ]
 			)
 		];
 		is-deeply $fl._parse( Q{~'*,0A} ), [
