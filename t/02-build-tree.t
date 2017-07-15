@@ -59,24 +59,16 @@ subtest {
 
 	subtest {
 		is-deeply $fl._parse( Q{~<~>} ), [
-			Format::Lisp::Directive::Angle.new(
-				children => [ ]
-			)
+			Format::Lisp::Directive::Angle.new
 		];
 		is-deeply $fl._parse( Q{~{~}} ), [
-			Format::Lisp::Directive::Brace.new(
-				children => [ ]
-			)
+			Format::Lisp::Directive::Brace.new
 		];
 		is-deeply $fl._parse( Q{~[~]} ), [
-			Format::Lisp::Directive::Bracket.new(
-				children => [ ]
-			)
+			Format::Lisp::Directive::Bracket.new
 		];
 		is-deeply $fl._parse( Q{~(~)} ), [
-			Format::Lisp::Directive::Paren.new(
-				children => [ ]
-			)
+			Format::Lisp::Directive::Paren.new
 		];
 	}, 'balanced';
 
@@ -330,19 +322,19 @@ subtest {
 subtest {
 	is-deeply $fl._parse( Q{~A~<~>} ), [
 		Format::Lisp::Directive::A.new,
-		Format::Lisp::Directive::Angle.new( children => [ ] )
+		Format::Lisp::Directive::Angle.new
 	];
 	is-deeply $fl._parse( Q{~A~{~}} ), [
 		Format::Lisp::Directive::A.new,
-		Format::Lisp::Directive::Brace.new( children => [ ] )
+		Format::Lisp::Directive::Brace.new
 	];
 	is-deeply $fl._parse( Q{~A~[~]} ), [
 		Format::Lisp::Directive::A.new,
-		Format::Lisp::Directive::Bracket.new( children => [ ] )
+		Format::Lisp::Directive::Bracket.new
 	];
 	is-deeply $fl._parse( Q{~A~(~)} ), [
 		Format::Lisp::Directive::A.new,
-		Format::Lisp::Directive::Paren.new( children => [ ] )
+		Format::Lisp::Directive::Paren.new
 	];
 
 	done-testing;
@@ -367,12 +359,12 @@ subtest {
 	];
 	is-deeply $fl._parse( Q{<~<~>>} ), [
 		Format::Lisp::Text.new( text => '<' ),
-		Format::Lisp::Directive::Angle.new( children => [ ] ),
+		Format::Lisp::Directive::Angle.new,
 		Format::Lisp::Text.new( text => '>' )
 	];
 	is-deeply $fl._parse( Q{>~<~><} ), [
 		Format::Lisp::Text.new( text => '>' ),
-		Format::Lisp::Directive::Angle.new( children => [ ] ),
+		Format::Lisp::Directive::Angle.new,
 		Format::Lisp::Text.new( text => '<' )
 	];
 	is-deeply $fl._parse( Q{b~bb} ), [
@@ -387,22 +379,22 @@ subtest {
 	];
 	is-deeply $fl._parse( Q[{~{~}}] ), [
 		Format::Lisp::Text.new( text => '{' ),
-		Format::Lisp::Directive::Brace.new( children => [ ] ),
+		Format::Lisp::Directive::Brace.new,
 		Format::Lisp::Text.new( text => '}' )
 	];
 	is-deeply $fl._parse( Q[}~{~}{] ), [
 		Format::Lisp::Text.new( text => '}' ),
-		Format::Lisp::Directive::Brace.new( children => [ ] ),
+		Format::Lisp::Directive::Brace.new,
 		Format::Lisp::Text.new( text => '{' )
 	];
 	is-deeply $fl._parse( Q{[~[~]]} ), [
 		Format::Lisp::Text.new( text => '[' ),
-		Format::Lisp::Directive::Bracket.new( children => [ ] ),
+		Format::Lisp::Directive::Bracket.new,
 		Format::Lisp::Text.new( text => ']' )
 	];
 	is-deeply $fl._parse( Q{]~[~][} ), [
 		Format::Lisp::Text.new( text => ']' ),
-		Format::Lisp::Directive::Bracket.new( children => [ ] ),
+		Format::Lisp::Directive::Bracket.new,
 		Format::Lisp::Text.new( text => '[' )
 	];
 	is-deeply $fl._parse( Q{c~cc} ), [
@@ -499,12 +491,12 @@ subtest {
 	];
 	is-deeply $fl._parse( Q{(~(~))} ), [
 		Format::Lisp::Text.new( text => '(' ),
-		Format::Lisp::Directive::Paren.new( children => [ ] ),
+		Format::Lisp::Directive::Paren.new,
 		Format::Lisp::Text.new( text => ')' )
 	];
 	is-deeply $fl._parse( Q{)~(~)(} ), [
 		Format::Lisp::Text.new( text => ')' ),
-		Format::Lisp::Directive::Paren.new( children => [ ] ),
+		Format::Lisp::Directive::Paren.new,
 		Format::Lisp::Text.new( text => '(' )
 	];
 	is-deeply $fl._parse( Q{%~%%} ), [
@@ -632,41 +624,35 @@ subtest {
 	subtest {
 		is-deeply $fl._parse( Q{~:<~>} ), [
 			Format::Lisp::Directive::Angle.new(
-				colon => True,
-				children => [ ]
+				colon => True
 			)
 		];
 		is-deeply $fl._parse( Q{~@<~>} ), [
 			Format::Lisp::Directive::Angle.new(
-				at => True,
-				children => [ ]
+				at => True
 			)
 		];
 		is-deeply $fl._parse( Q{~:@<~>} ), [
 			Format::Lisp::Directive::Angle.new(
 				at => True,
-				colon => True,
-				children => [ ]
+				colon => True
 			)
 		];
 		is-deeply $fl._parse( Q{~@:<~>} ), [
 			Format::Lisp::Directive::Angle.new(
 				at => True,
-				colon => True,
-				children => [ ]
+				colon => True
 			)
 		];
 		is-deeply $fl._parse( Q{~<~:>} ), [
 			Format::Lisp::Directive::Angle.new(
-				trailing-colon => True,
-				children => [ ]
+				trailing-colon => True
 			)
 		];
 		is-deeply $fl._parse( Q{~:<~:>} ), [
 			Format::Lisp::Directive::Angle.new(
 				colon => True,
-				trailing-colon => True,
-				children => [ ]
+				trailing-colon => True
 			)
 		];
 
