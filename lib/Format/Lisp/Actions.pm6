@@ -45,7 +45,7 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		my $out = 'NIL';
 		$!mincol = $num-remaining-args if $.mincol eq 'remaining';
 		$!colinc = $num-remaining-args if $.colinc eq 'remaining';
-		$out = $next-argument if $.minpad eq 'V';
+		$out = $next-argument if $.minpad eq 'next';
 
 		$out = $argument if $argument and $argument ne '';
 	 	if +$.minpad {
@@ -157,7 +157,7 @@ class Format::Lisp::Actions {
 		make ~$/
 	}
 
-	method V( $/ ) { make 'V' }
+	method V( $/ ) { make 'next' }
 
 	method signed-integer( $/ ) { make +$/ }
 
