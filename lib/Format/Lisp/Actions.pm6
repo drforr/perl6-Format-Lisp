@@ -179,11 +179,16 @@ class Format::Lisp::Actions {
 		make $/<value>.ast
 	}
 
+	method Tilde-Options( $/ ) {
+		make {
+			at => ?( $/<options>.ast.<at> ),
+			colon => ?( $/<options>.ast.<colon> ),
+		}
+	}
+
 	method Atom( $/ ) {
-		my $has-at = ?( $/<Tilde-Options><options> and
-				$/<Tilde-Options><options>.ast.<at> );
-		my $has-colon = ?( $/<Tilde-Options><options> and
-				   $/<Tilde-Options><options>.ast.<colon> );
+		my $has-at = $/<Tilde-Options>.ast.<at>;
+		my $has-colon = $/<Tilde-Options>.ast.<colon>;
 		my @arguments;
 		@arguments.append( $/<Tilde-Options><value-comma>>>.ast ) if
 			$/<Tilde-Options><value-comma>;
@@ -192,18 +197,13 @@ class Format::Lisp::Actions {
 			$/<Tilde-Options><value-comma>;
 		if $/<not-Tilde> { make $/<not-Tilde>.ast }
 		elsif $/<tilde-A> {
-			my $pad = ' ';
-			if @arguments[3] {
-				$pad = @arguments[3].substr(1,1);
-			}
 			make Format::Lisp::Directive::A.new(
 				at => $has-at,
 				colon => $has-colon,
-				arguments => @arguments,
 				mincol => @arguments[0] // 0,
 				colinc => @arguments[1] // 1,
 				minpad => @arguments[2] // 0,
-				padchar => $pad
+				padchar => @arguments[3] // ' '
 			)
 		}
 		elsif $/<tilde-Amp> {

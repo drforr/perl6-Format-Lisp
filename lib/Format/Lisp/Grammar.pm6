@@ -24,7 +24,7 @@ grammar Format::Lisp::Grammar {
 	token Default { '#' }
 
 	token Character {
-	|	'\'' <[ a..z A..Z , * ]>
+	|	<[ a..z A..Z , * ]>
 	}
 
 	token V { <[ v V ]> }
@@ -35,7 +35,7 @@ grammar Format::Lisp::Grammar {
 
 	token value {
 	|	<Default>
-	|	<Character>
+	|	'\'' <Character>
 	|	<V>
 	|	<signed-integer>
 	}
