@@ -59,8 +59,17 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		return $text;
 	}
 
-	method to-string( $argument, $next ) {
-		my $out;
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+		my $out = '';
+		my $mincol = $.mincol;
+		if $mincol eq 'next' {
+			$mincol = $argument // 0;
+			$argument = $next;
+		}
+		elsif $mincol eq 'remaining' {
+			$mincol = $remaining;
+		}
 		if $argument ~~ List {
 			if $.colon {
 				$out = '(NIL)';
@@ -76,26 +85,16 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 			if $.colon {
 				$out = '()';
 			}
+			elsif $.at {
+				$out = 'NIL';
+			}
 			else {
 				$out = 'NIL';
 			}
 		}
 		$out = self.print-case( $out );
-		return $out;
-#`(
-		if $.mincol eq 'next' {
-			$out = $next;
-			$!mincol = $argument;
-		}
-		if $.colon {
-			if $argument ~~ Nil | Any {
-				$out = '()';
-			}
-		}
-
-#		$out = $argument if $argument and $argument ne '';
-	 	if +$.minpad {
-			my $padding = $.padchar x $.minpad;
+		if $mincol > $out.chars {
+			my $padding = $.padchar x ( $mincol - $out.chars );
 			if $.at {
 				$out = $padding ~ $out;
 			}
@@ -103,20 +102,7 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 				$out = $out ~ $padding;
 			}
 		}
-		if +$.mincol {
-			my $padding = $.padchar x $.colinc;
-			while $out and $out.chars < $.mincol {
-				if $.at {
-					$out = $padding ~ $out;
-				}
-				else {
-					$out = $out ~ $padding;
-				}
-			}
-		}
-		$out = self.print-case( $out );
 		return $out;
-)
 	}
 }
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }

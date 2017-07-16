@@ -76,6 +76,7 @@ class Format::Lisp {
 			$text ~= $_.to-string(
 				@arguments[$index],
 				@arguments[$index+1],
+				@arguments.elems - $index
 			);
 		}
 		return $text;
