@@ -5,6 +5,7 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+my $CHAR-CODE-LIMIT = 0x10000;
 my @standard-chars =
 	split( '', Q{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()_+|\\=-`{}[]:\";'<>?,./} ), "\n";
 
@@ -95,7 +96,6 @@ subtest {
 	is @collected.elems, 0;
 }, 'format.a.7';
 
-#`(
 # (deftest format.a.8
 #   (let ((fn (formatter "~A")))
 #     (loop with count = 0
@@ -109,7 +109,27 @@ subtest {
 #           when (> count 100) collect "count limit exceeded" and do (loop-finish)))
 #   nil)
 # 
-)
+subtest {
+	my $fn = $fl.formatter( Q{~A} );
+	my @collected;
+	my $i = 0;
+	loop ( my $count = 0 ; ; ) {
+		last if $i < 0x10000 min $CHAR-CODE-LIMIT;
+		my $c = $i.chr;
+		my $s1 = $c;
+		my $s2 = $fl.format( Q{~A}, $s1 );
+		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+		unless $c ~~ Nil or $s1 eq $s2 or $s2 eq $s3 {
+			$count++;
+			@collected.append( [ $c, $s1, $s2, $s3 ] );
+		}
+		if $count > 100 {
+			@collected.append( 'count limit exceeded' );
+			last;
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.a.8';
 
 #`(
 # (deftest format.a.9
@@ -427,6 +447,7 @@ is $fl.format( Q{~v@:a}, Nil, Nil ), "()", 'format.a.20';
 
 # ;;; With colinc specified
 # 
+
 # (def-format-test format.a.21
 #   "~3,1a" (nil) "NIL")
 # 
@@ -549,6 +570,7 @@ is $fl.format( Q{~3,,-1A}, 'ABCD' ), "ABCD", 'format.a.34';
 
 # ;;; With padchar
 # 
+
 # (def-format-test format.a.35
 #   "~4,,,'XA" ("AB") "ABXX")
 # 
@@ -706,16 +728,14 @@ is $fl.format( Q{~5,vA}, 3, 'abc' ), "abc   ", 'format.a.47';
 is $fl.format( Q{~5,v@A}, 3, 'abc' ), "   abc", 'format.a.48';
 )
 
-#`(
 # ;;; # parameters
 # 
+
 # (def-format-test format.a.49
 #   "~#A" ("abc" nil nil nil) "abc " 3)
 # 
 is $fl.format( Q{~#A}, 'abc', Nil, Nil, Nil ), "abc ", 'format.a.49';
-)
 
-#`(
 # (def-format-test format.a.50
 #   "~#@a" ("abc" nil nil nil nil nil) "   abc" 5)
 # 
@@ -723,7 +743,6 @@ is $fl.format( Q{~#@a}, 'abc', Nil, Nil, Nil, Nil, Nil ),
 	"   abc",
 	'format.a.50'
 ;
-)
 
 # (def-format-test format.a.51
 #   "~5,#a" ("abc" nil nil nil) "abc    " 3)
