@@ -10,7 +10,8 @@ my @standard-chars =
 	'a'..'z',
 	'A'..'Z',
 	'0'..'9',
-	split( '', Q{~!@#$%^&*()_+|\\=-`{}[]:\";'<>?,./} ), "\n"
+	split( '', Q{~!@#$%^&*()_+|\\=-`{}[]:\";'<>?,./} ),
+	"\n"
 ;
 
 subtest {
@@ -32,17 +33,11 @@ subtest {
 
 	is $fl.format( Q{~V@:a}, 3, Nil ), Q{ ()}, 'format.a.14.slice';
 
-#`(
-	is $fl.format( Q{~v,,2a}, $i, 'ABC' ), Q{ABC   }, 'format.a.29.slice';
-)
+	is $fl.format( Q{~v,,2a}, 3, 'ABC' ), Q{ABC  }, 'format.a.29.slice';
 
-#`(
 	is $fl.format( Q{~3,,vA}, 1, 'ABC' ), Q{ABC }, 'format.a.44.slice';
-)
 
-#`(
 	is $fl.format( Q{~3,,v@A}, 1, 'ABC' ), Q{ ABC}, 'format.a.44a.slice';
-)
 }, 'missing coverage';
 
 # (def-format-test format.a.1
@@ -593,71 +588,53 @@ subtest {
 }, 'format.a.29';
 )
 
-#`(
 # (def-format-test format.a.30
 #   "~3,,+2A" ("ABC") "ABC  ")
 # 
 is $fl.format( Q{~3,,+2A}, 'ABC' ), "ABC  ", 'format.a.30';
-)
 
-#`(
 # (def-format-test format.a.31
 #   "~3,,0A" ("ABC") "ABC")
 # 
 is $fl.format( Q{~3,,0A}, 'ABC' ), "ABC", 'format.a.31';
-)
 
-#`(
 # (def-format-test format.a.32
 #   "~3,,-1A" ("ABC") "ABC")
 # 
 is $fl.format( Q{~3,,-1A}, 'ABC' ), "ABC", 'format.a.32';
-)
 
-#`(
 # (def-format-test format.a.33
 #   "~3,,0A" ("ABCD") "ABCD")
 # 
 is $fl.format( Q{~3,,0A}, 'ABCD' ), "ABCD", 'format.a.33';
-)
 
-#`(
 # (def-format-test format.a.34
 #   "~3,,-1A" ("ABCD") "ABCD")
 # 
 is $fl.format( Q{~3,,-1A}, 'ABCD' ), "ABCD", 'format.a.34';
-)
 
 # ;;; With padchar
 # 
 
-#`(
 # (def-format-test format.a.35
 #   "~4,,,'XA" ("AB") "ABXX")
 # 
 is $fl.format( Q{~4,,,'XA}, 'AB' ), "ABXX", 'format.a.35';
-)
 
-#`(
 # (def-format-test format.a.36
 #   "~4,,,a" ("AB") "AB  ")
 # 
 is $fl.format( Q{~4,,,a}, 'AB' ), "AB  ", 'format.a.36';
-)
 
-#`(
 # (def-format-test format.a.37
 #   "~4,,,'X@a" ("AB") "XXAB")
 # 
 is $fl.format( Q{~4,,,'X@a}, 'AB' ), "XXAB", 'format.a.37';
-)
 
-#`(
 # (def-format-test format.a.38
 #   "~4,,,@A" ("AB") "  AB")
 # 
 is $fl.format( Q{~4,,,@A}, 'AB' ), "  AB", 'format.a.38';
-)
 
 #`(
 # (def-format-test format.a.39
@@ -690,12 +667,10 @@ is $fl.format( Q{~10,,,v@a}, Q{*}, 'abcde' ), "*****abcde", 'format.a.42';
 # ;;; Other tests
 # 
 
-#`(
 # (def-format-test format.a.43
 #   "~3,,vA" (nil "ABC") "ABC")
 # 
 is $fl.format( Q{~3,,va}, Nil, 'ABC' ), "ABC", 'format.a.43';
-)
 
 #`(
 # (deftest format.a.44
@@ -771,12 +746,10 @@ subtest {
 }, 'format.a.44a';
 )
 
-#`(
 # (def-format-test format.a.45
 #   "~4,,va" (-1 "abcd") "abcd")
 # 
 is $fl.format( Q{~4,,va}, -1, 'abcd' ), "abcd", 'format.a.45';
-)
 
 #`(
 # (def-format-test format.a.46

@@ -33,7 +33,6 @@ class Format::Lisp::Text {
 class Format::Lisp::Directive {
 	has $.at = False;
 	has $.colon = False;
-	has @.arguments;
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive {
@@ -74,6 +73,11 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		if $colinc eq 'remaining' {
 			$colinc = $remaining;
 		}
+		my $minpad = $.minpad;
+		if $minpad eq 'next' {
+			$minpad = $argument // 0;
+			$argument = $next;
+		}
 		if $argument ~~ List {
 			if $.colon {
 				$out = '(NIL)';
@@ -101,6 +105,9 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		while $mincol > $out.chars + $padding.chars {
 			$padding ~= $.padchar x $colinc;
 		}
+		while $minpad > $padding.chars {
+			$padding ~= $.padchar x $minpad;
+		}
 		if $padding {
 			if $.at {
 				$out = $padding ~ $out;
@@ -120,6 +127,7 @@ class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 class Format::Lisp::Directive::B is Format::Lisp::Directive { }
 class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 	also does Nested;
+	has $.trailing-colon = False;
 }
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	also does Nested;
@@ -233,7 +241,6 @@ class Format::Lisp::Actions {
 			make Format::Lisp::Directive::Amp.new(
 				at => $has-at,
 				colon => $has-colon,
-				arguments => @arguments
 			)
 		}
 		elsif $/<tilde-Angle> {
@@ -247,15 +254,13 @@ class Format::Lisp::Actions {
 				at => $has-at,
 				colon => $has-colon,
 				trailing-colon => $has-trailing-colon,
-				arguments => @arguments,
 				children => @children
 			)
 		}
 		elsif $/<tilde-B> {
 			make Format::Lisp::Directive::B.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Brace> {
@@ -269,7 +274,6 @@ class Format::Lisp::Actions {
 				at => $has-at,
 				colon => $has-colon,
 				trailing-colon => $has-trailing-colon,
-				arguments => @arguments,
 				children => @children
 			)
 		}
@@ -284,71 +288,61 @@ class Format::Lisp::Actions {
 				at => $has-at,
 				colon => $has-colon,
 				trailing-colon => $has-trailing-colon,
-				arguments => @arguments,
 				children => @children
 			)
 		}
 		elsif $/<tilde-Caret> {
 			make Format::Lisp::Directive::Caret.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-C> {
 			make Format::Lisp::Directive::C.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-D> {
 			make Format::Lisp::Directive::D.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Dollar> {
 			make Format::Lisp::Directive::Dollar.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-E> {
 			make Format::Lisp::Directive::E.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-F> {
 			make Format::Lisp::Directive::F.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-G> {
 			make Format::Lisp::Directive::G.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-I> {
 			make Format::Lisp::Directive::I.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-O> {
 			make Format::Lisp::Directive::O.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Paren> {
@@ -362,107 +356,92 @@ class Format::Lisp::Actions {
 				at => $has-at,
 				colon => $has-colon,
 				trailing-colon => $has-trailing-colon,
-				arguments => @arguments,
 				children => @children
 			)
 		}
 		elsif $/<tilde-Percent> {
 			make Format::Lisp::Directive::Percent.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Pipe> {
 			make Format::Lisp::Directive::Pipe.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-P> {
 			make Format::Lisp::Directive::P.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Ques> {
 			make Format::Lisp::Directive::Ques.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-R> {
 			make Format::Lisp::Directive::R.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Semi> {
 			make Format::Lisp::Directive::Semi.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Slash> {
 			make Format::Lisp::Directive::Slash.new(
 				text => $/<tilde-Slash>[0].Str,
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Star> {
 			make Format::Lisp::Directive::Star.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-S> {
 			make Format::Lisp::Directive::S.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Tilde> {
 			make Format::Lisp::Directive::Tilde.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-T> {
 			make Format::Lisp::Directive::T.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-Under> {
 			make Format::Lisp::Directive::Under.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-W> {
 			make Format::Lisp::Directive::W.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 		elsif $/<tilde-X> {
 			make Format::Lisp::Directive::X.new(
 				at => $has-at,
-				colon => $has-colon,
-				arguments => @arguments
+				colon => $has-colon
 			)
 		}
 	}
