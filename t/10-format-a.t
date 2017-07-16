@@ -497,61 +497,45 @@ is $fl.format( Q{~v@:a}, Nil, Nil ), "()", 'format.a.20';
 # ;;; With colinc specified
 # 
 
-#`(
 # (def-format-test format.a.21
 #   "~3,1a" (nil) "NIL")
 # 
 is $fl.format( Q{~3,1a}, Nil ), "NIL", 'format.a.21';
-)
 
-#`(
 # (def-format-test format.a.22
 #   "~4,3a" (nil) "NIL   ")
 # 
 is $fl.format( Q{~4,3a}, Nil ), "NIL   ", 'format.a.22';
-)
 
-#`(
 # (def-format-test format.a.23
 #   "~3,3@a" (nil) "NIL")
 # 
 is $fl.format( Q{~3,3@A}, Nil ), "NIL", 'format.a.23';
-)
 
-#`(
 # (def-format-test format.a.24
 #   "~4,4@a" (nil) "    NIL")
 # 
 is $fl.format( Q{~4,4@A}, Nil ), "    NIL", 'format.a.24';
-)
 
-#`(
 # (def-format-test format.a.25
 #   "~5,3@a" (nil) "   NIL")
 # 
 is $fl.format( Q{~5,3@A}, Nil ), "   NIL", 'format.a.25';
-)
 
-#`(
 # (def-format-test format.a.26
 #   "~5,3A" (nil) "NIL   ")
 # 
 is $fl.format( Q{~5,3A}, Nil ), "NIL   ", 'format.a.26';
-)
 
-#`(
 # (def-format-test format.a.27
 #   "~7,3@a" (nil) "      NIL")
 # 
 is $fl.format( Q{~7,3@A}, Nil ), "      NIL", 'format.a.27';
-)
 
-#`(
 # (def-format-test format.a.28
 #   "~7,3A" (nil) "NIL      ")
 # 
 is $fl.format( Q{~7,3A}, Nil ), "NIL      ", 'format.a.28';
-)
 
 # ;;; With minpad
 # 
@@ -831,47 +815,35 @@ is $fl.format( Q{~#@a}, 'abc', Nil, Nil, Nil, Nil, Nil ),
 	'format.a.50'
 ;
 
-#`(
 # (def-format-test format.a.51
 #   "~5,#a" ("abc" nil nil nil) "abc    " 3)
 # 
 is $fl.format( Q{~5,#a}, 'abc', Nil, Nil, Nil ), "abc    ", 'format.a.51';
-)
 
-#`(
 # (def-format-test format.a.52
 #   "~5,#@A" ("abc" nil nil nil) "    abc" 3)
 # 
 is $fl.format( Q{~5,#@A}, 'abc', Nil, Nil, Nil ), "    abc", 'format.a.52';
-)
 
-#`(
 # (def-format-test format.a.53
 #   "~4,#A" ("abc" nil nil) "abc   " 2)
 # 
 is $fl.format( Q{~4,#A}, 'abc', Nil, Nil ), "abc   ", 'format.a.53';
-)
 
-#`(
 # (def-format-test format.a.54
 #   "~4,#@A" ("abc" nil nil) "   abc" 2)
 # 
 is $fl.format( Q{~4,#@A}, 'abc', Nil, Nil ), "   abc", 'format.a.54';
-)
 
-#`(
 # (def-format-test format.a.55
 #   "~#,#A" ("abc" nil nil nil) "abc    " 3)
 # 
 is $fl.format( Q{~#,#A}, 'abc', Nil, Nil, Nil ), "abc    ", 'format.a.55';
-)
 
-#`(
 # (def-format-test format.a.56
 #   "~#,#@A" ("abc" nil nil nil) "    abc" 3)
 # 
 is $fl.format( Q{~#,#@A}, 'abc', Nil, Nil, Nil ), "    abc", 'format.a.56';
-)
 
 # (def-format-test format.a.57
 #   "~-100A" ("xyz") "xyz")

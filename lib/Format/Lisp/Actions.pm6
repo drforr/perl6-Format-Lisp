@@ -70,6 +70,10 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		elsif $mincol eq 'remaining' {
 			$mincol = $remaining;
 		}
+		my $colinc = $.colinc;
+		if $colinc eq 'remaining' {
+			$colinc = $remaining;
+		}
 		if $argument ~~ List {
 			if $.colon {
 				$out = '(NIL)';
@@ -93,8 +97,11 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 			}
 		}
 		$out = self.print-case( $out );
-		if $mincol > $out.chars {
-			my $padding = $.padchar x ( $mincol - $out.chars );
+		my $padding = '';
+		while $mincol > $out.chars + $padding.chars {
+			$padding ~= $.padchar x $colinc;
+		}
+		if $padding {
 			if $.at {
 				$out = $padding ~ $out;
 			}
