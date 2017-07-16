@@ -69,18 +69,13 @@ class Format::Lisp {
 	method process-directive( $directive, *@arguments ) {
 	}
 
-	method format( Str $format, *@arguments ) {
+	method format( Str $format, **@arguments ) {
 		my @directives = self._parse( $format );
 		my $text = '';
 		for @directives.kv -> $index, $_ {
-			my $num-remaining-args = @arguments.elems - $index;
-			my $next-argument = Nil;
-			$next-argument = @arguments[$index+1] if
-				$index + 1 < @arguments.elems;
 			$text ~= $_.to-string(
 				@arguments[$index],
-				$num-remaining-args,
-				$next-argument
+				@arguments[$index+1],
 			);
 		}
 		return $text;
@@ -93,7 +88,7 @@ class Format::Lisp {
 		}
 	}
 
-	method formatter-call-to-string( $formatter, *@arguments ) {
+	method formatter-call-to-string( $formatter, **@arguments ) {
 		return $formatter( @arguments );
 	}
 }

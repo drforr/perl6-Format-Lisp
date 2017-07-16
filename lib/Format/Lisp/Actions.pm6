@@ -41,13 +41,59 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 	has $.colinc = 1;
 	has $.minpad = 0;
 	has $.padchar = ' ';
-	method to-string( $argument, $num-remaining-args, $next-argument ) {
-		my $out = 'NIL';
-		$!mincol = $num-remaining-args if $.mincol eq 'remaining';
-		$!colinc = $num-remaining-args if $.colinc eq 'remaining';
-		$out = $next-argument if $.minpad eq 'next';
 
-		$out = $argument if $argument and $argument ne '';
+	method print-case( $text ) {
+		if $*PRINT-CASE {
+			given $*PRINT-CASE {
+				when 'upcase' {
+					return uc( $text );
+				}
+				when 'downcase' {
+					return lc( $text );
+				}
+				when 'capitalize' {
+					return tc( lc( $text ) );
+				}
+			}
+		}
+		return $text;
+	}
+
+	method to-string( $argument, $next ) {
+		my $out;
+		if $argument ~~ List {
+			if $.colon {
+				$out = '(NIL)';
+			}
+			else {
+				$out = '(NIL)'; # Sigh.
+			}
+		}
+		elsif $argument and $argument ne '' {
+			$out = $argument;
+		}
+		else {
+			if $.colon {
+				$out = '()';
+			}
+			else {
+				$out = 'NIL';
+			}
+		}
+		$out = self.print-case( $out );
+		return $out;
+#`(
+		if $.mincol eq 'next' {
+			$out = $next;
+			$!mincol = $argument;
+		}
+		if $.colon {
+			if $argument ~~ Nil | Any {
+				$out = '()';
+			}
+		}
+
+#		$out = $argument if $argument and $argument ne '';
 	 	if +$.minpad {
 			my $padding = $.padchar x $.minpad;
 			if $.at {
@@ -68,25 +114,9 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 				}
 			}
 		}
-		if $.colon {
-			if $argument ~~ Nil | Any {
-				$out = '()';
-			}
-		}
-		if $*PRINT-CASE {
-			given $*PRINT-CASE {
-				when 'upcase' {
-					$out = uc( $out );
-				}
-				when 'downcase' {
-					$out = lc( $out );
-				}
-				when 'capitalize' {
-					$out = tc( lc( $out ) );
-				}
-			}
-		}
+		$out = self.print-case( $out );
 		return $out;
+)
 	}
 }
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
