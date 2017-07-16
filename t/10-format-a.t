@@ -346,15 +346,15 @@ subtest {
 #   "()        ")
 # 
 subtest {
-	my $collected;
+	my @collected;
 	my $fn = $fl.formatter( Q{~V:a} );
 	for 1 .. 10 -> $i {
 		my $s = $fl.format( Q{~v:A}, $i, Nil );
-		my $s2 = $fl.formatter-call-to-string( $fn $i, Nil );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i, Nil );
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply $collected, [
+	is-deeply @collected, [
 		"()",
 		"()",
 		"() ",
@@ -392,15 +392,15 @@ subtest {
 #   "        ()")
 # 
 subtest {
-	my $collected;
+	my @collected;
 	my $fn = $fl.formatter( Q{~V@:A} );
 	for 1 .. 10 -> $i {
 		my $s = $fl.format( Q{~v:@A}, $i, Nil );
-		my $s2 = $fl.formatter-call-to-string( $fn $i, Nil );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i, Nil );
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply $collected, [
+	is-deeply @collected, [
 		"()",
 		"()",
 		" ()",
@@ -488,9 +488,10 @@ is $fl.format( Q{~7,3@A}, Nil ), "      NIL", 'format.a.27';
 # 
 is $fl.format( Q{~7,3A}, Nil ), "NIL      ", 'format.a.28';
 
-#`(
 # ;;; With minpad
 # 
+
+#`(
 # (deftest format.a.29
 #   (let ((fn (formatter "~v,,2A")))
 #     (loop for i from -4 to 10
@@ -621,6 +622,7 @@ is $fl.format( Q{~10,,,v@a}, Q{*}, 'abcde' ), "*****abcde", 'format.a.42';
 
 # ;;; Other tests
 # 
+
 # (def-format-test format.a.43
 #   "~3,,vA" (nil "ABC") "ABC")
 # 
