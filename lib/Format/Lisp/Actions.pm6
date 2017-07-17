@@ -14,9 +14,6 @@ Format::Lisp::Actions - Actions for Common Lisp format strings
 
 role Stringify {
 	has $.text;
-	method from-string( Str $x ) {
-		return self.bless( text => $x );
-	}
 }
 
 role Nested {
@@ -70,7 +67,11 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 			$mincol = $remaining;
 		}
 		my $colinc = $.colinc;
-		if $colinc eq 'remaining' {
+		if $colinc eq 'next' {
+			$colinc = $argument // 0;
+			$argument = $next;
+		}
+		elsif $colinc eq 'remaining' {
 			$colinc = $remaining;
 		}
 		my $minpad = $.minpad;
@@ -78,6 +79,12 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 			$minpad = $argument // 0;
 			$argument = $next;
 		}
+		my $padchar = $.padchar;
+		if $padchar eq 'next' {
+			$padchar = $argument // ' ';
+			$argument = $next;
+		}
+
 		if $argument ~~ List {
 			if $.colon {
 				$out = '(NIL)';
@@ -102,11 +109,15 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		}
 		$out = self.print-case( $out );
 		my $padding = '';
-		while $mincol > $out.chars + $padding.chars {
-			$padding ~= $.padchar x $colinc;
+		if $colinc > 0 {
+			while $mincol > $out.chars + $padding.chars {
+				$padding ~= $padchar x $colinc;
+			}
 		}
-		while $minpad > $padding.chars {
-			$padding ~= $.padchar x $minpad;
+		if $minpad > 0 {
+			while $minpad > $padding.chars {
+				$padding ~= $padchar x $minpad;
+			}
 		}
 		if $padding {
 			if $.at {
@@ -177,7 +188,9 @@ class Format::Lisp::Directive::X is Format::Lisp::Directive { }
 
 class Format::Lisp::Actions {
 	method not-Tilde( $/ ) {
-		make Format::Lisp::Text.from-string( ~$/ )
+		make Format::Lisp::Text.new(
+			text => ~$/
+		)
 	}
 
 	method Default( $/ ) {

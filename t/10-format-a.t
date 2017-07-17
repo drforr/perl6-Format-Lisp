@@ -636,33 +636,25 @@ is $fl.format( Q{~4,,,'X@a}, 'AB' ), "XXAB", 'format.a.37';
 # 
 is $fl.format( Q{~4,,,@A}, 'AB' ), "  AB", 'format.a.38';
 
-#`(
 # (def-format-test format.a.39
 #   "~10,,,vA" (nil "abcde") "abcde     ")
 # 
 is $fl.format( Q{~10,,,vA}, Nil, 'abcde' ), "abcde     ", 'format.a.39';
-)
 
-#`(
 # (def-format-test format.a.40
 #   "~10,,,v@A" (nil "abcde") "     abcde")
 # 
 is $fl.format( Q{~10,,,v@a}, Nil, 'abcde' ), "     abcde", 'format.a.40';
-)
 
-#`(
 # (def-format-test format.a.41
 #   "~10,,,va" (#\* "abcde") "abcde*****")
 # 
 is $fl.format( Q{~10,,,va}, Q{*}, 'abcde' ), "abcde*****", 'format.a.41';
-)
 
-#`(
 # (def-format-test format.a.42
 #   "~10,,,v@a" (#\* "abcde") "*****abcde")
 # 
 is $fl.format( Q{~10,,,v@a}, Q{*}, 'abcde' ), "*****abcde", 'format.a.42';
-)
 
 # ;;; Other tests
 # 
@@ -758,19 +750,15 @@ is $fl.format( Q{~4,,va}, -1, 'abcd' ), "abcd", 'format.a.45';
 is $fl.format( Q{~5,vA}, Nil, 'abc' ), "abc  ", 'format.a.46';
 )
 
-#`(
 # (def-format-test format.a.47
 #   "~5,vA" (3 "abc") "abc   ")
 # 
 is $fl.format( Q{~5,vA}, 3, 'abc' ), "abc   ", 'format.a.47';
-)
 
-#`(
 # (def-format-test format.a.48
 #   "~5,v@A" (3 "abc") "   abc")
 # 
 is $fl.format( Q{~5,v@A}, 3, 'abc' ), "   abc", 'format.a.48';
-)
 
 # ;;; # parameters
 # 
