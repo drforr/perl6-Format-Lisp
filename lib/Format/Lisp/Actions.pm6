@@ -58,6 +58,7 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 	method to-string( $_argument, $next, $remaining ) {
 		my $argument = $_argument;
 		my $out = '';
+
 		my $mincol = $.mincol;
 		if $mincol eq 'next' {
 			$mincol = $argument // 0;
@@ -66,19 +67,22 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		elsif $mincol eq 'remaining' {
 			$mincol = $remaining;
 		}
+
 		my $colinc = $.colinc;
 		if $colinc eq 'next' {
-			$colinc = $argument // 0;
+			$colinc = $argument // 1;
 			$argument = $next;
 		}
 		elsif $colinc eq 'remaining' {
 			$colinc = $remaining;
 		}
+
 		my $minpad = $.minpad;
 		if $minpad eq 'next' {
 			$minpad = $argument // 0;
 			$argument = $next;
 		}
+
 		my $padchar = $.padchar;
 		if $padchar eq 'next' {
 			$padchar = $argument // ' ';

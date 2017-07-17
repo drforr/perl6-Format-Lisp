@@ -743,12 +743,10 @@ subtest {
 # 
 is $fl.format( Q{~4,,va}, -1, 'abcd' ), "abcd", 'format.a.45';
 
-#`(
 # (def-format-test format.a.46
 #   "~5,vA" (nil "abc") "abc  ")
 # 
 is $fl.format( Q{~5,vA}, Nil, 'abc' ), "abc  ", 'format.a.46';
-)
 
 # (def-format-test format.a.47
 #   "~5,vA" (3 "abc") "abc   ")
