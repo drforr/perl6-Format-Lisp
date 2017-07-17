@@ -404,12 +404,10 @@ my $fl = Format::Lisp.new;
 # ;;; NIL arguments
 # 
 
-#`(
 # (def-format-test format.b.14
 #   "~vb" (nil #b110100) "110100")
 # 
 is $fl.format( Q{~vb}, Nil, 0b110100 ), Q{110100}, 'format.b.14';
-)
 
 #`(
 # (def-format-test format.b.15
@@ -496,7 +494,6 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 # 
 # ;;; # arguments
 # 
-
 #`(
 # (deftest format.b.22
 #   (apply
@@ -581,33 +578,25 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 # 
 )
 
-#`(
 # (def-format-test format.b.25
 #   "~+10b" (#b1101) "      1101")
 # 
 is $fl.format( Q{~+10b}, 0b1101 ), Q{      1101}, 'format.b.25';
-)
 
-#`(
 # (def-format-test format.b.26
 #   "~+10@B" (#b1101) "     +1101")
 # 
 is $fl.format( Q{~+10@b}, 0b1101 ), Q{     +1101}, 'format.b.26';
-)
 
-#`(
 # (def-format-test format.b.27
 #   "~-1b" (#b1101) "1101")
 # 
 is $fl.format( Q{~+1b}, 0b1101 ), Q{1101}, 'format.b.27';
-)
 
-#`(
 # (def-format-test format.b.28
 #   "~-1000000000000000000B" (#b1101) "1101")
 # 
 is $fl.format( Q{~-1000000000000000000B}, 0b1101 ), Q{1101}, 'format.b.28';
-)
 
 #`(
 # (def-format-test format.b.29
@@ -617,7 +606,6 @@ is $fl.format( Q{~-1000000000000000000B}, 0b1101 ), Q{1101}, 'format.b.28';
 
 # ;;; Randomized test
 # 
-
 #`(
 # (deftest format.b.30
 #   (let ((fn (formatter "~V,V,V,VB")))
