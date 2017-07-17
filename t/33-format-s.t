@@ -26,20 +26,22 @@ subtest {
 # 
 )
 
-#`(
 # (def-format-test format.s.2
 #   "~:s" (nil) "()")
 # 
-)
+is $fl.format( Q{~:s}, Nil ), Q{()}, 'format.s.2';
 
-#`(
 # (deftest format.s.3
 #   (let ((*print-readably* nil)
 #         (*print-case* :upcase))
 #     (format nil "~:s" '(nil)))
 #   "(NIL)")
 # 
-)
+subtest {
+	my $*PRINT-READABLY = Nil;
+	my $*PRINT-CASE = 'upcase';
+	is $fl.format( Q{~:s}, [ Nil ] ), Q{(NIL)};
+}, 'format.s.3';
 
 #`(
 # (deftest formatter.s.3
@@ -50,14 +52,17 @@ subtest {
 # 
 )
 
-#`(
 # (deftest format.s.4
 #   (let ((*print-readably* nil)
 #         (*print-case* :downcase))
 #     (format nil "~s" 'nil))
 #   "nil")
 # 
-)
+subtest {
+	my $*PRINT-READABLY = Nil;
+	my $*PRINT-CASE = 'downcase';
+	is $fl.format( Q{~s}, Nil ), Q{nil};
+}, 'format.s.4';
 
 #`(
 # (deftest formatter.s.4
@@ -68,14 +73,17 @@ subtest {
 # 
 )
 
-#`(
 # (deftest format.s.5
 #   (let ((*print-readably* nil)
 #         (*print-case* :capitalize))
 #     (format nil "~s" 'nil))
 #   "Nil")
 # 
-)
+subtest {
+	my $*PRINT-READABLY = Nil;
+	my $*PRINT-CASE = 'capitalize';
+	is $fl.format( Q{~s}, Nil ), Q{Nil};
+}, 'format.s.5';
 
 #`(
 # (deftest formatter.s.5
@@ -288,11 +296,10 @@ subtest {
 # 
 is $fl.format( Q{~vS}, Nil, Nil ), Q{NIL};
 
-#`(
 # (def-format-test format.s.16
 #   "~v:S" (nil nil) "()")
 # 
-)
+is $fl.format( Q{~v:S}, Nil, Nil ), Q{()};
 
 # (def-format-test format.s.17
 #   "~@S" (nil) "NIL")
@@ -304,17 +311,15 @@ is $fl.format( Q{~@S}, Nil ), Q{NIL};
 # 
 is $fl.format( Q{~v@S}, Nil, Nil ), Q{NIL};
 
-#`(
 # (def-format-test format.s.19
 #   "~v:@s" (nil nil) "()")
 # 
-)
+is $fl.format( Q{~v:@s}, Nil, Nil ), Q{()};
 
-#`(
 # (def-format-test format.s.20
 #   "~v@:s" (nil nil) "()")
 # 
-)
+is $fl.format( Q{~v@:s}, Nil, Nil ), Q{()};
 
 # ;;; With colinc specified
 # 
@@ -323,46 +328,40 @@ is $fl.format( Q{~v@S}, Nil, Nil ), Q{NIL};
 # 
 is $fl.format( Q{~3,1S}, Nil ), Q{NIL};
 
-#`(
 # (def-format-test format.s.22
 #   "~4,3s" (nil) "NIL   ")
 # 
-)
+is $fl.format( Q{~4,3S}, Nil ), Q{NIL   };
 
 # (def-format-test format.s.23
 #   "~3,3@s" (nil) "NIL")
 # 
 is $fl.format( Q{~3,3@S}, Nil ), Q{NIL};
 
-#`(
 # (def-format-test format.s.24
 #   "~4,4@s" (nil) "    NIL")
 # 
-)
+is $fl.format( Q{~4,4@s}, Nil ), Q{    NIL};
 
-#`(
 # (def-format-test format.s.25
 #   "~5,3@s" (nil) "   NIL")
 # 
-)
+is $fl.format( Q{~5,3@s}, Nil ), Q{   NIL};
 
-#`(
 # (def-format-test format.s.26
 #   "~5,3S" (nil) "NIL   ")
 # 
-)
+is $fl.format( Q{~5,3S}, Nil ), Q{NIL   };
 
-#`(
 # (def-format-test format.s.27
 #   "~7,3@s" (nil) "      NIL")
 # 
-)
+is $fl.format( Q{~7,3@s}, Nil ), Q{      NIL};
 
-#`(
 # (def-format-test format.s.28
 #   "~7,3S" (nil) "NIL      ")
 # 
-)
+is $fl.format( Q{~7,3S}, Nil ), Q{NIL      };
 
 # ;;; With minpad
 # 
@@ -395,93 +394,79 @@ is $fl.format( Q{~3,3@S}, Nil ), Q{NIL};
 # 
 )
 
-#`(
 # (def-format-test format.s.30
 #   "~3,,+2S" ('ABC) "ABC  ")
 # 
-)
+is $fl.format( Q{~3,,+2S}, 'ABC' ), Q{ABC  };
 
-#`(
 # (def-format-test format.s.31
 #   "~3,,0S" ('ABC) "ABC")
 # 
-)
+is $fl.format( Q{~3,,0S}, 'ABC' ), Q{ABC};
 
-#`(
 # (def-format-test format.s.32
 #   "~3,,-1S" ('ABC) "ABC")
 # 
-)
+is $fl.format( Q{~3,,-1S}, 'ABC' ), Q{ABC};
 
-#`(
 # (def-format-test format.s.33
 #   "~3,,0S" ('ABCD) "ABCD")
 # 
-)
+is $fl.format( Q{~3,,0S}, 'ABCD' ), Q{ABCD};
 
-#`(
 # (def-format-test format.s.34
 #   "~3,,-1S" ('ABCD) "ABCD")
 # 
-)
+is $fl.format( Q{~3,,-1S}, 'ABCD' ), Q{ABCD};
 
 # ;;; With padchar
 # 
-#`(
 # (def-format-test format.s.35
 #   "~4,,,'XS" ('AB) "ABXX")
 # 
-)
+is $fl.format( Q{~4,,,'XS}, 'AB' ), Q{ABXX};
 
-#`(
 # (def-format-test format.s.36
 #   "~4,,,s" ('AB) "AB  ")
 # 
-)
+is $fl.format( Q{~4,,,s}, 'AB' ), Q{AB  };
 
-#`(
 # (def-format-test format.s.37
 #   "~4,,,'X@s" ('AB) "XXAB")
 # 
-)
+is $fl.format( Q{~4,,,'X@s}, 'AB' ), Q{XXAB};
 
-#`(
 # (def-format-test format.s.38
 #   "~4,,,@S" ('AB) "  AB")
 # 
-)
+is $fl.format( Q{~4,,,@s}, 'AB' ), Q{  AB};
 
-#`(
 # (def-format-test format.s.39
 #   "~10,,,vS" (nil 'ABCDE) "ABCDE     ")
 # 
-)
+is $fl.format( Q{~10,,,vS}, Nil, "ABCDE" ), Q{ABCDE     };
 
-#`(
 # (def-format-test format.s.40
 #   "~10,,,v@S" (nil 'ABCDE) "     ABCDE")
 # 
-)
+is $fl.format( Q{~10,,,v@S}, Nil, "ABCDE" ), Q{     ABCDE};
 
-#`(
 # (def-format-test format.s.41
 #   "~10,,,vs" (#\* 'ABCDE) "ABCDE*****")
 # 
-)
+is $fl.format( Q{~10,,,vs}, '*', "ABCDE" ), Q{ABCDE*****};
 
-#`(
 # (def-format-test format.s.42
 #   "~10,,,v@s" (#\* 'ABCDE) "*****ABCDE")
 # 
-)
+is $fl.format( Q{~10,,,v@s}, '*', "ABCDE" ), Q{*****ABCDE};
 
 # ;;; Other tests
 # 
-#`(
 # (def-format-test format.s.43
 #   "~3,,vS" (nil 246) "246")
 # 
-)
+is $fl.format( Q{~3,,vS}, Nil, 246 ), Q{246};
 
 #`(
 # (deftest format.s.44
@@ -525,27 +510,24 @@ is $fl.format( Q{~3,3@S}, Nil ), Q{NIL};
 # 
 )
 
-#`(
 # (def-format-test format.s.45
 #   "~4,,vs" (-1 1234) "1234")
 # 
-)
+is $fl.format( Q{~4,,vs}, -1, 1234 ), Q{1234};
 
-#`(
 # (def-format-test format.s.46
 #   "~5,vS" (nil 123) "123  ")
 # 
-)
+is $fl.format( Q{~5,vS}, Nil, 123 ), Q{123  };
 
-#`(
 # (def-format-test format.s.47
 #   "~5,vS" (3 456) "456   ")
 # 
-)
+is $fl.format( Q{~5,vS}, 3, 456 ), Q{456   };
 
-#`(
 # (def-format-test format.s.48
 #   "~5,v@S" (3 789) "   789")
-)
+#
+is $fl.format( Q{~5,v@S}, 3, 789 ), Q{   789};
 
 done-testing;

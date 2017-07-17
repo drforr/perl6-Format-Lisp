@@ -22,8 +22,8 @@ role Nested {
 
 class Format::Lisp::Text {
 	also does Stringify;
-	method to-string( $argument ) {
-		return $argument;
+	method to-string( $_argument, $next, $remaining ) {
+		return $.text;
 	}
 }
 
@@ -167,18 +167,85 @@ class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 }
 class Format::Lisp::Directive::Star is Format::Lisp::Directive { }
 class Format::Lisp::Directive::S is Format::Lisp::Directive {
-	method to-string( *@arguments ) {
-		if $*PRINT-CASE {
-			given $*PRINT-CASE {
-				when 'downcase' {
-					return 'nil';
-				}
-				when 'capitalize' {
-					return 'Nil';
-				}
+	has $.mincol = 0;
+	has $.colinc = 1;
+	has $.minpad = 0;
+	has $.padchar = ' ';
+
+	method pad( $out, $at, $mincol, $colinc, $minpad, $padchar ) {
+		my $padding = '';
+		while $mincol > $out.chars + $padding.chars {
+			$padding ~= $padchar x $colinc;
+		}
+		while $minpad > $padding.chars {
+			$padding ~= $padchar x $minpad;
+		}
+
+		return $padding ~ $out if $at;
+		return $out ~ $padding;
+	}
+
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $mincol = $.mincol;
+		if $mincol eq 'next' {
+			$mincol = $argument // 0;
+			$argument = $next;
+		}
+		elsif $mincol eq 'remaining' {
+			$mincol = $remaining;
+		}
+
+		my $colinc = $.colinc;
+		if $colinc eq 'next' {
+			$colinc = $argument // 1;
+			$argument = $next;
+		}
+		elsif $colinc eq 'remaining' {
+			$colinc = $remaining;
+		}
+
+		my $minpad = $.minpad;
+		if $minpad eq 'next' {
+			$minpad = $argument // 0;
+			$argument = $next;
+		}
+		elsif $minpad eq 'remaining' {
+			$minpad = $remaining;
+		}
+
+		my $padchar = $.padchar;
+		if $padchar eq 'next' {
+			$padchar = $argument // ' ';
+			$argument = $next;
+		}
+		elsif $padchar eq 'remaining' {
+			$padchar = $remaining;
+		}
+
+		my $out = $argument;
+		if $argument ~~ List {
+			if $.colon {
+				$out = '(NIL)';
+			}
+			else {
+				$out = '(NIL)'; # Sigh.
 			}
 		}
-		return 'NIL';
+		elsif !$argument {
+			if $.colon {
+				$out = '()';
+			}
+			else {
+				$out = 'NIL';
+			}
+		}
+		$out = self.print-case( $out );
+
+		return self.pad(
+			$out, $.at, $mincol, $colinc, $minpad, $padchar
+		);
 	}
 }
 class Format::Lisp::Directive::Tilde is Format::Lisp::Directive { }
@@ -425,7 +492,11 @@ class Format::Lisp::Actions {
 		elsif $/<tilde-S> {
 			make Format::Lisp::Directive::S.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				mincol => @arguments[0] // 0,
+				colinc => @arguments[1] // 1,
+				minpad => @arguments[2] // 0,
+				padchar => @arguments[3] // ' '
 			)
 		}
 		elsif $/<tilde-Tilde> {
