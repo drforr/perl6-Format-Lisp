@@ -7,6 +7,7 @@ my $fl = Format::Lisp.new;
 
 # ;;; Equivalent to PRIN1 for 0 or (abs x) in range [10^-3,10^7).
 # 
+#`(
 # (deftest format.f.1
 #   (let ((*print-readably* nil)
 #         (fn (formatter "~F")))
@@ -23,7 +24,9 @@ my $fl = Format::Lisp.new;
 #      collect (list x type s1 s2 s3)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.2
 #   (let ((*print-readably* nil)
 #         (fn (formatter "~f")))
@@ -44,6 +47,9 @@ my $fl = Format::Lisp.new;
 #      collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.3
 #   (let ((*print-readably* nil)
 #         (fn (formatter "~F")))
@@ -63,6 +69,9 @@ my $fl = Format::Lisp.new;
 #      collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.4
 #   (let ((fn (formatter "~3f")))
 #     (loop for x in (remove-duplicates '(1 1.0s0 1.0f0 1.0d0 1.0l0))
@@ -72,6 +81,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.5
 #   (let ((fn (formatter "~2f")))
 #     (loop for x in (remove-duplicates '(1 1.0s0 1.0f0 1.0d0 1.0l0))
@@ -81,6 +93,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.6
 #   (let ((fn (formatter "~4F")))
 #     (loop for x in (remove-duplicates '(1 1.0s0 1.0f0 1.0d0 1.0l0))
@@ -90,6 +105,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.7
 #   (let ((fn (formatter "~4@F")))
 #     (loop for x in (remove-duplicates '(1 1.0s0 1.0f0 1.0d0 1.0l0))
@@ -99,6 +117,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.8
 #   (let ((fn (formatter "~3@F")))
 #     (loop for x in (remove-duplicates '(1 1.0s0 1.0f0 1.0d0 1.0l0))
@@ -108,6 +129,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.9
 #   (let ((fn (formatter "~4f")))
 #     (loop for x in (remove-duplicates '(1 1.0s0 1.0f0 1.0d0 1.0l0))
@@ -117,6 +141,9 @@ my $fl = Format::Lisp.new;
 #           collect (list (- x) s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.10
 #   (let ((fn (formatter "~3F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -126,6 +153,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.11
 #   (let ((fn (formatter "~4f")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -135,6 +165,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.12
 #   (let ((fn (formatter "~4,2F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -144,6 +177,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.13
 #   (let ((fn (formatter "~3,2F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -153,6 +189,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.14
 #   (let ((fn (formatter "~2,1F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -162,6 +201,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.15
 #   (let ((fn (formatter "~4,2@F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -171,6 +213,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.16
 #   (let ((fn (formatter "~2,2F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -180,6 +225,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.17
 #   (let ((fn (formatter "~,2F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -189,6 +237,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.18
 #   (let ((fn (formatter "~,2F")))
 #     (loop for xn in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -199,6 +250,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.19
 #   (let ((fn (formatter "~4,2,-1F")))
 #     (loop for x in (remove-duplicates '(5 5.0s0 5.0f0 5.0d0 5.0l0))
@@ -208,6 +262,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.20
 #   (let ((fn (formatter "~4,2,0F")))
 #     (loop for x in (remove-duplicates '(1/2 0.5s0 0.5f0 0.5d0 0.5l0))
@@ -217,6 +274,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.21
 #   (let ((fn (formatter "~4,2,1f")))
 #     (loop for x in (remove-duplicates '(1/20 0.05s0 0.05f0 0.05d0 0.05l0))
@@ -226,8 +286,11 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
 # ;;; overflow
 # 
+#`(
 # (deftest format.f.22
 #   (let ((fn (formatter "~5,1,,'*F")))
 #     (loop for x in (remove-duplicates
@@ -238,6 +301,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.23
 #   (let ((fn (formatter "~5,1,,'*f")))
 #     (loop for x in (remove-duplicates
@@ -248,6 +314,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.24
 #   (let ((fn (formatter "~4,0,,'*F")))
 #     (loop for x in (remove-duplicates
@@ -258,6 +327,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.25
 #   (let ((fn (formatter "~1,1,,f")))
 #     (loop for x in (remove-duplicates
@@ -268,8 +340,11 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
 # ;;; padchar
 # 
+#`(
 # (deftest format.f.26
 #   (let ((fn (formatter "~10,1,,f")))
 #     (loop for x in (remove-duplicates
@@ -280,6 +355,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.27
 #   (let ((fn (formatter "~10,1,,,'*F")))
 #     (loop for x in (remove-duplicates
@@ -290,8 +368,11 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+)
+
 # ;;; v parameters
 # 
+#`(
 # (deftest format.f.28
 #   (let ((fn (formatter "~VF")))
 #     (loop for x = (random 100.0)
@@ -303,6 +384,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.29
 #   (let ((fn (formatter "~,vf")))
 #     (loop for x = (random 100.0)
@@ -314,6 +398,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.f.30
 #   (let ((fn (formatter "~,,Vf")))
 #     (loop for x = (random 100.0)
@@ -325,7 +412,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.31
 #   (let ((fn (formatter "~,,,vF")))
 #     (loop for x = (random 100.0)
@@ -337,7 +426,9 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.32
 #   (let ((fn (formatter "~,,,,VF")))
 #     (loop for x = (random 100.0)
@@ -349,6 +440,7 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+)
 
 # ;;; Randomized tests
 # 
@@ -376,6 +468,7 @@ my $fl = Format::Lisp.new;
 # |#
 # 
 
+#`(
 # (deftest format.f.34
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'short-float))
@@ -387,7 +480,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.35
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'single-float))
@@ -400,7 +495,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.36
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'double-float))
@@ -413,7 +510,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.37
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'long-float))
@@ -426,7 +525,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.38
 #   (funcall
 #    (compile
@@ -453,7 +554,9 @@ my $fl = Format::Lisp.new;
 #                 and do (loop-finish)))))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.39
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'single-float))
@@ -468,7 +571,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf w d s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.40
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'double-float))
@@ -483,7 +588,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf w d s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.41
 #   (with-standard-io-syntax
 #    (let ((*read-default-float-format* 'long-float))
@@ -498,7 +605,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf w d s i2))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.f.42
 #   (let ((chars +standard-chars+))
 #     (loop
@@ -531,13 +640,17 @@ my $fl = Format::Lisp.new;
 #      collect (list x w d k overflowchar padchar f1 s1 s2)))
 #   nil)
 # 
+)
 
 # ;;; This failed in sbcl 0.8.12.25
 # 
+#`(
 # (def-format-test format.f.43
 #   "~,,,,',f" (0.0) "0.0")
 # 
+)
 
+#`(
 # (deftest format.f.44
 #   (loop for i from 0 below (min #x10000 char-code-limit)
 #         for x = 2312.9817
@@ -549,32 +662,46 @@ my $fl = Format::Lisp.new;
 #         collect (list i c f1 s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.f.45
 #     "~2f" (1.1) "1.0")
 # 
+)
 
+#`(
 # (def-format-test format.f.45b
 #     "~3f" (1.1) "1.1")
 # 
+)
 
 # ;; This fails on ECL 15.3.7
+#`(
 # (def-format-test format.f.46
 #     "~0f" (0.01) ".0")
 # 
+)
 
 # ;; sbcl prints "."
+#`(
 # (def-format-test format.f.46b
 #     "~0,0f" (0.01) "0.")
 # 
+)
 
 # ;; Most implementations print .00
+#`(
 # (def-format-test format.f.47
 #     "~3f" (0.000001) "0.0")
 # 
+)
 
 # ;; CCL 1.10 and ECL 15.3.7 ignore k parameter when w and d aren't set
+#`(
 # (def-format-test format.f.48
 #     "~,,2f" (0.1) "10.0")
+# 
+)
 
 done-testing;

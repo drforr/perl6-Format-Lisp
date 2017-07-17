@@ -5,6 +5,7 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (deftest format.d.1
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -19,7 +20,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i s1 j)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.d.1
 #   (let ((fn (formatter "~D")))
 #     (with-standard-io-syntax
@@ -35,7 +38,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i s1 j))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.2
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -50,7 +55,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i s1 j)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.d.2
 #   (let ((fn (formatter "~@D")))
 #     (with-standard-io-syntax
@@ -66,7 +73,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i s1 j))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.3
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -84,7 +93,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.d.3
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -105,7 +116,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.4
 #   (with-standard-io-syntax
 #    (loop with limit = 10
@@ -130,7 +143,9 @@ my $fl = Format::Lisp.new;
 #          while (<= count limit)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.d.4
 #   (with-standard-io-syntax
 #    (loop with limit = 10
@@ -156,7 +171,9 @@ my $fl = Format::Lisp.new;
 #          while (<= count limit)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.5
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -175,7 +192,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.d.5
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -196,7 +215,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.6
 #   (let ((fn (formatter "~v,vd")))
 #     (with-standard-io-syntax
@@ -218,7 +239,9 @@ my $fl = Format::Lisp.new;
 #            collect (list i mincol s1 s2 s3 pos))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.7
 #   (let ((fn (formatter "~v,v@D")))
 #     (with-standard-io-syntax
@@ -246,9 +269,11 @@ my $fl = Format::Lisp.new;
 #            while (<= count limit))))
 #   nil)
 # 
+)
 
 # ;;; Comma tests
 # 
+#`(
 # (deftest format.d.8
 #   (let ((fn1 (formatter "~d"))
 #         (fn2 (formatter "~:d")))
@@ -261,7 +286,9 @@ my $fl = Format::Lisp.new;
 #           collect (list i s1 s2 s3 s4)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.9
 #   (let ((fn1 (formatter "~d"))
 #         (fn2 (formatter "~:d")))
@@ -288,7 +315,9 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3 s4))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.10
 #   (let ((fn (formatter "~,,v:d")))
 #     (with-standard-io-syntax
@@ -313,7 +342,9 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.11
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -336,7 +367,9 @@ my $fl = Format::Lisp.new;
 #          collect (list x i commachar s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.d.11
 #   (with-standard-io-syntax
 #    (loop for x = (ash 1 (+ 2 (random 80)))
@@ -361,7 +394,9 @@ my $fl = Format::Lisp.new;
 #          collect (list x i commachar s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.12
 #   (let ((fn (formatter "~,,v,v:d")))
 #     (with-standard-io-syntax
@@ -387,7 +422,9 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.13
 #   (let ((fn (formatter "~,,v,v:@D")))
 #     (with-standard-io-syntax
@@ -412,27 +449,37 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+)
 
 # ;;; NIL arguments
 # 
+#`(
 # (def-format-test format.d.14
 #   "~vD" (nil 100) "100")
 # 
+)
 
+#`(
 # (def-format-test format.d.15
 #   "~6,vD" (nil 100) "   100")
 # 
+)
 
+#`(
 # (def-format-test format.d.16
 #   "~,,v:d" (nil 12345) "12,345")
 # 
+)
 
+#`(
 # (def-format-test format.d.17
 #   "~,,'*,v:d" (nil 12345) "12*345")
 # 
+)
 
 # ;;; When the argument is not an integer, print as if using ~A and base 10
 # 
+#`(
 # (deftest format.d.18
 #   (loop for x in *mini-universe*
 #         for s1 = (format nil "~d" x)
@@ -441,7 +488,9 @@ my $fl = Format::Lisp.new;
 #         collect (list x s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.19
 #   (loop for x in *mini-universe*
 #         for s1 = (format nil "~:d" x)
@@ -450,7 +499,9 @@ my $fl = Format::Lisp.new;
 #         collect (list x s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.20
 #   (loop for x in *mini-universe*
 #         for s1 = (format nil "~@d" x)
@@ -459,7 +510,9 @@ my $fl = Format::Lisp.new;
 #         collect (list x s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.d.21
 #   (loop for x in *mini-universe*
 #         for s1 = (format nil "~A" x)
@@ -469,6 +522,7 @@ my $fl = Format::Lisp.new;
 #         collect (list x s1 s2))
 #   nil)
 # 
+)
 
 # ;;; Must add tests for non-integers when the parameters
 # ;;; are specified, but it's not clear what the meaning is.
@@ -477,6 +531,7 @@ my $fl = Format::Lisp.new;
 # 
 # ;;; # arguments
 # 
+#`(
 # (deftest format.d.22
 #   (apply
 #    #'values
@@ -496,7 +551,9 @@ my $fl = Format::Lisp.new;
 #   "     12345"
 #   "      12345")
 # 
+)
 
+#`(
 # (deftest formatter.d.22
 #   (apply
 #    #'values
@@ -520,7 +577,9 @@ my $fl = Format::Lisp.new;
 #   "     12345"
 #   "      12345")
 # 
+)
 
+#`(
 # (deftest format.d.23
 #   (apply
 #    #'values
@@ -545,7 +604,9 @@ my $fl = Format::Lisp.new;
 #   "1234567890"
 #   "1234567890")
 # 
+)
 
+#`(
 # (deftest format.d.24
 #   (apply
 #    #'values
@@ -570,29 +631,41 @@ my $fl = Format::Lisp.new;
 #   "+1234567890"
 #   "+1234567890")
 # 
+)
 
+#`(
 # (def-format-test format.d.25
 #   "~+10d" (1234) "      1234")
 # 
+)
 
+#`(
 # (def-format-test format.d.26
 #   "~+10@d" (1234) "     +1234")
 # 
+)
 
+#`(
 # (def-format-test format.d.27
 #   "~-1d" (1234) "1234")
 # 
+)
 
+#`(
 # (def-format-test format.d.28
 #   "~-1000000000000000000d" (1234) "1234")
 # 
+)
 
+#`(
 # (def-format-test format.d.29
 #   "~vd" ((1- most-negative-fixnum) 1234) "1234")
 # 
+)
 
 # ;;; Randomized test
 # 
+#`(
 # (deftest format.d.30
 #   (let ((fn (formatter "~v,v,v,vD")))
 #     (loop
@@ -617,5 +690,7 @@ my $fl = Format::Lisp.new;
 #      unless (and (string= s1 s2) (string= s2 s3))
 #      collect (list mincol padchar commachar commaint fmt x s1 s2 s3)))
 #   nil)
+# 
+)
 
 done-testing;

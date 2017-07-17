@@ -30,13 +30,6 @@ class Format::Lisp::Text {
 class Format::Lisp::Directive {
 	has $.at = False;
 	has $.colon = False;
-}
-
-class Format::Lisp::Directive::A is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.colinc = 1;
-	has $.minpad = 0;
-	has $.padchar = ' ';
 
 	method print-case( $text ) {
 		if $*PRINT-CASE {
@@ -54,10 +47,29 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 		}
 		return $text;
 	}
+}
+
+class Format::Lisp::Directive::A is Format::Lisp::Directive {
+	has $.mincol = 0;
+	has $.colinc = 1;
+	has $.minpad = 0;
+	has $.padchar = ' ';
+
+	method pad( $out, $at, $mincol, $colinc, $minpad, $padchar ) {
+		my $padding = '';
+		while $mincol > $out.chars + $padding.chars {
+			$padding ~= $padchar x $colinc;
+		}
+		while $minpad > $padding.chars {
+			$padding ~= $padchar x $minpad;
+		}
+
+		return $padding ~ $out if $at;
+		return $out ~ $padding;
+	}
 
 	method to-string( $_argument, $next, $remaining ) {
 		my $argument = $_argument;
-		my $out = '';
 
 		my $mincol = $.mincol;
 		if $mincol eq 'next' {
@@ -82,13 +94,20 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 			$minpad = $argument // 0;
 			$argument = $next;
 		}
+		elsif $minpad eq 'remaining' {
+			$minpad = $remaining;
+		}
 
 		my $padchar = $.padchar;
 		if $padchar eq 'next' {
 			$padchar = $argument // ' ';
 			$argument = $next;
 		}
+		elsif $padchar eq 'remaining' {
+			$padchar = $remaining;
+		}
 
+		my $out = $argument;
 		if $argument ~~ List {
 			if $.colon {
 				$out = '(NIL)';
@@ -97,41 +116,19 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 				$out = '(NIL)'; # Sigh.
 			}
 		}
-		elsif $argument and $argument ne '' {
-			$out = $argument;
-		}
-		else {
+		elsif !$argument {
 			if $.colon {
 				$out = '()';
-			}
-			elsif $.at {
-				$out = 'NIL';
 			}
 			else {
 				$out = 'NIL';
 			}
 		}
 		$out = self.print-case( $out );
-		my $padding = '';
-		if $colinc > 0 {
-			while $mincol > $out.chars + $padding.chars {
-				$padding ~= $padchar x $colinc;
-			}
-		}
-		if $minpad > 0 {
-			while $minpad > $padding.chars {
-				$padding ~= $padchar x $minpad;
-			}
-		}
-		if $padding {
-			if $.at {
-				$out = $padding ~ $out;
-			}
-			else {
-				$out = $out ~ $padding;
-			}
-		}
-		return $out;
+
+		return self.pad(
+			$out, $.at, $mincol, $colinc, $minpad, $padchar
+		);
 	}
 }
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }

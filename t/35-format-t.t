@@ -5,21 +5,28 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (def-pprint-test format.t.1
 #   (format nil "~0,0T")
 #   "")
 # 
+)
 
+#`(
 # (def-pprint-test format.t.2
 #   (format nil "~1,0T")
 #   " ")
 # 
+)
 
+#`(
 # (def-pprint-test format.t.3
 #   (format nil "~0,1T")
 #   " ")
 # 
+)
 
+#`(
 # (def-pprint-test format.t.4
 #   (loop for i from 0 to 20
 #         for s = (format nil "~0,vT" i)
@@ -27,7 +34,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.t.5
 #   (loop for i from 0 to 20
 #         for s = (format nil "~v,0T" i)
@@ -35,7 +44,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.t.6
 #   (loop for n1 = (random 30)
 #         for s1 = (make-string n1 :initial-element #\X)
@@ -57,7 +68,9 @@ my $fl = Format::Lisp.new;
 #         collect (list n1 n2 inc pretty s2 result))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.t.7
 #   (loop for n1 = (random 30)
 #         for s1 = (make-string n1 :initial-element #\X)
@@ -79,7 +92,9 @@ my $fl = Format::Lisp.new;
 #         collect (list n1 n2 inc pretty s2 result))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.t.8
 #   (loop for i from 1 to 20
 #         for s = (format nil " ~v,vT" nil i)
@@ -87,7 +102,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.t.9
 #   (loop for i from 1 to 20
 #         for s = (format nil "~v,vT" i nil)
@@ -95,19 +112,25 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.t.10
 #   (format nil "XXXXX~2,0T")
 #   "XXXXX")
 # 
+)
 
 # ;;; @t
 # 
+#`(
 # (def-pprint-test format.@t.1
 #   (format nil "~1,1@t")
 #   " ")
 # 
+)
 
+#`(
 # (def-pprint-test format.@t.2
 #   (loop for colnum from 0 to 20
 #         for s1 = (format nil "~v,1@t" colnum)
@@ -116,7 +139,9 @@ my $fl = Format::Lisp.new;
 #         collect (list colnum s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.@t.3
 #   (loop for colnum = (random 50)
 #         for colinc = (1+ (random 20))
@@ -128,7 +153,9 @@ my $fl = Format::Lisp.new;
 #         collect (list colnum colinc s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.@t.4
 #   (loop for colnum = (random 50)
 #         for colinc = (1+ (random 20))
@@ -140,7 +167,9 @@ my $fl = Format::Lisp.new;
 #         collect (list colnum colinc s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.@t.5
 #   (loop for colnum = (random 50)
 #         for colinc = (1+ (random 20))
@@ -154,18 +183,22 @@ my $fl = Format::Lisp.new;
 #         collect (list colnum colinc pretty s1 s2))
 #   nil)
 # 
+)
 
 # ;;; Pretty printing (colon modifier)
 # 
 # ;;; Not a pretty printing stream
 # 
+#`(
 # (def-pprint-test format.\:t.1
 #   (format nil "XX~10:tYY")
 #   "XXYY")
 # 
+)
 
 # ;;; A pretty printing stream, but *print-pretty* is nil
 # 
+#`(
 # (def-pprint-test format.\:t.2
 #   (with-output-to-string
 #    (s)
@@ -175,7 +208,9 @@ my $fl = Format::Lisp.new;
 #   "XXYY"
 #   :pretty nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.3
 #   (with-output-to-string
 #    (s)
@@ -185,39 +220,53 @@ my $fl = Format::Lisp.new;
 #       (format s "XX~10:tYY"))))
 #   "XXYY")
 # 
+)
 
 # ;;; Positive tests
 # 
+#`(
 # (def-pprint-test format.\:t.4
 #   (format nil "~<[~;~0,0:T~;]~:>" '(a))
 #   "[]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.5
 #   (format nil "~<[~;~1,0:T~;]~:>" '(a))
 #   "[ ]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.5a
 #   (format nil "~<[~;~,0:T~;]~:>" '(a))
 #   "[ ]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.6
 #   (format nil "~<[~;~0,1:T~;]~:>" '(a))
 #   "[ ]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.6a
 #   (format nil "~<[~;~0,:T~;]~:>" '(a))
 #   "[ ]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.6b
 #   (format nil "~<[~;~0:T~;]~:>" '(a))
 #   "[ ]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.7
 #   (loop for i from 0 to 20
 #         for s = (format nil "~<X~;~0,v:T~;Y~:>" (list i))
@@ -225,7 +274,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.8
 #   (loop for i from 0 to 20
 #         for s = (format nil "~<ABC~;~v,0:T~;DEF~:>" (list i))
@@ -233,7 +284,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.9
 #   (loop
 #    for n0 = (random 10)
@@ -256,17 +309,23 @@ my $fl = Format::Lisp.new;
 #    collect (list n0 n1 n2 inc s2 result))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.10
 #   (format nil "~<[~;~2,0:T~;]~:>" '(a))
 #   "[  ]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.11
 #   (format nil "~<[~;XXXX~2,0:T~;]~:>" '(a))
 #   "[XXXX]")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:t.12
 #   (loop for n0 = (random 20)
 #         for s0 = (make-string n0 :initial-element #\Space)
@@ -288,51 +347,69 @@ my $fl = Format::Lisp.new;
 #         collect (list n1 n2 inc s2 result))
 #   nil)
 # 
+)
 
 # ;;; see 22.3.5.2
 # 
+#`(
 # (deftest format.\:t.error.1
 #   (signals-error-always (format nil "~<XXX~1,1:TYYY~>") error)
 #   t t)
 # 
+)
 
+#`(
 # (deftest format.\:t.error.2
 #   (signals-error-always (format nil "~<XXX~:;YYY~>ZZZ~4,5:tWWW") error)
 #   t t)
 # 
+)
 
+#`(
 # (deftest format.\:t.error.3
 #   (signals-error-always (format nil "AAAA~1,1:TBBB~<XXX~:;YYY~>ZZZ") error)
 #   t t)
 # 
+)
 
 # ;;; ~:@t
 # 
+#`(
 # (def-pprint-test format.\:@t.1
 #   (format nil "~<XXX~;~1,1:@t~;YYY~:>" '(a))
 #   "XXX YYY")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.1a
 #   (format nil "~<XXX~;~,1:@t~;YYY~:>" '(a))
 #   "XXX YYY")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.1b
 #   (format nil "~<XXX~;~1,:@t~;YYY~:>" '(a))
 #   "XXX YYY")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.1c
 #   (format nil "~<XXX~;~1:@t~;YYY~:>" '(a))
 #   "XXX YYY")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.1d
 #   (format nil "~<XXX~;~:@t~;YYY~:>" '(a))
 #   "XXX YYY")
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.2
 #   (loop for colnum from 0 to 20
 #         for s1 = (format nil "~<XXXX~;~v,1:@t~:>" (list colnum))
@@ -341,7 +418,9 @@ my $fl = Format::Lisp.new;
 #         collect (list colnum s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.3
 #   (loop for s0 = (make-string (random 20) :initial-element #\M)
 #         for colnum = (random 50)
@@ -356,15 +435,19 @@ my $fl = Format::Lisp.new;
 #         collect (list colnum colinc s1 s2))
 #   nil)
 # 
+)
 
 # ;;; Turned off if not pretty printing
 # 
+#`(
 # (def-pprint-test format.\:@t.4
 #   (format nil "XX~10,20:@tYY")
 #   "XXYY"
 #   :pretty nil)
 # 
+)
 
+#`(
 # (def-pprint-test format.\:@t.5
 #   (with-output-to-string
 #    (s)
@@ -373,5 +456,7 @@ my $fl = Format::Lisp.new;
 #     (format s "XX~10,20@:tYY")))
 #   "XXYY"
 #   :pretty nil)
+# 
+)
 
 done-testing;

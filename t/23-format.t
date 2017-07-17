@@ -5,6 +5,7 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (defun def-format-test (name args result)
 #   `(deftest ,name
 #      (equalt
@@ -12,5 +13,7 @@ my $fl = Format::Lisp.new;
 #        (with-output-to-string (s) (format s ,@args)))
 #       result)
 #      t))
+# 
+)
 
 done-testing;

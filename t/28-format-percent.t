@@ -5,10 +5,13 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (def-format-test format.%.1
 #   "~%" nil #.(string #\Newline))
 # 
+)
 
+#`(
 # (deftest format.%.2
 #   (loop for i from 0 to 100
 #         for s1 = (make-string i :initial-element #\Newline)
@@ -20,15 +23,21 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.%.3
 #   "~v%" (nil) #.(string #\Newline))
 # 
+)
 
+#`(
 # (def-format-test format.%.4
 #   "~V%" (1) #.(string #\Newline))
 # 
+)
 
+#`(
 # (deftest format.%.5
 #   (loop for i from 0 to 100
 #         for s1 = (make-string i :initial-element #\Newline)
@@ -37,7 +46,9 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.%.5
 #   (let ((fn (formatter "~v%")))
 #     (loop for i from 0 to 100
@@ -47,7 +58,9 @@ my $fl = Format::Lisp.new;
 #           collect i))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.%.6
 #   (loop for i from 0 to (min (- call-arguments-limit 3) 100)
 #         for args = (make-list i)
@@ -57,7 +70,9 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.%.6
 #   (let ((fn (formatter "~#%")))
 #     (loop for i from 0 to (min (- call-arguments-limit 3) 100)
@@ -69,5 +84,7 @@ my $fl = Format::Lisp.new;
 #           unless (string= s1 s2)
 #           collect i))
 #   nil)
+# 
+)
 
 done-testing;

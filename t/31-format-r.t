@@ -5,6 +5,7 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (deftest format.r.1
 #   (loop
 #    for i from 2 to 36
@@ -20,7 +21,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i x s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.1
 #   (loop
 #    for i from 2 to 36
@@ -37,15 +40,21 @@ my $fl = Format::Lisp.new;
 #          collect (list i x s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.r.2
 #   "~2r" (14) "1110")
 # 
+)
 
+#`(
 # (def-format-test format.r.3
 #   "~3r" (29) "1002")
 # 
+)
 
+#`(
 # (deftest format.r.4
 #   (loop for base from 2 to 36
 #         nconc
@@ -63,7 +72,9 @@ my $fl = Format::Lisp.new;
 #               collect (list base mincol s)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.4
 #   (loop for base from 2 to 36
 #         nconc
@@ -82,7 +93,9 @@ my $fl = Format::Lisp.new;
 #               collect (list base mincol s)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.5
 #   (loop for base from 2 to 36
 #         nconc
@@ -100,7 +113,9 @@ my $fl = Format::Lisp.new;
 #               collect (list base mincol s)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.5
 #   (loop for base from 2 to 36
 #         nconc
@@ -119,7 +134,9 @@ my $fl = Format::Lisp.new;
 #               collect (list base mincol s)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.6
 #   (loop for base from 2 to 36
 #         for s = (format nil "~vr" base (1+ base))
@@ -127,7 +144,9 @@ my $fl = Format::Lisp.new;
 #         collect (list base s))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.6
 #   (let ((fn (formatter "~vr")))
 #     (loop for base from 2 to 36
@@ -136,7 +155,9 @@ my $fl = Format::Lisp.new;
 #           collect (list base s)))
 #   nil)
 # 
+)
 
+#`(
 # (defparameter *english-number-names*
 #   '("zero"
 #    "one" "two" "three" "four" "five" "six" "seven" "eight" "nine" "ten"
@@ -159,7 +180,9 @@ my $fl = Format::Lisp.new;
 #    "ninety-one" "ninety-two" "ninety-three" "ninety-four" "ninety-five"
 #    "ninety-six" "ninety-seven" "ninety-eight" "ninety-nine" "one hundred"))
 # 
+)
 
+#`(
 # (deftest format.r.7
 #   (loop for i from 0 to 100
 #         for s1 = (format nil "~r" i)
@@ -168,7 +191,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.7
 #   (let ((fn (formatter "~r")))
 #     (loop for i from 0 to 100
@@ -178,7 +203,9 @@ my $fl = Format::Lisp.new;
 #           collect (list i s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.7a
 #   (loop for i from 1 to 100
 #         for s1 = (format nil "~r" (- i))
@@ -189,22 +216,30 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s3 s4))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.r.8
 #   "~vr" (nil 5) "five")
 # 
+)
 
+#`(
 # (def-format-test format.r.9
 #   "~#r" (4 nil nil) "11" 2)
 # 
+)
 
+#`(
 # (deftest format.r.10
 #   (with-standard-io-syntax
 #    (let ((*print-radix* t))
 #      (format nil "~10r" 123)))
 #   "123")
 # 
+)
 
+#`(
 # (deftest formatter.r.10
 #   (let ((fn (formatter "~10r")))
 #     (with-standard-io-syntax
@@ -215,19 +250,27 @@ my $fl = Format::Lisp.new;
 #   "123"
 #   "123")
 # 
+)
 
+#`(
 # (def-format-test format.r.11
 #   "~8@R" (65) "+101")
 # 
+)
 
+#`(
 # (def-format-test format.r.12
 #   "~2:r" (126) "1,111,110")
 # 
+)
 
+#`(
 # (def-format-test format.r.13
 #   "~3@:r" (#3r2120012102) "+2,120,012,102")
 # 
+)
 
+#`(
 # (deftest format.r.14
 #   (loop
 #    for i from 2 to 36
@@ -242,7 +285,9 @@ my $fl = Format::Lisp.new;
 #          collect (list i x s1 y)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.15
 #   (loop
 #    for i = (+ 2 (random 35))
@@ -261,15 +306,21 @@ my $fl = Format::Lisp.new;
 #    collect (list i interval comma x s1 y))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.r.16
 #   "~2,,,,1000000000000000000r" (17) "10001")
 # 
+)
 
+#`(
 # (def-format-test format.r.17
 #   "~8,10:@r" (#o526104) "  +526,104")
 # 
+)
 
+#`(
 # (defparameter *english-ordinal-names*
 #   '("zeroth"
 #    "first" "second" "third" "fourth" "fifth" "sixth" "seventh" "eighth" "ninth" "tenth"
@@ -292,7 +343,9 @@ my $fl = Format::Lisp.new;
 #    "ninety-first" "ninety-second" "ninety-third" "ninety-fourth" "ninety-fifth"
 #    "ninety-sixth" "ninety-seventh" "ninety-eighth" "ninety-ninth" "one hundredth"))
 # 
+)
 
+#`(
 # (deftest format.r.18
 #   (loop for i from 0 to 100
 #         for s1 = (format nil "~:r" i)
@@ -301,7 +354,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.18
 #   (let ((fn (formatter "~:r")))
 #     (loop for i from 0 to 100
@@ -311,7 +366,9 @@ my $fl = Format::Lisp.new;
 #           collect (list i s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.18a
 #   (loop for i from 1 to 100
 #         for s1 = (format nil "~:r" (- i))
@@ -322,7 +379,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s3 s4))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.19
 #   (loop for i from 1
 #         for s1 in *roman-numerals*
@@ -331,7 +390,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.19
 #   (let ((fn (formatter "~@r")))
 #     (loop for i from 1
@@ -341,9 +402,11 @@ my $fl = Format::Lisp.new;
 #           collect (list i s1 s2)))
 #   nil)
 # 
+)
 
 # ;;; Old roman numerals
 # 
+#`(
 # (defun old-roman-numeral (x)
 #   (assert (typep x '(integer 1)))
 #   (let ((n-m 0)
@@ -368,7 +431,9 @@ my $fl = Format::Lisp.new;
 #                  (make-string n-v :initial-element #\V)
 #                  (make-string x   :initial-element #\I))))
 # 
+)
 
+#`(
 # (deftest format.r.20
 #   (loop for i from 1 to 4999
 #         for s1 = (format nil "~:@r" i)
@@ -377,7 +442,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.20
 #   (let ((fn (formatter "~@:R")))
 #     (loop for i from 1 to 4999
@@ -387,7 +454,9 @@ my $fl = Format::Lisp.new;
 #           collect (list i s1 s2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.r.21
 #   (loop for i from 1 to 4999
 #         for s1 = (format nil "~:@r" i)
@@ -396,23 +465,31 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+)
 
 # ;; Combinations of mincol and comma chars
 # 
+#`(
 # (def-format-test format.r.22
 #   "~2,12,,'*:r" (#b1011101) "   1*011*101")
 # 
+)
 
+#`(
 # (def-format-test format.r.23
 #   "~3,14,'X,',:R" (#3r1021101) "XXXXX1,021,101")
 # 
+)
 
 # ;; v directive in various positions
 # 
+#`(
 # (def-format-test format.r.24
 #   "~10,vr" (nil 12345) "12345")
 # 
+)
 
+#`(
 # (deftest format.r.25
 #   (loop for i from 0 to 5
 #         for s = (format nil "~10,vr" i 12345)
@@ -420,7 +497,9 @@ my $fl = Format::Lisp.new;
 #         collect (list i s))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.r.25
 #   (let ((fn (formatter "~10,vr")))
 #     (loop for i from 0 to 5
@@ -429,63 +508,91 @@ my $fl = Format::Lisp.new;
 #           collect (list i s)))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.r.26
 #   "~10,#r" (12345 nil nil nil nil nil) " 12345" 5)
 # 
+)
 
+#`(
 # (def-format-test format.r.27
 #   "~10,12,vr" (#\/ 123456789) "///123456789")
 # 
+)
 
+#`(
 # (def-format-test format.r.28
 #   "~10,,,v:r" (#\/ 123456789) "123/456/789")
 # 
+)
 
+#`(
 # (def-format-test format.r.29
 #   "~10,,,v:r" (nil 123456789) "123,456,789")
 # 
+)
 
+#`(
 # (def-format-test format.r.30
 #   "~8,,,,v:R" (nil #o12345670) "12,345,670")
 # 
+)
 
+#`(
 # (def-format-test format.r.31
 #   "~8,,,,v:R" (2 #o12345670) "12,34,56,70")
 # 
+)
 
+#`(
 # (def-format-test format.r.32
 #   "~16,,,,#:r" (#x12345670 nil nil nil) "1234,5670" 3)
 # 
+)
 
+#`(
 # (def-format-test format.r.33
 #   "~16,,,,1:r" (#x12345670) "1,2,3,4,5,6,7,0")
 # 
+)
 
 # ;;; Explicit signs
 # 
+#`(
 # (def-format-test format.r.34
 #   "~+10r" (12345) "12345")
 # 
+)
 
+#`(
 # (def-format-test format.r.35
 #   "~10,+8r" (12345) "   12345")
 # 
+)
 
+#`(
 # (def-format-test format.r.36
 #   "~10,0r" (12345) "12345")
 # 
+)
 
+#`(
 # (def-format-test format.r.37
 #   "~10,-1r" (12345) "12345")
 # 
+)
 
+#`(
 # (def-format-test format.r.38
 #   "~10,-1000000000000000r" (12345) "12345")
 # 
+)
 
 # ;;; Randomized test
 # 
+#`(
 # (deftest format.r.39
 #   (let ((fn (formatter "~v,v,v,v,vr")))
 #     (loop
@@ -513,5 +620,7 @@ my $fl = Format::Lisp.new;
 #                  (string= s1 s3))
 #      collect (list radix mincol padchar commachar commaint fmt x s1 s2 s3)))
 #   nil)
+# 
+)
 
 done-testing;

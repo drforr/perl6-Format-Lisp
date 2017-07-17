@@ -5,6 +5,7 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (def-ppblock-test format._.1
 #   (progn
 #     (dotimes (i 2) (write "A ") (pprint-newline :fill))
@@ -15,7 +16,9 @@ my $fl = Format::Lisp.new;
 # A A A "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.2
 #   (progn
 #    (dotimes (i 2) (write "A ") (pprint-newline :fill))
@@ -29,27 +32,35 @@ my $fl = Format::Lisp.new;
 # A A A "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.3
 #   (format t "A ~_A ~_A ~_A ~_")
 #   "A A A A "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.4
 #   (format t "A ~_A ~_A ~_A ~_")
 #   "A A A A "
 #   :margin 10
 #   :miser 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.5
 #   (format t "A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_")
 #   "A A A A A A A A A A "
 #   :margin 10
 #   :pretty nil)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.6
 #   (dotimes (i 4) (format t "A             ~_"))
 #   "A
@@ -59,7 +70,9 @@ my $fl = Format::Lisp.new;
 # "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.7
 #   (format t "A ~_A ~_A ~_A ~_~%A ~_A ~_A ~_A ~_")
 #   "A
@@ -74,7 +87,9 @@ my $fl = Format::Lisp.new;
 # "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format._.8
 #   (progn
 #     (pprint-logical-block (*standard-output* nil)
@@ -86,7 +101,9 @@ my $fl = Format::Lisp.new;
 # A A A A "
 #   :margin 10)
 # 
+)
 
+#`(
 # (deftest format._.9
 #   (with-output-to-string
 #     (s)
@@ -99,7 +116,9 @@ my $fl = Format::Lisp.new;
 #        (format s "A ~_A ~_A ~_A ~_A ~_"))))
 #   "A A A A A ")
 # 
+)
 
+#`(
 # (deftest formatter._.9
 #   (with-standard-io-syntax
 #    (let ((*print-readably* nil)
@@ -111,29 +130,37 @@ my $fl = Format::Lisp.new;
 #       (formatter "A ~_A ~_A ~_A ~_A ~_"))))
 #   "A A A A A ")
 # 
+)
 
 # ;;; miser
 # 
+#`(
 # (def-ppblock-test format.@_.1
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.2
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
 #   :margin 10
 #   :miser 0)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.3
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
 #   :margin 10
 #   :miser 9)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.4
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A
@@ -150,7 +177,9 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.5
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
@@ -158,7 +187,9 @@ my $fl = Format::Lisp.new;
 #   :miser 10
 #   :pretty nil)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.6
 #   (format t "~%A~@_")
 #   "
@@ -167,7 +198,9 @@ my $fl = Format::Lisp.new;
 #   :margin 20
 #   :miser 20)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.7
 #   (format t "~@_A~%")
 #   "
@@ -176,7 +209,9 @@ my $fl = Format::Lisp.new;
 #   :margin 20
 #   :miser 20)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.8
 #   (progn
 #     (format t "AAAA ~_")
@@ -188,7 +223,9 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 8)
 # 
+)
 
+#`(
 # (def-ppblock-test format.@_.9
 #   (progn
 #     (format t "AAAA ~:@_")
@@ -200,7 +237,9 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 8)
 # 
+)
 
+#`(
 # (deftest format.@_.10
 #   (with-output-to-string
 #     (s)
@@ -213,7 +252,9 @@ my $fl = Format::Lisp.new;
 #        (format s "A ~@_A ~@_A ~@_A ~@_A ~@_"))))
 #   "A A A A A ")
 # 
+)
 
+#`(
 # (deftest formatter.@_.10
 #   (with-standard-io-syntax
 #    (let ((*print-readably* nil)
@@ -225,16 +266,20 @@ my $fl = Format::Lisp.new;
 #       (formatter "A ~@_A ~@_A ~@_A ~@_A ~@_"))))
 #   "A A A A A ")
 # 
+)
 
 # ;;; fill
 # 
+#`(
 # (def-ppblock-test format.\:_.1
 #   (format t "A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_")
 #   "A A A A A
 # A A A A A "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:_.2
 #   (format t "A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_")
 #   "A A A
@@ -243,7 +288,9 @@ my $fl = Format::Lisp.new;
 # A "
 #   :margin 6)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:_.3
 #   (format t "A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_")
 #   "A A A
@@ -252,7 +299,9 @@ my $fl = Format::Lisp.new;
 # A "
 #   :margin 7)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:_.4
 #   (format t "A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_")
 #   "A A A A A
@@ -260,7 +309,9 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 9)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:_.5
 #   (format t "A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_")
 #   "A
@@ -277,7 +328,9 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:_.6
 #   (format t "~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_"
 #           '(A B) #\Space
@@ -290,7 +343,9 @@ my $fl = Format::Lisp.new;
 # (A B) "
 #   :margin 12)
 # 
+)
 
+#`(
 # (deftest format.\:_.7
 #   (with-output-to-string
 #     (s)
@@ -303,7 +358,9 @@ my $fl = Format::Lisp.new;
 #        (format s "A ~:_A ~:_A ~:_A ~:_A ~:_"))))
 #   "A A A A A ")
 # 
+)
 
+#`(
 # (deftest formatter.\:_.7
 #   (with-standard-io-syntax
 #    (let ((*print-readably* nil)
@@ -315,9 +372,11 @@ my $fl = Format::Lisp.new;
 #       (formatter "A ~:_A ~:_A ~:_A ~:_A ~:_"))))
 #   "A A A A A ")
 # 
+)
 
 # ;;; mandatory
 # 
+#`(
 # (def-ppblock-test format.\:@_.1
 #   (format t "A ~:@_A ~:@_A ~:@_A ~:@_")
 #   "A
@@ -326,7 +385,9 @@ my $fl = Format::Lisp.new;
 # A
 # ")
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:@_.2
 #   (format t "A ~@:_A ~@:_A ~@:_A ~@:_")
 #   "A
@@ -336,20 +397,26 @@ my $fl = Format::Lisp.new;
 # "
 #   :margin 10)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:@_.3
 #   (format t "A ~@:_A ")
 #   "A
 # A "
 #   :margin 1)
 # 
+)
 
+#`(
 # (def-ppblock-test format.\:@_.4
 #   (format t "A ~@:_A ~@:_A ~@:_A ~@:_")
 #   "A A A A "
 #   :pretty nil)
 # 
+)
 
+#`(
 # (deftest format.\:@_.5
 #   (with-output-to-string
 #     (s)
@@ -362,7 +429,9 @@ my $fl = Format::Lisp.new;
 #        (format s "A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_"))))
 #   "A A A A A ")
 # 
+)
 
+#`(
 # (deftest formatter.\:@_.5
 #   (with-standard-io-syntax
 #    (let ((*print-readably* nil)
@@ -372,5 +441,7 @@ my $fl = Format::Lisp.new;
 #          (*print-miser-width* nil))
 #      (formatter-call-to-string (formatter "A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_"))))
 #   "A A A A A ")
+# 
+)
 
 done-testing;

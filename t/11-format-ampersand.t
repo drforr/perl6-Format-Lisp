@@ -5,22 +5,35 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (def-format-test format.&.1
 #   "~0&" nil "")
 # 
+is $fl.format( Q{~0&} ), Q{}, 'format.&.1';
+)
 
+#`(
 # (def-format-test format.&.2
 #   "~&" nil "")
 # 
+is $fl.format( Q{~&} ), Q{}, 'format.&.2';
+)
 
+#`(
 # (def-format-test format.&.3
 #   "X~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
+is $fl.format( Q{X~&} ), qq{X\n}, 'format.&.3';
+)
 
+#`(
 # (def-format-test format.&.4
 #   "X~%~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
+is $fl.format( Q{X~%~&} ), qq{X\n}, 'format.&.4';
+)
 
+#`(
 # (deftest format.&.5
 #   (loop for i from 1 to 100
 #         for s1 = (make-string (1- i) :initial-element #\Newline)
@@ -30,7 +43,21 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 100 -> $i {
+		my $s1 = "\n" xx $i - 1;
+		my $format-string = $fl.format( "~~~D&", $i );
+		my $s1 = $fl.format( $format );
+		unless $s1 eq $s2 {
+			@collected.append( $i );
+		}
+	}
+	is @collected.elem, 0;
+}, 'format.&.5';
+)
 
+#`(
 # (deftest formatter.&.5
 #   (loop for i from 1 to 100
 #         for s1 = (make-string (1- i) :initial-element #\Newline)
@@ -41,7 +68,9 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.&.6
 #   (loop for i from 1 to 100
 #         for s1 = (concatenate 'string
@@ -53,7 +82,21 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 100 -> $i {
+		my $s1 = 'X' ~ ( "\n" xx $i - 1 );
+		my $format-string = $fl.format( "X~~~D&", $i );
+		my $s1 = $fl.format( $format );
+		unless $s1 eq $s2 {
+			@collected.append( $i );
+		}
+	}
+	is @collected.elem, 0;
+}, 'format.&.6';
+)
 
+#`(
 # (deftest formatter.&.6
 #   (loop for i from 1 to 100
 #         for s1 = (concatenate 'string
@@ -66,15 +109,23 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.&.7
 #   "~v&" (nil) "")
 # 
+is $fl.format( Q{~v&}, Nil ), Q{}, 'format.&.7';
+)
 
+#`(
 # (def-format-test format.&.8
 #   "X~v&" (nil) #.(concatenate 'string "X" (string #\Newline)))
 # 
+is $fl.format( Q{X~v&}, Nil ), qq{X\n}, 'format.&.8';
+)
 
+#`(
 # (deftest format.&.9
 #   (loop for i from 1 to 100
 #         for s1 = (make-string (1- i) :initial-element #\Newline)
@@ -83,7 +134,20 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 100 -> $i {
+		my $s1 = "\n" xx $i - 1;
+		my $s1 = $fl.format( "~V&", $i );
+		unless $s1 eq $s2 {
+			@collected.append( $i );
+		}
+	}
+	is @collected.elem, 0;
+}, 'format.&.9';
+)
 
+#`(
 # (deftest formatter.&.9
 #   (let ((fn (formatter "~V&")))
 #     (loop for i from 1 to 100
@@ -93,7 +157,9 @@ my $fl = Format::Lisp.new;
 #           collect i))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.&.10
 #   (loop for i from 1 to (min (- call-arguments-limit 3) 100)
 #         for s1 = (make-string (1- i) :initial-element #\Newline)
@@ -103,7 +169,9 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.&.10
 #   (let ((fn (formatter "~#&")))
 #     (loop for i from 1 to (min (- call-arguments-limit 3) 100)
@@ -116,18 +184,27 @@ my $fl = Format::Lisp.new;
 #           collect i))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.&.11
 #   "X~V%" (0) "X")
 # 
+is $fl.format( Q{X~V&}, 0 ), Q{X}, 'format.&.11';
+)
 
+#`(
 # (def-format-test format.&.12
 #   "X~#%" nil "X")
 # 
+is $fl.format( Q{X~#&} ), Q{X}, 'format.&.12';
+)
 
+#`(
 # (def-format-test format.&.13
 #   "X~#%" ('a 'b 'c) #.(let ((nl (string #\Newline)))
 #                         (concatenate 'string "X" nl nl nl))
 #   3)
+)
 
 done-testing;

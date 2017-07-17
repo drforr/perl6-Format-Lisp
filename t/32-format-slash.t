@@ -5,107 +5,146 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (def-pprint-test format./.1
 #   (format nil "~/pprint-linear/" 1)
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.2
 #   (format nil "~/pprint-linear/" 2)
 #   "2"
 #   :pretty nil)
 # 
+)
 
+#`(
 # (def-pprint-test format./.3
 #   (format nil "~/pprint-linear/" '(17))
 #   "17")
 # 
+)
 
+#`(
 # (def-pprint-test format./.4
 #   (format nil "~:/pprint-linear/" '(17))
 #   "(17)")
 # 
+)
 
+#`(
 # (def-pprint-test format./.5
 #   (format nil "~@/pprint-linear/" 1)
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.6
 #   (format nil "~@:/pprint-linear/" 1)
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.7
 #   (format nil "~/PPRINT-LINEAR/" 1)
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.8
 #   (format nil "~/pPrINt-lINeaR/" 1)
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.9
 #   (progn
 #     (setf (symbol-function 'FUNCTION-FOR-FORMAT-SLASH-9) #'pprint-linear)
 #     (format nil "~/CL-TEST::FUNCTION-FOR-FORMAT-SLASH-9/" 1))
 #   "1")
 # 
+)
 
 # ;;; Single : doesn't mean it has to be exported
+#`(
 # (def-pprint-test format./.10
 #   (progn
 #     (setf (symbol-function 'FUNCTION-FOR-FORMAT-SLASH-10) #'pprint-linear)
 #     (format nil "~/cl-test:FUNCTION-FOR-FORMAT-SLASH-10/" 1))
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.11
 #   (progn
 #     (setf (symbol-function '|FUNCTION:FOR::FORMAT:SLASH:11|) #'pprint-linear)
 #     (format nil "~/cL-tESt:FUNCTION:FOR::FORMAT:SLASH:11/" 1))
 #   "1")
 # 
+)
 
+#`(
 # (def-pprint-test format./.12
 #   (format nil "~<~/pprint-tabular/~:>" '((|M|)))
 #   "M")
 # 
+)
 
+#`(
 # (def-pprint-test format./.13
 #   (format nil "~<~:/pprint-tabular/~:>" '((|M|)))
 #   "(M)")
 # 
+)
 
+#`(
 # (def-pprint-test format./.14
 #   (format nil "~<~:@/pprint-tabular/~:>" '((|M|)))
 #   "(M)")
 # 
+)
 
+#`(
 # (def-pprint-test format./.15
 #   (format nil "~<~@/pprint-tabular/~:>" '((|M|)))
 #   "M")
 # 
+)
 
+#`(
 # (def-pprint-test format./.16
 #   (format nil "~<~4:/pprint-tabular/~:>" '((|M| |M|)))
 #   "(M   M)")
 # 
+)
 
+#`(
 # (def-pprint-test format./.17
 #   (format nil "~<~v:/pprint-tabular/~:>" '(nil (|M| |M|)))
 #   "(M               M)")
 # 
+)
 
+#`(
 # (def-pprint-test format./.18
 #   (format nil "~<~v:/pprint-tabular/~:>" '(3 (|M| |M|)))
 #   "(M  M)")
 # 
+)
 
+#`(
 # (declaim (special *expected-args*))
 # 
+)
 
+#`(
 # (def-pprint-test format./.19
 #   (progn
 #    (setf (symbol-function 'function-for-format-slash-19)
@@ -144,5 +183,7 @@ my $fl = Format::Lisp.new;
 #       (format nil "~v,v,v,v,v,v,v,v,v,v@/cl-test::function-for-format-slash-19/" 1 2 3 4 5 6 7 8 9 10 12))
 #     ))
 #   ("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12"))
+# 
+)
 
 done-testing;

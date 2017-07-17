@@ -5,9 +5,13 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (def-format-test format.page.1
 #   "~0|" nil "")
 # 
+)
+
+#`(
 # (deftest format.page.2
 #   (let ((s (format nil "~|")))
 #     (cond
@@ -22,6 +26,9 @@ my $fl = Format::Lisp.new;
 #               collect i)))))
 #   nil)
 # 
+)
+
+#`(
 # (deftest format.page.3
 #   (let ((s (format nil "~|")))
 #     (cond
@@ -36,10 +43,18 @@ my $fl = Format::Lisp.new;
 #               collect i)))))
 #   nil)
 # 
+)
+
+#`(
 # (def-format-test format.page.4
 #   "~V|" (0) "")
 # 
+)
+
+#`(
 # (def-format-test format.page.5
 #   "~v|" (nil) #.(format nil "~|"))
+# 
+)
 
 done-testing;

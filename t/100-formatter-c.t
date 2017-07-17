@@ -5,6 +5,7 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
 # (deftest formatter.c.1
 #   (let ((fn (formatter "~C")))
 #     (loop
@@ -21,7 +22,9 @@ my $fl = Format::Lisp.new;
 #      collect it))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.1a
 #   (let ((fn (formatter "~c")))
 #     (loop
@@ -45,7 +48,9 @@ my $fl = Format::Lisp.new;
 #      when (> count 100) collect "count limit exceeded" and do (loop-finish)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.2
 #   (let ((fn (formatter "~:C")))
 #     (loop
@@ -64,7 +69,9 @@ my $fl = Format::Lisp.new;
 #      collect it))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.2a
 #   (let ((fn (formatter "~:C")))
 #     (loop
@@ -90,7 +97,9 @@ my $fl = Format::Lisp.new;
 #      when (> count 100) collect "count limit exceeded" and do (loop-finish)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.4
 #   (let ((fn (formatter "~:C"))
 #         (n nil))
@@ -104,7 +113,9 @@ my $fl = Format::Lisp.new;
 #           collect (list c (char-name c) s)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.4a
 #   (let ((fn (formatter "~:C"))
 #         (n nil))
@@ -121,7 +132,9 @@ my $fl = Format::Lisp.new;
 #           collect (list c (char-name c) s)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.5
 #   (let ((fn (formatter "~@C"))
 #         (n nil))
@@ -135,7 +148,9 @@ my $fl = Format::Lisp.new;
 #           collect (list c s c2)))
 #   nil)
 # 
+)
 
+#`(
 # (deftest formatter.c.6
 #   (let ((n nil)
 #         (fn (formatter "~@:c")))
@@ -147,5 +162,7 @@ my $fl = Format::Lisp.new;
 #           unless (and (eql (search s1 s2) 0) (equal n '((1 2))))
 #           collect (list c s1 s2 n)))
 #   nil)
+# 
+)
 
 done-testing;

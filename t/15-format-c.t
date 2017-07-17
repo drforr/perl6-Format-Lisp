@@ -7,6 +7,8 @@ my $fl = Format::Lisp.new;
 
 # ;;; Test of the ~C directive
 # 
+
+#`(
 # (deftest format.c.1
 #   (loop for c across +standard-chars+
 #         for s = (format nil "~C" c)
@@ -14,7 +16,9 @@ my $fl = Format::Lisp.new;
 #         collect (list c s))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.1a
 #   (loop with count = 0
 #         for i from 0 below (min #x10000 char-code-limit)
@@ -27,7 +31,9 @@ my $fl = Format::Lisp.new;
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.2
 #   (loop for c across +standard-chars+
 #         for s = (format nil "~:c" c)
@@ -37,7 +43,9 @@ my $fl = Format::Lisp.new;
 #         collect (list c s))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.2a
 #   (loop with count = 0
 #         for i from 0 below (min #x10000 char-code-limit)
@@ -52,11 +60,15 @@ my $fl = Format::Lisp.new;
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+)
 
+#`(
 # (def-format-test format.c.3
 #   "~:C" (#\Space) #.(char-name #\Space))
 # 
+)
 
+#`(
 # (deftest format.c.4
 #   (loop for c across +standard-chars+
 #         for s = (format nil "~:C" c)
@@ -65,7 +77,9 @@ my $fl = Format::Lisp.new;
 #         collect (list c (char-name c) s))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.4a
 #   (loop with count = 0
 #         for i from 0 below (min #x10000 char-code-limit)
@@ -79,7 +93,9 @@ my $fl = Format::Lisp.new;
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.5
 #   (loop for c across +standard-chars+
 #         for s = (format nil "~@c" c)
@@ -88,7 +104,9 @@ my $fl = Format::Lisp.new;
 #         collect (list c s c2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.5a
 #   (loop with count = 0
 #         for i from 0 below (min #x10000 char-code-limit)
@@ -100,7 +118,9 @@ my $fl = Format::Lisp.new;
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.6
 #   (loop for c across +standard-chars+
 #         for s1 = (format nil "~:C" c)
@@ -109,7 +129,9 @@ my $fl = Format::Lisp.new;
 #         collect (list c s1 s2))
 #   nil)
 # 
+)
 
+#`(
 # (deftest format.c.6a
 #   (loop with count = 0
 #         for i from 0 below (min #x10000 char-code-limit)
@@ -120,5 +142,7 @@ my $fl = Format::Lisp.new;
 #         do (incf count) and collect (list c s1 s2)
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
+# 
+)
 
 done-testing;
