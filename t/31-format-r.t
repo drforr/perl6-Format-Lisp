@@ -1,6 +1,8 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
@@ -42,11 +44,10 @@ my $fl = Format::Lisp.new;
 # 
 )
 
-#`(
 # (def-format-test format.r.2
 #   "~2r" (14) "1110")
 # 
-)
+is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 
 #`(
 # (def-format-test format.r.3

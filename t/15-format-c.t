@@ -1,13 +1,14 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
 # ;;; Test of the ~C directive
 # 
-
 #`(
 # (deftest format.c.1
 #   (loop for c across +standard-chars+
@@ -62,11 +63,10 @@ my $fl = Format::Lisp.new;
 # 
 )
 
-#`(
 # (def-format-test format.c.3
 #   "~:C" (#\Space) #.(char-name #\Space))
 # 
-)
+is $fl.format( Q{~:c}, ' ' ), Q{Space}, 'format.c.3';
 
 #`(
 # (deftest format.c.4
@@ -77,6 +77,13 @@ my $fl = Format::Lisp.new;
 #         collect (list c (char-name c) s))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( "~:C", $c );
+		unless 
+	}
+}, 'format.c.4';
 )
 
 #`(

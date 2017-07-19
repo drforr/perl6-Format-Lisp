@@ -1,18 +1,11 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
-
-my $CHAR-CODE-LIMIT = 0x10000;
-my @standard-chars =
-	'a'..'z',
-	'A'..'Z',
-	'0'..'9',
-	split( '', Q{~!@#$%^&*()_+|\\=-`{}[]:\";'<>?,./} ),
-	"\n"
-;
 
 subtest {
 	is $fl.format( Q{~a}, 'abc' ), Q{abc}, 'non-nil';

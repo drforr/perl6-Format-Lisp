@@ -1,6 +1,8 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
@@ -205,6 +207,8 @@ is $fl.format( Q{X~#&} ), Q{X}, 'format.&.12';
 #   "X~#%" ('a 'b 'c) #.(let ((nl (string #\Newline)))
 #                         (concatenate 'string "X" nl nl nl))
 #   3)
+#
+is $fl.format( Q{X~#%}, 'a', 'b', 'c' ), qq{X\n\n\n}, 'format.&.1';
 )
 
 done-testing;

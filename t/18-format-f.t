@@ -1,6 +1,8 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
@@ -668,13 +670,13 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.f.45
 #     "~2f" (1.1) "1.0")
 # 
+is $fl.format( Q{~2f}, 1.1 ), Q{1.0}, 'format.f.45';
 )
 
-#`(
 # (def-format-test format.f.45b
 #     "~3f" (1.1) "1.1")
 # 
-)
+is $fl.format( Q{~3f}, 1.1 ), Q{1.1}, 'format.f.45b';
 
 # ;; This fails on ECL 15.3.7
 #`(

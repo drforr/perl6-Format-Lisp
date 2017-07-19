@@ -15,11 +15,15 @@ Format::Lisp - Common Lisp formatter
 
 =begin DESCRIPTION
 
+Implements the Common Lisp (format) function.
+
+=begin SPEC_DIFFERENCES
+
+In Lisp, ~& only adds a newline if there wasn't a newline on STDOUT previously.
+
+=end SPEC_DIFFERENCES
+
 =end DESCRIPTION
-
-=begin DEBUGGING
-
-=end DEBUGGING
 
 =begin METHODS
 

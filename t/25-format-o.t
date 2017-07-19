@@ -1,6 +1,8 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
@@ -406,11 +408,10 @@ my $fl = Format::Lisp.new;
 
 # ;;; NIL arguments
 # 
-#`(
 # (def-format-test format.o.14
 #   "~vO" (nil #o100) "100")
 # 
-)
+is $fl.format( Q{~vO}, Nil, 0o100 ), Q{100}, 'format.o.14';
 
 #`(
 # (def-format-test format.o.15

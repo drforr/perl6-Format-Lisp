@@ -1,6 +1,8 @@
 use v6;
 
 use Test;
+use lib 't/lib';
+use Utils;
 use Format::Lisp;
 
 my $fl = Format::Lisp.new;
@@ -17,42 +19,43 @@ is $fl.format( qq{~{~\n~}}, Nil ), Q{}, 'format.{.1';
 # (def-format-test format.{.1a
 #   "~{~}" ("" nil) "")
 # 
-is $fl.format( qq{~{~}}, '', Nil ), Q{}, 'format.{.1a';
+is $fl.format( Q{~{~}}, '', Nil ), Q{}, 'format.{.1a';
 )
 
 #`(
 # (def-format-test format.{.1b
 #   "~0{~}" ("" '(1 2 3)) "")
 # 
-is $fl.format( qq{~0{~}}, '', [ 1, 2, 3 ] ), Q{}, 'format.{.1b';
+is $fl.format( Q{~0{~}}, '', [ 1, 2, 3 ] ), Q{}, 'format.{.1b';
 )
 
 #`(
 # (def-format-test format.{.2
 #   "~{ ~}" (nil) "")
 # 
-is $fl.format( qq{~{ ~}}, Nil ), Q{}, 'format.{.2';
+is $fl.format( Q{~{ ~}}, Nil ), Q{}, 'format.{.2';
 )
 
 #`(
 # (def-format-test format.{.3
 #   "~{X Y Z~}" (nil) "")
 # 
-is $fl.format( qq{~{X Y Z~}}, Nil ), Q{}, 'format.{.3';
+is $fl.format( Q{~{X Y Z~}}, Nil ), Q{}, 'format.{.3';
 )
 
 #`(
 # (def-format-test format.{.4
 #   "~{~A~}" ('(1 2 3 4)) "1234")
 # 
-is $fl.format( qq{~{~A~}}, [ 1, 2, 3, 4 ] ), Q{1234}, 'format.{.4';
+is $fl.format( Q{~{~A~}}, [ 1, 2, 3, 4 ] ), Q{1234}, 'format.{.4';
 )
 
 #`(
 # (def-format-test format.{.5
 #   "~{~{~A~}~}" ('((1 2 3)(4 5)(6 7 8))) "12345678")
 # 
-is $fl.format( qq{~{~{~A~}~}},
+is $fl.format(
+	Q{~{~{~A~}~}},
 	[ [ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ] ],
 ), Q{12345678}, 'format.{.5'
 ;
@@ -62,7 +65,8 @@ is $fl.format( qq{~{~{~A~}~}},
 # (def-format-test format.{.6
 #   "~{~1{~A~}~}" ('((1 2 3)(4 5)(6 7 8))) "146")
 # 
-is $fl.format( qq{~{~1{~A~}~}},
+is $fl.format(
+	Q{~{~1{~A~}~}},
 	[ [ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ] ]
 ), Q{146}, 'format.{.6'
 ;
@@ -83,6 +87,19 @@ is $fl.format( qq{~1{~\n~}}, Nil ), Q{}, 'format.{.7';
 #         collect (list i s))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 0 .. 10 -> $i {
+		my $s = $fl.format(
+			Q{~v{~A~}},
+			$i, [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 ]
+		);
+		unless $ eq '1234567890'.substr( 0, $i ) {
+			@collected.append( [ $i, $s ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.{.8';
 )
 
 #`(
@@ -100,10 +117,10 @@ is $fl.format( qq{~1{~\n~}}, Nil ), Q{}, 'format.{.7';
 # (def-format-test format.{.9
 #   "~#{~A~}" ('(1 2 3 4 5 6 7) nil nil nil) "1234" 3)
 # 
-is $fl.format( qq{~#{~A~}}, [ 1, 2, 3, 4, 5, 6, 7 ], Nil, Nil, Nil ),
-	Q{1234},
-	'format.{.9'
-;
+is $fl.format(
+	qq{~#{~A~}},
+	[ 1, 2, 3, 4, 5, 6, 7 ], Nil, Nil, Nil
+), Q{1234}, 'format.{.9';
 )
 
 # ;;; (missing tests involved ~^ and have been moved to format-circumflex.lsp
@@ -239,10 +256,10 @@ is $fl.format( Q{~2{FOO~}}, Nil ), Q{}, 'format.{.32';
 # (def-format-test format.{.33
 #   "~v{~a~}" (nil '(1 2 3 4 5 6 7)) "1234567")
 # 
-is $fl.format( Q{~v{~a~}}, Nil, [ 1, 2, 3, 4, 5, 6, 7 ] ),
-	Q{1234567},
-	'format.{.32'
-;
+is $fl.format(
+	Q{~v{~a~}},
+	Nil, [ 1, 2, 3, 4, 5, 6, 7 ]
+), Q{1234567}, 'format.{.32';
 )
 
 # ;;; ~:{ ... ~}
@@ -251,10 +268,10 @@ is $fl.format( Q{~v{~a~}}, Nil, [ 1, 2, 3, 4, 5, 6, 7 ] ),
 # (def-format-test format.\:{.1
 #   "~:{(~A ~A)~}" ('((1 2 3)(4 5)(6 7 8))) "(1 2)(4 5)(6 7)")
 # 
-is $fl.format( Q{~:{(~A ~A)~}}, [ [ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ] ] ),
-	Q{(1 2)(4 5)(6 7)},
-	'format.:{.1'
-;
+is $fl.format(
+	Q{~:{(~A ~A)~}},
+	[ [ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ] ]
+), Q{(1 2)(4 5)(6 7)}, 'format.:{.1';
 )
 
 #`(
@@ -282,10 +299,10 @@ is $fl.format( Q{~:{~}}, '~A', Nil ), Q{}, 'format.:{.4';
 # (def-format-test format.\:{.5
 #   "~:{~}" ("X" '(nil (1 2) (3))) "XXX")
 # 
-is $fl.format( Q{~:{~}}, 'X', [ Nil, [ 1, 2 ], [ 3 ] ] ),
-	Q{XXX},
-	'format.:{.5'
-;
+is $fl.format(
+	Q{~:{~}},
+	'X', [ Nil, [ 1, 2 ], [ 3 ] ]
+), Q{XXX}, 'format.:{.5';
 )
 
 #`(
@@ -329,6 +346,30 @@ is $fl.format( Q{~2:{~A~}}, [ [ 1 ], [ 2 ] ] ), Q{12}, 'format.:{.9';
 #   ("" "1" "12" "123" "1234" "12345"
 #    "123456" "123456" "123456" "123456" "123456"))
 # 
+subtest {
+	my @collected;
+	for 0 .. 10 -> $i {
+		@collected.append(
+			$fl.format(
+				Q{~v:{~A~}},
+				$i, [ [ 1 ], [ 2 ], [ 3, 'X' ], [ 4, 'Y', 'Z' ], [ 5 ], [ 6 ] ]
+			)
+		);
+	}
+	is-deeply @collected, [
+		'',
+		'1',
+		'12',
+		'123',
+		'1234',
+		'12345',
+		'123456',
+		'123456',
+		'123456',
+		'123456',
+		'123456',
+	];
+}, 'format.:{.11';
 )
 
 #`(
@@ -345,10 +386,10 @@ is $fl.format( Q{~2:{~A~}}, [ [ 1 ], [ 2 ] ] ), Q{12}, 'format.:{.9';
 # (def-format-test format.\:{.12
 #   "~V:{X~}" (nil '((1) (2) (3) nil (5))) "XXXXX")
 # 
-is $fl.format( Q{~V:{X~}}, Nil, [ [ 1 ], [ 2 ], [ 3 ], Nil, [ 5 ] ] ),
-	Q{XXXXX},
-	'format.:{.12'
-;
+is $fl.format(
+	Q{~V:{X~}},
+	Nil, [ [ 1 ], [ 2 ], [ 3 ], Nil, [ 5 ] ]
+), Q{XXXXX}, 'format.:{.12';
 )
 
 # 'foo and 'bar
@@ -371,6 +412,30 @@ is $fl.format( Q{~V:{X~}}, Nil, [ [ 1 ], [ 2 ], [ 3 ], Nil, [ 5 ] ] ),
 #   ("" "1" "12" "123" "1234" "1234"
 #    "1234" "1234" "1234" "1234" "1234"))
 # 
+subtest {
+	my @collected;
+	for 0 .. 10 -> $i {
+		@collected.append(
+			$fl.format(
+				Q{~v:{~A~:}},
+				[ [ 1, 'X' ], [ 2, 'Y' ], [ 3 ], [ 4, 'A', 'B' ] ]
+			)
+		);
+	}
+	is-deeply @collected, [
+		'',
+		'1',
+		'12',
+		'123',
+		'1234',
+		'1234',
+		'1234',
+		'1234',
+		'1234',
+		'1234',
+		'1234',
+	];
+}, 'format.:{.15';
 )
 
 #`(
@@ -412,48 +477,48 @@ is $fl.format( qq{~@{~\n~}} ), Q{}, 'format.@{.1';
 # (def-format-test format.@{.1A
 #   "~@{~}" ("") "")
 # 
-is $fl.format( qq{~@{~}}, '' ), Q{}, 'format.@{.1A';
+is $fl.format( Q{~@{~}}, '' ), Q{}, 'format.@{.1A';
 )
 
 #`(
 # (def-format-test format.@{.2
 #   "~@{ ~}" nil "")
 # 
-is $fl.format( qq{~@{ ~}} ), Q{}, 'format.@{.2';
+is $fl.format( Q{~@{ ~}} ), Q{}, 'format.@{.2';
 )
 
 #`(
 # (def-format-test format.@{.3
 #   "~@{X ~A Y Z~}" (nil) "X NIL Y Z")
 # 
-is $fl.format( qq{~@{X ~A Y Z~}}, Nil ), Q{X NIL Y Z}, 'format.@{.3';
+is $fl.format( Q{~@{X ~A Y Z~}}, Nil ), Q{X NIL Y Z}, 'format.@{.3';
 )
 
 #`(
 # (def-format-test format.@{.4
 #   "~@{~A~}" (1 2 3 4) "1234")
 # 
-is $fl.format( qq{~@{~A~}}, 1, 2, 3, 4 ), Q{1234}, 'format.@{.4';
+is $fl.format( Q{~@{~A~}}, 1, 2, 3, 4 ), Q{1234}, 'format.@{.4';
 )
 
 #`(
 # (def-format-test format.@{.5
 #   "~@{~{~A~}~}" ('(1 2 3) '(4 5) '(6 7 8)) "12345678")
 # 
-is $fl.format( qq{~@{~{~A~}~}}, [ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ] ),
-	Q{12345678},
-	'format.@{.5'
-;
+is $fl.format(
+	Q{~@{~{~A~}~}},
+	[ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ]
+), Q{12345678}, 'format.@{.5';
 )
 
 #`(
 # (def-format-test format.@{.6
 #   "~@{~1{~A~}~}" ('(1 2 3) '(4 5) '(6 7 8)) "146")
 # 
-is $fl.format( qq{~@{~1{~A~}~}}, [ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ] ),
-	Q{146},
-	'format.@{.6'
-;
+is $fl.format(
+	qq{~@{~1{~A~}~}},
+	[ 1, 2, 3 ], [ 4, 5 ], [ 6, 7, 8 ]
+), Q{146}, 'format.@{.6';
 )
 
 #`(
@@ -528,24 +593,37 @@ is $fl.format( qq{~@{X~:}} ), 'X', 'format.@{.11';
 #   (concatenate 'string "~:@{~" (string #\Newline) "~}")
 #   nil "")
 # 
+is $fl.format( qq{~:@{~\n~}}} ), Q{}, 'format.:@{.1';
 )
 
 #`(
 # (def-format-test format.\:@{.2
 #   "~:@{~A~}" ('(1 2) '(3) '(4 5 6)) "134")
 # 
+is $fl.format(
+	Q{~:@{~A~}},
+	[ 1, 2 ], [ 3 ], [ 4, 5, 6 ]
+), Q{134}, 'format.:@.3';
 )
 
 #`(
 # (def-format-test format.\:@{.3
 #   "~:@{(~A ~A)~}" ('(1 2 4) '(3 7) '(4 5 6)) "(1 2)(3 7)(4 5)")
 # 
+is $fl.format(
+	Q{~:@{(~A ~A)~}},
+	[ 1, 2, 4 ], [ 3, 7 ], [ 4, 5, 6 ]
+), Q{(1 2)(3 7)(4 5)}, 'format.:@.3';
 )
 
 #`(
 # (def-format-test format.\:@{.4
 #   "~:@{~}" ("(~A ~A)" '(1 2 4) '(3 7) '(4 5 6)) "(1 2)(3 7)(4 5)")
 # 
+is $fl.format(
+	Q{~:@{~}},
+	"(~A ~A)", [ 1, 2, 4 ], [ 3, 7 ], [ 4, 5, 6 ]
+), Q{(1 2)(3 7)(4 5)}, 'format.:@.4';
 )
 
 #`(
@@ -558,24 +636,34 @@ is $fl.format( qq{~@{X~:}} ), 'X', 'format.@{.11';
 # (def-format-test format.\:@.6
 #   "~:@{~A~:}" ('(1 A) '(2 B) '(3) '(4 C D)) "1234")
 # 
+is $fl.format(
+	Q{~:@{~A~:}},
+	[ 1, 'A' ], [ 2, 'B' ], [ 3 ], [ 4, 'C', 'D' ]
+), Q{1234}, 'format.:@.6';
 )
 
 #`(
 # (def-format-test format.\:@.7
 #   "~0:@{~A~:}" ('(1 A) '(2 B) '(3) '(4 C D)) "" 4)
 # 
+is $fl.format(
+	Q{~0:@{~A~:}},
+	[ 1, 'A' ], [ 2, 'B' ], [ 3 ], [ 4, 'C', 'D' ]
+), Q{}, 'format.:@.7';
 )
 
 #`(
 # (def-format-test format.\:@.8
 #   "~#:@{A~:}" (nil nil nil) "AAA")
 # 
+is $fl.format( Q{~#:@{A~:}}, Nil, Nil, Nil ), Q{AAA}, 'format.:@.8';
 )
 
 #`(
 # (def-format-test format.\:@.9
 #   "~v:@{~A~}" (nil '(1) '(2) '(3)) "123")
 # 
+is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 )
 
 #`(
