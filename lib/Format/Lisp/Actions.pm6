@@ -128,7 +128,31 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 	}
 }
 
-class Format::Lisp::Directive::Amp is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
+	has $.n = 0;
+
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $n = $.n;
+		if $n eq 'next' {
+			$n = $argument // 0;
+			$argument = $next;
+		}
+		elsif $n eq 'remaining' {
+			$n = $remaining;
+		}
+
+		my $out = $argument;
+		if $argument ~~ List {
+			$out = '(NIL)'; # Sigh.
+		}
+		elsif !$argument {
+			$out = 'NIL';
+		}
+		return qq{\n} x $n;
+	}
+}
 
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
@@ -231,92 +255,6 @@ class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	also does Nested;
-	has $.mincol = 0;
-	has $.colinc = 1;
-	has $.minpad = 0;
-	has $.padchar = ' ';
-
-	method pad( $out, $at, $mincol, $colinc, $minpad, $padchar ) {
-		my $padding = '';
-		while $mincol > $out.chars + $padding.chars {
-			$padding ~= $padchar x $colinc;
-		}
-		while $minpad > $padding.chars {
-			$padding ~= $padchar x $minpad;
-		}
-
-		return $padding ~ $out if $at;
-		return $out ~ $padding;
-	}
-
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol = $.mincol;
-		if $mincol eq 'next' {
-			$mincol = $argument // 0;
-			$argument = $next;
-		}
-		elsif $mincol eq 'remaining' {
-			$mincol = $remaining;
-		}
-
-		my $padchar = $.padchar;
-		if $padchar eq 'next' {
-			$padchar = $argument // ' ';
-			$argument = $next;
-		}
-		elsif $padchar eq 'remaining' {
-			$padchar = $remaining;
-		}
-
-		my $commachar = $.commachar;
-		if $commachar eq 'next' {
-			$commachar = $argument // ',';
-			$argument = $next;
-		}
-		elsif $commachar eq 'remaining' {
-			$commachar = $remaining;
-		}
-
-		my $comma-interval = $.comma-interval;
-		if $comma-interval eq 'next' {
-			$comma-interval = $argument // 3;
-			$argument = $next;
-		}
-		elsif $comma-interval eq 'remaining' {
-			$comma-interval = $remaining;
-		}
-		$argument = sprintf "%b", $argument;
-
-		my $out = $argument;
-		if $argument ~~ List {
-			if $.colon {
-				$out = '(NIL)';
-			}
-			else {
-				$out = '(NIL)'; # Sigh.
-			}
-		}
-		elsif !$argument {
-			if $.colon {
-				$out = '()';
-			}
-			else {
-				$out = 'NIL';
-			}
-		}
-		$out = self.print-case( $out );
-
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-#		return self.pad(
-#			$out, $at, $mincol, $colinc, $minpad, $padchar
-#		);
-	}
 }
 
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive { }
@@ -742,7 +680,24 @@ class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 	has $.text;
 }
 
-class Format::Lisp::Directive::Star is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Star is Format::Lisp::Directive {
+	has $.n = 1;
+
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $n = $.n;
+		if $n eq 'next' {
+			$n = $argument;
+			$argument = $next;
+		}
+		elsif $n eq 'remaining' {
+			$n = $remaining;
+		}
+
+		return 0;
+	}
+}
 
 class Format::Lisp::Directive::S is Format::Lisp::Directive {
 	has $.mincol = 0;
@@ -990,8 +945,7 @@ class Format::Lisp::Actions {
 		}
 		elsif $/<tilde-Amp> {
 			make Format::Lisp::Directive::Amp.new(
-				at => $has-at,
-				colon => $has-colon,
+				n => @arguments[0] // 0
 			)
 		}
 		elsif $/<tilde-Angle> {
@@ -1177,7 +1131,8 @@ class Format::Lisp::Actions {
 		elsif $/<tilde-Star> {
 			make Format::Lisp::Directive::Star.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				n => @arguments[0] // 1
 			)
 		}
 		elsif $/<tilde-S> {

@@ -76,12 +76,53 @@ class Format::Lisp {
 	method format( Str $format, **@arguments ) {
 		my @directives = self._parse( $format );
 		my $text = '';
-		for @directives.kv -> $index, $_ {
-			$text ~= $_.to-string(
-				@arguments[$index],
-				@arguments[$index+1],
-				@arguments.elems - $index
-			);
+		my $index = 0;
+		for @directives -> $directive {
+			if $directive ~~ Format::Lisp::Directive::Star {
+#`(
+				my $offset = $directive.to-string(
+					@arguments[$index],
+					@arguments[$index+1],
+					@arguments.elems - $index
+				);
+)
+				if $directive.n eq 'next' {
+					my $cur = @arguments[$index] // 1;
+					$index = $cur + @arguments[$index+1];
+				}
+				elsif $directive.colon {
+					if $directive.n == 0 {
+					}
+					elsif $directive.n != 1 {
+						$index -= $directive.n;
+					}
+					else {
+						$index--;
+					}
+				}
+				elsif $directive.at {
+					if $directive.n eq 'next' {
+						$index = 0;
+					}
+					else {
+						$index = 0;
+					}
+				}
+				elsif $directive.n == 0 {
+					# do nothing
+				}
+				else {
+					$index++;
+				}
+			}
+			else {
+				$text ~= $directive.to-string(
+					@arguments[$index],
+					@arguments[$index+1],
+					@arguments.elems - $index
+				);
+				$index++;
+			}
 		}
 		return $text;
 	}
