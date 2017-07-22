@@ -9,30 +9,40 @@ my $fl = Format::Lisp.new;
 
 # ;;; ~*
 # 
+#`(
 # (def-format-test format.*.1
 #   "~A~*~A" (1 2 3) "13")
 # 
 is $fl.format( Q{~A~*~A}, 1, 2, 3 ), "13", 'format.*.1';
+)
 
+#`(
 # (def-format-test format.*.2
 #   "~A~0*~A" (1 2 3) "12" 1)
 # 
 is $fl.format( Q{~A~0*~A}, 1, 2, 3 ), "12", 'format.*.2';
+)
 
+#`(
 # (def-format-test format.*.3
 #   "~A~v*~A" (1 0 2) "12")
 # 
 is $fl.format( Q{~A~v*~A}, 1, 0, 2 ), "12", 'format.*.3';
+)
 
+#`(
 # (def-format-test format.*.4
 #   "~A~v*~A" (1 1 2 3) "13")
 # 
 is $fl.format( Q{~A~v*~A}, 1, 1, 2, 3 ), "13", 'format.*.4';
+)
 
+#`(
 # (def-format-test format.*.5
 #   "~A~v*~A" (1 nil 2 3) "13")
 # 
 is $fl.format( Q{~A~v*~A}, 1, Nil, 2, 3 ), "13", 'format.*.5';
+)
 
 #`(
 # (def-format-test format.*.6
@@ -71,30 +81,40 @@ is $fl.format(
 
 # ;;; ~:*
 # 
+#`(
 # (def-format-test format.\:*.1
 #   "~A~:*~A" (1 2 3) "11" 2)
 # 
 is $fl.format( Q{~A~:*~A}, 1, 2, 3 ), "11", 'format.:*.1';
+)
 
+#`(
 # (def-format-test format.\:*.2
 #   "~A~A~:*~A" (1 2 3) "122" 1)
 # 
 is $fl.format( Q{~A~A~:*~A}, 1, 2, 3 ), "122", 'format.:*.2';
+)
 
+#`(
 # (def-format-test format.\:*.3
 #   "~A~A~0:*~A" (1 2 3) "123")
 # 
 is $fl.format( Q{~A~A~0:*~A}, 1, 2, 3 ), "123", 'format.:*.3';
+)
 
+#`(
 # (def-format-test format.\:*.4
 #   "~A~A~2:*~A" (1 2 3) "121" 2)
 # 
 is $fl.format( Q{~A~A~2:*~A}, 1, 2, 3 ), "121", 'format.:*.4';
+)
 
+#`(
 # (def-format-test format.\:*.5
 #   "~A~A~v:*~A" (1 2 0 3) "123")
 # 
 is $fl.format( Q{~A~A~v:*~A}, 1, 2, 0, 3 ), "123", 'format.:*.5';
+)
 
 #`(
 # (def-format-test format.\:*.6
@@ -122,7 +142,7 @@ is $fl.format( Q{~A~1{~A~:*~A~}~A}, 0, [ 1, 2, 3 ], 4 ), "0114", 'format.:*.8';
 #   "~A~1{~A~A~A~:*~A~}~A" (0 '(1 2 3 4) 5) "012335")
 # 
 is $fl.format(
-	Q{~A~1{~A~:*~A~}~A},
+	Q{~A~1{~A~A~A~:*~A~}~A},
 	0, [ 1, 2, 3, 4 ], 5
 ), "012335", 'format.:*.9';
 )
@@ -142,7 +162,7 @@ is $fl.format(
 #   "~A~{~A~A~A~3:*~A~A~A~A~}~A" (0 '(1 2 3 4) 5) "012312345")
 # 
 is $fl.format(
-	Q{~A~{~A~A~A~1:*~A~A~A~A~}~A},
+	Q{~A~{~A~A~A~3:*~A~A~A~A~}~A},
 	0, [ 1, 2, 3, 4 ], 5
 ), "012312345", 'format.:*.11';
 )
@@ -152,7 +172,7 @@ is $fl.format(
 #   "~A~{~A~A~A~A~4:*~^~A~A~A~A~}~A" (0 '(1 2 3 4) 5) "0123412345")
 # 
 is $fl.format(
-	Q{~A~{~A~A~A~A~4:*~A~A~A~A~}~A},
+	Q{~A~{~A~A~A~A~4:*~^~A~A~A~A~}~A},
 	0, [ 1, 2, 3, 4 ], 5
 ), "0123412345", 'format.:*.12';
 )
@@ -169,10 +189,12 @@ is $fl.format(
 
 # ;;; ~@*
 # 
+#`(
 # (def-format-test format.@*.1
 #   "~A~A~@*~A~A" (1 2 3 4) "1212" 2)
 # 
 is $fl.format( Q{~A~A~@*~A~A}, 1, 2, 3, 4 ), Q{1212}, 'format.@*.1';
+)
 
 #`(
 # (def-format-test format.@*.2
@@ -221,7 +243,7 @@ is $fl.format( Q{~A~A~v@*~A~A}, 6, 7, 2, 3, 4 ), Q{6723}, 'format.@*.7';
 #   "~A~{~A~A~@*~A~A~}~A" (0 '(1 2) 9) "012129")
 # 
 is $fl.format(
-	Q{~A{~A~A~v@*~A~A~}~A},
+	Q{~A{~A~A~@*~A~A~}~A},
 	0, [ 1, 2 ], 9
 ), Q{012129}, 'format.@*.8';
 )
@@ -241,7 +263,7 @@ is $fl.format(
 #   "~A~1{~A~A~v@*~A~A~}~A" (0 '(1 2 nil) 9) "012129")
 # 
 is $fl.format(
-	Q{~A1{~A~A~v@*~A~A~}~A},
+	Q{~A~1{~A~A~v@*~A~A~}~A},
 	0, [ 1, 2, Nil ], 9
 ), Q{012129}, 'format.@*.10';
 )
@@ -251,7 +273,7 @@ is $fl.format(
 #   "~A~{~A~A~1@*~A~}~A" (0 '(1 2) 9) "01229")
 # 
 is $fl.format(
-	Q{~A1{~A~A~1@*~A~A~}~A},
+	Q{~A1{~A~A~1@*~A~}~A},
 	0, [ 1, 2 ], 9
 ), Q{01229}, 'format.@*.11';
 )

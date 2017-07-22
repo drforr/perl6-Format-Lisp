@@ -23,6 +23,17 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 20 -> $i {
+		my $s1 = 'x' xx $i - 1;
+		my $s2 = $fl.format( Q{~<~A~>}, $s1 );
+		unless $s1 eq $s2 {
+			@collected.append( [ $i, $s1, $s2 ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.justify.2';
 )
 
 #`(
@@ -34,6 +45,17 @@ my $fl = Format::Lisp.new;
 #         collect (list i s1 s2))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 20 -> $i {
+		my $s1 = 'x' xx $i - 1;
+		my $s2 = $fl.format( Q{~<~A~;~A~>}, $s1, $s1 );
+		unless $s2 eq $s1 ~ $s1 {
+			@collected.append( [ $i, $s1, $s2 ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.justify.3';
 )
 
 #`(
@@ -46,6 +68,18 @@ my $fl = Format::Lisp.new;
 #         collect (list i expected s2))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 20 -> $i {
+		my $s1 = 'x' xx $i - 1;
+		my $expected = $s1 ~ ' ' ~ $s1;
+		my $s2 = $fl.format( Q{~,,1<~A~;~A~>}, $s1, $s1 );
+		unless $s2 eq $expected {
+			@collected.append( [ $i, $expected, $s2 ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.justify.4';
 )
 
 #`(
@@ -58,6 +92,18 @@ my $fl = Format::Lisp.new;
 #         collect (list i expected s2))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 20 -> $i {
+		my $s1 = 'x' xx $i - 1;
+		my $expected = $s1 ~ ',' ~ $s1;
+		my $s2 = $fl.format( Q{~,,1,',<~A~;~A~>}, $s1, $s1 );
+		unless $s2 eq $expected {
+			@collected.append( [ $i, $expected, $s2 ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.justify.5';
 )
 
 #`(
@@ -70,6 +116,18 @@ my $fl = Format::Lisp.new;
 #         collect (list i expected s2))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for 1 .. 20 -> $i {
+		my $s1 = 'x' xx $i - 1;
+		my $expected = $s1 ~ '  ' ~ $s1;
+		my $s2 = $fl.format( Q{~,,2<~A~;~A~>}, $s1, $s1 );
+		unless $s2 eq $expected {
+			@collected.append( [ $i, $expected, $s2 ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.justify.6';
 )
 
 #`(
@@ -169,6 +227,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<XXXXXX~^~>")
 #   "")
 # 
+is $fl.format( Q{~<XXXXXX~^~>} ), Q{}, 'format.justify.12';
 )
 
 #`(
@@ -176,6 +235,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<XXXXXX~;YYYYYYY~^~>")
 #   "XXXXXX")
 # 
+is $fl.format( Q{~<XXXXXX~;YYYYYYY~^~>} ), Q{XXXXXX}, 'format.justify.13';
 )
 
 #`(
@@ -183,6 +243,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~<XXXXXX~;YYYYYYY~^~>~>")
 #   "XXXXXX")
 # 
+is $fl.format( Q{~<~<XXXXXX~;YYYYYYY~^~>~>} ), Q{XXXXXX}, 'format.justify.13a';
 )
 
 #`(
@@ -190,6 +251,9 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<XXXXXX~;YYYYYYY~^~;ZZZZZ~>")
 #   "XXXXXX")
 # 
+is $fl.format(
+	Q{~<~<XXXXXX~;YYYYYYY~^~;ZZZZZ~>~>}
+), Q{XXXXXX}, 'format.justify.14';
 )
 
 #`(
@@ -197,6 +261,9 @@ my $fl = Format::Lisp.new;
 #   (format nil "~13,,2<aaa~;bbb~;ccc~>")
 #   "aaa  bbb  ccc")
 # 
+is $fl.format(
+	Q{~13,,2<aaa~;bbb~;ccc~>}
+), Q{aaa  bbb  ccc}, 'format.justify.15';
 )
 
 #`(
@@ -204,6 +271,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~10@<abcdef~>")
 #   "abcdef    ")
 # 
+is $fl.format( Q{~10@<abcdef~>} ), Q{abcdef    }, 'format.justify.16';
 )
 
 #`(
@@ -211,6 +279,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~10:@<abcdef~>")
 #   "  abcdef  ")
 # 
+is $fl.format( Q{~10:@<abcdef~>} ), Q{  abcdef  }, 'format.justify.17';
 )
 
 #`(
@@ -218,6 +287,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~10:<abcdef~>")
 #   "    abcdef")
 # 
+is $fl.format( Q{~10:<abcdef~>} ), Q{    abcdef}, 'format.justify.18';
 )
 
 #`(
@@ -225,12 +295,14 @@ my $fl = Format::Lisp.new;
 #   (format nil "~4@<~>")
 #   "    ")
 # 
+is $fl.format( Q{~4@<~>} ), Q{    }, 'format.justify.19';
 )
 
 #`(
 # (def-pprint-test format.justify.20
 #   (format nil "~5:@<~>")
 #   "     ")
+is $fl.format( Q{~5:@<~>} ), Q{     }, 'format.justify.20';
 # 
 )
 
@@ -239,6 +311,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~6:<~>")
 #   "      ")
 # 
+is $fl.format( Q{~6:<~>} ), Q{      }, 'format.justify.21';
 )
 
 #`(
@@ -246,6 +319,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~v<~A~>" nil "XYZ")
 #   "XYZ")
 # 
+is $fl.format( Q{~v:<~A~>}, Nil, 'XYZ' ), Q{XYZ}, 'format.justify.22';
 )
 
 #`(
@@ -253,6 +327,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~,v<~A~;~A~>" nil "ABC" "DEF")
 #   "ABCDEF")
 # 
+is $fl.format(
+	Q{~,v:<~A~;~A~>},
+	Nil, 'ABC', 'DEF'
+), Q{ABCDEF}, 'format.justify.23';
 )
 
 #`(
@@ -260,6 +338,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~,,v<~A~;~A~>" nil "ABC" "DEF")
 #   "ABCDEF")
 # 
+is $fl.format(
+	Q{~,,v:<~A~;~A~>},
+	Nil, 'ABC', 'DEF'
+), Q{ABCDEF}, 'format.justify.24';
 )
 
 #`(
@@ -267,6 +349,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~,,1,v<~A~;~A~>" nil "ABC" "DEF")
 #   "ABC DEF")
 # 
+is $fl.format(
+	Q{~,,1,v<~A~;~A~>},
+	Nil, 'ABC', 'DEF'
+), Q{ABC DEF}, 'format.justify.25';
 )
 
 #`(
@@ -274,6 +360,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~,,1,v<~A~;~A~>" #\, "ABC" "DEF")
 #   "ABC,DEF")
 # 
+is $fl.format(
+	Q{~,,1,v<~A~;~A~>},
+	',', 'ABC', 'DEF'
+), Q{ABC,DEF}, 'format.justify.26';
 )
 
 #`(
@@ -281,6 +371,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~6<abc~;def~^~>")
 #   "   abc")
 # 
+is $fl.format(
+	Q{~6<abc~;def~^~>},
+	',', 'ABC', 'DEF'
+), Q{   abc}, 'format.justify.27';
 )
 
 #`(
@@ -288,6 +382,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~6@<abc~;def~^~>")
 #   "abc   ")
 # 
+is $fl.format(
+	Q{~6@<abc~;def~^~>},
+	',', 'ABC', 'DEF'
+), Q{abc   }, 'format.justify.28';
 )
 
 # ;;; ~:; tests
@@ -298,6 +396,10 @@ my $fl = Format::Lisp.new;
 #   "
 # X AAA BBB CCC")
 # 
+is $fl.format(
+	Q{~%X ~,,1<~%X ~:;AAA~;BBB~;CCC~>},
+	',', 'ABC', 'DEF'
+), qq{\nX AAA BBB CCC}, 'format.justify.29';
 )
 
 #`(
@@ -309,6 +411,9 @@ my $fl = Format::Lisp.new;
 # X BBB
 # X CCC")
 # 
+is $fl.format(
+	Q{~%X ~<~%X ~0,3:;AAA~>~<~%X ~0,3:;BBB~>~<~%X ~0,3:;CCC~>}
+), qq{\nX \nX AAA\nX BBB\nX CCC}, 'format.justify.30';
 )
 
 #`(
@@ -317,6 +422,9 @@ my $fl = Format::Lisp.new;
 #   "
 # X AAABBBCCC")
 # 
+is $fl.format(
+	Q{~%X ~<~%X ~0,30:;AAA~>~<~%X ~0,30:;BBB~>~<~%X ~0,30:;CCC~>}
+), qq{\nX AAABBBCCC}, 'format.justify.31';
 )
 
 #`(
@@ -328,6 +436,9 @@ my $fl = Format::Lisp.new;
 # X BBB,
 # X CCC")
 # 
+is $fl.format(
+	Q{~%X ~<~%X ~0,3:;AAA~>,~<~%X ~0,3:;BBB~>,~<~%X ~0,3:;CCC~>}
+), qq{\nX \nX AAA\nX BBB\nX CCC}, 'format.justify.32';
 )
 
 # ;;; Error cases

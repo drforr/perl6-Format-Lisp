@@ -567,7 +567,24 @@ class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
 	also does Nested;
 }
 
-class Format::Lisp::Directive::Percent is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Percent is Format::Lisp::Directive {
+	has $.n = 1;
+
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $n = $.n;
+		if $n eq 'next' {
+			$n = $argument // 0;
+			$argument = $next;
+		}
+		elsif $n eq 'remaining' {
+			$n = $remaining;
+		}
+
+		return qq{\n} x $n;
+	}
+}
 
 class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { }
 
@@ -681,7 +698,7 @@ class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::Star is Format::Lisp::Directive {
-	has $.n = 1;
+	has $.n = Nil;
 
 	method to-string( $_argument, $next, $remaining ) {
 		my $argument = $_argument;
@@ -1083,7 +1100,8 @@ class Format::Lisp::Actions {
 		elsif $/<tilde-Percent> {
 			make Format::Lisp::Directive::Percent.new(
 				at => $has-at,
-				colon => $has-colon
+				colon => $has-colon,
+				n => @arguments[0] // 1
 			)
 		}
 		elsif $/<tilde-Pipe> {
@@ -1132,7 +1150,7 @@ class Format::Lisp::Actions {
 			make Format::Lisp::Directive::Star.new(
 				at => $has-at,
 				colon => $has-colon,
-				n => @arguments[0] // 1
+				n => @arguments[0] // Nil
 			)
 		}
 		elsif $/<tilde-S> {

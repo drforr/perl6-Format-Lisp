@@ -86,34 +86,6 @@ class Format::Lisp {
 					@arguments.elems - $index
 				);
 )
-				if $directive.n eq 'next' {
-					my $cur = @arguments[$index] // 1;
-					$index = $cur + @arguments[$index+1];
-				}
-				elsif $directive.colon {
-					if $directive.n == 0 {
-					}
-					elsif $directive.n != 1 {
-						$index -= $directive.n;
-					}
-					else {
-						$index--;
-					}
-				}
-				elsif $directive.at {
-					if $directive.n eq 'next' {
-						$index = 0;
-					}
-					else {
-						$index = 0;
-					}
-				}
-				elsif $directive.n == 0 {
-					# do nothing
-				}
-				else {
-					$index++;
-				}
 			}
 			else {
 				$text ~= $directive.to-string(

@@ -7,11 +7,10 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-format-test format.%.1
 #   "~%" nil #.(string #\Newline))
 # 
-)
+is $fl.format( Q{~%} ), qq{\n}, 'format.%.1';
 
 #`(
 # (deftest format.%.2
@@ -31,15 +30,14 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.%.3
 #   "~v%" (nil) #.(string #\Newline))
 # 
+is $fl.format( Q{~v%}, Nil ), qq{\n}, 'format.%.3';
 )
 
-#`(
 # (def-format-test format.%.4
 #   "~V%" (1) #.(string #\Newline))
 # 
-)
+is $fl.format( Q{~v%}, 1 ), qq{\n}, 'format.%.4';
 
-#`(
 # (deftest format.%.5
 #   (loop for i from 0 to 100
 #         for s1 = (make-string i :initial-element #\Newline)
@@ -48,7 +46,17 @@ my $fl = Format::Lisp.new;
 #         collect i)
 #   nil)
 # 
-)
+subtest {
+	my @collected;
+	for 0 .. 100 -> $i {
+		my $s1 = qq{\n} x $i;
+		my $s2 = $fl.format( "~v%", $i );
+		unless $s1 eq $s2 {
+			@collected.append( $i )
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.%.5';
 
 #`(
 # (deftest formatter.%.5
