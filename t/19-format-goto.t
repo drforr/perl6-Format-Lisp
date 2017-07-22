@@ -9,40 +9,30 @@ my $fl = Format::Lisp.new;
 
 # ;;; ~*
 # 
-#`(
 # (def-format-test format.*.1
 #   "~A~*~A" (1 2 3) "13")
 # 
 is $fl.format( Q{~A~*~A}, 1, 2, 3 ), "13", 'format.*.1';
-)
 
-#`(
 # (def-format-test format.*.2
 #   "~A~0*~A" (1 2 3) "12" 1)
 # 
 is $fl.format( Q{~A~0*~A}, 1, 2, 3 ), "12", 'format.*.2';
-)
 
-#`(
 # (def-format-test format.*.3
 #   "~A~v*~A" (1 0 2) "12")
 # 
 is $fl.format( Q{~A~v*~A}, 1, 0, 2 ), "12", 'format.*.3';
-)
 
-#`(
 # (def-format-test format.*.4
 #   "~A~v*~A" (1 1 2 3) "13")
 # 
 is $fl.format( Q{~A~v*~A}, 1, 1, 2, 3 ), "13", 'format.*.4';
-)
 
-#`(
 # (def-format-test format.*.5
 #   "~A~v*~A" (1 nil 2 3) "13")
 # 
 is $fl.format( Q{~A~v*~A}, 1, Nil, 2, 3 ), "13", 'format.*.5';
-)
 
 #`(
 # (def-format-test format.*.6
@@ -81,54 +71,40 @@ is $fl.format(
 
 # ;;; ~:*
 # 
-#`(
 # (def-format-test format.\:*.1
 #   "~A~:*~A" (1 2 3) "11" 2)
 # 
 is $fl.format( Q{~A~:*~A}, 1, 2, 3 ), "11", 'format.:*.1';
-)
 
-#`(
 # (def-format-test format.\:*.2
 #   "~A~A~:*~A" (1 2 3) "122" 1)
 # 
 is $fl.format( Q{~A~A~:*~A}, 1, 2, 3 ), "122", 'format.:*.2';
-)
 
-#`(
 # (def-format-test format.\:*.3
 #   "~A~A~0:*~A" (1 2 3) "123")
 # 
 is $fl.format( Q{~A~A~0:*~A}, 1, 2, 3 ), "123", 'format.:*.3';
-)
 
-#`(
 # (def-format-test format.\:*.4
 #   "~A~A~2:*~A" (1 2 3) "121" 2)
 # 
 is $fl.format( Q{~A~A~2:*~A}, 1, 2, 3 ), "121", 'format.:*.4';
-)
 
-#`(
 # (def-format-test format.\:*.5
 #   "~A~A~v:*~A" (1 2 0 3) "123")
 # 
 is $fl.format( Q{~A~A~v:*~A}, 1, 2, 0, 3 ), "123", 'format.:*.5';
-)
 
-#`(
 # (def-format-test format.\:*.6
 #   "~A~A~v:*~A" (6 7 2 3) "677" 2)
 # 
 is $fl.format( Q{~A~A~v:*~A}, 6, 7, 2, 3 ), "677", 'format.:*.6';
-)
 
-#`(
 # (def-format-test format.\:*.7
 #   "~A~A~v:*~A" (6 7 nil 3) "67NIL" 1)
 # 
 is $fl.format( Q{~A~A~v:*~A}, 6, 7, Nil, 3 ), "67NIL", 'format.:*.7';
-)
 
 #`(
 # (def-format-test format.\:*.8

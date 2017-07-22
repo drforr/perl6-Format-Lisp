@@ -86,6 +86,90 @@ class Format::Lisp {
 					@arguments.elems - $index
 				);
 )
+				if $directive.at {
+					if $directive.colon {
+						if $directive.n ~~ Real {
+warn "01";
+						}
+						elsif $directive.n ~~ Str {
+							if $directive.n eq 'remaining' {
+warn "02";
+							}
+							elsif $directive.n eq 'next' {
+warn "03";
+							}
+						}
+						else {
+warn "04";
+						}
+					}
+					else {
+						if $directive.n ~~ Real {
+warn "11";
+						}
+						elsif $directive.n ~~ Str {
+							if $directive.n eq 'remaining' {
+warn "12";
+							}
+							elsif $directive.n eq 'next' {
+warn "13";
+							}
+						}
+						else {
+warn "14";
+						}
+					}
+				}
+				else {
+					if $directive.colon {
+						if $directive.n ~~ Real {
+#warn "21";
+							$index -= $directive.n;
+						}
+						elsif $directive.n ~~ Str {
+							if $directive.n eq 'remaining' {
+warn "22";
+							}
+							elsif $directive.n eq 'next' {
+#warn "23";
+if @arguments[$index] == 0 {
+	$index = @arguments[$index+1];
+}
+else {
+	$index--;
+}
+							}
+						}
+						else {
+#warn "24";
+							$index--;
+						}
+					}
+					else {
+						if $directive.n ~~ Real {
+#warn "31";
+							# Skip
+						}
+						elsif $directive.n ~~ Str {
+							if $directive.n eq 'remaining' {
+warn "32";
+							}
+							elsif $directive.n eq 'next' {
+#warn "33";
+								if $index+1 < @arguments.elems - 1 {
+									$index = ( @arguments[$index] // 1 ) + @arguments[$index+1];
+								}
+								else {
+									$index = @arguments[$index+1];
+								}
+							}
+						}
+						else {
+#warn "34";
+							$index++;
+						}
+					}
+				}
 			}
 			else {
 				$text ~= $directive.to-string(
