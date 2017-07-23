@@ -165,54 +165,40 @@ is $fl.format(
 
 # ;;; ~@*
 # 
-#`(
 # (def-format-test format.@*.1
 #   "~A~A~@*~A~A" (1 2 3 4) "1212" 2)
 # 
 is $fl.format( Q{~A~A~@*~A~A}, 1, 2, 3, 4 ), Q{1212}, 'format.@*.1';
-)
 
-#`(
 # (def-format-test format.@*.2
 #   "~A~A~1@*~A~A" (1 2 3 4) "1223" 1)
 # 
 is $fl.format( Q{~A~A~1@*~A~A}, 1, 2, 3, 4 ), Q{1223}, 'format.@*.2';
-)
 
-#`(
 # (def-format-test format.@*.3
 #   "~A~A~2@*~A~A" (1 2 3 4) "1234")
 # 
 is $fl.format( Q{~A~A~2@*~A~A}, 1, 2, 3, 4 ), Q{1234}, 'format.@*.3';
-)
 
-#`(
 # (def-format-test format.@*.4
 #   "~A~A~3@*~A~A" (1 2 3 4 5) "1245")
 # 
 is $fl.format( Q{~A~A~3@*~A~A}, 1, 2, 3, 4, 5 ), Q{1245}, 'format.@*.4';
-)
 
-#`(
 # (def-format-test format.@*.5
 #   "~A~A~v@*~A~A" (1 2 nil 3 4) "1212" 3)
 # 
 is $fl.format( Q{~A~A~v@*~A~A}, 1, 2, Nil, 3, 4 ), Q{1212}, 'format.@*.5';
-)
 
-#`(
 # (def-format-test format.@*.6
 #   "~A~A~v@*~A~A" (1 2 1 3 4) "1221" 2)
 # 
 is $fl.format( Q{~A~A~v@*~A~A}, 1, 2, 1, 3, 4 ), Q{1221}, 'format.@*.6';
-)
 
-#`(
 # (def-format-test format.@*.7
 #   "~A~A~v@*~A~A" (6 7 2 3 4) "6723" 1)
 # 
 is $fl.format( Q{~A~A~v@*~A~A}, 6, 7, 2, 3, 4 ), Q{6723}, 'format.@*.7';
-)
 
 #`(
 # (def-format-test format.@*.8
