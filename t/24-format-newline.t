@@ -12,6 +12,7 @@ my $fl = Format::Lisp.new;
 #   (concatenate 'string "~" (string #\Newline) "   X")
 #   nil "X")
 # 
+is $fl.format( qq{~\n   X} ), Q{X}, 'format.newline.1';
 )
 
 #`(
@@ -19,6 +20,7 @@ my $fl = Format::Lisp.new;
 #   (concatenate 'string "A~:" (string #\Newline) " X")
 #   nil "A X")
 # 
+is $fl.format( qq{A~:\n X} ), Q{A X}, 'format.newline.2';
 )
 
 #`(

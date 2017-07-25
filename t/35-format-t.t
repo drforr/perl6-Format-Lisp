@@ -7,12 +7,11 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-pprint-test format.t.1
 #   (format nil "~0,0T")
 #   "")
 # 
-)
+is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 
 #`(
 # (def-pprint-test format.t.2

@@ -157,6 +157,9 @@ class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
 	has $.trailing-colon = False;
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
 }
 
 class Format::Lisp::Directive::B is Format::Lisp::Directive {
@@ -586,11 +589,27 @@ class Format::Lisp::Directive::Percent is Format::Lisp::Directive {
 	}
 }
 
-class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { 
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
+}
 
-class Format::Lisp::Directive::P is Format::Lisp::Directive { }
+class Format::Lisp::Directive::P is Format::Lisp::Directive {
+	method to-string( $_argument, $next, $remaining ) {
+		# XXX Of course, this is heavily language-dependent.
+		if $_argument and $_argument != 1 {
+			return 's';
+		}
+		return '';
+	}
+}
 
-class Format::Lisp::Directive::Ques is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Ques is Format::Lisp::Directive {
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
+}
 
 class Format::Lisp::Directive::R is Format::Lisp::Directive {
 	has $.radix = 10;
@@ -695,6 +714,9 @@ class Format::Lisp::Directive::Semi is Format::Lisp::Directive { }
 
 class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 	has $.text;
+	method to-string( $_argument, $next, $remaining ) {
+		return $_argument;
+	}
 }
 
 class Format::Lisp::Directive::Star is Format::Lisp::Directive {
@@ -702,20 +724,19 @@ class Format::Lisp::Directive::Star is Format::Lisp::Directive {
 
 	method to-offset( $index, $arg, $next, $elems ) {
 		if $.at {
+			my $offset = 0;
 			if $.n ~~ Real {
-				return $.n - $index;
+				$offset = $.n;
 			}
 			elsif $.n ~~ Str {
 				if $.n eq 'remaining' {
 warn "12";
 				}
 				elsif $.n eq 'next' {
-					return ( $arg // 0 ) - $index;
+					$offset = $arg // 0;
 				}
 			}
-			else {
-				return -$index;
-			}
+			return $offset - $index;
 		}
 		else {
 			if $.colon {
@@ -727,17 +748,16 @@ warn "12";
 warn "22";
 					}
 					elsif $.n eq 'next' {
+						my $offset = 0;
 						if $arg ~~ Real {
 							if $arg == 2 {
-								return -1;
+								$offset = -1;
 							}
 							else {
-								return $next - $index;
+								$offset = $next - $index;
 							}
 						}
-						else {
-							return 0;
-						}
+						return $offset;
 					}
 				}
 				else {
@@ -745,25 +765,26 @@ warn "22";
 				}
 			}
 			else {
-				if $.n ~~ Real {
-					return 0;
-				}
-				elsif $.n ~~ Str {
+				my $offset = 0;
+				if $.n ~~ Str {
 					if $.n eq 'remaining' {
 warn "32";
 					}
 					elsif $.n eq 'next' {
 						if $index+1 < $elems - 1 {
-							return ( ( $arg // 1 ) + $next ) - $index;
+							$offset = ( $arg // 1 ) + $next - $index;
 						}
 						else {
-							return $next - $index;
+							$offset = $next - $index;
 						}
 					}
 				}
-				else {
-					return 1;
+				elsif $.n ~~ Real {
 				}
+				else {
+					$offset = 1;
+				}
+				return $offset;
 			}
 		}
 	}
@@ -868,11 +889,23 @@ class Format::Lisp::Directive::S is Format::Lisp::Directive {
 	}
 }
 
-class Format::Lisp::Directive::Tilde is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Tilde is Format::Lisp::Directive {
+	method to-string( $_argument, $next, $remaining ) {
+		return '~';
+	}
+}
 
-class Format::Lisp::Directive::T is Format::Lisp::Directive { }
+class Format::Lisp::Directive::T is Format::Lisp::Directive {
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
+}
 
-class Format::Lisp::Directive::Under is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Under is Format::Lisp::Directive {
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
+}
 
 class Format::Lisp::Directive::W is Format::Lisp::Directive { }
 

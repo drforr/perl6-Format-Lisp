@@ -7,26 +7,25 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-pprint-test format./.1
 #   (format nil "~/pprint-linear/" 1)
 #   "1")
 # 
-)
+is $fl.format( Q{~/pprint-linear/}, 1 ), Q{1}, 'format./.1';
 
-#`(
 # (def-pprint-test format./.2
 #   (format nil "~/pprint-linear/" 2)
 #   "2"
 #   :pretty nil)
 # 
-)
+is $fl.format( Q{~/pprint-linear/}, 2 ), Q{2}, 'format./.2';
 
 #`(
 # (def-pprint-test format./.3
 #   (format nil "~/pprint-linear/" '(17))
 #   "17")
 # 
+is $fl.format( Q{~/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.3';
 )
 
 #`(
@@ -34,6 +33,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:/pprint-linear/" '(17))
 #   "(17)")
 # 
+is $fl.format( Q{~:/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.4';
 )
 
 #`(

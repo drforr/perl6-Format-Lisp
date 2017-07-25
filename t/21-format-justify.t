@@ -7,12 +7,11 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-pprint-test format.justify.1
 #   (format nil "~<~>")
 #   "")
 # 
-)
+is $fl.format( Q{~<~>}, 14 ), Q{}, 'format.justify.1';
 
 #`(
 # (def-pprint-test format.justify.2
@@ -222,13 +221,11 @@ subtest {
 # 
 )
 
-#`(
 # (def-pprint-test format.justify.12
 #   (format nil "~<XXXXXX~^~>")
 #   "")
 # 
 is $fl.format( Q{~<XXXXXX~^~>} ), Q{}, 'format.justify.12';
-)
 
 #`(
 # (def-pprint-test format.justify.13

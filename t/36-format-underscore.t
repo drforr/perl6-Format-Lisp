@@ -36,13 +36,12 @@ my $fl = Format::Lisp.new;
 # 
 )
 
-#`(
 # (def-ppblock-test format._.3
 #   (format t "A ~_A ~_A ~_A ~_")
 #   "A A A A "
 #   :margin 10)
 # 
-)
+is $fl.format( Q{A ~_A ~_A ~_A ~_}), Q{A A A A }, 'format._.3';
 
 #`(
 # (def-ppblock-test format._.4
@@ -51,16 +50,18 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 10)
 # 
+# Repeat in our case
 )
 
-#`(
 # (def-ppblock-test format._.5
 #   (format t "A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_")
 #   "A A A A A A A A A A "
 #   :margin 10
 #   :pretty nil)
 # 
-)
+is $fl.format(
+	Q{A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_}
+), Q{A A A A A A A A A A }, 'format._.5';
 
 #`(
 # (def-ppblock-test format._.6
@@ -72,6 +73,7 @@ my $fl = Format::Lisp.new;
 # "
 #   :margin 10)
 # 
+# Redundant
 )
 
 #`(
@@ -89,6 +91,9 @@ my $fl = Format::Lisp.new;
 # "
 #   :margin 10)
 # 
+is $fl.format(
+	Q{A ~_A ~_A ~_A ~_~%A ~_A ~_A ~_A ~_}
+), qq{A\nA\nA\nA\n\nA\nA\nA\nA\n}, 'format._.7';
 )
 
 #`(
@@ -136,31 +141,34 @@ my $fl = Format::Lisp.new;
 
 # ;;; miser
 # 
-#`(
 # (def-ppblock-test format.@_.1
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
 #   :margin 10)
 # 
-)
+is $fl.format(
+	Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_}
+), qq{A A A A A A A A A A }, 'format.@_.1';
 
-#`(
 # (def-ppblock-test format.@_.2
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
 #   :margin 10
 #   :miser 0)
 # 
-)
+is $fl.format(
+	Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_}
+), qq{A A A A A A A A A A }, 'format.@_.2';
 
-#`(
 # (def-ppblock-test format.@_.3
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
 #   "A A A A A A A A A A "
 #   :margin 10
 #   :miser 9)
 # 
-)
+is $fl.format(
+	Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_}
+), qq{A A A A A A A A A A }, 'format.@_.3';
 
 #`(
 # (def-ppblock-test format.@_.4
@@ -179,6 +187,7 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 10)
 # 
+# Redundant
 )
 
 #`(
@@ -189,6 +198,7 @@ my $fl = Format::Lisp.new;
 #   :miser 10
 #   :pretty nil)
 # 
+# Redundant?
 )
 
 #`(
@@ -200,6 +210,7 @@ my $fl = Format::Lisp.new;
 #   :margin 20
 #   :miser 20)
 # 
+is $fl.format( Q{~%A~@_} ), qq{\nA\n}, 'format.@_.6';
 )
 
 #`(
@@ -211,6 +222,7 @@ my $fl = Format::Lisp.new;
 #   :margin 20
 #   :miser 20)
 # 
+is $fl.format( Q{~@_A~%} ), qq{\nA\n}, 'format.@_.7';
 )
 
 #`(
@@ -279,6 +291,9 @@ my $fl = Format::Lisp.new;
 # A A A A A "
 #   :margin 10)
 # 
+is $fl.format(
+	Q{A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_}
+), qq{A A A A A\nA A A A A }, 'format.:_.1';
 )
 
 #`(
@@ -290,6 +305,9 @@ my $fl = Format::Lisp.new;
 # A "
 #   :margin 6)
 # 
+is $fl.format(
+	Q{A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_}
+), qq{A A A A\nA A A\nA A A }, 'format.:_.1';
 )
 
 #`(
@@ -301,6 +319,7 @@ my $fl = Format::Lisp.new;
 # A "
 #   :margin 7)
 # 
+# Redundant
 )
 
 #`(
@@ -311,6 +330,7 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 9)
 # 
+# Redundant
 )
 
 #`(
@@ -330,6 +350,7 @@ my $fl = Format::Lisp.new;
 #   :margin 10
 #   :miser 10)
 # 
+# Redundant
 )
 
 #`(
@@ -345,6 +366,14 @@ my $fl = Format::Lisp.new;
 # (A B) "
 #   :margin 12)
 # 
+is $fl.format(
+	Q{~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_},
+	[ 'A', 'B' ], ' ',
+	[ 'A', 'B' ], ' ',
+	[ 'A', 'B' ], ' ',
+	[ 'A', 'B' ], ' ',
+	[ 'A', 'B' ], ' '
+), qq{(A B) (A B)\n(A B) (A B)\n(A B)}, 'format.:_.6';
 )
 
 #`(
@@ -360,6 +389,17 @@ my $fl = Format::Lisp.new;
 #        (format s "A ~:_A ~:_A ~:_A ~:_A ~:_"))))
 #   "A A A A A ")
 # 
+subtest {
+	my $*PRINT-READABLY = Nil;
+	my $*PRINT-ESCAPE = Nil;
+	my $*PRINT-RIGHT-MARGIN = 4;
+	my $*PRINT-PRETTY = True;
+	my $*PRINT-MISER-WIDTH = Nil;
+	is $fl.format( Q{~A}, Nil ), Q{nil};
+	is $fl.format(
+		Q{A ~:_A ~:_A ~:_A ~:_A ~:_}
+	), Q{A A A A A };
+}, 'format.:_.7';
 )
 
 #`(
@@ -387,6 +427,9 @@ my $fl = Format::Lisp.new;
 # A
 # ")
 # 
+is $fl.format(
+	Q{A ~:@_A ~:@_A ~:@_A ~:@_}
+), qq{A\nA\nA\nA\n}, 'format.:@_.1';
 )
 
 #`(
@@ -399,6 +442,7 @@ my $fl = Format::Lisp.new;
 # "
 #   :margin 10)
 # 
+# Redundant
 )
 
 #`(
@@ -408,6 +452,7 @@ my $fl = Format::Lisp.new;
 # A "
 #   :margin 1)
 # 
+is $fl.format( Q{A ~@:_A } ), qq{A\nA }, 'format.:@_.3';
 )
 
 #`(
@@ -416,6 +461,7 @@ my $fl = Format::Lisp.new;
 #   "A A A A "
 #   :pretty nil)
 # 
+# Redundant?
 )
 
 #`(
@@ -431,6 +477,17 @@ my $fl = Format::Lisp.new;
 #        (format s "A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_"))))
 #   "A A A A A ")
 # 
+subtest {
+	my $*PRINT-READABLY = Nil;
+	my $*PRINT-ESCAPE = Nil;
+	my $*PRINT-PRETTY = True;
+	my $*PRINT-RIGHT-MARGIN = 4;
+	my $*PRINT-MISER-WIDTH = Nil;
+	is $fl.format( Q{~A}, Nil ), Q{nil};
+	is $fl.format(
+		Q{A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_}
+	), Q{A A A A A };
+}, 'format.:@_.5';
 )
 
 #`(

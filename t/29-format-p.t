@@ -7,29 +7,25 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-format-test format.p.1
 #   "~p" (1) "")
 # 
-)
+is $fl.format( Q{~p}, 1 ), Q{}, 'format.p.1';
 
-#`(
 # (def-format-test format.p.2
 #   "~P" (2) "s")
 # 
-)
+is $fl.format( Q{~P}, 2 ), Q{s}, 'format.p.2';
 
-#`(
 # (def-format-test format.p.3
 #   "~p" (0) "s")
 # 
-)
+is $fl.format( Q{~p}, 2 ), Q{s}, 'format.p.3';
 
-#`(
 # (def-format-test format.p.4
 #   "~P" (1.0) "s")
 # 
-)
+is $fl.format( Q{~P}, 2 ), Q{s}, 'format.p.4';
 
 #`(
 # (deftest format.p.5

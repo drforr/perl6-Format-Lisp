@@ -650,6 +650,7 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.f.43
 #   "~,,,,',f" (0.0) "0.0")
 # 
+is $fl.format( Q{~,,,,',f}, 0.0 ), Q{0.0}, 'format.f.43';
 )
 
 #`(

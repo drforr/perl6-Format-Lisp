@@ -7,11 +7,10 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-format-test format.~.1
 #   "~~" nil "~")
 # 
-)
+is $fl.format( Q{~~}), Q{~}, 'format.~.1';
 
 #`(
 # (deftest format.~.2
@@ -42,6 +41,7 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.~.3
 #   "~v~" (0) "")
 # 
+is $fl.format( Q{~v~}, 0), Q{}, 'format.~.3';
 )
 
 #`(

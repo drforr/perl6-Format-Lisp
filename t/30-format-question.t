@@ -7,11 +7,10 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-format-test format.?.1
 #   "~?" ("" nil) "")
 # 
-)
+is $fl.format( Q{~?}, '', Nil ), Q{}, 'format.?.1';
 
 #`(
 # (def-format-test format.?.2

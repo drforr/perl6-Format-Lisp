@@ -14,6 +14,7 @@ my $fl = Format::Lisp.new;
 #   "M
 #     M")
 # 
+is $fl.format( Q{~<M~3:i~:@_M~:>}, [ 'M', 'M' ] ), Q{M\n    M}, 'format.i.1';
 )
 
 # ;;; See pprint-indent.10
@@ -23,6 +24,7 @@ my $fl = Format::Lisp.new;
 #   "(M
 #    M)")
 # 
+is $fl.format( Q{~<M~1:I~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n   M)}, 'format.i.2';
 )
 
 # ;;; See pprint-indent.11
@@ -32,6 +34,10 @@ my $fl = Format::Lisp.new;
 #   "(M
 #  M)")
 # 
+is $fl.format(
+	Q{~<(~;M~-1:i~:@_M~;)~:>},
+	[ 'M', 'M' ]
+), Q[(M\n M)], 'format.i.3';
 )
 
 #`(
@@ -40,6 +46,10 @@ my $fl = Format::Lisp.new;
 #   "(M
 #  M)")
 # 
+is $fl.format(
+	Q{~:<M~-1:i~:@_M~:>},
+	[ 'M', 'M' ]
+), Q{(M\n M)}, 'format.i.4';
 )
 
 #`(
@@ -48,6 +58,10 @@ my $fl = Format::Lisp.new;
 #   "(M
 #   M)")
 # 
+is $fl.format(
+	Q{~<(~;M~:I~:@_M~;)~:>},
+	[ 'M', 'M' ]
+), Q{(M\n  M)}, 'format.i.5';
 )
 
 #`(
@@ -56,6 +70,10 @@ my $fl = Format::Lisp.new;
 #   "(M
 #   M)")
 # 
+is $fl.format(
+	Q{~<(~;M~v:i~:@_M~;)~:>},
+	[ Nil ]
+), Q{(M\n  M)}, 'format.i.6';
 )
 
 #`(
@@ -64,6 +82,10 @@ my $fl = Format::Lisp.new;
 #   "(M
 # M)")
 # 
+is $fl.format(
+	Q{~:<M~-2:i~:@_M~:>},
+	[ 'M', 'M' ]
+), Q{(M\nM)}, 'format.i.7';
 )
 
 #`(
@@ -72,6 +94,10 @@ my $fl = Format::Lisp.new;
 #   "M
 #  M")
 # 
+is $fl.format(
+	Q{~<M~:i~:@_M~:>},
+	[ 'M', 'M' ]
+), Q{(M\n M)}, 'format.i.8';
 )
 
 # ;;; See pprint-indent.13
@@ -81,6 +107,10 @@ my $fl = Format::Lisp.new;
 #   "MMM
 # MMMMM")
 # 
+is $fl.format(
+	Q{~<MMM~I~:@_MMMMM~:>},
+	[ 'M', 'M' ]
+), Q{(MMM\nMMMMM)}, 'format.i.9';
 )
 
 #`(
@@ -89,6 +119,10 @@ my $fl = Format::Lisp.new;
 #   "(MMM
 #  MMMMM)")
 # 
+is $fl.format(
+	Q{~:<MMM~I~:@_MMMMM~:>},
+	[ 'M', 'M' ]
+), Q{(MMM\nMMMMM)}, 'format.i.10';
 )
 
 #`(
@@ -97,6 +131,10 @@ my $fl = Format::Lisp.new;
 #   "MMM
 #  MMMMM")
 # 
+is $fl.format(
+	Q{~<MMM~1I~:@_MMMMM~:>},
+	[ 'M', 'M' ]
+), Q{(MMM\n MMMMM)}, 'format.i.11';
 )
 
 #`(
@@ -105,6 +143,10 @@ my $fl = Format::Lisp.new;
 #   "XXXMMM
 #     MMMMM")
 # 
+is $fl.format(
+	Q{XXX~<MMM~1I~:@_MMMMM~:>},
+	[ 'M', 'M' ]
+), Q{(XXXMMM\n    MMMMM)}, 'format.i.12';
 )
 
 #`(
@@ -113,6 +155,10 @@ my $fl = Format::Lisp.new;
 #   "XXXMMM
 #    MMMMM")
 # 
+is $fl.format(
+	Q{XXX~<MMM~I~:@_MMMMM~:>},
+	[ 'M', 'M' ]
+), Q{(XXXMMM\n   MMMMM)}, 'format.i.13';
 )
 
 #`(
@@ -121,6 +167,10 @@ my $fl = Format::Lisp.new;
 #   "XXXMMM
 #   MMMMM")
 # 
+is $fl.format(
+	Q{XXX~<MMM~-1I~:@_MMMMM~:>},
+	[ 'M', 'M' ]
+), Q{(XXXMMM\n  MMMMM)}, 'format.i.14';
 )
 
 #`(
@@ -129,6 +179,10 @@ my $fl = Format::Lisp.new;
 #   "XXXMMM
 #    MMMMM")
 # 
+is $fl.format(
+	Q{XXX~<MMM~vI~:@_MMMMM~:>},
+	[ Nil ]
+), Q{(XXXMMM\n   MMMMM)}, 'format.i.15';
 )
 
 #`(
@@ -137,6 +191,10 @@ my $fl = Format::Lisp.new;
 #   "XXXMMM
 #      MMMMM")
 # 
+is $fl.format(
+	Q{XXX~<MMM~vI~:@_MMMMM~:>},
+	[ 2 ]
+), Q{(XXXMMM\n     MMMMM)}, 'format.i.16';
 )
 
 done-testing;
