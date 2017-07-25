@@ -79,115 +79,13 @@ class Format::Lisp {
 		my $index = 0;
 		for @directives -> $directive {
 			if $directive ~~ Format::Lisp::Directive::Star {
-#`(
-				my $offset = $directive.to-string(
+				my $offset = $directive.to-offset(
+					$index,
 					@arguments[$index],
 					@arguments[$index+1],
-					@arguments.elems - $index
+					@arguments.elems
 				);
-)
-if $directive.at {
-if $directive.colon {
-if $directive.n ~~ Real {
-warn "01";
-}
-elsif $directive.n ~~ Str {
-if $directive.n eq 'remaining' {
-warn "02";
-}
-elsif $directive.n eq 'next' {
-warn "03";
-}
-}
-else {
-warn "04";
-}
-}
-else {
-if $directive.n ~~ Real {
-#warn "11";
-	$index = $directive.n;
-}
-elsif $directive.n ~~ Str {
-if $directive.n eq 'remaining' {
-warn "12";
-}
-elsif $directive.n eq 'next' {
-#warn "13";
-	if @arguments[$index] ~~ Real {
-#warn "13a";
-		$index = @arguments[$index];
-	}
-	else {
-#warn "13b";
-		$index = 0;
-	}
-}
-}
-else {
-#warn "14";
-	$index = 0;
-}
-}
-}
-else {
-if $directive.colon {
-if $directive.n ~~ Real {
-#warn "21";
-$index -= $directive.n;
-}
-elsif $directive.n ~~ Str {
-if $directive.n eq 'remaining' {
-warn "22";
-}
-elsif $directive.n eq 'next' {
-#warn "23";
-if @arguments[$index] ~~ Real {
-if @arguments[$index] == 2 {
-#warn "23a";
-$index--;
-# Do nothing
-}
-else {
-#warn "23b";
-$index = @arguments[$index+1];
-}
-}
-else {
-#warn "23c";
-}
-}
-}
-else {
-#warn "24";
-$index--;
-}
-}
-else {
-if $directive.n ~~ Real {
-#warn "31";
-# Skip
-}
-elsif $directive.n ~~ Str {
-if $directive.n eq 'remaining' {
-warn "32";
-}
-elsif $directive.n eq 'next' {
-#warn "33";
-if $index+1 < @arguments.elems - 1 {
-$index = ( @arguments[$index] // 1 ) + @arguments[$index+1];
-}
-else {
-$index = @arguments[$index+1];
-}
-}
-}
-else {
-#warn "34";
-$index++;
-}
-}
-}
+				$index += $offset;
 			}
 			else {
 				$text ~= $directive.to-string(

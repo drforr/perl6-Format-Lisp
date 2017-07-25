@@ -700,6 +700,75 @@ class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 class Format::Lisp::Directive::Star is Format::Lisp::Directive {
 	has $.n = Nil;
 
+	method to-offset( $index, $arg, $next, $elems ) {
+		if $.at {
+			if $.n ~~ Real {
+				return $.n - $index;
+			}
+			elsif $.n ~~ Str {
+				if $.n eq 'remaining' {
+warn "12";
+				}
+				elsif $.n eq 'next' {
+					return ( $arg // 0 ) - $index;
+				}
+			}
+			else {
+				return -$index;
+			}
+		}
+		else {
+			if $.colon {
+				if $.n ~~ Real {
+					return -$.n;
+				}
+				elsif $.n ~~ Str {
+					if $.n eq 'remaining' {
+warn "22";
+					}
+					elsif $.n eq 'next' {
+						if $arg ~~ Real {
+							if $arg == 2 {
+								return -1;
+							}
+							else {
+								return $next - $index;
+							}
+						}
+						else {
+							return 0;
+						}
+					}
+				}
+				else {
+					return -1;
+				}
+			}
+			else {
+				if $.n ~~ Real {
+					return 0;
+				}
+				elsif $.n ~~ Str {
+					if $.n eq 'remaining' {
+warn "32";
+					}
+					elsif $.n eq 'next' {
+						if $index+1 < $elems - 1 {
+							return ( ( $arg // 1 ) + $next ) - $index;
+						}
+						else {
+							return $next - $index;
+						}
+					}
+				}
+				else {
+					return 1;
+				}
+			}
+		}
+	}
+	
+
 	method to-string( $_argument, $next, $remaining ) {
 		my $argument = $_argument;
 
