@@ -31,3 +31,5 @@ is $fl.format( qq{A~:\n X} ), Q{A X}, 'format.newline.2';
 )
 
 done-testing;
+
+# vim: ft=perl6

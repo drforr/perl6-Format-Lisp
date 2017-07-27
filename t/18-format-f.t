@@ -708,3 +708,5 @@ is $fl.format( Q{~3f}, 1.1 ), Q{1.1}, 'format.f.45b';
 )
 
 done-testing;
+
+# vim: ft=perl6

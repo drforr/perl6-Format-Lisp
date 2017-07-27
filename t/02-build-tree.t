@@ -1330,3 +1330,7 @@ subtest {
 	done-testing;
 		
 }, 'nest balanced directive';
+
+done-testing;
+
+# vim: ft=perl6

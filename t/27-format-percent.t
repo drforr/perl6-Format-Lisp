@@ -98,3 +98,5 @@ subtest {
 )
 
 done-testing;
+
+# vim: ft=perl6

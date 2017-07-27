@@ -210,6 +210,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~A~:>" '(nil))
 #   "NIL")
 # 
+is $fl.format( Q{~<~A~:>}, [ Nil ] ), Q{NIL}, 'format.logical-block.1';
 )
 
 #`(
@@ -217,6 +218,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~@<~A~:>" nil)
 #   "NIL")
 # 
+is $fl.format( Q{~@<~A~:>} ), Q{NIL}, 'format.logical-block.2';
 )
 
 #`(
@@ -224,6 +226,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:<~A~:>" '(nil))
 #   "(NIL)")
 # 
+is $fl.format( Q{~:<~A~:>}, Nil ), Q{(NIL)}, 'format.logical-block.3';
 )
 
 #`(
@@ -231,6 +234,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:@<~A~:>" nil)
 #   "(NIL)")
 # 
+is $fl.format( Q{~:@<~A~:>} ), Q{(NIL)}, 'format.logical-block.4';
 )
 
 #`(
@@ -238,6 +242,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~@:<~A~:>" nil)
 #   "(NIL)")
 # 
+is $fl.format( Q{~@:<~A~:>} ), Q{(NIL)}, 'format.logical-block.5';
 )
 
 #`(
@@ -245,6 +250,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~@{~A~^*~}~:>" '(1 2 3))
 #   "1*2*3")
 # 
+is $fl.format(
+	Q{~<~@{~A~^*~}~:>},
+	1, 2, 3
+), Q{1*2*3}, 'format.logical-block.6';
 )
 
 #`(
@@ -252,6 +261,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:<~@{~A~^*~}~:>" '(1 2 3))
 #   "(1*2*3)")
 # 
+is $fl.format(
+	Q{~:<~@{~A~^*~}~:>},
+	1, 2, 3
+), Q{(1*2*3)}, 'format.logical-block.7';
 )
 
 #`(
@@ -259,6 +272,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:<~@{~A~^*~}~:>" 1)
 #   "1")
 # 
+is $fl.format( Q{~:<~@{~A~^*~}~:>}, 1 ), Q{1}, 'format.logical-block.8';
 )
 
 #`(
@@ -266,6 +280,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~;~A~;~:>" '(1 2 3))
 #   "1")
 # 
+is $fl.format( Q{~<~;~A~;~:>}, 1, 2, 3 ), Q{1}, 'format.logical-block.9';
 )
 
 #`(
@@ -273,6 +288,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~;~A~:>" '(1 2 3))
 #   "1")
 # 
+is $fl.format( Q{~<~;~A~:>}, 1, 2, 3 ), Q{1}, 'format.logical-block.10';
 )
 
 #`(
@@ -280,6 +296,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~@<~;~A~;~:>" '(1 2 3))
 #   "(1 2 3)")
 # 
+is $fl.format(
+	Q{~@<~;~A~;~:>},
+	1, 2, 3
+), Q{(1 2 3)}, 'format.logical-block.11';
 )
 
 #`(
@@ -287,6 +307,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~@<~;~A~:>" '(1 2 3))
 #   "(1 2 3)")
 # 
+is $fl.format(
+	Q{~@<~;~A~:>},
+	1, 2, 3
+), Q{(1 2 3)}, 'format.logical-block.12';
 )
 
 #`{
@@ -294,6 +318,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:<[~;~@{~A~^/~}~:>" '(1 2 3))
 #   "[1/2/3)")
 # 
+is $fl.format(
+	Q{~:<[~;~@{~A~^/~}~:>},
+	1, 2, 3
+), Q{[1/2/3)}, 'format.logical-block.13';
 }
 
 #`(
@@ -301,6 +329,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:<~;~@{~A~^/~}~;]~:>" '(1 2 3))
 #   "1/2/3]")
 # 
+is $fl.format(
+	Q{~:<~;~@{~A~^/~}~;]~:>},
+	1, 2, 3
+), Q{1/2/3]}, 'format.logical-block.14';
 )
 
 #`(
@@ -308,6 +340,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~:<[~;~@{~A~^/~}~;]~:>" '(1 2 3))
 #   "[1/2/3]")
 # 
+is $fl.format(
+	Q{~:<[~;~@{~A~^/~}~;]~:>},
+	1, 2, 3
+), Q{[1/2/3]}, 'format.logical-block.15';
 )
 
 #`(
@@ -315,6 +351,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~@<~@{~A~^*~}~:>" 1 2 3)
 #   "1*2*3")
 # 
+is $fl.format(
+	Q{~@<~@{~A~^*~}~:>},
+	1, 2, 3
+), Q{1*2*3}, 'format.logical-block.16';
 )
 
 #`(
@@ -322,6 +362,10 @@ my $fl = Format::Lisp.new;
 #   (format nil "~@<~@{~A~^ ~_~}~:>" 1 2 3)
 #   "1 2 3")
 # 
+is $fl.format(
+	Q{~@<~@{~A~^ ~_~}~:>},
+	1, 2, 3
+), Q{1 2 3}, 'format.logical-block.17';
 )
 
 #`(
@@ -332,6 +376,10 @@ my $fl = Format::Lisp.new;
 # 3"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~@<~@{~A~^ ~_~}~:>},
+	1, 2, 3
+), qq{1\n2\n3}, 'format.logical-block.18';
 )
 
 #`(
@@ -342,6 +390,10 @@ my $fl = Format::Lisp.new;
 #  3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~:@<~@{~A~^ ~_~}~:>},
+	1, 2, 3
+), qq{(1\n2\n3)}, 'format.logical-block.19';
 )
 
 #`(
@@ -350,6 +402,10 @@ my $fl = Format::Lisp.new;
 #   "(1 2 3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~@:<~@{~A~^ ~}~:>},
+	1, 2, 3
+), Q{(1 2 3)}, 'format.logical-block.20';
 )
 
 #`(
@@ -360,6 +416,10 @@ my $fl = Format::Lisp.new;
 #  3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~@:<~@{~A~^ ~:_~}~:>},
+	1, 2, 3
+), qq{(1\n 2\n 3)}, 'format.logical-block.21';
 )
 
 #`(
@@ -370,6 +430,10 @@ my $fl = Format::Lisp.new;
 #  3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~:@<~@{~A~^ ~}~:@>},
+	1, 2, 3
+), qq{(1\n 2\n 3)}, 'format.logical-block.22';
 )
 
 #`(
@@ -379,6 +443,10 @@ my $fl = Format::Lisp.new;
 #   "(1/2/3)"
 #   :margin 2)
 # 
+is $fl.format(
+	qq{~:@<~@{~A~^/~\n~}~:@>},
+	1, 2, 3
+), Q{(1/2/3)}, 'format.logical-block.23';
 )
 
 #`(
@@ -389,6 +457,10 @@ my $fl = Format::Lisp.new;
 #  3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~:@<~@{~A~^            ~:_~}~:>},
+	1, 2, 3
+), qq{(1\n 2\n 3)}, 'format.logical-block.24';
 )
 
 #`(
@@ -399,6 +471,10 @@ my $fl = Format::Lisp.new;
 #  3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~:@<~@{~A~^            ~}~:@>},
+	1, 2, 3
+), qq{(1\n 2\n 3)}, 'format.logical-block.25';
 )
 
 #`(
@@ -407,6 +483,10 @@ my $fl = Format::Lisp.new;
 #   "(1 2 3)"
 #   :margin 2)
 # 
+is $fl.format(
+	Q{~:@<~@{~A~^~}~:@>},
+	"1 2 3"
+), Q{(1 2 3)}, 'format.logical-block.26';
 )
 
 #`(
@@ -417,6 +497,10 @@ my $fl = Format::Lisp.new;
 # **3"
 #   :margin 3)
 # 
+is $fl.format(
+	Q{~@<**~@;~@{~A~^       ~}~:@>},
+	1, 2, 3
+), qq{**1\n**2\n**3}, 'format.logical-block.27';
 )
 
 #`(
@@ -427,6 +511,10 @@ my $fl = Format::Lisp.new;
 # **3XX"
 #   :margin 3)
 # 
+is $fl.format(
+	Q{~@<**~@;~@{~A~^       ~}~;XX~:@>},
+	1, 2, 3
+), qq{**1\n**2\n**3XX}, 'format.logical-block.28';
 )
 
 #`[
@@ -437,7 +525,10 @@ my $fl = Format::Lisp.new;
 # **3)"
 #   :margin 3)
 # 
-# 
+is $fl.format(
+	Q{~:@<**~@;~@{~A~^       ~}~:@>},
+	1, 2, 3
+), qq{**1\n**2\n**3}, 'format.logical-block.29';
 ]
 
 # ;;; Circularity detection
@@ -490,6 +581,7 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~A~^xxxx~:>" '(1))
 #   "1")
 # 
+is $fl.format( Q{~<~A~^xxxx~:>}, [ 1 ] ), Q{1}, 'format.logical-block.escape.1';
 )
 
 #`(
@@ -497,6 +589,12 @@ my $fl = Format::Lisp.new;
 #   (format nil "~<~<~A~^xxx~:>yyy~:>" '((1)))
 #   "1yyy")
 # 
+is $fl.format(
+	Q{~<~<~A~^xxx~:>yyy~:>},
+	[ [ 1 ] ]
+), Q{1yyy}, 'format.logical-block.escape.2';
 )
 
 done-testing;
+
+# vim: ft=perl6

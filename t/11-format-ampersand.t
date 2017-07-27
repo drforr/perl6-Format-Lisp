@@ -204,3 +204,5 @@ is $fl.format( Q{X~#%}, 'a', 'b', 'c' ), qq{X\n\n\n}, 'format.&.1';
 )
 
 done-testing;
+
+# vim: ft=perl6

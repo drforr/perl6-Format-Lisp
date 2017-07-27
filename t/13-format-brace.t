@@ -15,19 +15,15 @@ my $fl = Format::Lisp.new;
 is $fl.format( qq{~{~\n~}}, Nil ), Q{}, 'format.{.1';
 )
 
-#`(
 # (def-format-test format.{.1a
 #   "~{~}" ("" nil) "")
 # 
 is $fl.format( Q{~{~}}, '', Nil ), Q{}, 'format.{.1a';
-)
 
-#`(
 # (def-format-test format.{.1b
 #   "~0{~}" ("" '(1 2 3)) "")
 # 
 is $fl.format( Q{~0{~}}, '', [ 1, 2, 3 ] ), Q{}, 'format.{.1b';
-)
 
 #`(
 # (def-format-test format.{.2
@@ -94,7 +90,7 @@ subtest {
 			Q{~v{~A~}},
 			$i, [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 ]
 		);
-		unless $ eq '1234567890'.substr( 0, $i ) {
+		unless $s eq '1234567890'.substr( 0, $i ) {
 			@collected.append( [ $i, $s ] );
 		}
 	}
@@ -217,12 +213,10 @@ is $fl.format( Q{~{~A~:}}, [ 1, 2, 3 ] ), Q{123}, 'format.{.26';
 is $fl.format( Q{~0{FOO~:}}, Nil ), Q{}, 'format.{.27';
 )
 
-#`(
 # (def-format-test format.{.28
 #   "~V{FOO~:}" (0 nil) "")
 # 
 is $fl.format( Q{~V{FOO~:}}, 0, Nil ), Q{}, 'format.{.28';
-)
 
 #`(
 # (def-format-test format.{.29
@@ -243,6 +237,7 @@ is $fl.format( Q{~2{FOO~:}}, Nil ), Q{FOO}, 'format.{.30';
 #   (concatenate 'string "~2{~" (string #\Newline) "~:}")
 #   (nil) "")
 # 
+is $fl.format( qq{~2{~\n~:}}, Nil ), Q{}, 'format.{.30';
 )
 
 #`(
@@ -279,14 +274,13 @@ is $fl.format(
 #   (concatenate 'string "~:{~" (string #\Newline) "~}")
 #   (nil) "")
 # 
+is $fl.format( qq{~:{~\n~}}, Nil ), Q{}, 'format.:{.2';
 )
 
-#`(
 # (def-format-test format.\:{.3
 #   "~:{~}" ("" nil) "")
 # 
 is $fl.format( Q{~:{~}}, '', Nil ), Q{}, 'format.:{.3';
-)
 
 #`(
 # (def-format-test format.\:{.4
@@ -312,12 +306,10 @@ is $fl.format(
 # 
 )
 
-#`(
 # (def-format-test format.\:{.7
 #   "~0:{XYZ~}" ('((1))) "")
 # 
 is $fl.format( Q{~0:{XYZ~}}, [ [ 1 ] ] ), Q{}, 'format.:{.7';
-)
 
 #`(
 # (def-format-test format.\:{.8
@@ -337,6 +329,10 @@ is $fl.format( Q{~2:{~A~}}, [ [ 1 ], [ 2 ] ] ), Q{12}, 'format.:{.9';
 # (def-format-test format.\:{.10
 #   "~2:{~A~}" ('((1 X) (2 Y) (3 Z))) "12")
 # 
+is $fl.format(
+	Q{~2:{~A~}},
+	[ [ 1, 'X' ], [ 2, 'V' ], [ 3, 'Z' ] ]
+), Q{12}, 'format.:{.10';
 )
 
 #`(
@@ -397,12 +393,20 @@ is $fl.format(
 # (def-format-test format.\:{.13
 #   "~#:{~A~}" ('((1) (2) (3) (4) (5)) 'foo 'bar) "123" 2)
 # 
+is $fl.format(
+	Q{~#:{~A~}},
+	[ [ 1 ], [ 2 ], [ 3 ], [ 4 ], [ 5 ] ], "foo", "bar"
+), Q{123}, 'format.:{.13';
 )
 
 #`(
 # (def-format-test format.\:{.14
 #   "~:{~A~:}" ('((1 X) (2 Y) (3) (4 A B))) "1234")
 # 
+is $fl.format(
+	Q{~:{~A~}},
+	[ [ 1, 'X' ], [ 2, 'Y' ], [ 3 ], [ 4, 'A', 'B' ] ]
+), Q{1234}, 'format.:{.14';
 )
 
 #`(
@@ -459,7 +463,6 @@ is $fl.format( Q{~:{ABC~:}}, [ Nil ] ), Q{ABC}, 'format.:{.16';
 # (def-format-test format.\:{.17
 #   "~v:{ABC~:}" (nil '(nil)) "ABC")
 # 
-# 
 is $fl.format( Q{~v:{ABC~:}}, Nil, [ Nil ] ), Q{ABC}, 'format.:{.17';
 )
 
@@ -473,12 +476,10 @@ is $fl.format( Q{~v:{ABC~:}}, Nil, [ Nil ] ), Q{ABC}, 'format.:{.17';
 is $fl.format( qq{~@{~\n~}} ), Q{}, 'format.@{.1';
 )
 
-#`(
 # (def-format-test format.@{.1A
 #   "~@{~}" ("") "")
 # 
 is $fl.format( Q{~@{~}}, '' ), Q{}, 'format.@{.1A';
-)
 
 #`(
 # (def-format-test format.@{.2
@@ -525,7 +526,7 @@ is $fl.format(
 # (def-format-test format.@{.7
 #   "~1@{FOO~}" nil "")
 # 
-is $fl.format( qq{~1@{FOO~}} ), '', 'format.@{.7';
+is $fl.format( Q{~1@{FOO~}} ), '', 'format.@{.7';
 )
 
 #`(
@@ -593,7 +594,7 @@ is $fl.format( qq{~@{X~:}} ), 'X', 'format.@{.11';
 #   (concatenate 'string "~:@{~" (string #\Newline) "~}")
 #   nil "")
 # 
-is $fl.format( qq{~:@{~\n~}}} ), Q{}, 'format.:@{.1';
+is $fl.format( qq{~:\@{~\n~}} ), Q{}, 'format.:@{.1';
 )
 
 #`(
@@ -647,7 +648,7 @@ is $fl.format(
 #   "~0:@{~A~:}" ('(1 A) '(2 B) '(3) '(4 C D)) "" 4)
 # 
 is $fl.format(
-	Q{~0:@{~A~:}},
+	Q{~0:\@{~A~:}},
 	[ 1, 'A' ], [ 2, 'B' ], [ 3 ], [ 4, 'C', 'D' ]
 ), Q{}, 'format.:@.7';
 )
@@ -800,3 +801,5 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 )
 
 done-testing;
+
+# vim: ft=perl6

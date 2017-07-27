@@ -1219,3 +1219,7 @@ subtest {
 		nok $fl._match( $str ), $str;
 	}
 }
+
+done-testing;
+
+# vim: ft=perl6

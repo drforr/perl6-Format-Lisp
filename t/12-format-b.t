@@ -637,3 +637,5 @@ is $fl.format( Q{~-1000000000000000000B}, 0b1101 ), Q{1101}, 'format.b.28';
 )
 
 done-testing;
+
+# vim: ft=perl6

@@ -157,7 +157,29 @@ class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
 	has $.trailing-colon = False;
+
 	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $out = $argument;
+		if $argument ~~ List {
+			if $.colon {
+				$out = '(NIL)';
+			}
+			else {
+				$out = '(NIL)'; # Sigh.
+			}
+		}
+		elsif !$argument {
+			if $.colon {
+				$out = '()';
+			}
+			else {
+				$out = 'NIL';
+			}
+		}
+		$out = self.print-case( $out );
+
 		return '';
 	}
 }
@@ -253,11 +275,160 @@ class Format::Lisp::Directive::B is Format::Lisp::Directive {
 
 class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 	also does Nested;
+	has $.mincol = 0;
+	has $.padchar = ' ';
+	has $.commachar = ',';
+	has $.comma-interval = 3;
 	has $.trailing-colon = False;
+
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $mincol = $.mincol;
+		if $mincol eq 'next' {
+			$mincol = $argument // 0;
+			$argument = $next;
+		}
+		elsif $mincol eq 'remaining' {
+			$mincol = $remaining;
+		}
+
+		my $padchar = $.padchar;
+		if $padchar eq 'next' {
+			$padchar = $argument // ' ';
+			$argument = $next;
+		}
+		elsif $padchar eq 'remaining' {
+			$padchar = $remaining;
+		}
+
+		my $commachar = $.commachar;
+		if $commachar eq 'next' {
+			$commachar = $argument // ',';
+			$argument = $next;
+		}
+		elsif $commachar eq 'remaining' {
+			$commachar = $remaining;
+		}
+
+		my $comma-interval = $.comma-interval;
+		if $comma-interval eq 'next' {
+			$comma-interval = $argument // 3;
+			$argument = $next;
+		}
+		elsif $comma-interval eq 'remaining' {
+			$comma-interval = $remaining;
+		}
+		$argument = sprintf "%b", $argument;
+
+		my $out = $argument;
+		if $argument ~~ List {
+			if $.colon {
+				$out = '(NIL)';
+			}
+			else {
+				$out = '(NIL)'; # Sigh.
+			}
+		}
+		elsif !$argument {
+			if $.colon {
+				$out = '()';
+			}
+			else {
+				$out = 'NIL';
+			}
+		}
+		$out = self.print-case( $out );
+
+		$out = '+' ~ $out if $.at and $out > 0;
+
+		my $at = True;
+		my $colinc = 1;
+		my $minpad = 0;
+		return '';
+#		return self.pad(
+#			$out, $at, $mincol, $colinc, $minpad, $padchar
+#		);
+	}
 }
 
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	also does Nested;
+	has $.mincol = 0;
+	has $.padchar = ' ';
+	has $.commachar = ',';
+	has $.comma-interval = 3;
+	has $.trailing-colon = False;
+
+	method to-string( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my $mincol = $.mincol;
+		if $mincol eq 'next' {
+			$mincol = $argument // 0;
+			$argument = $next;
+		}
+		elsif $mincol eq 'remaining' {
+			$mincol = $remaining;
+		}
+
+		my $padchar = $.padchar;
+		if $padchar eq 'next' {
+			$padchar = $argument // ' ';
+			$argument = $next;
+		}
+		elsif $padchar eq 'remaining' {
+			$padchar = $remaining;
+		}
+
+		my $commachar = $.commachar;
+		if $commachar eq 'next' {
+			$commachar = $argument // ',';
+			$argument = $next;
+		}
+		elsif $commachar eq 'remaining' {
+			$commachar = $remaining;
+		}
+
+		my $comma-interval = $.comma-interval;
+		if $comma-interval eq 'next' {
+			$comma-interval = $argument // 3;
+			$argument = $next;
+		}
+		elsif $comma-interval eq 'remaining' {
+			$comma-interval = $remaining;
+		}
+		$argument = sprintf "%b", $argument;
+
+		my $out = $argument;
+		if $argument ~~ List {
+			if $.colon {
+				$out = '(NIL)';
+			}
+			else {
+				$out = '(NIL)'; # Sigh.
+			}
+		}
+		elsif !$argument {
+			if $.colon {
+				$out = '()';
+			}
+			else {
+				$out = 'NIL';
+			}
+		}
+		$out = self.print-case( $out );
+
+		$out = '+' ~ $out if $.at and $out > 0;
+
+		my $at = True;
+		my $colinc = 1;
+		my $minpad = 0;
+		return '';
+#		return self.pad(
+#			$out, $at, $mincol, $colinc, $minpad, $padchar
+#		);
+	}
 }
 
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive { }

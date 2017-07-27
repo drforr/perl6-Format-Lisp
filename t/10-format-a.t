@@ -808,3 +808,5 @@ is $fl.format( Q{~-10@A}, 'xyz' ), 'xyz', 'format.a.57';
 is $fl.format( Q{~-100000000000000000000a}, 'xyz' ), "xyz", 'format.a.58';
 
 done-testing;
+
+# vim: ft=perl6

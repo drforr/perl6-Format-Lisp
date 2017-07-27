@@ -148,3 +148,5 @@ is $fl.format( Q{~P}, 2 ), Q{s}, 'format.p.4';
 )
 
 done-testing;
+
+# vim: ft=perl6

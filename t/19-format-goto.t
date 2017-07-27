@@ -241,3 +241,5 @@ is $fl.format(
 )
 
 done-testing;
+
+# vim: ft=perl6

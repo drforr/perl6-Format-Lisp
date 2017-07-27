@@ -168,3 +168,5 @@ my $fl = Format::Lisp.new;
 )
 
 done-testing;
+
+# vim: ft=perl6

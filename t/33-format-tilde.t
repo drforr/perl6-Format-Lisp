@@ -95,3 +95,5 @@ is $fl.format( Q{~v~}, 0), Q{}, 'format.~.3';
 )
 
 done-testing;
+
+# vim: ft=perl6

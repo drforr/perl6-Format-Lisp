@@ -49,11 +49,10 @@ my $fl = Format::Lisp.new;
 # 
 is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 
-#`(
 # (def-format-test format.r.3
 #   "~3r" (29) "1002")
 # 
-)
+is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 
 #`(
 # (deftest format.r.4
@@ -159,31 +158,6 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 )
 
 #`(
-# (defparameter *english-number-names*
-#   '("zero"
-#    "one" "two" "three" "four" "five" "six" "seven" "eight" "nine" "ten"
-#    "eleven" "twelve" "thirteen" "fourteen" "fifteen" "sixteen"
-#    "seventeen" "eighteen" "nineteen" "twenty"
-#    "twenty-one" "twenty-two" "twenty-three" "twenty-four" "twenty-five"
-#    "twenty-six" "twenty-seven" "twenty-eight" "twenty-nine" "thirty"
-#    "thirty-one" "thirty-two" "thirty-three" "thirty-four" "thirty-five"
-#    "thirty-six" "thirty-seven" "thirty-eight" "thirty-nine" "forty"
-#    "forty-one" "forty-two" "forty-three" "forty-four" "forty-five"
-#    "forty-six" "forty-seven" "forty-eight" "forty-nine" "fifty"
-#    "fifty-one" "fifty-two" "fifty-three" "fifty-four" "fifty-five"
-#    "fifty-six" "fifty-seven" "fifty-eight" "fifty-nine" "sixty"
-#    "sixty-one" "sixty-two" "sixty-three" "sixty-four" "sixty-five"
-#    "sixty-six" "sixty-seven" "sixty-eight" "sixty-nine" "seventy"
-#    "seventy-one" "seventy-two" "seventy-three" "seventy-four" "seventy-five"
-#    "seventy-six" "seventy-seven" "seventy-eight" "seventy-nine" "eighty"
-#    "eighty-one" "eighty-two" "eighty-three" "eighty-four" "eighty-five"
-#    "eighty-six" "eighty-seven" "eighty-eight" "eighty-nine" "ninety"
-#    "ninety-one" "ninety-two" "ninety-three" "ninety-four" "ninety-five"
-#    "ninety-six" "ninety-seven" "ninety-eight" "ninety-nine" "one hundred"))
-# 
-)
-
-#`(
 # (deftest format.r.7
 #   (loop for i from 0 to 100
 #         for s1 = (format nil "~r" i)
@@ -223,22 +197,24 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 # (def-format-test format.r.8
 #   "~vr" (nil 5) "five")
 # 
+is $fl.format( Q{~vr}, Nil, 5 ), Q{five}, 'format.r.8';
 )
 
-#`(
 # (def-format-test format.r.9
 #   "~#r" (4 nil nil) "11" 2)
 # 
-)
+is $fl.format( Q{~#r}, 4, Nil, Nil ), Q{11}, 'format.r.9';
 
-#`(
 # (deftest format.r.10
 #   (with-standard-io-syntax
 #    (let ((*print-radix* t))
 #      (format nil "~10r" 123)))
 #   "123")
 # 
-)
+subtest {
+	my $*PRINT-RADIX = True;
+	is $fl.format( Q{~10r}, 123 ), Q{123};
+}, 'format.r.10';
 
 #`(
 # (deftest formatter.r.10
@@ -253,22 +229,23 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 # 
 )
 
-#`(
 # (def-format-test format.r.11
 #   "~8@R" (65) "+101")
 # 
-)
+is $fl.format( Q{~8@R}, 65 ), Q{+101}, 'format.r.11';
 
 #`(
 # (def-format-test format.r.12
 #   "~2:r" (126) "1,111,110")
 # 
+is $fl.format( Q{~2:r}, 126 ), Q{1,111,110}, 'format.r.12';
 )
 
 #`(
 # (def-format-test format.r.13
 #   "~3@:r" (#3r2120012102) "+2,120,012,102")
 # 
+is $fl.format( Q{~3@:r}, :3(2120012102) ), Q{+2,120,012,102}, 'format.r.13';
 )
 
 #`(
@@ -309,41 +286,19 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 # 
 )
 
-#`(
 # (def-format-test format.r.16
 #   "~2,,,,1000000000000000000r" (17) "10001")
 # 
-)
+is $fl.format(
+	Q{~2,,,,1000000000000000000r},
+	17
+), Q{10001}, 'format.r.16';
 
 #`(
 # (def-format-test format.r.17
 #   "~8,10:@r" (#o526104) "  +526,104")
 # 
-)
-
-#`(
-# (defparameter *english-ordinal-names*
-#   '("zeroth"
-#    "first" "second" "third" "fourth" "fifth" "sixth" "seventh" "eighth" "ninth" "tenth"
-#    "eleventh" "twelfth" "thirteenth" "fourteenth" "fifteenth" "sixteenth"
-#    "seventeenth" "eighteenth" "nineteenth" "twentieth"
-#    "twenty-first" "twenty-second" "twenty-third" "twenty-fourth" "twenty-fifth"
-#    "twenty-sixth" "twenty-seventh" "twenty-eighth" "twenty-ninth" "thirtieth"
-#    "thirty-first" "thirty-second" "thirty-third" "thirty-fourth" "thirty-fifth"
-#    "thirty-sixth" "thirty-seventh" "thirty-eighth" "thirty-ninth" "fortieth"
-#    "forty-first" "forty-second" "forty-third" "forty-fourth" "forty-fifth"
-#    "forty-sixth" "forty-seventh" "forty-eighth" "forty-ninth" "fiftieth"
-#    "fifty-first" "fifty-second" "fifty-third" "fifty-fourth" "fifty-fifth"
-#    "fifty-sixth" "fifty-seventh" "fifty-eighth" "fifty-ninth" "sixtieth"
-#    "sixty-first" "sixty-second" "sixty-third" "sixty-fourth" "sixty-fifth"
-#    "sixty-sixth" "sixty-seventh" "sixty-eighth" "sixty-ninth" "seventieth"
-#    "seventy-first" "seventy-second" "seventy-third" "seventy-fourth" "seventy-fifth"
-#    "seventy-sixth" "seventy-seventh" "seventy-eighth" "seventy-ninth" "eightieth"
-#    "eighty-first" "eighty-second" "eighty-third" "eighty-fourth" "eighty-fifth"
-#    "eighty-sixth" "eighty-seventh" "eighty-eighth" "eighty-ninth" "ninetieth"
-#    "ninety-first" "ninety-second" "ninety-third" "ninety-fourth" "ninety-fifth"
-#    "ninety-sixth" "ninety-seventh" "ninety-eighth" "ninety-ninth" "one hundredth"))
-# 
+is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 )
 
 #`(
@@ -474,21 +429,25 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 # (def-format-test format.r.22
 #   "~2,12,,'*:r" (#b1011101) "   1*011*101")
 # 
+is $fl.format( Q{~2,12,,'*:r}, 0b101*101 ), Q{1*011*101}, 'format.r.22';
 )
 
 #`(
 # (def-format-test format.r.23
 #   "~3,14,'X,',:R" (#3r1021101) "XXXXX1,021,101")
 # 
+is $fl.format(
+	Q{~3,14,'X,',:R},
+	:3(1021101)
+), Q{XXXXX1,021,101}, 'format.r.23';
 )
 
 # ;; v directive in various positions
 # 
-#`(
 # (def-format-test format.r.24
 #   "~10,vr" (nil 12345) "12345")
 # 
-)
+is $fl.format( Q{~10,vr}, Nil, 12345 ), Q{12345}, 'format.r.24';
 
 #`(
 # (deftest format.r.25
@@ -511,85 +470,110 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 # 
 )
 
-#`(
 # (def-format-test format.r.26
 #   "~10,#r" (12345 nil nil nil nil nil) " 12345" 5)
 # 
-)
+is $fl.format(
+	Q{~10,#r},
+	12345, Nil, Nil, Nil, Nil, Nil
+), Q{ 12345}, 'format.r.26';
 
 #`(
 # (def-format-test format.r.27
 #   "~10,12,vr" (#\/ 123456789) "///123456789")
 # 
+is $fl.format(
+	Q{~10,12vr},
+	'/', 123456789
+), Q{///123456789}, 'format.r.27';
 )
 
 #`(
 # (def-format-test format.r.28
 #   "~10,,,v:r" (#\/ 123456789) "123/456/789")
 # 
+is $fl.format(
+	Q{~10,,,v:r},
+	'/', 123456789
+), Q{123/456/789}, 'format.r.28';
 )
 
 #`(
 # (def-format-test format.r.29
 #   "~10,,,v:r" (nil 123456789) "123,456,789")
 # 
+is $fl.format(
+	Q{~10,,,v:r},
+	Nil, 123456789
+), Q{123,456,789}, 'format.r.29';
 )
 
 #`(
 # (def-format-test format.r.30
 #   "~8,,,,v:R" (nil #o12345670) "12,345,670")
 # 
+is $fl.format(
+	Q{~8,,,,v:R},
+	Nil, 0o12345670
+), Q{12,345,670}, 'format.r.30';
 )
 
 #`(
 # (def-format-test format.r.31
 #   "~8,,,,v:R" (2 #o12345670) "12,34,56,70")
 # 
+is $fl.format(
+	Q{~8,,,,v:R},
+	2, 0o12345670
+), Q{12,345,670}, 'format.r.31';
 )
 
 #`(
 # (def-format-test format.r.32
 #   "~16,,,,#:r" (#x12345670 nil nil nil) "1234,5670" 3)
 # 
+is $fl.format(
+	Q{~16,,,,#:r},
+	0x12345670, Nil, Nil, Nil
+), Q{1234,5670}, 'format.r.32';
 )
 
 #`(
 # (def-format-test format.r.33
 #   "~16,,,,1:r" (#x12345670) "1,2,3,4,5,6,7,0")
 # 
+is $fl.format(
+	Q{~16,,,,1:r},
+	0x12345670
+), Q{1,2,3,4,5,6,7,0}, 'format.r.33';
 )
 
 # ;;; Explicit signs
 # 
-#`(
 # (def-format-test format.r.34
 #   "~+10r" (12345) "12345")
 # 
-)
+is $fl.format( Q{~+10r}, 12345 ), Q{12345}, 'format.r.34';
 
-#`(
 # (def-format-test format.r.35
 #   "~10,+8r" (12345) "   12345")
 # 
-)
+is $fl.format( Q{~10,+8r}, 12345 ), Q{   12345}, 'format.r.35';
 
-#`(
 # (def-format-test format.r.36
 #   "~10,0r" (12345) "12345")
 # 
-)
+is $fl.format( Q{~10,+0r}, 12345 ), Q{12345}, 'format.r.36';
 
-#`(
 # (def-format-test format.r.37
 #   "~10,-1r" (12345) "12345")
 # 
-)
+is $fl.format( Q{~10,-1r}, 12345 ), Q{12345}, 'format.r.37';
 
-#`(
 # (def-format-test format.r.38
 #   "~10,-1000000000000000r" (12345) "12345")
 # 
-)
+is $fl.format( Q{~10,-1000000000000000r}, 12345 ), Q{12345}, 'format.r.38';
 
 # ;;; Randomized test
 # 
@@ -625,3 +609,5 @@ is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
 )
 
 done-testing;
+
+# vim: ft=perl6

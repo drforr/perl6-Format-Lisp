@@ -70,11 +70,7 @@ class Format::Lisp {
 		$parsed.ast;
 	}
 
-	method process-directive( $directive, *@arguments ) {
-	}
-
-	method format( Str $format, **@arguments ) {
-		my @directives = self._parse( $format );
+	method _format( @directives, @arguments ) {
 		my $text = '';
 		my $index = 0;
 		for @directives -> $directive {
@@ -96,6 +92,12 @@ class Format::Lisp {
 				$index++;
 			}
 		}
+		return $text;
+	}
+
+	method format( Str $format, **@arguments ) {
+		my @directives = self._parse( $format );
+		my $text = self._format( @directives, @arguments );
 		return $text;
 	}
 

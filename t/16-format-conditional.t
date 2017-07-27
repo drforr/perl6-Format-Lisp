@@ -7,23 +7,22 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
-#`(
 # (def-format-test format.cond.1
 #   "~[~]" (0) "")
 # 
-)
+is $fl.format( Q{~[~]}, 0 ), Q{}, 'format.cond.1';
 
 #`(
 # (def-format-test format.cond.2
 #   "~[a~]" (0) "a")
 # 
+is $fl.format( Q{~[a~]}, 0 ), Q{a}, 'format.cond.2';
 )
 
-#`(
 # (def-format-test format.cond.3
 #   "~[a~]" (-1) "")
 # 
-)
+is $fl.format( Q{~[a~]}, -1 ), Q{}, 'format.cond.3';
 
 #`(
 # (def-format-test format.cond.4
@@ -31,11 +30,10 @@ my $fl = Format::Lisp.new;
 # 
 )
 
-#`(
 # (def-format-test format.cond.5
 #   "~[a~]" (1) "")
 # 
-)
+is $fl.format( Q{~[a~]}, 1 ), Q{}, 'format.cond.5';
 
 #`(
 # (def-format-test format.cond.6
@@ -64,31 +62,33 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.cond.8
 #   "~0[a~;b~;c~;d~]" (3) "a" 1)
 # 
+is $fl.format( Q{~0[a~;b~;c~;d~]}, 3 ), Q{a}, 'format.cond.8';
 )
 
-#`(
 # (def-format-test format.cond.9
 #   "~-1[a~;b~;c~;d~]" (3) "" 1)
 # 
-)
+is $fl.format( Q{~-1[a~;b~;c~;d~]}, 3 ), Q{}, 'format.cond.9';
 
 #`(
 # (def-format-test format.cond.10
 #   "~1[a~;b~;c~;d~]" (3) "b" 1)
 # 
+is $fl.format( Q{~1[a~;b~;c~;d~]}, 3 ), Q{b}, 'format.cond.10';
 )
 
-#`(
 # (def-format-test format.cond.11
 #   "~4[a~;b~;c~;d~]" (3) "" 1)
 # 
-)
+is $fl.format( Q{~4[a~;b~;c~;d~]}, 3 ), Q{}, 'format.cond.11';
 
-#`(
 # (def-format-test format.cond.12
 #   "~100000000000000000000000000000000[a~;b~;c~;d~]" (3) "" 1)
 # 
-)
+is $fl.format(
+	Q{~100000000000000000000000000000000[a~;b~;c~;d~]},
+	3
+), Q{}, 'format.cond.12';
 
 #`(
 # (deftest format.cond.13
@@ -128,12 +128,14 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.cond.15
 #   "~#[A~;B~]" nil "A")
 # 
+is $fl.format( Q{~#[A~;B~]} ), Q{A}, 'format.cond.15';
 )
 
 #`(
 # (def-format-test format.cond.16
 #   "~#[A~;B~]" (nil) "B" 1)
 # 
+is $fl.format( Q{~#[A~;B~]}, Nil ), Q{B}, 'format.cond.16';
 )
 
 # ;;; ~[ .~:;  ~]
@@ -163,12 +165,14 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.cond\:.2
 #   "~[a~:;b~]" (0) "a")
 # 
+is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
 )
 
 #`(
 # (def-format-test format.cond\:.3
 #   "~[a~:;b~]" ((1- most-negative-fixnum)) "b")
 # 
+is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
 )
 
 #`(
@@ -232,12 +236,14 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.cond\:.8
 #   "~#[A~:;B~]" nil "A")
 # 
+is $fl.format( Q{~#[A~:;B~]} ), Q{A}, 'format.cond:.8';
 )
 
 #`(
 # (def-format-test format.cond\:.9
 #   "~#[A~:;B~]" (nil nil) "B" 2)
 # 
+is $fl.format( Q{~#[A~:;B~]}, Nil, Nil ), Q{B}, 'format.cond:.9';
 )
 
 # ;;; ~:[...~]
@@ -246,6 +252,7 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.\:cond.1
 #   "~:[a~;b~]" (nil) "a")
 # 
+is $fl.format( Q{~#:a~;b~]}, Nil ), Q{a}, 'format.:cond.1';
 )
 
 #`(
@@ -275,12 +282,16 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.@cond.1
 #   "~@[X~]Y~A" (1) "XY1")
 # 
+is $fl.format( Q{~@[X~]Y~A}, 1 ), Q{XY1}, 'format.@cond.1';
 )
 
 #`(
 # (def-format-test format.@cond.2
 #   "~@[X~]Y~A" (nil 2) "Y2")
 # 
+is $fl.format( Q{~@[X~]Y~A}, Nil, 2 ), Q{Y2}, 'format.@cond.2';
 )
 
 done-testing;
+
+# vim: ft=perl6

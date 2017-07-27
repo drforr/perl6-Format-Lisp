@@ -189,3 +189,5 @@ is $fl.format( Q{~:/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.4';
 )
 
 done-testing;
+
+# vim: ft=perl6

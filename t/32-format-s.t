@@ -533,3 +533,5 @@ is $fl.format( Q{~5,vS}, 3, 456 ), Q{456   };
 is $fl.format( Q{~5,v@S}, 3, 789 ), Q{   789};
 
 done-testing;
+
+# vim: ft=perl6

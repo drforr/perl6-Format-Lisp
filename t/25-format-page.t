@@ -57,3 +57,5 @@ is $fl.format( Q{~V|}, 0 ), Q{}, 'format.page.4';
 is $fl.format( Q{~v|}, Nil ), $fl.format( Q{~|} ), 'format.page.5';
 
 done-testing;
+
+# vim: ft=perl6

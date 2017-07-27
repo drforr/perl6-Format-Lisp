@@ -69,3 +69,5 @@ is $fl.format( Q{~?}, '', Nil ), Q{}, 'format.?.1';
 )
 
 done-testing;
+
+# vim: ft=perl6
