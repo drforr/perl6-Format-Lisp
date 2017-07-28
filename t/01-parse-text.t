@@ -2,7 +2,7 @@ use v6;
 
 use Test;
 use Format::Lisp;
-plan 30;
+plan 28;
 
 my $fl = Format::Lisp.new;
 
@@ -30,7 +30,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '%';
 
 subtest {
 	my @options =
@@ -47,7 +47,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '&';
 
 # XXX No `" tests?
 
@@ -83,7 +83,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, ')';
 
 # XXX No *" tests?
 # XXX No +" tests?
@@ -97,7 +97,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, ',';
 
 # XXX No -" tests?
 # XXX No ." tests?
@@ -129,7 +129,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '/';
 
 # XXX No [0-9]" tests?
 # XXX No :" tests?
@@ -244,7 +244,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '>';
 
 subtest {
 	my @options =
@@ -254,7 +254,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '?';
 
 subtest {
 	my @options =
@@ -365,7 +365,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'A';
 
 subtest {
 	my @options =
@@ -406,7 +406,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'B';
 
 subtest {
 	my @options =
@@ -429,7 +429,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'C';
 
 subtest {
 	my @options =
@@ -473,7 +473,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'D';
 
 # XXX No ~e tests?
 
@@ -531,7 +531,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'F';
 
 # XXX No trailing-g tests?
 # XXX No trailing-h tests?
@@ -580,7 +580,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'O';
 
 subtest {
 	my @options =
@@ -598,7 +598,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'P';
 
 # XXX No trailing-q tests?
 
@@ -644,7 +644,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'R';
 
 subtest {
 	my @options =
@@ -696,7 +696,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'S';
 
 subtest {
 	my @options =
@@ -718,7 +718,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'T';
 
 # XXX No trailing-u tests?
 # XXX No trailing-v tests?
@@ -762,7 +762,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'X';
 
 subtest {
 	my @options =
@@ -774,7 +774,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'Y';
 
 subtest {
 	my @options =
@@ -784,7 +784,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'Z';
 
 # XXX no [" tests
 # XXX no \" tests
@@ -812,7 +812,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, ']';
 
 subtest {
 	my @options =
@@ -840,7 +840,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '_';
 
 # XXX No {" tests?
 
@@ -854,7 +854,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '|';
 
 subtest {
 	my @options =
@@ -1110,11 +1110,17 @@ subtest {
 		Q{~{~v,v^~A~}},
 		Q{~{~{~A~}~}},
 		Q{~{~}},
+		Q{~:@{~A ~A~}},
+		Q{~:{~A~}},
+		Q{~{~A~}},
+		Q{~:@{~A~}},
+		Q{~:{~A~}},
+		Q{~{~A~}},
 	;
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '}';
 
 subtest {
 	my @options =
@@ -1126,7 +1132,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, '~';
 
 subtest {
 	my @options =
@@ -1170,29 +1176,7 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
-
-subtest {
-	my @options =
-		Q{~:@{~A ~A~}},
-		Q{~:{~A~}},
-		Q{~{~A~}},
-	;
-	for @options -> $str {
-		ok $fl._match( $str ), $str;
-	}
-}
-
-subtest {
-	my @options =
-		Q{~:@{~A~}},
-		Q{~:{~A~}},
-		Q{~{~A~}},
-	;
-	for @options -> $str {
-		ok $fl._match( $str ), $str;
-	}
-}
+}, '>';
 
 subtest {
 	my @options =
@@ -1203,7 +1187,20 @@ subtest {
 	for @options -> $str {
 		ok $fl._match( $str ), $str;
 	}
-}
+}, 'Z';
+
+#`(
+subtest {
+	my @options =
+		qq{~\n   X},
+		qq{A~:\n X},
+		qq{A~@\n X},
+	;
+	for @options -> $str {
+		ok $fl._match( $str ), $str;
+	}
+}, 'newline';
+)
 
 subtest {
 	my @failing-options =
@@ -1218,7 +1215,7 @@ subtest {
 	for @failing-options -> $str {
 		nok $fl._match( $str ), $str;
 	}
-}
+}, 'failing';
 
 done-testing;
 

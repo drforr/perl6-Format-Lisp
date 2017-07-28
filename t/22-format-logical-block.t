@@ -205,28 +205,24 @@ my $fl = Format::Lisp.new;
 
 # ;;; Non-error tests
 # 
-#`(
 # (def-pprint-test format.logical-block.1
 #   (format nil "~<~A~:>" '(nil))
 #   "NIL")
 # 
 is $fl.format( Q{~<~A~:>}, [ Nil ] ), Q{NIL}, 'format.logical-block.1';
-)
 
-#`(
 # (def-pprint-test format.logical-block.2
 #   (format nil "~@<~A~:>" nil)
 #   "NIL")
 # 
 is $fl.format( Q{~@<~A~:>} ), Q{NIL}, 'format.logical-block.2';
-)
 
 #`(
 # (def-pprint-test format.logical-block.3
 #   (format nil "~:<~A~:>" '(nil))
 #   "(NIL)")
 # 
-is $fl.format( Q{~:<~A~:>}, Nil ), Q{(NIL)}, 'format.logical-block.3';
+is $fl.format( Q{~:<~A~:>}, [ Nil ] ), Q{(NIL)}, 'format.logical-block.3';
 )
 
 #`(
@@ -234,7 +230,7 @@ is $fl.format( Q{~:<~A~:>}, Nil ), Q{(NIL)}, 'format.logical-block.3';
 #   (format nil "~:@<~A~:>" nil)
 #   "(NIL)")
 # 
-is $fl.format( Q{~:@<~A~:>} ), Q{(NIL)}, 'format.logical-block.4';
+is $fl.format( Q{~:@<~A~:>}, Nil ), Q{(NIL)}, 'format.logical-block.4';
 )
 
 #`(
@@ -242,7 +238,7 @@ is $fl.format( Q{~:@<~A~:>} ), Q{(NIL)}, 'format.logical-block.4';
 #   (format nil "~@:<~A~:>" nil)
 #   "(NIL)")
 # 
-is $fl.format( Q{~@:<~A~:>} ), Q{(NIL)}, 'format.logical-block.5';
+is $fl.format( Q{~@:<~A~:>}, Nil ), Q{(NIL)}, 'format.logical-block.5';
 )
 
 #`(

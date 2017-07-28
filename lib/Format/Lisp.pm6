@@ -74,14 +74,29 @@ class Format::Lisp {
 		my $text = '';
 		my $index = 0;
 		for @directives -> $directive {
-			if $directive ~~ Format::Lisp::Directive::Star {
-				my $offset = $directive.to-offset(
+			my $offset = 1;
+			if $directive ~~ Format::Lisp::Directive::Angle {
+				$text ~= self._format(
+					@( $directive.children ),
+					@( @arguments[$index] )
+				);
+			}
+			elsif $directive ~~ Format::Lisp::Directive::Bracket {
+				if @arguments[$index] == 0 or
+				   $directive.at {
+					$text ~= self._format(
+						@( $directive.children ),
+						@( @arguments[$index] )
+					);
+				}
+			}
+			elsif $directive ~~ Format::Lisp::Directive::Star {
+				$offset = $directive.to-offset(
 					$index,
 					@arguments[$index],
 					@arguments[$index+1],
 					@arguments.elems
 				);
-				$index += $offset;
 			}
 			else {
 				$text ~= $directive.to-string(
@@ -89,8 +104,8 @@ class Format::Lisp {
 					@arguments[$index+1],
 					@arguments.elems - $index
 				);
-				$index++;
 			}
+			$index += $offset;
 		}
 		return $text;
 	}

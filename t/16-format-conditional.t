@@ -12,12 +12,10 @@ my $fl = Format::Lisp.new;
 # 
 is $fl.format( Q{~[~]}, 0 ), Q{}, 'format.cond.1';
 
-#`(
 # (def-format-test format.cond.2
 #   "~[a~]" (0) "a")
 # 
 is $fl.format( Q{~[a~]}, 0 ), Q{a}, 'format.cond.2';
-)
 
 # (def-format-test format.cond.3
 #   "~[a~]" (-1) "")
@@ -28,6 +26,7 @@ is $fl.format( Q{~[a~]}, -1 ), Q{}, 'format.cond.3';
 # (def-format-test format.cond.4
 #   "~[a~]" ((1- most-negative-fixnum)) "")
 # 
+# Redundant
 )
 
 # (def-format-test format.cond.5
@@ -39,6 +38,7 @@ is $fl.format( Q{~[a~]}, 1 ), Q{}, 'format.cond.5';
 # (def-format-test format.cond.6
 #   "~[a~]" ((1+ most-positive-fixnum)) "")
 # 
+# Redundant
 )
 
 #`(
@@ -47,6 +47,28 @@ is $fl.format( Q{~[a~]}, 1 ), Q{}, 'format.cond.5';
 #         collect (format nil "~[a~;b~;c~;d~;e~;f~;g~;h~;i~]" i))
 #   ("" "a" "b" "c" "d" "e" "f" "g" "h" "i" "" ""))
 # 
+subtest {
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fn.format( Q{~[a~;b~;c~;d~;e~;f~;g~;h~;i~]}, $i )
+		);
+	}
+	is-deeply @collected, [
+		'',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'f',
+		'g',
+		'h',
+		'i',
+		'',
+		''
+	]
+}, 'format.cond.7';
 )
 
 #`(
@@ -96,6 +118,28 @@ is $fl.format(
 #         collect (format nil "~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]" i nil))
 #   ("" "a" "b" "c" "d" "e" "f" "g" "h" "i" "" ""))
 # 
+subtest {
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fn.format( Q{~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]}, $i, Nil )
+		);
+	}
+	is-deeply @collected, [
+		'',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'f',
+		'g',
+		'h',
+		'i',
+		'',
+		''
+	]
+}, 'format.cond.13';
 )
 
 #`(
@@ -113,6 +157,28 @@ is $fl.format(
 #         collect (format nil "~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]" nil i))
 #   ("" "a" "b" "c" "d" "e" "f" "g" "h" "i" "" ""))
 # 
+subtest {
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fn.format( Q{~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]}, Nil, $i )
+		);
+	}
+	is-deeply @collected, [
+		'',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'f',
+		'g',
+		'h',
+		'i',
+		'',
+		''
+	]
+}, 'format.cond.13';
 )
 
 #`(
@@ -148,6 +214,16 @@ is $fl.format( Q{~#[A~;B~]}, Nil ), Q{B}, 'format.cond.16';
 #         collect (list i s))
 #   nil)
 # 
+subtest {
+	my @collected;
+	for -100 .. 100 -> $i {
+		my $s = $fl.format( Q{~[~:;a~]}, $i );
+		unless $i == 0 or $s eq 'a' {
+			@collected.append( [ $i, $s ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.cond:.1';
 )
 
 #`(
@@ -187,6 +263,28 @@ is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
 #         collect (format nil "~[a~;b~;c~;d~:;e~]" i))
 #   ("e" "a" "b" "c" "d" "e" "e" "e" "e" "e" "e" "e"))
 # 
+subtest {
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fn.format( Q{~[a~;b~;c~;d~:;e~]}, $i )
+		);
+	}
+	is-deeply @collected, [
+		'e',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'e',
+		'g',
+		'e',
+		'e',
+		'e',
+		'e'
+	]
+}, 'format.cond.7';
 )
 
 #`(
@@ -204,6 +302,28 @@ is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
 #         collect (format nil "~v[a~;b~;c~;d~:;e~]" i nil))
 #   ("e" "a" "b" "c" "d" "e" "e" "e" "e" "e" "e" "e"))
 # 
+subtest {
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fn.format( Q{~v[a~;b~;c~;d~:;e~]}, $i, Nil )
+		);
+	}
+	is-deeply @collected, [
+		'e',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'e',
+		'g',
+		'e',
+		'e',
+		'e',
+		'e'
+	]
+}, 'format.cond:.6';
 )
 
 #`(
@@ -221,6 +341,28 @@ is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
 #         collect (format nil "~v[a~;b~;c~;d~:;e~]" nil i))
 #   ("e" "a" "b" "c" "d" "e" "e" "e" "e" "e" "e" "e"))
 # 
+subtest {
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fn.format( Q{~v[a~;b~;c~;d~:;e~]}, Nil, $i )
+		);
+	}
+	is-deeply @collected, [
+		'e',
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'e',
+		'g',
+		'e',
+		'e',
+		'e',
+		'e'
+	]
+}, 'format.cond:.7';
 )
 
 #`(
@@ -263,6 +405,17 @@ is $fl.format( Q{~#:a~;b~]}, Nil ), Q{a}, 'format.:cond.1';
 #         collect (list x s))
 #   nil)
 # 
+subtest {
+	die; # mini-univere isn't finished
+	my @collected;
+	for @mini-universe -> $x {
+		my $s = $fl.format( Q{~:[a~;b~]}, $x );
+		if $x and $s ne 'b' {
+			@collected.append( [ $x, $s ] );
+		}
+	}
+	is @collected.elems, 0;
+}, 'format.:cond.2';
 )
 
 #`(

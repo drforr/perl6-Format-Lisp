@@ -221,11 +221,13 @@ subtest {
 # 
 )
 
+#`(
 # (def-pprint-test format.justify.12
 #   (format nil "~<XXXXXX~^~>")
 #   "")
 # 
 is $fl.format( Q{~<XXXXXX~^~>} ), Q{}, 'format.justify.12';
+)
 
 #`(
 # (def-pprint-test format.justify.13
