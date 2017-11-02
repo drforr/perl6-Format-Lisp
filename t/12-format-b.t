@@ -24,6 +24,16 @@ my $fl = Format::Lisp.new;
 #            collect (list i s1 j s2))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~b" );
+	for ^1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~B", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.b.1';
 )
 
 #`(
@@ -411,12 +421,10 @@ my $fl = Format::Lisp.new;
 # 
 is $fl.format( Q{~vb}, Nil, 0b110100 ), Q{110100}, 'format.b.14';
 
-#`(
 # (def-format-test format.b.15
 #   "~6,vB" (nil #b100) "   100")
 # 
-is $fl.format( Q{~0,vB}, Nil, 0b100 ), Q{   100}, 'format.b.15';
-)
+is $fl.format( Q{~6,vB}, Nil, 0b100 ), Q{   100}, 'format.b.15';
 
 #`(
 # (def-format-test format.b.16

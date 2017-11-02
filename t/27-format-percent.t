@@ -46,7 +46,7 @@ is $fl.format( Q{~v%}, 1 ), qq{\n}, 'format.%.4';
 #         collect i)
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 		my $s1 = qq{\n} x $i;
@@ -55,8 +55,8 @@ subtest {
 			@collected.append( $i )
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.%.5';
+	@collected.elems;
+}, 0, 'format.%.5';
 
 #`(
 # (deftest formatter.%.5

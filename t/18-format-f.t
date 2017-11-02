@@ -684,6 +684,7 @@ is $fl.format( Q{~3f}, 1.1 ), Q{1.1}, 'format.f.45b';
 # (def-format-test format.f.46
 #     "~0f" (0.01) ".0")
 # 
+is $fl.format( Q{~0f}, 0.01 ), Q{.0}, 'format.f.46';
 )
 
 # ;; sbcl prints "."
@@ -691,20 +692,21 @@ is $fl.format( Q{~3f}, 1.1 ), Q{1.1}, 'format.f.45b';
 # (def-format-test format.f.46b
 #     "~0,0f" (0.01) "0.")
 # 
+is $fl.format( Q{~0,0f}, 0.01 ), Q{0.}, 'format.f.46b';
 )
 
 # ;; Most implementations print .00
-#`(
 # (def-format-test format.f.47
 #     "~3f" (0.000001) "0.0")
 # 
-)
+is $fl.format( Q{~3f}, 0.000001 ), Q{0.0}, 'format.f.47';
 
 # ;; CCL 1.10 and ECL 15.3.7 ignore k parameter when w and d aren't set
 #`(
 # (def-format-test format.f.48
 #     "~,,2f" (0.1) "10.0")
 # 
+is $fl.format( Q{~,,2f}, 0.1 ), Q{10.0}, 'format.f.48';
 )
 
 done-testing;

@@ -7,6 +7,14 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+#`(
+subtest {
+#`(
+	is $fl.format( Q{X~~~D&}, 4 ), Q{X~4&}, 'non-nil';
+)
+}, 'missing coverage';
+)
+
 # (def-format-test format.&.1
 #   "~0&" nil "")
 # 
@@ -24,12 +32,10 @@ is $fl.format( Q{~&} ), Q{}, 'format.&.2';
 is $fl.format( Q{X~&} ), qq{X\n}, 'format.&.3';
 )
 
-#`(
 # (def-format-test format.&.4
 #   "X~%~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
 is $fl.format( Q{X~%~&} ), qq{X\n}, 'format.&.4';
-)
 
 #`(
 # (deftest format.&.5
@@ -41,18 +47,18 @@ is $fl.format( Q{X~%~&} ), qq{X\n}, 'format.&.4';
 #         collect i)
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 100 -> $i {
-		my $s1 = "\n" xx $i - 1;
+		my $s1 = "\n" xx ( $i - 1 );
 		my $format-string = $fl.format( "~~~D&", $i );
 		my $s2 = $fl.format( $format-string );
 		unless $s1 eq $s2 {
 			@collected.append( $i );
 		}
 	}
-	is @collected.elem, 0;
-}, 'format.&.5';
+	@collected.elems;
+}, 0, 'format.&.5';
 )
 
 #`(
@@ -66,6 +72,19 @@ subtest {
 #         collect i)
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 -> $i {
+		my $s1 = "\n" xx ( $i - 1 );
+		my $format-string = $fl.format( "~~~D&", $i );
+		my $fn = $fl.formatter( $format-string );
+		my $s2 = $fl.formatter-call-to-string( $fn );
+		unless $s1 eq $s2 {
+			@collected.append( $i );
+		}
+	}
+	@collected.elems;
+}, 0, 'formatter.&.5';
 )
 
 #`(
@@ -80,18 +99,18 @@ subtest {
 #         collect i)
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 100 -> $i {
-		my $s1 = 'X' ~ ( "\n" xx $i - 1 );
+		my $s1 = 'X' ~ ( "\n" xx ( $i - 1 ) );
 		my $format-string = $fl.format( "X~~~D&", $i );
 		my $s2 = $fl.format( $format-string );
 		unless $s1 eq $s2 {
 			@collected.append( $i );
 		}
 	}
-	is @collected.elem, 0;
-}, 'format.&.6';
+	@collected.elems;
+}, 0, 'format.&.6';
 )
 
 #`(
@@ -107,6 +126,19 @@ subtest {
 #         collect i)
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 -> $i {
+		my $s1 = 'X' ~ ( "\n" xx ( $i - 1 ) );
+		my $format-string = $fl.format( "X~~~D&", $i );
+		my $fn = $fl.formatter( $format-string );
+		my $s2 = $fl.formatter-call-to-string( $fn );
+		unless $s1 eq $s2 {
+			@collected.append( $i );
+		}
+	}
+	@collected.elems;
+}, 0, 'formatter.&.6';
 )
 
 # (def-format-test format.&.7
@@ -130,17 +162,17 @@ is $fl.format( Q{X~v&}, Nil ), qq{X\n}, 'format.&.8';
 #         collect i)
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 100 -> $i {
-		my $s1 = "\n" xx $i - 1;
+		my $s1 = "\n" xx ( $i - 1 );
 		my $s2 = $fl.format( "~V&", $i );
 		unless $s1 eq $s2 {
 			@collected.append( $i );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.&.9';
+	@collected.elems;
+}, 0, 'format.&.9';
 )
 
 #`(
@@ -153,6 +185,18 @@ subtest {
 #           collect i))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( "~V&" );
+	for 1 .. 100 -> $i {
+		my $s1 = "\n" xx ( $i - 1 );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		unless $s1 eq $s2 {
+			@collected.append( $i );
+		}
+	}
+	@collected.elems;
+}, 0, 'formatter.&.9';
 )
 
 #`(
@@ -187,12 +231,10 @@ subtest {
 # 
 is $fl.format( Q{X~V&}, 0 ), Q{X}, 'format.&.11';
 
-#`(
 # (def-format-test format.&.12
 #   "X~#%" nil "X")
 # 
 is $fl.format( Q{X~#%} ), Q{X}, 'format.&.12';
-)
 
 #`(
 # (def-format-test format.&.13

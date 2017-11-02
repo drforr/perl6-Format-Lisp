@@ -9,7 +9,9 @@ Format::Lisp - Common Lisp formatter
 =begin SYNOPSIS
 
     my $fl = Format::Lisp.new;
-    print $fl.format( "~~,,'~c:~c", ',', 'X' );
+    say $fl.format( "~~,,'~c:~c", ',', 'X' );
+    my $func = $fl.formatter( "x~ax" );
+    say $fl.formatter-call-to-string( $func, 'X' ); # => xXx
 
 =end SYNOPSIS
 
@@ -98,6 +100,14 @@ class Format::Lisp {
 					@arguments.elems
 				);
 			}
+			elsif $directive ~~ Format::Lisp::Directive::Tilde {
+				$offset = 0;
+				$text ~= $directive.to-string(
+					@arguments[$index],
+					@arguments[$index+1],
+					@arguments.elems - $index
+				);
+			}
 			else {
 				$text ~= $directive.to-string(
 					@arguments[$index],
@@ -118,8 +128,8 @@ class Format::Lisp {
 
 	method formatter( Str $format ) {
 		my $fl = self;
-		return sub {
-			return $fl.format( $format, @_ );
+		return sub ( *@args ) {
+			return $fl.format( $format, |@args );
 		}
 	}
 

@@ -61,9 +61,7 @@ our @english-ordinal-names is export = <
 ###;;;; Contains: A global variable containing a list of
 ###;;;;           as many kinds of CL objects as we can think of
 ###;;;;           This list is used to test many other CL functions
-###
-###(in-package :cl-test)
-###
+
 ###(defparameter *condition-types*
 ###    '(arithmetic-error
 ###      cell-error
@@ -95,40 +93,46 @@ our @english-ordinal-names is export = <
 ###      unbound-variable
 ###      undefined-function
 ###      warning))
-###
+
 ###(defparameter *condition-objects*
 ###  (locally (declare (optimize safety))
 ###           (loop for tp in *condition-types* append
 ###                 (handler-case (list (make-condition tp))
 ###                               (error () nil)))))
-###
-###(defparameter *standard-package-names*
-###  '("COMMON-LISP" "COMMON-LISP-USER" "KEYWORD"))
-###
+
+our @standard-package-names = <
+	COMMON-LISP
+	COMMON-LISP-USER
+	KEYWORD
+>;
+
 ###(defparameter *package-objects*
 ###  (locally (declare (optimize safety))
 ###           (loop for pname in *standard-package-names* append
 ###                 (handler-case (let ((pkg (find-package pname)))
 ###                                 (and pkg (list pkg)))
 ###                               (error () nil)))))
-###
-###(defparameter *integers*
-###    (remove-duplicates
-###     `(
-###       0
-###       ;; Integers near the fixnum/bignum boundaries
-###       ,@(loop for i from -5 to 5 collect (+ i most-positive-fixnum))
-###       ,@(loop for i from -5 to 5 collect (+ i most-negative-fixnum))
-###       ;; Powers of two, negatives, and off by one.
-###       ,@(loop for i from 1 to 64 collect (ash 1 i))
-###       ,@(loop for i from 1 to 64 collect (1- (ash 1 i)))
-###       ,@(loop for i from 1 to 64 collect (ash -1 i))
-###       ,@(loop for i from 1 to 64 collect (1+ (ash -1 i)))
-###       ;; A big integer
-###       ,(expt 17 50)
-###       ;; Some arbitrarily chosen integers
-###       12387131 1272314 231 -131 -561823 23713 -1234611312123 444121 991)))
-###
+
+our constant MOST-POSITIVE-FIXNUM = 1000; # XXX
+our constant MOST-NEGATIVE-FIXNUM = -1000; # XXX
+
+our @integers = 
+	0,
+	# Integers near fixnum/bignum boundaries
+	{ map { $_ + MOST-POSITIVE-FIXNUM }, -5..5 },
+	{ map { $_ + MOST-NEGATIVE-FIXNUM }, -5..5 },
+	# Powers of two, negatives and off by one
+	{ map { 2 ** $_ }, 1..64 },
+	{ map { ( 2 ** $_ ) - 1 }, 1..64 },
+	{ map { 2 ** -$_ }, 1..64 },
+	{ map { ( 2 ** -$_ ) - 1 }, 1..64 },
+	# A big integer
+	17 ** 50,
+	# Some arbitrarily chosen integers
+	12387131, 1272314, 231, -131, -561823,
+	23713, -1234611312123, 444121, 991
+;
+
 ###(defparameter *floats*
 ###    (append
 ###     (loop for sym in '(pi
@@ -172,47 +176,61 @@ our @english-ordinal-names is export = <
 ###      -37818.131F3 81.318231f-19
 ###      1.31273s3 12361.12S-7
 ###      6124.124l0 13123.1L-23)))
-###
-###(defparameter *ratios*
-###    '(1/3 1/1000 1/1000000000000000 -10/3 -1000/7 -987129387912381/13612986912361
-###      189729874978126783786123/1234678123487612347896123467851234671234))
-###
-###(defparameter *complexes*
-###    '(#C(0.0 0.0)
-###      #C(1.0 0.0)
-###      #C(0.0 1.0)
-###      #C(1.0 1.0)
-###      #C(-1.0 -1.0)
-###      #C(1289713.12312 -9.12681271)
-###      #C(1.0D100 1.0D100)
-###      #C(-1.0D-100 -1.0D-100)
-###      #C(10.0s0 20.0s0)
-###      #C(100.0l0 200.0l0)
-###      #C(1.0s0 2.0f0)
-###      #C(1.0s0 3.0d0)
-###      #C(1.0s0 4.0l0)
-###      #C(1.0f0 5.0d0)
-###      #C(1.0f0 6.0l0)
-###      #C(1.0d0 7.0l0)
-###      #C(1.0f0 2.0s0)
-###      #C(1.0d0 3.0s0)
-###      #C(1.0l0 4.0s0)
-###      #C(1.0d0 5.0f0)
-###      #C(1.0l0 6.0f0)
-###      #C(1.0l0 7.0d0)
-###      #C(1/2 1/3)
-###      ))
-###
-###(defparameter *numbers*
-###    (append *integers*
-###            *floats*
-###            *ratios*
-###            *complexes*))
-###
-###(defparameter *reals* (append *integers* *floats* *ratios*))
-###
-###(defparameter *rationals* (append *integers* *ratios*))
-###
+
+our @ratios =
+	1/3,
+	1/1000,
+	1/1000000000000000,
+	-10/3,
+	-1000/7,
+	-987129387912381/13612986912361,
+	189729874978126783786123/1234678123487612347896123467851234671234
+;
+
+our @complexes =
+	0.0+0.0i,
+	1.0+0.0i,
+	0.0+1.0i,
+	1.0+1.0i,
+	-1.0-1.0i,
+	1289713.12312-9.12681271i,
+	1.0e100+1.0e100i,
+	-1.0e-100-1.0e-100i,
+	10.0e0+20.0e0i,
+	100.0e0+200.0e0i,
+	1.0e0+2.0e0i,
+	1.0e0+3.0e0i,
+	1.0e0+4.0e0i,
+	1.0e0+5.0e0i,
+	1.0e0+6.0e0i,
+	1.0e0+7.0e0i,
+	1.0e0+2.0e0i,
+	1.0e0+3.0e0i,
+	1.0e0+4.0e0i,
+	1.0e0+5.0e0i,
+	1.0e0+6.0e0i,
+	1.0e0+7.0e0i,
+	1/2+(1/3)*i,
+;
+
+# our @numbers =
+#	@integers,
+#	@floats,
+#	@ratios,
+#	@complexes
+# ;
+
+# out @reals =
+#	@integers,
+#	@floats,
+#	@ratios
+# ;
+
+# our @rationals =
+#	@integers,
+#	@ratios
+# ;
+
 ###(defun try-to-read-chars (&rest namelist)
 ###  (declare (optimize safety))
 ###  (loop
@@ -221,7 +239,7 @@ our @english-ordinal-names is export = <
 ###            (list (read-from-string
 ###                   (concatenate 'string "\#\\" name)))
 ###          (error () nil))))
-###
+
 ###(defparameter *characters*
 ###    (remove-duplicates
 ###     `(#\Newline
@@ -235,8 +253,7 @@ our @english-ordinal-names is export = <
 ###                            "Null")
 ###       #\a #\A #\0 #\9 #\. #\( #\) #\[ #\]
 ###       )))
-###
-###
+
 ###(defparameter *strings*
 ###    (append
 ###     (and (code-char 0)
@@ -269,13 +286,13 @@ our @english-ordinal-names is export = <
 ###                  :adjustable t
 ###                  :element-type 'base-char)
 ###      )))
-###
+
 ###(defparameter *conses*
 ###    (list
 ###     (list 'a 'b)
 ###     (list nil)
 ###     (list 1 2 3 4 5 6)))
-###
+
 ###(defparameter *circular-conses*
 ###    (list
 ###     (let ((s (copy-list '(a b c d))))
@@ -287,11 +304,14 @@ our @english-ordinal-names is export = <
 ###     (let ((s (list nil)))
 ###       (setf (car s) s)
 ###       (setf (cdr s) s))))
-###
+
 ###(defparameter *booleans* '(nil t))
+
 ###(defparameter *keywords* '(:a :b :|| :|a| :|1234|))
+
 ###(defparameter *uninterned-symbols*
 ###  (list '#:nil '#:t '#:foo '#:||))
+
 ###(defparameter *cl-test-symbols*
 ###    `(,(intern "a" :cl-test)
 ###      ,(intern "" :cl-test)
@@ -309,7 +329,7 @@ our @english-ordinal-names is export = <
 ###                     (intern s2 :cl-test)
 ###                     (intern s3 :cl-test))))
 ###      ))
-###
+
 ###(defparameter *cl-user-symbols*
 ###  '(cl-user::foo
 ###    cl-user::x
@@ -317,19 +337,19 @@ our @english-ordinal-names is export = <
 ###    cl-user::lambda
 ###    cl-user::*print-readably*
 ###    cl-user::push))
-###
+
 ###(defparameter *symbols*
 ###    (append *booleans* *keywords* *uninterned-symbols*
 ###            *cl-test-symbols*
 ###            *cl-user-symbols*))
-###
+
 ###(defparameter *array-dimensions*
 ###    (loop
 ###        for i from 0 to 8 collect
 ###          (loop for j from 1 to i collect 2)))
-###
-###(defparameter *default-array-target* (make-array '(300)))
-###
+
+our @default-array-target = 300;
+
 ###(defparameter *arrays*
 ###    (append
 ###     (list (make-array '10))
@@ -416,20 +436,17 @@ our @english-ordinal-names is export = <
 ###     (locally (declare (optimize safety))
 ###              (handler-case
 ###               (list (make-array '(0) :element-type nil))
-###               (error () nil)))
-###
-###     ;; more kinds of arrays here later?
-###     ))
-###
+###               (error () nil)))))
+
 ###(defparameter *hash-tables*
 ###  (list
 ###   (make-hash-table)
 ###   (make-hash-table :test #'eq)
 ###   (make-hash-table :test #'eql)
 ###   (make-hash-table :test #'equal)
-###   #-(or CMU ECL) (make-hash-table :test #'equalp)
+###   (make-hash-table :test #'equalp)
 ###   ))
-###
+
 ###(defparameter *pathnames*
 ###  (locally
 ###   (declare (optimize safety))
@@ -450,7 +467,7 @@ our @english-ordinal-names is export = <
 ###                       (make-pathname :version :wild)
 ###                       (make-pathname :version :newest))
 ###         append (ignore-errors (eval `(list ,form))))))
-###
+
 ###(eval-when (:compile-toplevel :load-toplevel :execute)
 ###  (locally
 ###   (declare (optimize safety))
@@ -467,14 +484,14 @@ our @english-ordinal-names is export = <
 ###                                       '(:wild-inferiors))
 ###                           :name :wild :type :wild)))))
 ###   ))
-###
+
 ###(defparameter *logical-pathnames*
 ###  (locally
 ###   (declare (optimize safety))
 ###   (append
 ###    (ignore-errors (list (logical-pathname "CLTESTROOT:")))
 ###    )))
-###
+
 ###(defparameter *streams*
 ###  (remove-duplicates
 ###   (remove-if
@@ -487,36 +504,34 @@ our @english-ordinal-names is export = <
 ###     *standard-output*
 ###     *terminal-io*
 ###     *trace-output*))))
-###
+
 ###(defparameter *readtables*
 ###  (list *readtable*
 ###        (copy-readtable)))
-###
-###(defstruct foo-structure
-###  x y z)
-###
-###(defstruct bar-structure
-###  x y z)
-###
-###(defparameter *structures*
-###  (list
-###   (make-foo-structure :x 1 :y 'a :z nil)
-###   (make-foo-structure :x 1 :y 'a :z nil)
-###   (make-bar-structure :x 1 :y 'a :z nil)
-###   ))
-###
-###(defun meaningless-user-function-for-universe (x y z)
-###  (list (+ x 1) (+ y 2) (+ z 3)))
-###
+
+class foo-structure { has $.x; has $.y; has $.z; }
+
+class bar-structure { has $.x; has $.y; has $.z; }
+
+our @structures =
+	foo-structure.new( :x(1), :y('a'), :z(Nil) ),
+	foo-structure.new( :x(1), :y('a'), :z(Nil) ),
+	bar-structure.new( :x(1), :y('a'), :z(Nil) )
+;
+
+sub meaningless-user-function-for-universe( $x, $y, $z ) {
+	$x + 1, $y + 2, $z + 3;
+}
+
 ###(defgeneric meaningless-user-generic-function-for-universe (x y z)
-###  #+(or (not :gcl) :ansi-cl) (:method ((x integer) (y integer) (z integer)) (+ x y z)))
-###
+###  (:method ((x integer) (y integer) (z integer)) (+ x y z)))
+
 ###(eval-when (:load-toplevel :execute)
 ###  (compile 'meaningless-user-function-for-universe)
 ###  ;; Conditionalize to avoid a cmucl bug
-###  #-(or cmu gcl ecl) (compile 'meaningless-user-generic-function-for-universe)
+###  (compile 'meaningless-user-generic-function-for-universe)
 ###  )
-###
+
 ###(defparameter *functions*
 ###  (list #'cons #'car #'append #'values
 ###        (macro-function 'cond)
@@ -524,19 +539,17 @@ our @english-ordinal-names is export = <
 ###        #'meaningless-user-generic-function-for-universe
 ###        #'(lambda (x) x)
 ###        (compile nil '(lambda (x) x))))
-###
+
 ###(defparameter *methods*
 ###  (list
-###   #+(or (not :gcl) :ansi-cl )
 ###   (find-method #'meaningless-user-generic-function-for-universe nil
 ###                (mapcar #'find-class '(integer integer integer)))
 ###   ;; Add more methods here
 ###   ))
-###
-###
+
 ###(defparameter *random-states*
 ###  (list (make-random-state)))
-###
+
 ###(defparameter *universe*
 ###  (remove-duplicates
 ###   (append
@@ -558,7 +571,7 @@ our @english-ordinal-names is export = <
 ###    *random-states*
 ###    *methods*
 ###    nil)))
-###
+
 ###(defparameter *mini-universe*
 ###  (remove-duplicates
 ###   (append
@@ -582,14 +595,13 @@ our @english-ordinal-names is export = <
 ###                  *methods*))
 ###    '(;;; Others to fill in gaps
 ###      1.2s0 1.3f0 1.5d0 1.8l0 3/5 10000000000000000000000))))
-###
+
 ###(defparameter *classes*
 ###  (remove-duplicates (mapcar #'class-of *universe*)))
-###
+
 ###(defparameter *built-in-classes*
 ###  (remove-if-not #'(lambda (x) (typep x 'built-in-class))
 ###                 *classes*))
-
 
 ###(defparameter *symbols*
 ###    (append (nil t) ;;; booleans

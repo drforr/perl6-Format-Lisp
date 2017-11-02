@@ -14,7 +14,8 @@ subtest {
 
 	is $fl.format( Q{~@:a}, 'abc' ), Q{abc}, 'abc';
 
-	is $fl.format( Q{~4@a}, Nil ), Q{ NIL}, 'format.a.9.slice';
+	is $fl.format( Q{~~~d@a}, 4 ), Q{~4@a}, 'format.a.9.slice';
+	is $fl.format( Q{~4@a}, Nil ), Q{ NIL}, 'format.a.9.slice.2';
 
 	is $fl.format( Q{~4a}, Nil ), Q{NIL }, 'format.a.10.slice';
 
@@ -44,25 +45,23 @@ is $fl.format( Q{~a}, Nil ), Q{NIL}, 'format.a.1';
 #      (format nil "~A" nil)))
 #   "nil")
 # 
-subtest {
+is do {
 	my $*PRINT-CASE = 'downcase';
-	is $fl.format( Q{~A}, Nil ), Q{nil};
-}, 'format.a.2';
+	$fl.format( Q{~A}, Nil );
+}, Q{nil}, 'format.a.2';
 
-#`(
 # (deftest formatter.a.2
 #   (with-standard-io-syntax
 #    (let ((*print-case* :downcase))
 #      (formatter-call-to-string (formatter "~A") nil)))
 #   "nil")
 # 
-subtest {
+is do {
 	my $*PRINT-CASE = 'downcase';
-	is $fl.formatter-call-to-string(
+	$fl.formatter-call-to-string(
 		$fl.formatter( Q{~A} ), Nil
-	), Q{nil};
-}, 'formatter.a.2';
-)
+	);
+}, Q{nil}, 'formatter.a.2';
 
 # (deftest format.a.3
 #   (with-standard-io-syntax
@@ -70,25 +69,23 @@ subtest {
 #      (format nil "~a" nil)))
 #   "Nil")
 # 
-subtest {
+is do {
 	my $*PRINT-CASE = 'capitalize';
-	is $fl.format( Q{~a}, Nil ), Q{Nil};
-}, 'format.a.3';
+	$fl.format( Q{~a}, Nil );
+}, Q{Nil}, 'format.a.3';
 
-#`(
 # (deftest formatter.a.3
 #   (with-standard-io-syntax
 #    (let ((*print-case* :capitalize))
 #      (formatter-call-to-string (formatter "~a") nil)))
 #   "Nil")
 # 
-subtest {
+is do {
 	my $*PRINT-CASE = 'capitalize';
-	is $fl.formatter-call-to-string(
+	$fl.formatter-call-to-string(
 		$fl.formatter( Q{~a} ), Nil
-	), Q{nil};
-}, 'formatter.a.3';
-)
+	);
+}, Q{Nil}, 'formatter.a.3';
 
 # (def-format-test format.a.4
 #   "~:a" (nil) "()")
@@ -105,7 +102,6 @@ is $fl.format( Q{~:A}, [ Nil ] ), Q{(NIL)}, 'format.a.5';
 # 
 # Maybe this would be []?
 
-#`(
 # (deftest format.a.7
 #   (let ((fn (formatter "~a")))
 #     (loop for c across +standard-chars+
@@ -116,7 +112,7 @@ is $fl.format( Q{~:A}, [ Nil ] ), Q{(NIL)}, 'format.a.5';
 #           collect (list c s1 s2 s3)))
 #   nil)
 # 
-subtest {
+is do {
 	my $fn = $fl.formatter( Q{~a} );
 	my @collected;
 	for @standard-chars -> $c {
@@ -127,11 +123,9 @@ subtest {
 			@collected.append( [ $c, $s1, $s2, $s3 ] );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.a.7';
-)
+	@collected.elems;
+}, 0, 'format.a.7';
 
-#`(
 # (deftest format.a.8
 #   (let ((fn (formatter "~A")))
 #     (loop with count = 0
@@ -145,7 +139,7 @@ subtest {
 #           when (> count 100) collect "count limit exceeded" and do (loop-finish)))
 #   nil)
 # 
-subtest {
+is do {
 	my $fn = $fl.formatter( Q{~A} );
 	my @collected;
 	my $i = 0;
@@ -164,11 +158,9 @@ subtest {
 			last;
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.a.8';
-)
+	@collected.elems;
+}, 0, 'format.a.8';
 
-#`(
 # (deftest format.a.9
 #   (with-standard-io-syntax
 #    (apply
@@ -191,32 +183,30 @@ subtest {
 #   "      NIL"
 #   "       NIL")
 # 
-subtest {
+is-deeply do {
 	my @collected;
 	for 1 .. 10 -> $i {
 		my $fmt = $fl.format( Q{~~~d@a}, $i );
+say $fmt;
 		my $s = $fl.format( $fmt, Nil );
 		my $fn = $fl.formatter( $fmt );
 		my $s2 = $fl.formatter-call-to-string( $fn, Nil );
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply @collected, [
-		"NIL",
-		"NIL",
-		"NIL",
-		" NIL",
-		"  NIL",
-		"   NIL",
-		"    NIL",
-		"     NIL",
-		"      NIL",
-		"       NIL"
-	];
-}, 'format.a.9';
-)
+	@collected;
+}, [	"NIL",
+	"NIL",
+	"NIL",
+	" NIL",
+	"  NIL",
+	"   NIL",
+	"    NIL",
+	"     NIL",
+	"      NIL",
+	"       NIL"
+], 'format.a.9';
 
-#`(
 # (deftest format.a.10
 #   (with-standard-io-syntax
 #    (apply
@@ -239,7 +229,7 @@ subtest {
 #   "NIL      "
 #   "NIL       ")
 # 
-subtest {
+is-deeply do {
 	my @collected;
 	for 1 .. 10 -> $i {
 		my $fmt = $fl.format( Q{~~~da}, $i );
@@ -249,22 +239,20 @@ subtest {
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply @collected, [
-		"NIL",
-		"NIL",
-		"NIL",
-		"NIL ",
-		"NIL  ",
-		"NIL   ",
-		"NIL    ",
-		"NIL     ",
-		"NIL      ",
-		"NIL       "
-	];
-}, 'format.a.10';
-)
+	@collected;
+}, [
+	"NIL",
+	"NIL",
+	"NIL",
+	"NIL ",
+	"NIL  ",
+	"NIL   ",
+	"NIL    ",
+	"NIL     ",
+	"NIL      ",
+	"NIL       "
+], 'format.a.10';
 
-#`(
 # (deftest format.a.11
 #   (with-standard-io-syntax
 #    (apply
@@ -287,8 +275,8 @@ subtest {
 #   "       ()"
 #   "        ()")
 # 
-subtest {
-	my $collected;
+is-deeply do {
+	my @collected;
 	for 1 .. 10 -> $i {
 		my $fmt = $fl.format( Q{~~~d@:A}, $i );
 		my $s = $fl.format( $fmt, Nil );
@@ -297,22 +285,20 @@ subtest {
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply $collected, [
-		"()",
-		"()",
-		" ()",
-		"  ()",
-		"   ()",
-		"    ()",
-		"     ()",
-		"      ()",
-		"       ()",
-		"        ()"
-	];
-}, 'format.a.11';
-)
+	@collected;
+}, [
+	"()",
+	"()",
+	" ()",
+	"  ()",
+	"   ()",
+	"    ()",
+	"     ()",
+	"      ()",
+	"       ()",
+	"        ()"
+], 'format.a.11';
 
-#`(
 # (deftest format.a.12
 #   (with-standard-io-syntax
 #    (apply
@@ -335,8 +321,8 @@ subtest {
 #   "()       "
 #   "()        ")
 # 
-subtest {
-	my $collected;
+is-deeply do {
+	my @collected;
 	for 1 .. 10 -> $i {
 		my $fmt = $fl.format( Q{~~~d:a}, $i );
 		my $s = $fl.format( $fmt, Nil );
@@ -345,22 +331,20 @@ subtest {
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply $collected, [
-		"()",
-		"()",
-		"() ",
-		"()  ",
-		"()   ",
-		"()    ",
-		"()     ",
-		"()      ",
-		"()       ",
-		"()        "
-	];
-}, 'format.a.12';
-)
+	@collected;
+}, [
+	"()",
+	"()",
+	"() ",
+	"()  ",
+	"()   ",
+	"()    ",
+	"()     ",
+	"()      ",
+	"()       ",
+	"()        "
+], 'format.a.12';
 
-#`(
 # (deftest format.a.13
 #   (with-standard-io-syntax
 #    (apply
@@ -382,7 +366,7 @@ subtest {
 #   "()       "
 #   "()        ")
 # 
-subtest {
+is-deeply do {
 	my @collected;
 	my $fn = $fl.formatter( Q{~V:a} );
 	for 1 .. 10 -> $i {
@@ -391,22 +375,20 @@ subtest {
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply @collected, [
-		"()",
-		"()",
-		"() ",
-		"()  ",
-		"()   ",
-		"()    ",
-		"()     ",
-		"()      ",
-		"()       ",
-		"()        "
-	];
-}, 'format.a.13';
-)
+	@collected;
+}, [
+	"()",
+	"()",
+	"() ",
+	"()  ",
+	"()   ",
+	"()    ",
+	"()     ",
+	"()      ",
+	"()       ",
+	"()        "
+], 'format.a.13';
 
-#`(
 # (deftest format.a.14
 #   (with-standard-io-syntax
 #    (apply
@@ -428,7 +410,7 @@ subtest {
 #   "       ()"
 #   "        ()")
 # 
-subtest {
+is-deeply do {
 	my @collected;
 	my $fn = $fl.formatter( Q{~V@:A} );
 	for 1 .. 10 -> $i {
@@ -437,20 +419,19 @@ subtest {
 		is $s, $s2;
 		@collected.append( $s );
 	}
-	is-deeply @collected, [
-		"()",
-		"()",
-		" ()",
-		"  ()",
-		"   ()",
-		"    ()",
-		"     ()",
-		"      ()",
-		"       ()",
-		"        ()",
-	];
-}, 'format.a.14';
-)
+	@collected;
+}, [
+	"()",
+	"()",
+	" ()",
+	"  ()",
+	"   ()",
+	"    ()",
+	"     ()",
+	"      ()",
+	"       ()",
+	"        ()",
+], 'format.a.14';
 
 # (def-format-test format.a.15
 #   "~vA" (nil nil) "NIL")
@@ -552,33 +533,48 @@ is $fl.format( Q{~7,3A}, Nil ), "NIL      ", 'format.a.28';
 #    "ABC      "
 #    "ABC       "))
 # 
-subtest {
-	my $collected;
+is-deeply do {
+	my @collected;
 	my $fn = $fl.formatter( Q{~v,,2A} );
 	for -4 .. 10 -> $i {
 		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
 		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 		is $s, $s2;
-		$collected.append( $s );
+		@collected.append( $s );
 	}
-	is-deeply $collected, [
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC  ",
-		"ABC   ",
-		"ABC    ",
-		"ABC     ",
-		"ABC      ",
-		"ABC       "
-	];
-}, 'format.a.29';
+	@collected;
+}, [
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC  ",
+#	"ABC   ",
+#	"ABC    ",
+#	"ABC     ",
+#	"ABC      ",
+#	"ABC       "
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC  ",
+"ABC   ",
+"ABC    ",
+"ABC     ",
+"ABC      ",
+"ABC       "
+], 'format.a.29';
 )
 
 # (def-format-test format.a.30
@@ -657,7 +653,6 @@ is $fl.format( Q{~10,,,v@a}, Q{*}, 'abcde' ), "*****abcde", 'format.a.42';
 # 
 is $fl.format( Q{~3,,va}, Nil, 'ABC' ), "ABC", 'format.a.43';
 
-#`(
 # (deftest format.a.44
 #   (let ((fn (formatter "~3,,vA")))
 #     (loop for i from 0 to 6
@@ -673,28 +668,26 @@ is $fl.format( Q{~3,,va}, Nil, 'ABC' ), "ABC", 'format.a.43';
 #    "ABC     "
 #    "ABC      "))
 # 
-subtest {
-	my $collected;
+is-deeply do {
+	my @collected;
 	my $fn = $fl.formatter( Q{~3,,vA} );
-	for ^6 -> $i {
+	for 0 .. 6 -> $i {
 		my $s = $fl.format( Q{~3,,vA}, $i, 'ABC' );
 		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 		is $s, $s2;
-		$collected.append( $s );
+		@collected.append( $s );
 	}
-	is-deeply $collected, [
-		"ABC",
-		"ABC ",
-		"ABC  ",
-		"ABC   ",
-		"ABC    ",
-		"ABC     ",
-		"ABC      "
-	];
-}, 'format.a.44a';
-)
+	@collected;
+}, [
+	"ABC",
+	"ABC ",
+	"ABC  ",
+	"ABC   ",
+	"ABC    ",
+	"ABC     ",
+	"ABC      "
+], 'format.a.44a';
 
-#`(
 # (deftest format.a.44a
 #   (let ((fn (formatter "~3,,v@A")))
 #     (loop for i from 0 to 6
@@ -710,26 +703,25 @@ subtest {
 #    "     ABC"
 #    "      ABC"))
 # 
-subtest {
-	my $collected;
+is-deeply do {
+	my @collected;
 	my $fn = $fl.formatter( Q{~3,,v@A} );
-	for ^6 -> $i {
+	for 0 .. 6 -> $i {
 		my $s = $fl.format( Q{~3,,v@A}, $i, 'ABC' );
 		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 		is $s, $s2;
-		$collected.append( $s );
+		@collected.append( $s );
 	}
-	is-deeply $collected, [
-		"ABC",
-		" ABC",
-		"  ABC",
-		"   ABC",
-		"    ABC",
-		"     ABC",
-		"      ABC"
-	];
-}, 'format.a.44a';
-)
+	@collected;
+}, [
+	"ABC",
+	" ABC",
+	"  ABC",
+	"   ABC",
+	"    ABC",
+	"     ABC",
+	"      ABC"
+], 'format.a.44a';
 
 # (def-format-test format.a.45
 #   "~4,,va" (-1 "abcd") "abcd")

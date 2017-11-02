@@ -211,10 +211,10 @@ is $fl.format( Q{~#r}, 4, Nil, Nil ), Q{11}, 'format.r.9';
 #      (format nil "~10r" 123)))
 #   "123")
 # 
-subtest {
+is do {
 	my $*PRINT-RADIX = True;
-	is $fl.format( Q{~10r}, 123 ), Q{123};
-}, 'format.r.10';
+	$fl.format( Q{~10r}, 123 );
+}, Q{123}, 'format.r.10';
 
 #`(
 # (deftest formatter.r.10

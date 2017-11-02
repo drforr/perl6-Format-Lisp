@@ -22,7 +22,7 @@ is $fl.format( Q{~<~>}, 14 ), Q{}, 'format.justify.1';
 #         collect (list i s1 s2))
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 20 -> $i {
 		my $s1 = 'x' xx $i - 1;
@@ -31,8 +31,8 @@ subtest {
 			@collected.append( [ $i, $s1, $s2 ] );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.justify.2';
+	@collected.elems;
+}, 0, 'format.justify.2';
 )
 
 #`(
@@ -44,7 +44,7 @@ subtest {
 #         collect (list i s1 s2))
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 20 -> $i {
 		my $s1 = 'x' xx $i - 1;
@@ -53,8 +53,8 @@ subtest {
 			@collected.append( [ $i, $s1, $s2 ] );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.justify.3';
+	@collected.elems;
+}, 0, 'format.justify.3';
 )
 
 #`(
@@ -67,7 +67,7 @@ subtest {
 #         collect (list i expected s2))
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 20 -> $i {
 		my $s1 = 'x' xx $i - 1;
@@ -77,8 +77,8 @@ subtest {
 			@collected.append( [ $i, $expected, $s2 ] );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.justify.4';
+	@collected.elems;
+}, 0, 'format.justify.4';
 )
 
 #`(
@@ -91,7 +91,7 @@ subtest {
 #         collect (list i expected s2))
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 20 -> $i {
 		my $s1 = 'x' xx $i - 1;
@@ -101,8 +101,8 @@ subtest {
 			@collected.append( [ $i, $expected, $s2 ] );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.justify.5';
+	@collected.elems;
+}, 0, 'format.justify.5';
 )
 
 #`(
@@ -115,7 +115,7 @@ subtest {
 #         collect (list i expected s2))
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for 1 .. 20 -> $i {
 		my $s1 = 'x' xx $i - 1;
@@ -125,8 +125,8 @@ subtest {
 			@collected.append( [ $i, $expected, $s2 ] );
 		}
 	}
-	is @collected.elems, 0;
-}, 'format.justify.6';
+	@collected.elems;
+}, 0, 'format.justify.6';
 )
 
 #`(

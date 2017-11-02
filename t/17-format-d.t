@@ -460,22 +460,23 @@ my $fl = Format::Lisp.new;
 # 
 is $fl.format( Q{~vD}, Nil, 100 ), Q{100}, 'format.d.14';
 
-#`(
 # (def-format-test format.d.15
 #   "~6,vD" (nil 100) "   100")
 # 
-)
+is $fl.format( Q{~6,vD}, Nil, 100 ), Q{   100}, 'format.d.15';
 
 #`(
 # (def-format-test format.d.16
 #   "~,,v:d" (nil 12345) "12,345")
 # 
+is $fl.format( Q{~,,v:d}, Nil, 12345 ), Q{12,345}, 'format.d.16';
 )
 
 #`(
 # (def-format-test format.d.17
 #   "~,,'*,v:d" (nil 12345) "12*345")
 # 
+is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 )
 
 # ;;; When the argument is not an integer, print as if using ~A and base 10
@@ -634,29 +635,25 @@ is $fl.format( Q{~vD}, Nil, 100 ), Q{100}, 'format.d.14';
 # 
 )
 
-#`(
 # (def-format-test format.d.25
 #   "~+10d" (1234) "      1234")
 # 
-)
+is $fl.format( Q{~+10d}, 1234 ), Q{      1234}, 'format.d.25';
 
-#`(
 # (def-format-test format.d.26
 #   "~+10@d" (1234) "     +1234")
 # 
-)
+is $fl.format( Q{~+10@d}, 1234 ), Q{     +1234}, 'format.d.26';
 
-#`(
 # (def-format-test format.d.27
 #   "~-1d" (1234) "1234")
 # 
-)
+is $fl.format( Q{~-1d}, 1234 ), Q{1234}, 'format.d.27';
 
-#`(
 # (def-format-test format.d.28
 #   "~-1000000000000000000d" (1234) "1234")
 # 
-)
+is $fl.format( Q{~-1000000000000000000d}, 1234 ), Q{1234}, 'format.d.28';
 
 #`(
 # (def-format-test format.d.29

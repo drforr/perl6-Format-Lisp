@@ -13,11 +13,11 @@ my $fl = Format::Lisp.new;
 #     (format nil "~s" nil))
 #   "NIL")
 # 
-subtest {
+is do {
 	my $*PRINT-READABLY = False;
 	my $*PRINT-CASE = 'upcase';
-	is $fl.format( Q{~s}, Nil ), Q{NIL};
-}, 'format.s.1';
+	$fl.format( Q{~s}, Nil );
+}, Q{NIL}, 'format.s.1';
 
 #`(
 # (deftest formatter.s.1
@@ -39,11 +39,11 @@ is $fl.format( Q{~:s}, Nil ), Q{()}, 'format.s.2';
 #     (format nil "~:s" '(nil)))
 #   "(NIL)")
 # 
-subtest {
+is do {
 	my $*PRINT-READABLY = Nil;
 	my $*PRINT-CASE = 'upcase';
-	is $fl.format( Q{~:s}, [ Nil ] ), Q{(NIL)};
-}, 'format.s.3';
+	$fl.format( Q{~:s}, [ Nil ] );
+}, Q{(NIL)}, 'format.s.3';
 
 #`(
 # (deftest formatter.s.3
@@ -60,11 +60,11 @@ subtest {
 #     (format nil "~s" 'nil))
 #   "nil")
 # 
-subtest {
+is do {
 	my $*PRINT-READABLY = Nil;
 	my $*PRINT-CASE = 'downcase';
-	is $fl.format( Q{~s}, Nil ), Q{nil};
-}, 'format.s.4';
+	$fl.format( Q{~s}, Nil );
+}, Q{nil}, 'format.s.4';
 
 #`(
 # (deftest formatter.s.4
@@ -81,11 +81,11 @@ subtest {
 #     (format nil "~s" 'nil))
 #   "Nil")
 # 
-subtest {
+is do {
 	my $*PRINT-READABLY = Nil;
 	my $*PRINT-CASE = 'capitalize';
-	is $fl.format( Q{~s}, Nil ), Q{Nil};
-}, 'format.s.5';
+	$fl.format( Q{~s}, Nil );
+}, Q{Nil}, 'format.s.5';
 
 #`(
 # (deftest formatter.s.5
