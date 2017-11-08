@@ -544,36 +544,21 @@ is-deeply do {
 	}
 	@collected;
 }, [
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC  ",
-#	"ABC   ",
-#	"ABC    ",
-#	"ABC     ",
-#	"ABC      ",
-#	"ABC       "
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC  ",
-"ABC   ",
-"ABC    ",
-"ABC     ",
-"ABC      ",
-"ABC       "
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC   ",
+	"ABC    ",
+	"ABC     ",
+	"ABC      ",
+	"ABC       "
 ], 'format.a.29';
 )
 

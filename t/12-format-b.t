@@ -7,6 +7,20 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+subtest {
+	is $fl.format( Q{~B}, 0b101 ), Q{101}, 'format.b.1 slice';
+
+	is $fl.format( Q{~@B}, 0b101 ), Q{+101}, 'format.b.2 slice';
+
+	is $fl.format( Q{~~~db}, 4 ), Q{~4b}, 'format.b.3 slice';
+
+	is $fl.format( Q{~~~d@b}, 4 ), Q{~4@b}, 'format.b.4 slice';
+
+#`(
+	is $fl.format( "~~~d,'~c~c", 4, '*', 'b' ), Q{~4,'*b}, 'format.b.5 slice';
+)
+}, 'missing coverage';
+
 #`(
 # (deftest format.b.1
 #   (let ((fn (formatter "~b")))
@@ -26,7 +40,7 @@ my $fl = Format::Lisp.new;
 # 
 is do {
 	my $fn = $fl.formatter( "~b" );
-	for ^1000 {
+	for 1 .. 1000 {
 		my $x = 2 ** ( 2 + 80.rand.Int );
 		my $i = ( ( $x + $x ).rand - $x );
 		my $s1 = $fl.format( "~B", $i );
@@ -52,6 +66,16 @@ is do {
 #            collect (list i s1 j s2))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~b" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~@b", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.b.2';
 )
 
 #`(
@@ -73,6 +97,16 @@ is do {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~b" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~~~db", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.b.3';
 )
 
 #`(
@@ -95,6 +129,16 @@ is do {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~b" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~~~db", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'formatter.b.3';
 )
 
 #`(
@@ -117,6 +161,16 @@ is do {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~b" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~~~db", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.b.4';
 )
 
 #`(
@@ -140,6 +194,16 @@ is do {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~@B" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~~~d@b", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'formatter.b.4';
 )
 
 #`(
@@ -163,6 +227,16 @@ is do {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~@B" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~~~d@b", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'formatter.b.4';
 )
 
 #`(
@@ -240,7 +314,6 @@ is do {
 
 # ;;; Comma tests
 # 
-#`(
 # (deftest format.b.8
 #   (let ((fn (formatter "~:B")))
 #     (loop for i from -7 to 7
@@ -251,7 +324,19 @@ is do {
 #           collect (list i s1 s2 s3)))
 #   nil)
 # 
-)
+is do {
+	my @collected;
+	my $fn = $fl.formatter( "~:B" );
+	for -7 .. 7 -> $i {
+		my $s1 = $fl.format( "~b", $i );
+		my $s2 = $fl.format( "~:b", $i );
+		my $s3 = $fl.formatter-call-to-string( $fn, $i );
+		unless $s1 eq $s2 and $s2 eq $s3 {
+			@collected.append( [ $i, $s1, $s2, $s3 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.b.8';
 
 #`(
 # (deftest format.b.9
@@ -454,6 +539,22 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( "~b" );
+	for @MINI-UNIVERSE -> $x {
+		my $s1 = $fl.format( "~b", $x );
+		my $s2 = do {
+			my $*PRINT-BASE = 2;
+			return $fl.format( "~A", $x );
+		};
+		my $s3 = $fl.formatter-call-to-string( $fn, $x );
+		unless $x ~~ Int or ( $s1 eq $s2 and $s1 eq $s3 ) {
+			@collected.append( [ $i, $s1, $s2, $s3 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.b.18';
 )
 
 #`(
@@ -467,6 +568,22 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( "~:b" );
+	for @MINI-UNIVERSE -> $x {
+		my $s1 = $fl.format( "~:B", $x );
+		my $s2 = do {
+			my $*PRINT-BASE = 2;
+			return $fl.format( "~A", $x );
+		};
+		my $s3 = $fl.formatter-call-to-string( $fn, $x );
+		unless $x ~~ Int or ( $s1 eq $s2 and $s1 eq $s3 ) {
+			@collected.append( [ $i, $s1, $s2, $s3 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.b.19';
 )
 
 #`(
@@ -480,6 +597,22 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( "~@b" );
+	for @MINI-UNIVERSE -> $x {
+		my $s1 = $fl.format( "~@b", $x );
+		my $s2 = do {
+			my $*PRINT-BASE = 2;
+			return $fl.format( "~A", $x );
+		};
+		my $s3 = $fl.formatter-call-to-string( $fn, $x );
+		unless $x ~~ Int or ( $s1 eq $s2 and $s1 eq $s3 ) {
+			@collected.append( [ $i, $s1, $s2, $s3 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.b.20';
 )
 
 #`(
@@ -495,6 +628,22 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( "~:@b" );
+	for @MINI-UNIVERSE -> $x {
+		my $s1 = $fl.format( "~@:b", $x );
+		my $s2 = do {
+			my $*PRINT-BASE = 2;
+			return $fl.format( "~A", $x );
+		};
+		my $s3 = $fl.formatter-call-to-string( $fn, $x );
+		unless $x ~~ Int or ( $s1 eq $s2 and $s1 eq $s3 ) {
+			@collected.append( [ $i, $s1, $s2, $s3 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.b.20';
 )
 
 # ;;; Must add tests for non-integers when the parameters
@@ -530,6 +679,31 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #   "     11001"
 #   "      11001")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	" 11001",
+	"  11001",
+	"   11001",
+	"    11001",
+	"     11001",
+	"      11001"
+], 'format.b.22';
 )
 
 #`(
@@ -558,6 +732,31 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #   "1100100010"
 #   "1100100010")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [
+	"1,1,0,0,1,0,0,0,1,0",
+	"11,00,10,00,10",
+	"1,100,100,010",
+	"11,0010,0010",
+	"11001,00010",
+	"1100,100010",
+	"110,0100010",
+	"11,00100010",
+	"1,100100010",
+	"1100100010",
+	"1100100010"
+], 'format.b.23';
 )
 
 #`(
@@ -586,6 +785,31 @@ is $fl.format( Q{~,,'*,v:B}, Nil, 0b10110 ), Q{10*110}, 'format.b.17';
 #   "+1100100010"
 #   "+1100100010")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~,,,#@:B} );
+	my $bv = 0b1100100010;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [
+	"+1,1,0,0,1,0,0,0,1,0",
+	"+11,00,10,00,10",
+	"+1,100,100,010",
+	"+11,0010,0010",
+	"+11001,00010",
+	"+1100,100010",
+	"+110,0100010",
+	"+11,00100010",
+	"+1,100100010",
+	"+1100100010",
+	"+1100100010"
+], 'format.b.24';
 )
 
 # (def-format-test format.b.25
@@ -642,6 +866,16 @@ is $fl.format( Q{~-1000000000000000000B}, 0b1101 ), Q{1101}, 'format.b.28';
 #      collect (list mincol padchar commachar commaint fmt x s1 s2)))
 #   nil)
 #
+is do {
+	my $fn = $fl.formatter( "~V,V,V,VB" );
+	for 1 .. 1000 {
+		my $x = 2 ** ( 2 + 80.rand.Int );
+		my $i = ( ( $x + $x ).rand - $x );
+		my $s1 = $fl.format( "~@b", $i );
+		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.b.30';
 )
 
 done-testing;

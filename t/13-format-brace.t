@@ -105,6 +105,21 @@ is do {
 #           collect (list i s)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~V{~A~}" );
+	my @collected;
+	for 0 .. 10 -> $i {
+		my $s = $fl.formatter-call-to-string(
+			$fn,
+			$i,
+			[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 ]
+		);
+		unless $s eq '1234567890'.substr( 0, $i ) {
+			@collected.append( [ $i, $s ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'formatter.{.8';
 )
 
 #`(
@@ -139,6 +154,7 @@ is $fl.format( Q{~1{~}}, "~A", [ 4, 5, 6 ] ), Q{4}, 'format.{.16';
 #   (format nil "~{~}" (formatter "") nil)
 #   "")
 # 
+is $fl.format( "~{~}", $fl.formatter( "" ), Nil ), "", 'format.{.17';
 )
 
 #`(
@@ -146,6 +162,11 @@ is $fl.format( Q{~1{~}}, "~A", [ 4, 5, 6 ] ), Q{4}, 'format.{.16';
 #   (format nil "~1{~}" (formatter "") '(1 2 3 4))
 #   "")
 # 
+is $fl.format(
+	"~1{~}",
+	$fl.formatter( "" ),
+	[ 1, 2, 3, 4 ]
+), "", 'format.{.18';
 )
 
 #`(
@@ -153,6 +174,11 @@ is $fl.format( Q{~1{~}}, "~A", [ 4, 5, 6 ] ), Q{4}, 'format.{.16';
 #   (format nil "~{~}" (formatter "~A") '(1 2 3 4))
 #   "1234")
 # 
+is $fl.format(
+	"~{~}",
+	$fl.formatter( "~A" ),
+	[ 1, 2, 3, 4 ]
+), "1234", 'format.{.19';
 )
 
 #`(
@@ -160,6 +186,11 @@ is $fl.format( Q{~1{~}}, "~A", [ 4, 5, 6 ] ), Q{4}, 'format.{.16';
 #   (format nil "~3{~}" (formatter "~A") '(1 2 3 4))
 #   "123")
 # 
+is $fl.format(
+	"~3{~}",
+	$fl.formatter( "~A" ),
+	[ 1, 2, 3, 4 ]
+), "123", 'format.{.20';
 )
 
 #`(
@@ -302,6 +333,11 @@ is $fl.format(
 #   (format nil "~:{~}" (formatter "~A") '((1 2) (3) (4 5 6)))
 #   "134")
 # 
+is $fl.format(
+	"~:{~}",
+	$fl.formatter( "~A" ),
+	[ [ 1, 2 ], [ 3 ], [ 4, 5, 6 ] ]
+), "134", 'format.\:{.6';
 )
 
 # (def-format-test format.\:{.7
@@ -674,6 +710,28 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   ("" "1" "12" "123" "1234" "12345" "123456" "1234567" "12345678"
 #    "123456789" "12345678910"))
 # 
+is-deeply do {
+	my @collected;
+	my @x;
+	for 0 .. 10 -> $i {
+		@x.append( $i );
+		@collected.append(
+			$fl.format( "~V:@{~A~}", $i, @x.reverse )
+		);
+	}
+	@collected;
+}, [	"",
+	"1",
+	"12",
+	"123",
+	"1234",
+	"12345",
+	"123456",
+	"1234567",
+	"12345678",
+	"123456789",
+	"12345678910"
+], 'format.\:@.10';
 )
 
 #`(
@@ -689,6 +747,28 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   ("" "1" "12" "123" "1234" "12345" "123456" "1234567" "12345678"
 #    "123456789" "12345678910"))
 # 
+is-deeply do {
+	my @collected;
+	my @x;
+	for 0 .. 10 -> $i {
+		@x.append( $i );
+		@collected.append(
+#			$fl.format( "~V:@{~A~}", $i, @x.reverse )
+		);
+	}
+	@collected;
+}, [	"",
+	"1",
+	"12",
+	"123",
+	"1234",
+	"12345",
+	"123456",
+	"1234567",
+	"12345678",
+	"123456789",
+	"12345678910"
+], 'formatter.\:@.10';
 )
 
 # ;;; Error tests
@@ -698,6 +778,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x 'A (format nil "~{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = :A; # XXX Not sure...
+	$fl.format( "~{~A~}", $x );
+}, X::Type-Error, 'format.{.error.1';
 )
 
 #`(
@@ -705,6 +789,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x 1 (format nil "~{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = 1; # XXX Not sure...
+	$fl.format( "~{~A~}", $x );
+}, X::Type-Error, 'format.{.error.2';
 )
 
 #`(
@@ -712,6 +800,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x "foo" (format nil "~{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = "foo"; # XXX Not sure...
+	$fl.format( "~{~A~}", $x );
+}, X::Type-Error, 'format.{.error.3';
 )
 
 #`(
@@ -719,6 +811,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x #*01101 (format nil "~{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = 0b01101; # XXX Not sure...
+	$fl.format( "~{~A~}", $x );
+}, X::Type-Error, 'format.{.error.4';
 )
 
 #`(
@@ -726,6 +822,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-error (format nil "~{~A~}" '(x y . z)) type-error)
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~{~A~}", $x );
+}, X::Error, 'format.{.error.5';
 )
 
 #`(
@@ -733,6 +833,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-error (format nil "~:{~A~}" '(x)) type-error)
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~:{~A~}", $x );
+}, X::Error, 'format.\:{.error.1';
 )
 
 #`(
@@ -740,6 +844,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x 'x (format nil "~:{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~:{~A~}", $x );
+}, X::Type-Error, 'format.\:{.error.2';
 )
 
 #`(
@@ -747,6 +855,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-error (format nil "~:{~A~}" '((x) . y)) type-error)
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~:{~A~}", $x );
+}, X::Error, 'format.\:{.error.3';
 )
 
 #`(
@@ -754,6 +866,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-error (format nil "~:{~A~}" '("X")) type-error)
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~:{~A~}", $x );
+}, X::Error, 'format.\:{.error.4';
 )
 
 #`(
@@ -761,6 +877,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-error (format nil "~:{~A~}" '(#(X Y Z))) type-error)
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~:{~A~}", $x );
+}, X::Error, 'format.\:{.error.5';
 )
 
 #`(
@@ -768,6 +888,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x 'x (format nil "~:@{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = :x; # XXX symbol
+	$fl.format( "~:@{~A~}", $x );
+}, X::Type-Error, 'format.\:@{.error.1';
 )
 
 #`(
@@ -775,6 +899,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x 0 (format nil "~:@{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = 0;
+	$fl.format( "~:@{~A~}", $x );
+}, X::Type-Error, 'format.\:@{.error.2';
 )
 
 #`(
@@ -782,6 +910,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x #*01101 (format nil "~:@{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = 0b01101;
+	$fl.format( "~:@{~A~}", $x );
+}, X::Type-Error, 'format.\:@{.error.3';
 )
 
 #`(
@@ -789,6 +921,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-type-error x "abc" (format nil "~:@{~A~}" x))
 #   t)
 # 
+throws-like {
+	my $x = "abc";
+	$fl.format( "~:@{~A~}", $x );
+}, X::Type-Error, 'format.\:@{.error.4';
 )
 
 #`(
@@ -796,6 +932,10 @@ is $fl.format( Q{~v:@{~A~}}, Nil, [ 1 ], [ 2 ], [ 3 ] ), Q{123}, 'format.:@.9';
 #   (signals-error (format nil "~:@{~A ~A~}" '(x . y)) type-error)
 #   t)
 # 
+throws-like {
+	my $x = "abc";
+	$fl.format( "~:@{~A ~A~}", $x );
+}, X::Type-Error, 'format.\:@{.error.5';
 )
 
 done-testing;
