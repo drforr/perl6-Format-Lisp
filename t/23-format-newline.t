@@ -28,6 +28,7 @@ is $fl.format( qq{A~:\n X} ), Q{A X}, 'format.newline.2';
 #   (concatenate 'string "A~@" (string #\Newline) " X")
 #   nil #.(concatenate 'string "A" (string #\Newline) "X"))
 # 
+is $fl.format( qq{A~@\n X} ), qq{A X}, 'format.newline.2';
 )
 
 done-testing;

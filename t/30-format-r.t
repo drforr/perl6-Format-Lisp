@@ -23,6 +23,17 @@ my $fl = Format::Lisp.new;
 #          collect (list i x s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.1';
 )
 
 #`(
@@ -42,6 +53,17 @@ my $fl = Format::Lisp.new;
 #          collect (list i x s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.1';
 )
 
 # (def-format-test format.r.2
@@ -72,6 +94,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #               collect (list base mincol s)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.4';
 )
 
 #`(
@@ -93,6 +126,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #               collect (list base mincol s)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.4';
 )
 
 #`(
@@ -113,6 +157,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #               collect (list base mincol s)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.5';
 )
 
 #`(
@@ -134,6 +189,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #               collect (list base mincol s)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.5';
 )
 
 #`(
@@ -144,6 +210,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #         collect (list base s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 2 .. 36 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.6';
 )
 
 #`(
@@ -155,6 +232,18 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #           collect (list base s)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~#B} );
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.6';
 )
 
 #`(
@@ -166,6 +255,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #         collect (list i s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 100 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.7';
 )
 
 #`(
@@ -178,6 +278,18 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #           collect (list i s1 s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~#B} );
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.7';
 )
 
 #`(
@@ -191,6 +303,17 @@ is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
 #         collect (list i s1 s3 s4))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 100 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.7a';
 )
 
 #`(
@@ -263,6 +386,17 @@ is $fl.format( Q{~3@:r}, :3(2120012102) ), Q{+2,120,012,102}, 'format.r.13';
 #          collect (list i x s1 y)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.14';
 )
 
 #`(
@@ -284,6 +418,17 @@ is $fl.format( Q{~3@:r}, :3(2120012102) ), Q{+2,120,012,102}, 'format.r.13';
 #    collect (list i interval comma x s1 y))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.15';
 )
 
 # (def-format-test format.r.16
@@ -310,6 +455,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #         collect (list i s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 100 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.18';
 )
 
 #`(
@@ -322,6 +478,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #           collect (list i s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.18';
 )
 
 #`(
@@ -335,6 +502,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #         collect (list i s1 s3 s4))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.18';
 )
 
 #`(
@@ -346,6 +524,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #         collect (list i s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.19';
 )
 
 #`(
@@ -358,6 +547,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #           collect (list i s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.19';
 )
 
 # ;;; Old roman numerals
@@ -398,6 +598,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #         collect (list i s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 4999 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.20';
 )
 
 #`(
@@ -410,6 +621,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #           collect (list i s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.20';
 )
 
 #`(
@@ -421,6 +643,17 @@ is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
 #         collect (list i s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.21';
 )
 
 # ;; Combinations of mincol and comma chars
@@ -457,6 +690,17 @@ is $fl.format( Q{~10,vr}, Nil, 12345 ), Q{12345}, 'format.r.24';
 #         collect (list i s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 5 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.r.25';
 )
 
 #`(
@@ -468,6 +712,17 @@ is $fl.format( Q{~10,vr}, Nil, 12345 ), Q{12345}, 'format.r.24';
 #           collect (list i s)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.r.25';
 )
 
 # (def-format-test format.r.26
@@ -606,6 +861,17 @@ is $fl.format( Q{~10,-1000000000000000r}, 12345 ), Q{12345}, 'format.r.38';
 #      collect (list radix mincol padchar commachar commaint fmt x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.0.39';
 )
 
 done-testing;

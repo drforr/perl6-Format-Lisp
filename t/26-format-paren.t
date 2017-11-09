@@ -37,6 +37,19 @@ is $fl.format(
 #         collect it)
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.paren.2';
 )
 
 #`(
@@ -59,6 +72,19 @@ is $fl.format(
 #           collect it))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~(~c~)} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.paren.2';
 )
 
 #`(
@@ -123,6 +149,19 @@ is $fl.format(
 #         collect it)
 #   nil)
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.paren.8';
 )
 
 #`(
@@ -145,6 +184,19 @@ is $fl.format(
 #           collect it))
 #   nil)
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~@(~c~)} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.paren.8';
 )
 
 # ;;; Nested conversion

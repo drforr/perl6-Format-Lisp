@@ -24,6 +24,17 @@ is $fl.format( Q{~%} ), qq{\n}, 'format.%.1';
 #         collect i)
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.%.2';
 )
 
 #`(
@@ -68,6 +79,18 @@ is do {
 #           collect i))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~v%} );
+	my @collected;
+	for 0 .. 100 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.%.5';
 )
 
 #`(
@@ -80,6 +103,17 @@ is do {
 #         collect i)
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.%.6';
 )
 
 #`(
@@ -95,6 +129,18 @@ is do {
 #           collect i))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~#%} );
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'formatter.%.6';
 )
 
 done-testing;

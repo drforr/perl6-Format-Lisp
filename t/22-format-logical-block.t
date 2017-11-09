@@ -176,6 +176,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<foo~A~;~A~;bar~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<foo~A~;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.17';
 )
 
 #`(
@@ -183,6 +186,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<foo~A~@;~A~;bar~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<foo~A~@;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.18';
 )
 
 #`(
@@ -190,6 +196,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<foo~;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.19';
 )
 
 #`(
@@ -197,6 +206,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<foo~@;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.20';
 )
 
 #`(
@@ -204,6 +216,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<foo~A~;~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<foo~A~;~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.21';
 )
 
 #`(
@@ -211,6 +226,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<foo~A~@;~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<foo~A~@;~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.22';
 )
 
 #`(
@@ -218,6 +236,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<~;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<~;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.23';
 )
 
 #`(
@@ -225,6 +246,9 @@ throws-like {
 #   (signals-error-always (format nil "~@<~@;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~@<~@;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.24';
 )
 
 #`(
@@ -232,6 +256,9 @@ throws-like {
 #   (signals-error-always (format nil "1~<X~<Y~:>Z~>2" nil nil nil) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{1~<X~<Y~:>Z~>2}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.25';
 )
 
 # ;;; "an error is also signaled if the ~<...~:;...~> form of ~<...~> is used
@@ -242,6 +269,9 @@ throws-like {
 #   (signals-error-always (format nil "~<~:;~>~<~:>" nil nil nil) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<~:;~>~<~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.26';
 )
 
 #`(
@@ -249,6 +279,9 @@ throws-like {
 #   (signals-error-always (format nil "~<~:>~<~:;~>" nil nil nil) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<~:>~<~:;~>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.27';
 )
 
 # ;;; Non-error tests

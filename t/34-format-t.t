@@ -18,6 +18,7 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #   (format nil "~1,0T")
 #   " ")
 # 
+is $fl.format( Q{~1,0T}), Q{ }, 'format.t.2';
 )
 
 #`(
@@ -25,6 +26,7 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #   (format nil "~0,1T")
 #   " ")
 # 
+is $fl.format( Q{~0,1T}), Q{ }, 'format.t.3';
 )
 
 #`(
@@ -35,6 +37,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list i s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 20 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.t.4';
 )
 
 #`(
@@ -45,6 +58,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list i s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.t.5';
 )
 
 #`(
@@ -69,6 +93,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list n1 n2 inc pretty s2 result))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.t.6';
 )
 
 #`(
@@ -93,6 +128,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list n1 n2 inc pretty s2 result))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.t.7';
 )
 
 #`(
@@ -103,6 +149,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list i s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 20 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.t.8';
 )
 
 #`(
@@ -113,6 +170,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list i s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 20 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.t.9';
 )
 
 #`(
@@ -120,6 +188,7 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #   (format nil "XXXXX~2,0T")
 #   "XXXXX")
 # 
+is $fl.format( Q{XXXXX~2,0T} ), Q{XXXXX}, 'format.t.10';
 )
 
 # ;;; @t
@@ -129,6 +198,7 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #   (format nil "~1,1@t")
 #   " ")
 # 
+is $fl.format( Q{~1,10t} ), Q{ }, 'format.@t.1';
 )
 
 #`(
@@ -140,6 +210,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list colnum s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 20 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.@t.2';
 )
 
 #`(
@@ -154,6 +235,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list colnum colinc s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.@t.3';
 )
 
 #`(
@@ -168,6 +260,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list colnum colinc s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.@t.4';
 )
 
 #`(
@@ -184,6 +287,17 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #         collect (list colnum colinc pretty s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.@t.5';
 )
 
 # ;;; Pretty printing (colon modifier)
@@ -195,6 +309,7 @@ is $fl.format( Q{~0,0T}), Q{}, 'format.t.1';
 #   (format nil "XX~10:tYY")
 #   "XXYY")
 # 
+is $fl.format( Q{XX~10:tYY} ), Q{XXYY}, 'format.\:t.1';
 )
 
 # ;;; A pretty printing stream, but *print-pretty* is nil

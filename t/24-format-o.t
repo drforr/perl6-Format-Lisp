@@ -71,6 +71,16 @@ subtest {
 #            collect (list i s1 j s2))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~o} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.1';
 )
 
 #`(
@@ -91,6 +101,16 @@ subtest {
 #            collect (list i s1 j s2))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~@O} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.1';
 )
 
 #`(
@@ -112,6 +132,15 @@ subtest {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.2';
 )
 
 #`(
@@ -134,6 +163,15 @@ subtest {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.3';
 )
 
 #`(
@@ -156,6 +194,15 @@ subtest {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.4';
 )
 
 #`(
@@ -179,6 +226,15 @@ subtest {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'formatter.o.4';
 )
 
 #`(
@@ -202,6 +258,15 @@ subtest {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.5';
 )
 
 #`(
@@ -226,6 +291,15 @@ subtest {
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'formatter.o.5';
 )
 
 #`(
@@ -250,6 +324,15 @@ subtest {
 #            collect (list i mincol s1 s2 s3 pos))))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.6';
 )
 
 #`(
@@ -275,6 +358,15 @@ subtest {
 #            collect (list i mincol s1 s2 s3 pos))))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.7';
 )
 
 # ;;; Comma tests
@@ -290,6 +382,15 @@ subtest {
 #           collect (list i s1 s2 s3)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.8';
 )
 
 #`(
@@ -316,6 +417,15 @@ subtest {
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.9';
 )
 
 #`(
@@ -343,6 +453,15 @@ subtest {
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.10';
 )
 
 #`(
@@ -368,6 +487,15 @@ subtest {
 #          collect (list x i commachar s1 s2)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.11';
 )
 
 #`(
@@ -394,6 +522,15 @@ subtest {
 #          collect (list x i commachar s1 s2)))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'formatter.o.11';
 )
 
 #`(
@@ -422,6 +559,15 @@ subtest {
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.12';
 )
 
 #`(
@@ -450,6 +596,16 @@ subtest {
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	my $f = $fl.formatter( Q{~,,v,V@:O} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.13';
 )
 
 # ;;; NIL arguments
@@ -493,6 +649,16 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~o} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.18';
 )
 
 #`(
@@ -506,6 +672,16 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~:o} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.19';
 )
 
 #`(
@@ -519,6 +695,16 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~@o} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.20';
 )
 
 #`(
@@ -534,6 +720,16 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~:@o} );
+	for 1 .. 1000 {
+#		my $x = 2 ** ( 2 + 80.rand.Int );
+#		my $i = ( ( $x + $x ).rand - $x );
+#		my $s1 = $fl.format( "~B", $i );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i );
+#		# XXX convert $s1 to base-10
+	}
+}, 0, 'format.o.20';
 )
 
 # ;;; Must add tests for non-integers when the parameters
@@ -569,6 +765,31 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #   "     12345"
 #   "      12345")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	" 11001",
+	"  11001",
+	"   11001",
+	"    11001",
+	"     11001",
+	"      11001"
+], 'format.o.22';
 )
 
 #`(
@@ -597,6 +818,31 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #   "1234567012"
 #   "1234567012")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	" 11001",
+	"  11001",
+	"   11001",
+	"    11001",
+	"     11001",
+	"      11001"
+], 'format.o.23';
 )
 
 #`(
@@ -625,30 +871,59 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #   "+1234567012"
 #   "+1234567012")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	"11001",
+	" 11001",
+	"  11001",
+	"   11001",
+	"    11001",
+	"     11001",
+	"      11001"
+], 'format.o.24';
 )
 
 #`(
 # (def-format-test format.o.25
 #   "~+10o" (#o1234) "      1234")
 # 
+is $fl.format( Q{~+10o}, 0o1234 ), Q{      1234}, 'format.o.25';
 )
 
 #`(
 # (def-format-test format.o.26
 #   "~+10@O" (#o1234) "     +1234")
 # 
+is $fl.format( Q{~+10@o}, 0o1234 ), Q{     +1234}, 'format.o.26';
 )
 
 #`(
 # (def-format-test format.o.27
 #   "~-1O" (#o1234) "1234")
 # 
+is $fl.format( Q{~-1O}, 0o1234 ), Q{1234}, 'format.o.27';
 )
 
 #`(
 # (def-format-test format.o.28
 #   "~-1000000000000000000o" (#o1234) "1234")
 # 
+is $fl.format( Q{~-1000000000000000000o}, 0o1234 ), Q{1234}, 'format.o.28';
 )
 
 #`(
@@ -685,6 +960,19 @@ is $fl.format( Q{~,,'*,v:o}, Nil, 0o12345 ), Q{12*345}, 'format.o.17';
 #      collect (list mincol padchar commachar commaint fmt x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.o.30';
 )
 
 done-testing;

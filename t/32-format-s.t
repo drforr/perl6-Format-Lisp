@@ -26,6 +26,11 @@ is do {
 #     (formatter-call-to-string (formatter "~s") nil))
 #   "NIL")
 # 
+is do {
+#	my $*PRINT-READABLY = False;
+#	my $*PRINT-CASE = 'upcase';
+#	$fl.format( Q{~s}, Nil );
+}, Q{NIL}, 'formatter.s.1';
 )
 
 # (def-format-test format.s.2
@@ -52,6 +57,11 @@ is do {
 #     (formatter-call-to-string (formatter "~:s") '(nil)))
 #   "(NIL)")
 # 
+is do {
+#	my $*PRINT-READABLY = Nil;
+#	my $*PRINT-CASE = 'upcase';
+#	$fl.format( Q{~:s}, [ Nil ] );
+}, Q{(NIL)}, 'formatter.s.3';
 )
 
 # (deftest format.s.4
@@ -73,6 +83,11 @@ is do {
 #     (formatter-call-to-string (formatter "~s") 'nil))
 #   "nil")
 # 
+is do {
+#	my $*PRINT-READABLY = Nil;
+#	my $*PRINT-CASE = 'downcase';
+#	$fl.format( Q{~s}, Nil );
+}, Q{nil}, 'formatter.s.4';
 )
 
 # (deftest format.s.5
@@ -94,6 +109,12 @@ is do {
 #     (formatter-call-to-string (formatter "~s") 'nil))
 #   "Nil")
 # 
+is do {
+#	my $*PRINT-READABLY = Nil;
+#	my $*PRINT-CASE = 'capitalize';
+#	$fl.format( Q{~s}, Nil );
+}, Q{Nil}, 'formatter.s.5';
+
 )
 
 #`(
@@ -115,6 +136,17 @@ is do {
 #              collect (list c s c2 s2)))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.s.7';
 )
 
 #`(
@@ -137,6 +169,17 @@ is do {
 #               and do (loop-finish)))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected.elems;
+}, 0, 'format.s.8';
 )
 
 #`(
@@ -163,6 +206,29 @@ is do {
 #   "      NIL"
 #   "       NIL")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"NIL",
+	"NIL",
+	"NIL",
+	" NIL",
+	"  NIL",
+	"   NIL",
+	"    NIL",
+	"     NIL",
+	"      NIL",
+	"       NIL"
+], 'format.s.9';
 )
 
 #`(
@@ -189,6 +255,29 @@ is do {
 #   "NIL      "
 #   "NIL       ")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"NIL",
+	"NIL",
+	"NIL",
+	"NIL ",
+	"NIL  ",
+	"NIL   ",
+	"NIL    ",
+	"NIL     ",
+	"NIL      ",
+	"NIL       "
+], 'format.s.10';
 )
 
 #`(
@@ -215,6 +304,29 @@ is do {
 #   "       ()"
 #   "        ()")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"()",
+	"()",
+	" ()",
+	"  ()",
+	"   ()",
+	"    ()",
+	"     ()",
+	"      ()",
+	"       ()",
+	"        ()"
+], 'format.s.11';
 )
 
 #`(
@@ -241,6 +353,29 @@ is do {
 #   "()       "
 #   "()        ")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"()",
+	"()",
+	"() ",
+	"()  ",
+	"()   ",
+	"()    ",
+	"()     ",
+	"()      ",
+	"()       ",
+	"()        "
+], 'format.s.12';
 )
 
 #`(
@@ -266,6 +401,29 @@ is do {
 #   "()       "
 #   "()        ")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"()".
+	"()".
+	"() ".
+	"()  ".
+	"()   ".
+	"()    ".
+	"()     ".
+	"()      ".
+	"()       ".
+	"()        "
+], 'format.s.13';
 )
 
 #`(
@@ -291,6 +449,29 @@ is do {
 #   "       ()"
 #   "        ()")
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"()",
+	"()",
+	" ()",
+	"  ()",
+	"   ()",
+	"    ()",
+	"     ()",
+	"      ()",
+	"       ()",
+	"        ()"
+], 'format.s.14';
 )
 
 # (def-format-test format.s.15
@@ -394,6 +575,34 @@ is $fl.format( Q{~7,3S}, Nil ), Q{NIL      };
 #    "ABC      "
 #    "ABC       "))
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC  ",
+	"ABC   ",
+	"ABC    ",
+	"ABC     ",
+	"ABC      ",
+	"ABC       "
+], 'format.s.29';
 )
 
 # (def-format-test format.s.30
@@ -489,6 +698,26 @@ is $fl.format( Q{~3,,vS}, Nil, 246 ), Q{246};
 #    "ABC     "
 #    "ABC      "))
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"ABC"
+	"ABC "
+	"ABC  "
+	"ABC   "
+	"ABC    "
+	"ABC     "
+	"ABC      "
+], 'format.s.44';
 )
 
 #`(
@@ -510,6 +739,26 @@ is $fl.format( Q{~3,,vS}, Nil, 246 ), Q{246};
 #    "     ABC"
 #    "      ABC"))
 # 
+is-deeply do {
+	my @collected;
+	my $fn = $fl.formatter( Q{~#B} );
+	my $bv = 0b11001;
+	for 0 .. 10 -> $i {
+#		my @args = 
+##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"ABC",
+	" ABC",
+	"  ABC",
+	"   ABC",
+	"    ABC",
+	"     ABC",
+	"      ABC"
+], 'formatter.s.44a';
 )
 
 # (def-format-test format.s.45
