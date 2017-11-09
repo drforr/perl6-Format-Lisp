@@ -145,6 +145,18 @@ is do {
 #         collect (list mincol len s1 s2 expected))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = 'x' xx $i - 1;
+#		my $expected = $s1 ~ '  ' ~ $s1;
+#		my $s2 = $fl.format( Q{~,,2<~A~;~A~>}, $s1, $s1 );
+#		unless $s2 eq $expected {
+#			@collected.append( [ $i, $expected, $s2 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.justify.7';
 )
 
 #`(
@@ -164,6 +176,18 @@ is do {
 #         collect (list mincol minpad len s1 s2 expected))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = 'x' xx $i - 1;
+#		my $expected = $s1 ~ '  ' ~ $s1;
+#		my $s2 = $fl.format( Q{~,,2<~A~;~A~>}, $s1, $s1 );
+#		unless $s2 eq $expected {
+#			@collected.append( [ $i, $expected, $s2 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.justify.8';
 )
 
 #`(
@@ -183,6 +207,18 @@ is do {
 #         collect (list mincol padchar len s1 s2 expected))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = 'x' xx $i - 1;
+#		my $expected = $s1 ~ '  ' ~ $s1;
+#		my $s2 = $fl.format( Q{~,,2<~A~;~A~>}, $s1, $s1 );
+#		unless $s2 eq $expected {
+#			@collected.append( [ $i, $expected, $s2 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.justify.9';
 )
 
 #`(
@@ -202,6 +238,18 @@ is do {
 #         collect (list mincol padchar len s1 s2 expected))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 500 {
+#		my $s1 = 'x' xx $i - 1;
+#		my $expected = $s1 ~ '  ' ~ $s1;
+#		my $s2 = $fl.format( Q{~,,2<~A~;~A~>}, $s1, $s1 );
+#		unless $s2 eq $expected {
+#			@collected.append( [ $i, $expected, $s2 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.justify.10';
 )
 
 #`(
@@ -219,6 +267,18 @@ is do {
 #         collect (list i colinc expected s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 10 {
+#		my $s1 = 'x' xx $i - 1;
+#		my $expected = $s1 ~ '  ' ~ $s1;
+#		my $s2 = $fl.format( Q{~,,2<~A~;~A~>}, $s1, $s1 );
+#		unless $s2 eq $expected {
+#			@collected.append( [ $i, $expected, $s2 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.justify.11';
 )
 
 #`(

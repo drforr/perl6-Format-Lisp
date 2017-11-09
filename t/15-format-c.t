@@ -7,9 +7,32 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+subtest {
+	is $fl.format( Q{~C}, 'a' ), Q{a}, 'format.c.1';
+
+	is $fl.format( Q{~c}, 'Ø' ), Q{Ø}, 'format.c.1a';
+
+	is $fl.format( Q{~:c}, ' ' ), Q{Space}, 'format.c.2';
+
+	is $fl.format( Q{~:C}, "\n" ), Q{Linefeed}, 'format.c.2a';
+
+	# format.c.3 is its own coverage
+
+	# format.c.4 is redundant
+
+	# format.c.4a is redundant
+
+	is $fl.format( Q{~@c}, 'a' ), Q{a}, 'format.c.5';
+
+	is $fl.format( Q{~@C}, 'Ø' ), Q{Ø}, 'format.c.5a';
+
+	# format.c.6 is redundant
+
+	# format.c.6a is redundant
+}, 'missing coverage';
+
 # ;;; Test of the ~C directive
 # 
-#`(
 # (deftest format.c.1
 #   (loop for c across +standard-chars+
 #         for s = (format nil "~C" c)
@@ -17,7 +40,16 @@ my $fl = Format::Lisp.new;
 #         collect (list c s))
 #   nil)
 # 
-)
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~C}, $c );
+		unless $s eq $c {
+			@collected.append( [ $c, $s ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.c.1';
 
 #`(
 # (deftest format.c.1a
@@ -32,6 +64,16 @@ my $fl = Format::Lisp.new;
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~c}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.c.1a';
 )
 
 #`(
@@ -44,6 +86,16 @@ my $fl = Format::Lisp.new;
 #         collect (list c s))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~:c}, $c );
+		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.c.2';
 )
 
 #`(
@@ -61,12 +113,22 @@ my $fl = Format::Lisp.new;
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~:C}, $c );
+		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.c.2a';
 )
 
 # (def-format-test format.c.3
 #   "~:C" (#\Space) #.(char-name #\Space))
 # 
-is $fl.format( Q{~:c}, ' ' ), Q{Space}, 'format.c.3';
+is $fl.format( Q{~:C}, ' ' ), Q{Space}, 'format.c.3';
 
 #`(
 # (deftest format.c.4
@@ -77,13 +139,16 @@ is $fl.format( Q{~:c}, ' ' ), Q{Space}, 'format.c.3';
 #         collect (list c (char-name c) s))
 #   nil)
 # 
-subtest {
+is do {
 	my @collected;
 	for @standard-chars -> $c {
-		my $s = $fl.format( "~:C", $c );
-		unless 
+		my $s = $fl.format( Q{~:C}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
 	}
-}, 'format.c.4';
+	@collected.elems;
+}, 0, 'format.c.4';
 )
 
 #`(
@@ -100,6 +165,16 @@ subtest {
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~:c}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.c.4a';
 )
 
 #`(
@@ -111,6 +186,16 @@ subtest {
 #         collect (list c s c2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~@c}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.c.5';
 )
 
 #`(
@@ -125,6 +210,16 @@ subtest {
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s = $fl.format( Q{~@C}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.c.5';
 )
 
 #`(
@@ -136,6 +231,17 @@ subtest {
 #         collect (list c s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s1 = $fl.format( Q{~:C}, $c );
+		my $s2 = $fl.format( Q{~:@C}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.c.6';
 )
 
 #`(
@@ -150,6 +256,17 @@ subtest {
 #         when (> count 100) collect "count limit exceeded" and do (loop-finish))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @standard-chars -> $c {
+		my $s1 = $fl.format( Q{~:C}, $c );
+		my $s2 = $fl.format( Q{~@:C}, $c );
+#		unless $s eq $c {
+#			@collected.append( [ $c, $s ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.c.6a';
 )
 
 done-testing;

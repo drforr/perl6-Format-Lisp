@@ -22,6 +22,18 @@ my $fl = Format::Lisp.new;
 #          collect (list i s1 j)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+		my $x = 1 >> ( 80.rand.Int + 2 );
+		my $i = ( $x + $x ).rand.Int - $x;
+		my $s1 = $fl.format( "~D", $i );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.1';
 )
 
 #`(
@@ -40,6 +52,19 @@ my $fl = Format::Lisp.new;
 #            collect (list i s1 j))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~D} );
+	my @collected;
+	for 1 .. 1000 {
+		my $x = 1 >> ( 80.rand.Int + 2 );
+		my $i = ( $x + $x ).rand.Int - $x;
+		my $s1 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'formatter.d.1';
 )
 
 #`(
@@ -57,6 +82,18 @@ my $fl = Format::Lisp.new;
 #          collect (list i s1 j)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+		my $x = 1 >> ( 80.rand.Int + 2 );
+		my $i = ( $x + $x ).rand.Int - $x;
+		my $s1 = $fl.format( "~@D", $i );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.2';
 )
 
 #`(
@@ -75,6 +112,19 @@ my $fl = Format::Lisp.new;
 #            collect (list i s1 j))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~@D} );
+	my @collected;
+	for 1 .. 1000 {
+		my $x = 1 >> ( 80.rand.Int + 2 );
+		my $i = ( $x + $x ).rand.Int - $x;
+		my $s1 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'formatter.d.2';
 )
 
 #`(
@@ -95,6 +145,18 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.3';
 )
 
 #`(
@@ -118,6 +180,18 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'formatter.d.3';
 )
 
 #`(
@@ -145,6 +219,18 @@ my $fl = Format::Lisp.new;
 #          while (<= count limit)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.4';
 )
 
 #`(
@@ -173,6 +259,20 @@ my $fl = Format::Lisp.new;
 #          while (<= count limit)))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $limit = 10;
+	my $count = 0;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'formatter.d.4';
 )
 
 #`(
@@ -194,6 +294,18 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.5';
 )
 
 #`(
@@ -217,6 +329,18 @@ my $fl = Format::Lisp.new;
 #          collect (list i mincol s1 s2 pos)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'formatter.d.5';
 )
 
 #`(
@@ -241,6 +365,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i mincol s1 s2 s3 pos))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.6';
 )
 
 #`(
@@ -271,6 +407,20 @@ my $fl = Format::Lisp.new;
 #            while (<= count limit))))
 #   nil)
 # 
+is do {
+	my @collected;
+	my $limit = 10;
+	my $count = 0;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.7';
 )
 
 # ;;; Comma tests
@@ -288,6 +438,20 @@ my $fl = Format::Lisp.new;
 #           collect (list i s1 s2 s3 s4)))
 #   nil)
 # 
+is do {
+	my $fn1 = $fl.formatter( Q{~d} );
+	my $fn2 = $fl.formatter( Q{~:d} );
+	my @collected;
+	for -999 .. 999 -> $i {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.8';
 )
 
 #`(
@@ -317,6 +481,20 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3 s4))))
 #   nil)
 # 
+is do {
+	my $fn1 = $fl.formatter( Q{~d} );
+	my $fn2 = $fl.formatter( Q{~:d} );
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.9';
 )
 
 #`(
@@ -344,6 +522,19 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,,v:d} );
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.10';
 )
 
 #`(
@@ -369,6 +560,18 @@ my $fl = Format::Lisp.new;
 #          collect (list x i commachar s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.11';
 )
 
 #`(
@@ -396,6 +599,18 @@ my $fl = Format::Lisp.new;
 #          collect (list x i commachar s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'formatter.d.11';
 )
 
 #`(
@@ -424,6 +639,19 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,,v,v:d} );
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.12';
 )
 
 #`(
@@ -451,6 +679,19 @@ my $fl = Format::Lisp.new;
 #            collect (list x i commachar s1 s2 s3))))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,,v,v:@D} );
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.d.13';
 )
 
 # ;;; NIL arguments
@@ -490,6 +731,17 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #         collect (list x s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+	for @mini-universe -> $x {
+		my $s1 = $fl.format( Q{~d}, $x );
+		my $s2 = $fl.format( Q{~A}, $x );
+		unless $x ~~ Int or $s1 eq $s2 {
+			@collected.append( [ $x, $s1, $s2 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.d.18';
 )
 
 #`(
@@ -501,6 +753,18 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #         collect (list x s1 s2))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~a} );
+	my @collected;
+	for @mini-universe -> $x {
+		my $s1 = $fl.format( Q{~:d}, $x );
+		my $s2 = $fl.format( Q{~A}, $x );
+		unless $x ~~ Int or $s1 eq $s2 {
+			@collected.append( [ $x, $s1, $s2 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.d.19';
 )
 
 #`(
@@ -512,6 +776,18 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #         collect (list x s1 s2))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~a} );
+	my @collected;
+	for @mini-universe -> $x {
+		my $s1 = $fl.format( Q{~@d}, $x );
+		my $s2 = $fl.format( Q{~A}, $x );
+		unless $x ~~ Int or $s1 eq $s2 {
+			@collected.append( [ $x, $s1, $s2 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.d.20';
 )
 
 #`(
@@ -524,6 +800,19 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #         collect (list x s1 s2))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~a} );
+	my @collected;
+	for @mini-universe -> $x {
+		my $s1 = $fl.format( Q{~A}, $x );
+		my $s2 = $fl.format( Q{~@:d}, $x );
+		my $s3 = $fl.format( Q{~A}, $x );
+		unless $x ~~ Int or $s1 eq $s2 or $s1 ne $s3 {
+			@collected.append( [ $x, $s1, $s2 ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.d.21';
 )
 
 # ;;; Must add tests for non-integers when the parameters
@@ -553,6 +842,30 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #   "     12345"
 #   "      12345")
 # 
+is-deeply do {
+	my @collected;
+	for 0 .. 10 -> $i {
+		my @args = (Nil) xx $i;
+#		my $fmt = $fl.format( Q{~~~d@a}, $i );
+#		my $s = $fl.format( $fmt, Nil );
+#		my $fn = $fl.formatter( $fmt );
+#		my $s2 = $fl.formatter-call-to-string( $fn, Nil );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"12345",
+	"12345",
+	"12345",
+	"12345",
+	"12345",
+	" 12345",
+	"  12345",
+	"   12345",
+	"    12345",
+	"     12345",
+	"      12345"
+], 'format.d.22';
 )
 
 #`(
@@ -579,6 +892,30 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #   "     12345"
 #   "      12345")
 # 
+is-deeply do {
+	my @collected;
+	for 0 .. 10 -> $i {
+		my @args = (Nil) xx $i;
+#		my $fmt = $fl.format( Q{~~~d@a}, $i );
+#		my $s = $fl.format( $fmt, Nil );
+#		my $fn = $fl.formatter( $fmt );
+#		my $s2 = $fl.formatter-call-to-string( $fn, Nil );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"12345",
+	"12345",
+	"12345",
+	"12345",
+	"12345",
+	" 12345",
+	"  12345",
+	"   12345",
+	"    12345",
+	"     12345",
+	"      12345"
+], 'formatter.d.22';
 )
 
 #`(
@@ -606,6 +943,31 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #   "1234567890"
 #   "1234567890")
 # 
+is-deeply do {
+	my @collected;
+	for 0 .. 10 -> $i {
+		my @args = (Nil) xx $i;
+#		my $fmt = $fl.format( Q{~~~d@a}, $i );
+#say $fmt;
+#		my $s = $fl.format( $fmt, Nil );
+#		my $fn = $fl.formatter( $fmt );
+#		my $s2 = $fl.formatter-call-to-string( $fn, Nil );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"1,2,3,4,5,6,7,8,9,0",
+	"12,34,56,78,90",
+	"1,234,567,890",
+	"12,3456,7890",
+	"12345,67890",
+	"1234,567890",
+	"123,4567890",
+	"12,34567890",
+	"1,234567890",
+	"1234567890",
+	"1234567890"
+], 'format.d.23';
 )
 
 #`(
@@ -633,6 +995,31 @@ is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
 #   "+1234567890"
 #   "+1234567890")
 # 
+is-deeply do {
+	my @collected;
+	for 0 .. 10 -> $i {
+		my @args = (Nil) xx $i;
+#		my $fmt = $fl.format( Q{~~~d@a}, $i );
+#say $fmt;
+#		my $s = $fl.format( $fmt, Nil );
+#		my $fn = $fl.formatter( $fmt );
+#		my $s2 = $fl.formatter-call-to-string( $fn, Nil );
+#		is $s, $s2;
+#		@collected.append( $s );
+	}
+	@collected;
+}, [	"+1,2,3,4,5,6,7,8,9,0",
+	"+12,34,56,78,90",
+	"+1,234,567,890",
+	"+12,3456,7890",
+	"+12345,67890",
+	"+1234,567890",
+	"+123,4567890",
+	"+12,34567890",
+	"+1,234567890",
+	"+1234567890",
+	"+1234567890"
+], 'format.d.24';
 )
 
 # (def-format-test format.d.25
@@ -689,6 +1076,19 @@ is $fl.format( Q{~-1000000000000000000d}, 1234 ), Q{1234}, 'format.d.28';
 #      collect (list mincol padchar commachar commaint fmt x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~a} );
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+#	}
+	@collected.elems;
+}, 0, 'format.d.30';
 )
 
 done-testing;

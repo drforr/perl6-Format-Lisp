@@ -26,6 +26,19 @@ my $fl = Format::Lisp.new;
 #      collect (list x type s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~F} );
+	my @collected;
+	for 0.0, -0.0 -> $x { # XXX Not a lot of different types.
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+#	}
+	@collected.elems;
+}, 0, 'format.f.1';
 )
 
 #`(
@@ -49,6 +62,19 @@ my $fl = Format::Lisp.new;
 #      collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~f} );
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.2';
 )
 
 #`(
@@ -71,6 +97,19 @@ my $fl = Format::Lisp.new;
 #      collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~F} );
+	my @collected;
+	for 1 .. 1000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.3';
 )
 
 #`(
@@ -83,6 +122,20 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~3f} );
+	my @collected;
+	for 1, 1.0 -> $x {
+#	for @standard-chars -> $c {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.4';
 )
 
 #`(
@@ -95,6 +148,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~2f} );
+	my @collected;
+	for 1, 1.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.5';
 )
 
 #`(
@@ -107,6 +173,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4F} );
+	my @collected;
+	for 1, 1.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.6';
 )
 
 #`(
@@ -119,6 +198,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4@F} );
+	my @collected;
+	for 1, 1.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.7';
 )
 
 #`(
@@ -131,6 +223,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~3@F} );
+	my @collected;
+	for 1, 1.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.8';
 )
 
 #`(
@@ -143,6 +248,19 @@ my $fl = Format::Lisp.new;
 #           collect (list (- x) s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4f} );
+	my @collected;
+	for 1, 1.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.9';
 )
 
 #`(
@@ -155,6 +273,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~3F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.10';
 )
 
 #`(
@@ -167,6 +298,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4f} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.11';
 )
 
 #`(
@@ -179,6 +323,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4,2F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.12';
 )
 
 #`(
@@ -191,6 +348,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~3,2F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.13';
 )
 
 #`(
@@ -203,6 +373,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~2,1F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.14';
 )
 
 #`(
@@ -215,6 +398,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4,2@F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.15';
 )
 
 #`(
@@ -227,6 +423,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~2,2F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.16';
 )
 
 #`(
@@ -239,6 +448,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,2F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.17';
 )
 
 #`(
@@ -252,6 +474,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,2F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.18';
 )
 
 #`(
@@ -264,6 +499,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4,2,-1F} );
+	my @collected;
+	for 5, 5.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.19';
 )
 
 #`(
@@ -276,6 +524,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4,2,0F} );
+	my @collected;
+	for 1/2, 0.5 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.20';
 )
 
 #`(
@@ -288,6 +549,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4,2,1f} );
+	my @collected;
+	for 1/20, 0.05 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.21';
 )
 
 # ;;; overflow
@@ -303,6 +577,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~5,1,,'*F} );
+	my @collected;
+	for 1000, 1000.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.22';
 )
 
 #`(
@@ -316,6 +603,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~5,1,,'*f} );
+	my @collected;
+	for 100, 100.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.23';
 )
 
 #`(
@@ -329,6 +629,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~4,0,,'*F} );
+	my @collected;
+	for 100, 100.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.24';
 )
 
 #`(
@@ -342,6 +655,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~1,1,,f} );
+	my @collected;
+	for 100, 100.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.25';
 )
 
 # ;;; padchar
@@ -357,6 +683,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~10,1,,f} );
+	my @collected;
+	for 100, 100.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.25';
 )
 
 #`(
@@ -370,6 +709,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s s2)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~10,1,,,'*F} );
+	my @collected;
+	for 100, 100.0 -> $x {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.27';
 )
 
 # ;;; v parameters
@@ -386,6 +738,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~VF} );
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.28';
 )
 
 #`(
@@ -400,6 +765,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,vf} );
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.29';
 )
 
 #`(
@@ -414,6 +792,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,,Vf} );
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.30';
 )
 
 #`(
@@ -428,6 +819,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,,,vF} );
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.31';
 )
 
 #`(
@@ -442,6 +846,19 @@ my $fl = Format::Lisp.new;
 #           collect (list x s1 s2 s3)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( Q{~,,,,VF} );
+	my @collected;
+	for 1 .. 100 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.32';
 )
 
 # ;;; Randomized tests
@@ -482,6 +899,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for (1 >> 13) - 1 .. (1 >> 13) -> $i {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.34';
 )
 
 #`(
@@ -497,6 +926,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.35';
 )
 
 #`(
@@ -512,6 +953,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.36';
 )
 
 #`(
@@ -527,6 +980,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.37';
 )
 
 #`(
@@ -556,6 +1021,18 @@ my $fl = Format::Lisp.new;
 #                 and do (loop-finish)))))))
 #   nil)
 # 
+is do {
+	my @collected;
+#	for @standard-chars -> $c {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+#	}
+	@collected.elems;
+}, 0, 'format.f.38';
 )
 
 #`(
@@ -573,6 +1050,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf w d s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.39';
 )
 
 #`(
@@ -590,6 +1079,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf w d s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.40';
 )
 
 #`(
@@ -607,6 +1108,18 @@ my $fl = Format::Lisp.new;
 #            collect (list i sf w d s i2))))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.41';
 )
 
 #`(
@@ -642,6 +1155,18 @@ my $fl = Format::Lisp.new;
 #      collect (list x w d k overflowchar padchar f1 s1 s2)))
 #   nil)
 # 
+is do {
+	my @collected;
+	for 1 .. 2000 {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+	}
+	@collected.elems;
+}, 0, 'format.f.42';
 )
 
 # ;;; This failed in sbcl 0.8.12.25
@@ -665,6 +1190,18 @@ is $fl.format( Q{~,,,,',f}, 0.0 ), Q{0.0}, 'format.f.43';
 #         collect (list i c f1 s1 s2))
 #   nil)
 # 
+is do {
+	my @collected;
+#	for @standard-chars -> $c {
+#		my $s1 = $c;
+#		my $s2 = $fl.format( Q{~a}, $s1 );
+#		my $s3 = $fl.formatter-call-to-string( $fn, $s1 );
+#		unless $s1 eq $s1 and $s2 eq $s3 {
+#			@collected.append( [ $c, $s1, $s2, $s3 ] );
+#		}
+#	}
+	@collected.elems;
+}, 0, 'format.f.44';
 )
 
 #`(

@@ -187,7 +187,6 @@ is-deeply do {
 	my @collected;
 	for 1 .. 10 -> $i {
 		my $fmt = $fl.format( Q{~~~d@a}, $i );
-say $fmt;
 		my $s = $fl.format( $fmt, Nil );
 		my $fn = $fl.formatter( $fmt );
 		my $s2 = $fl.formatter-call-to-string( $fn, Nil );

@@ -55,20 +55,7 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [
-	'',
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'f',
-	'g',
-	'h',
-	'i',
-	'',
-	''
-], 'format.cond.7';
+}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ], 'format.cond.7';
 )
 
 #`(
@@ -78,6 +65,16 @@ is-deeply do {
 #           collect (formatter-call-to-string fn i)))
 #   ("" "a" "b" "c" "d" "e" "f" "g" "h" "i" "" ""))
 # 
+is-deeply do {
+	my $fn = $fl.formatter( Q{~[a~;b~;c~;d~;e~;f~;g~;h~;i~] );
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fl.formatter-call-to-string( $fn, $i )
+		);
+	}
+	@collected;
+}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ], 'format.cond.7';
 )
 
 #`(
@@ -126,20 +123,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [
-	'',
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'f',
-	'g',
-	'h',
-	'i',
-	'',
-	''
-], 'format.cond.13';
+}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
+   'format.cond.13';
 )
 
 #`(
@@ -149,6 +134,17 @@ is-deeply do {
 #           collect (formatter-call-to-string fn i)))
 #   ("" "a" "b" "c" "d" "e" "f" "g" "h" "i" "" ""))
 # 
+is-deeply do {
+	my $fn = $fl.formatter( Q{~V[a~;b~;c~;d~;e~;f~;g~;h~;i~]} );
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fl.formatter-call-to-string( $fn, $i )
+		);
+	}
+	@collected;
+}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
+   'formatter.cond.13';
 )
 
 #`(
@@ -165,20 +161,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [
-	'',
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'f',
-	'g',
-	'h',
-	'i',
-	'',
-	''
-], 'format.cond.13';
+}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
+   'format.cond.13';
 )
 
 #`(
@@ -188,6 +172,17 @@ is-deeply do {
 #           collect (formatter-call-to-string fn nil i)))
 #   ("" "a" "b" "c" "d" "e" "f" "g" "h" "i" "" ""))
 # 
+is-deeply do {
+	my $fn = $fl.formatter( "~v[a~;b~;c~;d~;e~;f~;g~;h~;i~]" );
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fl.formatter-call-to-string( $fn, Nil, $i )
+		);
+	}
+	@collected;
+}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
+   'formatter.cond.14';
 )
 
 #`(
@@ -235,6 +230,17 @@ is do {
 #           collect (list i s)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~[~:;a~]" );
+	my @collected;
+	for -100 .. 100 -> $i {
+		my $s = $fl.formatter-call-to-string( $fn, $i );
+		unless $i == 0 or $s eq 'a' {
+			@collected.append( [ $i, $s ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'formatter.cond:.1';
 )
 
 #`(
@@ -271,20 +277,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [
-	'e',
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'e',
-	'g',
-	'e',
-	'e',
-	'e',
-	'e'
-], 'format.cond.7';
+}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
+   'format.cond.5';
 )
 
 #`(
@@ -294,6 +288,17 @@ is-deeply do {
 #           collect (formatter-call-to-string fn i)))
 #   ("e" "a" "b" "c" "d" "e" "e" "e" "e" "e" "e" "e"))
 # 
+is-deeply do {
+	my $fn = $fl.formatter( "~[a~;b~;c~;d~:;e~]" );
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fl.formatter-call-to-string( $fn, $i )
+		);
+	}
+	@collected;
+}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
+   'formatter.cond.5';
 )
 
 #`(
@@ -310,20 +315,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [
-	'e',
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'e',
-	'g',
-	'e',
-	'e',
-	'e',
-	'e'
-], 'format.cond:.6';
+}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
+   'format.cond:.6';
 )
 
 #`(
@@ -333,6 +326,17 @@ is-deeply do {
 #           collect (formatter-call-to-string fn i)))
 #   ("e" "a" "b" "c" "d" "e" "e" "e" "e" "e" "e" "e"))
 # 
+is-deeply do {
+	my $fn = $fl.formatter( "~v[a~;b~;c~;d~:;e~]" );
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fl.format( $fn, $i, Nil )
+		);
+	}
+	@collected;
+}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
+   'formatter.cond:.6';
 )
 
 #`(
@@ -349,20 +353,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [
-	'e',
-	'a',
-	'b',
-	'c',
-	'd',
-	'e',
-	'e',
-	'g',
-	'e',
-	'e',
-	'e',
-	'e'
-], 'format.cond:.7';
+}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
+   'format.cond:.7';
 )
 
 #`(
@@ -372,6 +364,17 @@ is-deeply do {
 #           collect (formatter-call-to-string fn nil i)))
 #   ("e" "a" "b" "c" "d" "e" "e" "e" "e" "e" "e" "e"))
 # 
+is-deeply do {
+	my $fn = $fl.formatter( "~v[a~;b~;c~;d~:;e~]" );
+	my @collected;
+	for -1 .. 10 -> $i {
+		@collected.append(
+			$fl.formatter-call-to-string( $fn, Nil, $i )
+		);
+	}
+	@collected;
+}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
+   'formatter.cond:.7';
 )
 
 #`(
@@ -427,6 +430,18 @@ is do {
 #           collect (list x s)))
 #   nil)
 # 
+is do {
+	my $fn = $fl.formatter( "~:[a~;b~]" );
+	die; # mini-univere isn't finished
+	my @collected;
+	for @mini-universe -> $x {
+		my $s = $fl.formatter-call-to-string( $fn, $x );
+		if $x and $s ne 'b' {
+			@collected.append( [ $x, $s ] );
+		}
+	}
+	@collected.elems;
+}, 0, 'format.:cond.2';
 )
 
 # ;;; ~@[ ... ~]
