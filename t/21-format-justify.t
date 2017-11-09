@@ -511,6 +511,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~< ~W ~>" nil) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~< ~W ~>}, Nil );
+}, X::Error, 'format.justify.error.w.1';
 )
 
 #`(
@@ -518,6 +521,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~<X~:;Y~>~W" nil) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<X~:;Y~>~W}, Nil );
+}, X::Error, 'format.justify.error.w.2';
 )
 
 #`(
@@ -525,6 +531,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~w~<X~:;Y~>" nil) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~w~<X~:;Y~>}, Nil );
+}, X::Error, 'format.justify.error.w.3';
 )
 
 # ;;; Interaction with ~_
@@ -534,6 +543,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~< ~_ ~>") error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~< ~_ ~>} );
+}, X::Error, 'format.justify.error._.1';
 )
 
 #`(
@@ -541,6 +553,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~<X~:;Y~>~_") error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<X~:;Y~>~_} );
+}, X::Error, 'format.justify.error._.2';
 )
 
 #`(
@@ -548,6 +563,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~_~<X~:;Y~>") error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~_~<X~:;Y~>} );
+}, X::Error, 'format.justify.error._.3';
 )
 
 # ;;; Interaction with ~I
@@ -557,6 +575,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~< ~i ~>") error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~< ~i ~>} );
+}, X::Error, 'format.justify.error.i.1';
 )
 
 #`(
@@ -564,6 +585,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~<X~:;Y~>~I") error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<X~:;Y~>~I} );
+}, X::Error, 'format.justify.error.i.2';
 )
 
 #`(
@@ -571,6 +595,9 @@ is $fl.format(
 #   (signals-error-always (format nil "~i~<X~:;Y~>") error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~i~<X~:;Y~>} );
+}, X::Error, 'format.justify.error.i.2';
 )
 
 done-testing;

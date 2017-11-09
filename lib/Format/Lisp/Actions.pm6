@@ -332,7 +332,11 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	has $.trailing-colon = False;
 }
 
-class Format::Lisp::Directive::Caret is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Caret is Format::Lisp::Directive {
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
+}
 
 class Format::Lisp::Directive::C is Format::Lisp::Directive {
 	method to-string( $_argument, $next, $remaining ) {

@@ -15,7 +15,10 @@ my $fl = Format::Lisp.new;
 # (deftest format.logical-block.error.1
 #   (signals-error-always (format nil "~<foo~A~;~A~;bar~:>" '(X) '(Y)) error)
 #   t t)
-# 
+#I 
+throws-like {
+	$fl.format( Q{~<foo~A~;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.1';
 )
 
 #`(
@@ -23,6 +26,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<foo~A~@;~A~;bar~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<foo~A~@;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.2';
 )
 
 #`(
@@ -30,6 +36,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<foo~;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.3';
 )
 
 #`(
@@ -37,6 +46,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<foo~@;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.4';
 )
 
 #`(
@@ -44,6 +56,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<foo~A~;~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<foo~A~;~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.5';
 )
 
 #`(
@@ -51,6 +66,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<foo~A~@;~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<foo~A~@;~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.6';
 )
 
 #`(
@@ -58,6 +76,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<~;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<~;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.7';
 )
 
 #`(
@@ -65,6 +86,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~<~@;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~<~@;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.8';
 )
 
 #`(
@@ -72,6 +96,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<foo~A~;~A~;bar~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<foo~A~;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.9';
 )
 
 #`(
@@ -79,6 +106,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<foo~A~@;~A~;bar~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<foo~A~@;~A~;bar~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.10';
 )
 
 #`(
@@ -86,6 +116,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<foo~;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<foo~;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.11';
 )
 
 #`(
@@ -93,6 +126,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<foo~@;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<foo~@;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.12';
 )
 
 #`(
@@ -100,6 +136,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<foo~A~;~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<foo~A~;~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.13';
 )
 
 #`(
@@ -107,6 +146,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<foo~A~@;~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<foo~A~@;~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.14';
 )
 
 #`(
@@ -114,6 +156,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<~;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<~;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.15';
 )
 
 #`(
@@ -121,6 +166,9 @@ my $fl = Format::Lisp.new;
 #   (signals-error-always (format nil "~:<~@;~A~;bar~A~:>" '(X) '(Y)) error)
 #   t t)
 # 
+throws-like {
+	$fl.format( Q{~:<~@;~A~;bar~A~:>}, [ 'X' ], [ 'Y' ] );
+}, X::Error, 'format.logical-block.error.16';
 )
 
 #`(
