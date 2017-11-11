@@ -22,24 +22,20 @@ is $fl.format( Q{~[a~]}, 0 ), Q{a}, 'format.cond.2';
 # 
 is $fl.format( Q{~[a~]}, -1 ), Q{}, 'format.cond.3';
 
-#`(
 # (def-format-test format.cond.4
 #   "~[a~]" ((1- most-negative-fixnum)) "")
 # 
-# Redundant
-)
+# XXX Don't think it's applicable?
 
 # (def-format-test format.cond.5
 #   "~[a~]" (1) "")
 # 
 is $fl.format( Q{~[a~]}, 1 ), Q{}, 'format.cond.5';
 
-#`(
 # (def-format-test format.cond.6
 #   "~[a~]" ((1+ most-positive-fixnum)) "")
 # 
-# Redundant
-)
+# XXX Don't think it's applicable?
 
 #`(
 # (deftest format.cond.7
@@ -250,18 +246,15 @@ is do {
 is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
 )
 
-#`(
 # (def-format-test format.cond\:.3
 #   "~[a~:;b~]" ((1- most-negative-fixnum)) "b")
 # 
-is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
-)
+# XXX Don't think it's applicable?
 
-#`(
 # (def-format-test format.cond\:.4
 #   "~[a~:;b~]" ((1+ most-positive-fixnum)) "b")
 # 
-)
+# XXX Don't think it's applicable?
 
 #`(
 # (deftest format.cond\:.5

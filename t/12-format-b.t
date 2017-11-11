@@ -832,11 +832,10 @@ is $fl.format( Q{~+1b}, 0b1101 ), Q{1101}, 'format.b.27';
 # 
 is $fl.format( Q{~-1000000000000000000B}, 0b1101 ), Q{1101}, 'format.b.28';
 
-#`(
 # (def-format-test format.b.29
 #   "~vb" ((1- most-negative-fixnum) #b1101) "1101")
 # 
-)
+# XXX Don't think it's applicable?
 
 # ;;; Randomized test
 # 

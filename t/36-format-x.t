@@ -606,11 +606,10 @@ is $fl.format( Q{~vx}, Nil, 0x100 ), Q{100}, 'format.x.14';
 # 
 )
 
-#`(
 # (def-format-test format.x.29
 #   "~vx" ((1- most-negative-fixnum) #x1234) "1234")
 # 
-)
+# XXX Don't think it's applicable?
 
 # ;;; Randomized test
 # 

@@ -926,11 +926,10 @@ is $fl.format( Q{~-1O}, 0o1234 ), Q{1234}, 'format.o.27';
 is $fl.format( Q{~-1000000000000000000o}, 0o1234 ), Q{1234}, 'format.o.28';
 )
 
-#`(
 # (def-format-test format.o.29
 #   "~vo" ((1- most-negative-fixnum) #o1234) "1234")
 # 
-)
+# XXX Don't think it's applicable?
 
 # ;;; Randomized test
 # 
