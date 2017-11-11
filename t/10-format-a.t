@@ -507,8 +507,6 @@ is $fl.format( Q{~7,3A}, Nil ), "NIL      ", 'format.a.28';
 
 # ;;; With minpad
 # 
-
-#`(
 # (deftest format.a.29
 #   (let ((fn (formatter "~v,,2A")))
 #     (loop for i from -4 to 10
@@ -532,6 +530,7 @@ is $fl.format( Q{~7,3A}, Nil ), "NIL      ", 'format.a.28';
 #    "ABC      "
 #    "ABC       "))
 # 
+is $fl.format( Q{~v,,2A}, 4, 'ABC' ), "ABC  ", 'format.a.29 regression';
 is-deeply do {
 	my @collected;
 	my $fn = $fl.formatter( Q{~v,,2A} );
@@ -559,7 +558,6 @@ is-deeply do {
 	"ABC      ",
 	"ABC       "
 ], 'format.a.29';
-)
 
 # (def-format-test format.a.30
 #   "~3,,+2A" ("ABC") "ABC  ")
