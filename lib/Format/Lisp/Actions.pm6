@@ -44,8 +44,6 @@ class Format::Lisp::Directive {
 		return $text;
 	}
 
-#~mincol,colinc,minpad,padcharA is the full form of ~A, which allows control of the padding. The string is padded on the right (or on the left if the @ modifier is used) with at least minpad copies of padchar; padding characters are then inserted colinc characters at a time until the total width is at least mincol. The defaults are 0 for mincol and minpad, 1 for colinc, and the space character for padchar. 
-
 	method pad( $out, $at, $mincol, $colinc, $minpad, $padchar ) {
 		my $padding = '';
 		if $minpad > 0 {
@@ -398,6 +396,16 @@ class Format::Lisp::Directive::D is Format::Lisp::Directive {
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
 		$out = self.print-case( $out );
+		my $chars-to-commify = $out.chars;
+		$chars-to-commify-- if $out ~~ /^\-/;
+		if $.colon and $chars-to-commify > $comma-interval {
+			my $commas-to-add =
+				$chars-to-commify / $comma-interval;
+			for 0 .. $commas-to-add - 1 -> $x {
+				my $inset = ( $comma-interval * ( $x + 1 )) + $x;
+				$out.substr-rw( *-$inset, 0 ) = $commachar;
+			}
+		}
 
 		$out = '+' ~ $out if $.at and $out > 0;
 
