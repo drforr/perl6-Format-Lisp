@@ -7,6 +7,14 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+subtest {
+	is $fl.format( Q{~~~dR}, 27 ), Q{~27R}, 'format.r.1';
+
+#`(
+	is $fl.format( Q{~~~D,~DR}, 27, 42 ), Q{~27,42}, 'format.r.4';
+)
+}, 'missing coverage';
+
 #`(
 # (deftest format.r.1
 #   (loop
@@ -793,7 +801,6 @@ is $fl.format(
 ), Q{1234,5670}, 'format.r.32';
 )
 
-#`(
 # (def-format-test format.r.33
 #   "~16,,,,1:r" (#x12345670) "1,2,3,4,5,6,7,0")
 # 
@@ -801,7 +808,6 @@ is $fl.format(
 	Q{~16,,,,1:r},
 	0x12345670
 ), Q{1,2,3,4,5,6,7,0}, 'format.r.33';
-)
 
 # ;;; Explicit signs
 # 
@@ -865,7 +871,7 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
+#		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
 #		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );

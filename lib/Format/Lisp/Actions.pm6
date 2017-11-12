@@ -170,6 +170,23 @@ class Format::Lisp::Directive {
 		}
 		return ( $n, $argument );
 	}
+
+	method commify( $_out, $commachar, $comma-interval ) {
+		my $out = $_out;
+		my $chars-to-commify = $out.chars;
+		$chars-to-commify-- if $out ~~ /^\-/;
+		if $.colon and $chars-to-commify > $comma-interval {
+			my $commas-to-add =
+				$chars-to-commify / $comma-interval;
+			$commas-to-add-- if $comma-interval == 1;
+			for 0 .. $commas-to-add - 1 -> $x {
+				my $inset = ( $comma-interval * ( $x + 1 )) + $x;
+				$out.substr-rw( *-$inset, 0 ) = $commachar;
+			}
+		}
+
+		return $out;
+	}
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive {
@@ -396,16 +413,7 @@ class Format::Lisp::Directive::D is Format::Lisp::Directive {
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
 		$out = self.print-case( $out );
-		my $chars-to-commify = $out.chars;
-		$chars-to-commify-- if $out ~~ /^\-/;
-		if $.colon and $chars-to-commify > $comma-interval {
-			my $commas-to-add =
-				$chars-to-commify / $comma-interval;
-			for 0 .. $commas-to-add - 1 -> $x {
-				my $inset = ( $comma-interval * ( $x + 1 )) + $x;
-				$out.substr-rw( *-$inset, 0 ) = $commachar;
-			}
-		}
+		$out = self.commify( $out, $commachar, $comma-interval );
 
 		$out = '+' ~ $out if $.at and $out > 0;
 
@@ -501,6 +509,7 @@ class Format::Lisp::Directive::O is Format::Lisp::Directive {
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
 		$out = self.print-case( $out );
+		$out = self.commify( $out, $commachar, $comma-interval );
 
 		$out = '+' ~ $out if $.at and $out > 0;
 
@@ -594,6 +603,7 @@ class Format::Lisp::Directive::R is Format::Lisp::Directive {
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
 		$out = self.print-case( $out );
+		$out = self.commify( $out, $commachar, $comma-interval );
 
 		$out = '+' ~ $out if $.at and $out > 0;
 

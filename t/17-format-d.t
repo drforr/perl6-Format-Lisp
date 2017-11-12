@@ -7,6 +7,12 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+subtest {
+	is $fl.format( Q{~D}, 27 ), Q{27}, 'format.d.1 slice';
+
+	is $fl.format( Q{~@d}, 27 ), Q{+27}, 'format.d.2 slice';
+}, 'missing coverage';
+
 #`(
 # (deftest format.d.1
 #   (with-standard-io-syntax
@@ -711,12 +717,10 @@ is $fl.format( Q{~6,vD}, Nil, 100 ), Q{   100}, 'format.d.15';
 # 
 is $fl.format( Q{~,,v:d}, Nil, 12345 ), Q{12,345}, 'format.d.16';
 
-#`(
 # (def-format-test format.d.17
 #   "~,,'*,v:d" (nil 12345) "12*345")
 # 
 is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
-)
 
 # ;;; When the argument is not an integer, print as if using ~A and base 10
 # 

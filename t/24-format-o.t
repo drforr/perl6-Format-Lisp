@@ -12,44 +12,34 @@ subtest {
 
 	is $fl.format( Q{~@o}, 7 ), Q{+7}, 'format.o.2.slice';
 
+	is $fl.format( Q{~1o}, 7 ), Q{7}, 'format.o.3.slice';
+
+	is $fl.format( Q{~1@o}, 7 ), Q{+7}, 'format.o.3.slice';
+
+	is $fl.format( Q{~1,'xo}, 7 ), Q{7}, 'format.o.5.slice';
+
 #`(
-	is $fl.format( Q{~1o}, 7 ), Q{7}, 'format.o.3.slice'; # XXX fix
+	is $fl.format( Q{~v,Vo}, 7 ), Q{7}, 'format.o.6.slice';
 )
 
 #`(
-	is $fl.format( Q{~1@o}, 7 ), Q{7}, 'format.o.3.slice'; # XXX fix
+	is $fl.format( Q{~v,V@o}, 7 ), Q{7}, 'format.o.7.slice';
+)
+
+	is $fl.format( Q{~:O}, 0o7654 ), Q{7,654}, 'format.o.8.slice';
+
+#`(
+	is $fl.format( Q{~,,v:o}, 0o7654 ), Q{7,654}, 'format.o.10.slice';
+)
+
+	is $fl.format( Q{~,,'x:o}, 0o7654 ), Q{7x654}, 'format.o.11.slice';
+
+#`(
+	is $fl.format( Q{~,,V,v:O}, 0o7654 ), Q{7,654}, 'format.o.12.slice';
 )
 
 #`(
-	is $fl.format( Q{~1,'xo}, 7 ), Q{7}, 'format.o.5.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~v,Vo}, 7 ), Q{7}, 'format.o.6.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~v,V@o}, 7 ), Q{7}, 'format.o.7.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~:O}, 7654 ), Q{7,654}, 'format.o.8.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~,,v:o}, 7654 ), Q{7,654}, 'format.o.10.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~,,'x:o}, 7654 ), Q{7,654}, 'format.o.11.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~,,V,v:O}, 7654 ), Q{7,654}, 'format.o.12.slice'; # XXX fix
-)
-
-#`(
-	is $fl.format( Q{~,,V,v@O}, 7654 ), Q{7,654}, 'format.o.13.slice'; # XXX fix
+	is $fl.format( Q{~,,V,v@O}, 0o7654 ), Q{7,654}, 'format.o.13.slice';
 )
 }, 'missing coverage';
 

@@ -7,6 +7,13 @@ use Format::Lisp;
 
 my $fl = Format::Lisp.new;
 
+subtest {
+	is do {
+		my $fn = $fl.formatter( Q{~C} );
+		$fn( Q{a} );
+	}, Q{a}, 'formatter.c.1';
+}, 'missing coverage';
+
 #`(
 # (deftest formatter.c.1
 #   (let ((fn (formatter "~C")))
