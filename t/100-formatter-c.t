@@ -11,8 +11,8 @@ subtest {
 	is do {
 		my $fn = $fl.formatter( Q{~C} );
 		$fn( Q{a} );
-	}, Q{a}, 'formatter.c.1';
-}, 'missing coverage';
+	}, Q{a}, Q{formatter.c.1};
+}, Q{missing coverage};
 
 #`(
 # (deftest formatter.c.1

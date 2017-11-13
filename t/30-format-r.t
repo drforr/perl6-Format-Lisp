@@ -8,12 +8,12 @@ use Format::Lisp;
 my $fl = Format::Lisp.new;
 
 subtest {
-	is $fl.format( Q{~~~dR}, 27 ), Q{~27R}, 'format.r.1';
+	is $fl.format( Q{~~~dR}, 27 ), Q{~27R}, Q{format.r.1};
 
 #`(
-	is $fl.format( Q{~~~D,~DR}, 27, 42 ), Q{~27,42}, 'format.r.4';
+	is $fl.format( Q{~~~D,~DR}, 27, 42 ), Q{~27,42}, Q{format.r.4};
 )
-}, 'missing coverage';
+}, Q{missing coverage};
 
 #`(
 # (deftest format.r.1
@@ -35,13 +35,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.1';
+}, 0, Q{format.r.1};
 )
 
 #`(
@@ -65,24 +63,22 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.1';
+}, 0, Q{formatter.r.1};
 )
 
 # (def-format-test format.r.2
 #   "~2r" (14) "1110")
 # 
-is $fl.format( Q{~2r}, 14 ), Q{1110}, 'format.r.2';
+is $fl.format( Q{~2r}, 14 ), Q{1110}, Q{format.r.2};
 
 # (def-format-test format.r.3
 #   "~3r" (29) "1002")
 # 
-is $fl.format( Q{~3r}, 29 ), Q{1002}, 'format.r.3';
+is $fl.format( Q{~3r}, 29 ), Q{1002}, Q{format.r.3};
 
 #`(
 # (deftest format.r.4
@@ -106,13 +102,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.4';
+}, 0, Q{format.r.4};
 )
 
 #`(
@@ -138,13 +132,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.4';
+}, 0, Q{formatter.r.4};
 )
 
 #`(
@@ -169,13 +161,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.5';
+}, 0, Q{format.r.5};
 )
 
 #`(
@@ -201,13 +191,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.5';
+}, 0, Q{formatter.r.5};
 )
 
 #`(
@@ -222,13 +210,11 @@ is do {
 	my @collected;
 	for 2 .. 36 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.6';
+}, 0, Q{format.r.6};
 )
 
 #`(
@@ -245,13 +231,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.6';
+}, 0, Q{formatter.r.6};
 )
 
 #`(
@@ -267,13 +251,11 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.7';
+}, 0, Q{format.r.7};
 )
 
 #`(
@@ -291,13 +273,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.7';
+}, 0, Q{formatter.r.7};
 )
 
 #`(
@@ -315,26 +295,24 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.7a';
+}, 0, Q{format.r.7a};
 )
 
 #`(
 # (def-format-test format.r.8
 #   "~vr" (nil 5) "five")
 # 
-is $fl.format( Q{~vr}, Nil, 5 ), Q{five}, 'format.r.8';
+is $fl.format( Q{~vr}, Nil, 5 ), Q{five}, Q{format.r.8};
 )
 
 # (def-format-test format.r.9
 #   "~#r" (4 nil nil) "11" 2)
 # 
-is $fl.format( Q{~#r}, 4, Nil, Nil ), Q{11}, 'format.r.9';
+is $fl.format( Q{~#r}, 4, Nil, Nil ), Q{11}, Q{format.r.9};
 
 # (deftest format.r.10
 #   (with-standard-io-syntax
@@ -345,7 +323,7 @@ is $fl.format( Q{~#r}, 4, Nil, Nil ), Q{11}, 'format.r.9';
 is do {
 	my $*PRINT-RADIX = True;
 	$fl.format( Q{~10r}, 123 );
-}, Q{123}, 'format.r.10';
+}, Q{123}, Q{format.r.10};
 
 #`(
 # (deftest formatter.r.10
@@ -363,20 +341,20 @@ is do {
 # (def-format-test format.r.11
 #   "~8@R" (65) "+101")
 # 
-is $fl.format( Q{~8@R}, 65 ), Q{+101}, 'format.r.11';
+is $fl.format( Q{~8@R}, 65 ), Q{+101}, Q{format.r.11};
 
 #`(
 # (def-format-test format.r.12
 #   "~2:r" (126) "1,111,110")
 # 
-is $fl.format( Q{~2:r}, 126 ), Q{1,111,110}, 'format.r.12';
+is $fl.format( Q{~2:r}, 126 ), Q{1,111,110}, Q{format.r.12};
 )
 
 #`(
 # (def-format-test format.r.13
 #   "~3@:r" (#3r2120012102) "+2,120,012,102")
 # 
-is $fl.format( Q{~3@:r}, :3(2120012102) ), Q{+2,120,012,102}, 'format.r.13';
+is $fl.format( Q{~3@:r}, :3(2120012102) ), Q{+2,120,012,102}, Q{format.r.13};
 )
 
 #`(
@@ -398,13 +376,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.14';
+}, 0, Q{format.r.14};
 )
 
 #`(
@@ -430,13 +406,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.15';
+}, 0, Q{format.r.15};
 )
 
 # (def-format-test format.r.16
@@ -445,13 +419,13 @@ is do {
 is $fl.format(
 	Q{~2,,,,1000000000000000000r},
 	17
-), Q{10001}, 'format.r.16';
+), Q{10001}, Q{format.r.16};
 
 #`(
 # (def-format-test format.r.17
 #   "~8,10:@r" (#o526104) "  +526,104")
 # 
-is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, 'format.r.17';
+is $fl.format( Q{8,10:@r}, 0o526104), Q{+526,104}, Q{format.r.17};
 )
 
 #`(
@@ -467,13 +441,11 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.18';
+}, 0, Q{format.r.18};
 )
 
 #`(
@@ -490,13 +462,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.18';
+}, 0, Q{formatter.r.18};
 )
 
 #`(
@@ -514,13 +484,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.18';
+}, 0, Q{format.r.18};
 )
 
 #`(
@@ -536,13 +504,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.19';
+}, 0, Q{format.r.19};
 )
 
 #`(
@@ -559,13 +525,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.19';
+}, 0, Q{formatter.r.19};
 )
 
 # ;;; Old roman numerals
@@ -610,13 +574,11 @@ is do {
 	my @collected;
 	for 1 .. 4999 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.20';
+}, 0, Q{format.r.20};
 )
 
 #`(
@@ -633,13 +595,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.20';
+}, 0, Q{formatter.r.20};
 )
 
 #`(
@@ -655,13 +615,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.21';
+}, 0, Q{format.r.21};
 )
 
 # ;; Combinations of mincol and comma chars
@@ -670,7 +628,7 @@ is do {
 # (def-format-test format.r.22
 #   "~2,12,,'*:r" (#b1011101) "   1*011*101")
 # 
-is $fl.format( Q{~2,12,,'*:r}, 0b101*101 ), Q{1*011*101}, 'format.r.22';
+is $fl.format( Q{~2,12,,'*:r}, 0b101*101 ), Q{1*011*101}, Q{format.r.22};
 )
 
 #`(
@@ -680,7 +638,7 @@ is $fl.format( Q{~2,12,,'*:r}, 0b101*101 ), Q{1*011*101}, 'format.r.22';
 is $fl.format(
 	Q{~3,14,'X,',:R},
 	:3(1021101)
-), Q{XXXXX1,021,101}, 'format.r.23';
+), Q{XXXXX1,021,101}, Q{format.r.23};
 )
 
 # ;; v directive in various positions
@@ -688,7 +646,7 @@ is $fl.format(
 # (def-format-test format.r.24
 #   "~10,vr" (nil 12345) "12345")
 # 
-is $fl.format( Q{~10,vr}, Nil, 12345 ), Q{12345}, 'format.r.24';
+is $fl.format( Q{~10,vr}, Nil, 12345 ), Q{12345}, Q{format.r.24};
 
 #`(
 # (deftest format.r.25
@@ -702,13 +660,11 @@ is do {
 	my @collected;
 	for 0 .. 5 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.r.25';
+}, 0, Q{format.r.25};
 )
 
 #`(
@@ -724,13 +680,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.r.25';
+}, 0, Q{formatter.r.25};
 )
 
 # (def-format-test format.r.26
@@ -739,7 +693,7 @@ is do {
 is $fl.format(
 	Q{~10,#r},
 	12345, Nil, Nil, Nil, Nil, Nil
-), Q{ 12345}, 'format.r.26';
+), Q{ 12345}, Q{format.r.26};
 
 #`(
 # (def-format-test format.r.27
@@ -747,8 +701,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~10,12vr},
-	'/', 123456789
-), Q{///123456789}, 'format.r.27';
+	Q{/}, 123456789
+), Q{///123456789}, Q{format.r.27};
 )
 
 #`(
@@ -757,8 +711,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~10,,,v:r},
-	'/', 123456789
-), Q{123/456/789}, 'format.r.28';
+	Q{/}, 123456789
+), Q{123/456/789}, Q{format.r.28};
 )
 
 #`(
@@ -768,7 +722,7 @@ is $fl.format(
 is $fl.format(
 	Q{~10,,,v:r},
 	Nil, 123456789
-), Q{123,456,789}, 'format.r.29';
+), Q{123,456,789}, Q{format.r.29};
 )
 
 #`(
@@ -778,7 +732,7 @@ is $fl.format(
 is $fl.format(
 	Q{~8,,,,v:R},
 	Nil, 0o12345670
-), Q{12,345,670}, 'format.r.30';
+), Q{12,345,670}, Q{format.r.30};
 )
 
 #`(
@@ -788,7 +742,7 @@ is $fl.format(
 is $fl.format(
 	Q{~8,,,,v:R},
 	2, 0o12345670
-), Q{12,345,670}, 'format.r.31';
+), Q{12,345,670}, Q{format.r.31};
 )
 
 #`(
@@ -798,7 +752,7 @@ is $fl.format(
 is $fl.format(
 	Q{~16,,,,#:r},
 	0x12345670, Nil, Nil, Nil
-), Q{1234,5670}, 'format.r.32';
+), Q{1234,5670}, Q{format.r.32};
 )
 
 # (def-format-test format.r.33
@@ -807,34 +761,34 @@ is $fl.format(
 is $fl.format(
 	Q{~16,,,,1:r},
 	0x12345670
-), Q{1,2,3,4,5,6,7,0}, 'format.r.33';
+), Q{1,2,3,4,5,6,7,0}, Q{format.r.33};
 
 # ;;; Explicit signs
 # 
 # (def-format-test format.r.34
 #   "~+10r" (12345) "12345")
 # 
-is $fl.format( Q{~+10r}, 12345 ), Q{12345}, 'format.r.34';
+is $fl.format( Q{~+10r}, 12345 ), Q{12345}, Q{format.r.34};
 
 # (def-format-test format.r.35
 #   "~10,+8r" (12345) "   12345")
 # 
-is $fl.format( Q{~10,+8r}, 12345 ), Q{   12345}, 'format.r.35';
+is $fl.format( Q{~10,+8r}, 12345 ), Q{   12345}, Q{format.r.35};
 
 # (def-format-test format.r.36
 #   "~10,0r" (12345) "12345")
 # 
-is $fl.format( Q{~10,+0r}, 12345 ), Q{12345}, 'format.r.36';
+is $fl.format( Q{~10,+0r}, 12345 ), Q{12345}, Q{format.r.36};
 
 # (def-format-test format.r.37
 #   "~10,-1r" (12345) "12345")
 # 
-is $fl.format( Q{~10,-1r}, 12345 ), Q{12345}, 'format.r.37';
+is $fl.format( Q{~10,-1r}, 12345 ), Q{12345}, Q{format.r.37};
 
 # (def-format-test format.r.38
 #   "~10,-1000000000000000r" (12345) "12345")
 # 
-is $fl.format( Q{~10,-1000000000000000r}, 12345 ), Q{12345}, 'format.r.38';
+is $fl.format( Q{~10,-1000000000000000r}, 12345 ), Q{12345}, Q{format.r.38};
 
 # ;;; Randomized test
 # 
@@ -871,13 +825,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-#		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.0.39';
+}, 0, Q{format.0.39};
 )
 
 done-testing;

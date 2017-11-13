@@ -10,17 +10,17 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.cond.1
 #   "~[~]" (0) "")
 # 
-is $fl.format( Q{~[~]}, 0 ), Q{}, 'format.cond.1';
+is $fl.format( Q{~[~]}, 0 ), Q{}, Q{format.cond.1};
 
 # (def-format-test format.cond.2
 #   "~[a~]" (0) "a")
 # 
-is $fl.format( Q{~[a~]}, 0 ), Q{a}, 'format.cond.2';
+is $fl.format( Q{~[a~]}, 0 ), Q{a}, Q{format.cond.2};
 
 # (def-format-test format.cond.3
 #   "~[a~]" (-1) "")
 # 
-is $fl.format( Q{~[a~]}, -1 ), Q{}, 'format.cond.3';
+is $fl.format( Q{~[a~]}, -1 ), Q{}, Q{format.cond.3};
 
 # (def-format-test format.cond.4
 #   "~[a~]" ((1- most-negative-fixnum)) "")
@@ -30,7 +30,7 @@ is $fl.format( Q{~[a~]}, -1 ), Q{}, 'format.cond.3';
 # (def-format-test format.cond.5
 #   "~[a~]" (1) "")
 # 
-is $fl.format( Q{~[a~]}, 1 ), Q{}, 'format.cond.5';
+is $fl.format( Q{~[a~]}, 1 ), Q{}, Q{format.cond.5};
 
 # (def-format-test format.cond.6
 #   "~[a~]" ((1+ most-positive-fixnum)) "")
@@ -51,7 +51,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ], 'format.cond.7';
+}, [ Q{}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{f}, Q{g}, Q{h}, Q{i}, Q{}, Q{}
+], Q{format.cond.7};
 )
 
 #`(
@@ -70,32 +71,33 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ], 'format.cond.7';
+}, [ Q{}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{f}, Q{g}, Q{h}, Q{i}, Q{}, Q{}
+], Q{format.cond.7};
 )
 
 #`(
 # (def-format-test format.cond.8
 #   "~0[a~;b~;c~;d~]" (3) "a" 1)
 # 
-is $fl.format( Q{~0[a~;b~;c~;d~]}, 3 ), Q{a}, 'format.cond.8';
+is $fl.format( Q{~0[a~;b~;c~;d~]}, 3 ), Q{a}, Q{format.cond.8};
 )
 
 # (def-format-test format.cond.9
 #   "~-1[a~;b~;c~;d~]" (3) "" 1)
 # 
-is $fl.format( Q{~-1[a~;b~;c~;d~]}, 3 ), Q{}, 'format.cond.9';
+is $fl.format( Q{~-1[a~;b~;c~;d~]}, 3 ), Q{}, Q{format.cond.9};
 
 #`(
 # (def-format-test format.cond.10
 #   "~1[a~;b~;c~;d~]" (3) "b" 1)
 # 
-is $fl.format( Q{~1[a~;b~;c~;d~]}, 3 ), Q{b}, 'format.cond.10';
+is $fl.format( Q{~1[a~;b~;c~;d~]}, 3 ), Q{b}, Q{format.cond.10};
 )
 
 # (def-format-test format.cond.11
 #   "~4[a~;b~;c~;d~]" (3) "" 1)
 # 
-is $fl.format( Q{~4[a~;b~;c~;d~]}, 3 ), Q{}, 'format.cond.11';
+is $fl.format( Q{~4[a~;b~;c~;d~]}, 3 ), Q{}, Q{format.cond.11};
 
 # (def-format-test format.cond.12
 #   "~100000000000000000000000000000000[a~;b~;c~;d~]" (3) "" 1)
@@ -103,7 +105,7 @@ is $fl.format( Q{~4[a~;b~;c~;d~]}, 3 ), Q{}, 'format.cond.11';
 is $fl.format(
 	Q{~100000000000000000000000000000000[a~;b~;c~;d~]},
 	3
-), Q{}, 'format.cond.12';
+), Q{}, Q{format.cond.12};
 
 #`(
 # (deftest format.cond.13
@@ -119,8 +121,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
-   'format.cond.13';
+}, [ Q{}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{f}, Q{g}, Q{h}, Q{i}, Q{}, Q{}
+], Q{format.cond.13};
 )
 
 #`(
@@ -139,8 +141,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
-   'formatter.cond.13';
+}, [ Q{}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{f}, Q{g}, Q{h}, Q{i}, Q{}, Q{}
+], Q{formatter.cond.13};
 )
 
 #`(
@@ -157,8 +159,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
-   'format.cond.13';
+}, [ Q{}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{f}, Q{g}, Q{h}, Q{i}, Q{}, Q{}
+], Q{format.cond.13};
 )
 
 #`(
@@ -177,22 +179,22 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ '', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', '', '' ],
-   'formatter.cond.14';
+}, [ Q{}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{f}, Q{g}, Q{h}, Q{i}, Q{}, Q{}
+], Q{formatter.cond.14};
 )
 
 #`(
 # (def-format-test format.cond.15
 #   "~#[A~;B~]" nil "A")
 # 
-is $fl.format( Q{~#[A~;B~]} ), Q{A}, 'format.cond.15';
+is $fl.format( Q{~#[A~;B~]} ), Q{A}, Q{format.cond.15};
 )
 
 #`(
 # (def-format-test format.cond.16
 #   "~#[A~;B~]" (nil) "B" 1)
 # 
-is $fl.format( Q{~#[A~;B~]}, Nil ), Q{B}, 'format.cond.16';
+is $fl.format( Q{~#[A~;B~]}, Nil ), Q{B}, Q{format.cond.16};
 )
 
 # ;;; ~[ .~:;  ~]
@@ -209,12 +211,12 @@ is do {
 	my @collected;
 	for -100 .. 100 -> $i {
 		my $s = $fl.format( Q{~[~:;a~]}, $i );
-		unless $i == 0 or $s eq 'a' {
+		unless $i == 0 or $s eq Q{a} {
 			@collected.append( [ $i, $s ] );
 		}
 	}
 	@collected.elems;
-}, 0, 'format.cond:.1';
+}, 0, Q{format.cond:.1};
 )
 
 #`(
@@ -227,23 +229,23 @@ is do {
 #   nil)
 # 
 is do {
-	my $fn = $fl.formatter( "~[~:;a~]" );
+	my $fn = $fl.formatter( Q{~[~:;a~]} );
 	my @collected;
 	for -100 .. 100 -> $i {
 		my $s = $fl.formatter-call-to-string( $fn, $i );
-		unless $i == 0 or $s eq 'a' {
+		unless $i == 0 or $s eq Q{a} {
 			@collected.append( [ $i, $s ] );
 		}
 	}
 	@collected.elems;
-}, 0, 'formatter.cond:.1';
+}, 0, Q{formatter.cond:.1};
 )
 
 #`(
 # (def-format-test format.cond\:.2
 #   "~[a~:;b~]" (0) "a")
 # 
-is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, 'format.cond:.2';
+is $fl.format( Q{~[a~:;b~]}, 0 ), Q{a}, Q{format.cond:.2};
 )
 
 # (def-format-test format.cond\:.3
@@ -270,8 +272,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
-   'format.cond.5';
+}, [ Q{e}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}
+], Q{format.cond.5};
 )
 
 #`(
@@ -290,8 +292,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
-   'formatter.cond.5';
+}, [ Q{e}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}
+], Q{formatter.cond.5};
 )
 
 #`(
@@ -308,8 +310,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
-   'format.cond:.6';
+}, [ Q{e}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}
+], Q{format.cond:.6};
 )
 
 #`(
@@ -328,8 +330,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
-   'formatter.cond:.6';
+}, [ Q{e}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}
+], Q{formatter.cond:.6};
 )
 
 #`(
@@ -346,8 +348,8 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
-   'format.cond:.7';
+}, [ Q{e}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}
+], Q{format.cond:.7};
 )
 
 #`(
@@ -366,22 +368,22 @@ is-deeply do {
 		);
 	}
 	@collected;
-}, [ 'e', 'a', 'b', 'c', 'd', 'e', 'e', 'g', 'e', 'e', 'e', 'e' ],
-   'formatter.cond:.7';
+}, [ Q{e}, Q{a}, Q{b}, Q{c}, Q{d}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}, Q{e}
+], Q{formatter.cond:.7};
 )
 
 #`(
 # (def-format-test format.cond\:.8
 #   "~#[A~:;B~]" nil "A")
 # 
-is $fl.format( Q{~#[A~:;B~]} ), Q{A}, 'format.cond:.8';
+is $fl.format( Q{~#[A~:;B~]} ), Q{A}, Q{format.cond:.8};
 )
 
 #`(
 # (def-format-test format.cond\:.9
 #   "~#[A~:;B~]" (nil nil) "B" 2)
 # 
-is $fl.format( Q{~#[A~:;B~]}, Nil, Nil ), Q{B}, 'format.cond:.9';
+is $fl.format( Q{~#[A~:;B~]}, Nil, Nil ), Q{B}, Q{format.cond:.9};
 )
 
 # ;;; ~:[...~]
@@ -390,7 +392,7 @@ is $fl.format( Q{~#[A~:;B~]}, Nil, Nil ), Q{B}, 'format.cond:.9';
 # (def-format-test format.\:cond.1
 #   "~:[a~;b~]" (nil) "a")
 # 
-is $fl.format( Q{~#:a~;b~]}, Nil ), Q{a}, 'format.:cond.1';
+is $fl.format( Q{~#:a~;b~]}, Nil ), Q{a}, Q{format.:cond.1};
 )
 
 #`(
@@ -406,12 +408,12 @@ is do {
 	my @collected;
 	for @mini-universe -> $x {
 		my $s = $fl.format( Q{~:[a~;b~]}, $x );
-		if $x and $s ne 'b' {
+		if $x and $s ne Q{b} {
 			@collected.append( [ $x, $s ] );
 		}
 	}
 	@collected.elems;
-}, 0, 'format.:cond.2';
+}, 0, Q{format.:cond.2};
 )
 
 #`(
@@ -429,12 +431,12 @@ is do {
 	my @collected;
 	for @mini-universe -> $x {
 		my $s = $fl.formatter-call-to-string( $fn, $x );
-		if $x and $s ne 'b' {
+		if $x and $s ne Q{b} {
 			@collected.append( [ $x, $s ] );
 		}
 	}
 	@collected.elems;
-}, 0, 'format.:cond.2';
+}, 0, Q{format.:cond.2};
 )
 
 # ;;; ~@[ ... ~]
@@ -443,14 +445,14 @@ is do {
 # (def-format-test format.@cond.1
 #   "~@[X~]Y~A" (1) "XY1")
 # 
-is $fl.format( Q{~@[X~]Y~A}, 1 ), Q{XY1}, 'format.@cond.1';
+is $fl.format( Q{~@[X~]Y~A}, 1 ), Q{XY1}, Q{format.@cond.1};
 )
 
 #`(
 # (def-format-test format.@cond.2
 #   "~@[X~]Y~A" (nil 2) "Y2")
 # 
-is $fl.format( Q{~@[X~]Y~A}, Nil, 2 ), Q{Y2}, 'format.@cond.2';
+is $fl.format( Q{~@[X~]Y~A}, Nil, 2 ), Q{Y2}, Q{format.@cond.2};
 )
 
 done-testing;

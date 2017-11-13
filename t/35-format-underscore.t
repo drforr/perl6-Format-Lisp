@@ -41,7 +41,7 @@ my $fl = Format::Lisp.new;
 #   "A A A A "
 #   :margin 10)
 # 
-is $fl.format( Q{A ~_A ~_A ~_A ~_}), Q{A A A A }, 'format._.3';
+is $fl.format( Q{A ~_A ~_A ~_A ~_}), Q{A A A A }, Q{format._.3};
 
 #`(
 # (def-ppblock-test format._.4
@@ -61,7 +61,7 @@ is $fl.format( Q{A ~_A ~_A ~_A ~_}), Q{A A A A }, 'format._.3';
 # 
 is $fl.format(
 	Q{A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_A ~_}
-), Q{A A A A A A A A A A }, 'format._.5';
+), Q{A A A A A A A A A A }, Q{format._.5};
 
 #`(
 # (def-ppblock-test format._.6
@@ -93,7 +93,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{A ~_A ~_A ~_A ~_~%A ~_A ~_A ~_A ~_}
-), qq{A\nA\nA\nA\n\nA\nA\nA\nA\n}, 'format._.7';
+), qq{A\nA\nA\nA\n\nA\nA\nA\nA\n}, Q{format._.7};
 )
 
 #`(
@@ -148,7 +148,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_}
-), qq{A A A A A A A A A A }, 'format.@_.1';
+), qq{A A A A A A A A A A }, Q{format.@_.1};
 
 # (def-ppblock-test format.@_.2
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
@@ -158,7 +158,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_}
-), qq{A A A A A A A A A A }, 'format.@_.2';
+), qq{A A A A A A A A A A }, Q{format.@_.2};
 
 # (def-ppblock-test format.@_.3
 #   (format t "A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_")
@@ -168,7 +168,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_A ~@_}
-), qq{A A A A A A A A A A }, 'format.@_.3';
+), qq{A A A A A A A A A A }, Q{format.@_.3};
 
 #`(
 # (def-ppblock-test format.@_.4
@@ -210,7 +210,7 @@ is $fl.format(
 #   :margin 20
 #   :miser 20)
 # 
-is $fl.format( Q{~%A~@_} ), qq{\nA\n}, 'format.@_.6';
+is $fl.format( Q{~%A~@_} ), qq{\nA\n}, Q{format.@_.6};
 )
 
 #`(
@@ -222,7 +222,7 @@ is $fl.format( Q{~%A~@_} ), qq{\nA\n}, 'format.@_.6';
 #   :margin 20
 #   :miser 20)
 # 
-is $fl.format( Q{~@_A~%} ), qq{\nA\n}, 'format.@_.7';
+is $fl.format( Q{~@_A~%} ), qq{\nA\n}, Q{format.@_.7};
 )
 
 #`(
@@ -293,7 +293,7 @@ is $fl.format( Q{~@_A~%} ), qq{\nA\n}, 'format.@_.7';
 # 
 is $fl.format(
 	Q{A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_}
-), qq{A A A A A\nA A A A A }, 'format.:_.1';
+), qq{A A A A A\nA A A A A }, Q{format.:_.1};
 )
 
 #`(
@@ -307,7 +307,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_A ~:_}
-), qq{A A A A\nA A A\nA A A }, 'format.:_.1';
+), qq{A A A A\nA A A\nA A A }, Q{format.:_.1};
 )
 
 #`(
@@ -368,12 +368,12 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~W~W~:_~W~W~:_~W~W~:_~W~W~:_~W~W~:_},
-	[ 'A', 'B' ], ' ',
-	[ 'A', 'B' ], ' ',
-	[ 'A', 'B' ], ' ',
-	[ 'A', 'B' ], ' ',
-	[ 'A', 'B' ], ' '
-), qq{(A B) (A B)\n(A B) (A B)\n(A B)}, 'format.:_.6';
+	[ Q{A}, Q{B} ], Q{ },
+	[ Q{A}, Q{B} ], Q{ },
+	[ Q{A}, Q{B} ], Q{ },
+	[ Q{A}, Q{B} ], Q{ },
+	[ Q{A}, Q{B} ], Q{ }
+), qq{(A B) (A B)\n(A B) (A B)\n(A B)}, Q{format.:_.6};
 )
 
 #`(
@@ -399,7 +399,7 @@ subtest {
 	is $fl.format(
 		Q{A ~:_A ~:_A ~:_A ~:_A ~:_}
 	), Q{A A A A A };
-}, 'format.:_.7';
+}, Q{format.:_.7};
 )
 
 #`(
@@ -429,7 +429,7 @@ subtest {
 # 
 is $fl.format(
 	Q{A ~:@_A ~:@_A ~:@_A ~:@_}
-), qq{A\nA\nA\nA\n}, 'format.:@_.1';
+), qq{A\nA\nA\nA\n}, Q{format.:@_.1};
 )
 
 #`(
@@ -452,7 +452,7 @@ is $fl.format(
 # A "
 #   :margin 1)
 # 
-is $fl.format( Q{A ~@:_A } ), qq{A\nA }, 'format.:@_.3';
+is $fl.format( Q{A ~@:_A } ), qq{A\nA }, Q{format.:@_.3};
 )
 
 #`(
@@ -487,7 +487,7 @@ subtest {
 	is $fl.format(
 		Q{A ~:@_A ~:@_A ~:@_A ~:@_A ~:@_}
 	), Q{A A A A A };
-}, 'format.:@_.5';
+}, Q{format.:@_.5};
 )
 
 #`(

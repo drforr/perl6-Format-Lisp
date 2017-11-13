@@ -15,9 +15,9 @@ my $fl = Format::Lisp.new;
 # 
 is do {
 	my $*PRINT-READABLY = False;
-	my $*PRINT-CASE = 'upcase';
+	my $*PRINT-CASE = Q{upcase};
 	$fl.format( Q{~s}, Nil );
-}, Q{NIL}, 'format.s.1';
+}, Q{NIL}, Q{format.s.1};
 
 #`(
 # (deftest formatter.s.1
@@ -28,15 +28,15 @@ is do {
 # 
 is do {
 #	my $*PRINT-READABLY = False;
-#	my $*PRINT-CASE = 'upcase';
+#	my $*PRINT-CASE = Q{upcase};
 #	$fl.format( Q{~s}, Nil );
-}, Q{NIL}, 'formatter.s.1';
+}, Q{NIL}, Q{formatter.s.1};
 )
 
 # (def-format-test format.s.2
 #   "~:s" (nil) "()")
 # 
-is $fl.format( Q{~:s}, Nil ), Q{()}, 'format.s.2';
+is $fl.format( Q{~:s}, Nil ), Q{()}, Q{format.s.2};
 
 # (deftest format.s.3
 #   (let ((*print-readably* nil)
@@ -46,9 +46,9 @@ is $fl.format( Q{~:s}, Nil ), Q{()}, 'format.s.2';
 # 
 is do {
 	my $*PRINT-READABLY = Nil;
-	my $*PRINT-CASE = 'upcase';
+	my $*PRINT-CASE = Q{upcase};
 	$fl.format( Q{~:s}, [ Nil ] );
-}, Q{(NIL)}, 'format.s.3';
+}, Q{(NIL)}, Q{format.s.3};
 
 #`(
 # (deftest formatter.s.3
@@ -59,9 +59,9 @@ is do {
 # 
 is do {
 #	my $*PRINT-READABLY = Nil;
-#	my $*PRINT-CASE = 'upcase';
+#	my $*PRINT-CASE = Q{upcase};
 #	$fl.format( Q{~:s}, [ Nil ] );
-}, Q{(NIL)}, 'formatter.s.3';
+}, Q{(NIL)}, Q{formatter.s.3};
 )
 
 # (deftest format.s.4
@@ -72,9 +72,9 @@ is do {
 # 
 is do {
 	my $*PRINT-READABLY = Nil;
-	my $*PRINT-CASE = 'downcase';
+	my $*PRINT-CASE = Q{downcase};
 	$fl.format( Q{~s}, Nil );
-}, Q{nil}, 'format.s.4';
+}, Q{nil}, Q{format.s.4};
 
 #`(
 # (deftest formatter.s.4
@@ -85,9 +85,9 @@ is do {
 # 
 is do {
 #	my $*PRINT-READABLY = Nil;
-#	my $*PRINT-CASE = 'downcase';
+#	my $*PRINT-CASE = Q{downcase};
 #	$fl.format( Q{~s}, Nil );
-}, Q{nil}, 'formatter.s.4';
+}, Q{nil}, Q{formatter.s.4};
 )
 
 # (deftest format.s.5
@@ -98,9 +98,9 @@ is do {
 # 
 is do {
 	my $*PRINT-READABLY = Nil;
-	my $*PRINT-CASE = 'capitalize';
+	my $*PRINT-CASE = Q{capitalize};
 	$fl.format( Q{~s}, Nil );
-}, Q{Nil}, 'format.s.5';
+}, Q{Nil}, Q{format.s.5};
 
 #`(
 # (deftest formatter.s.5
@@ -111,9 +111,9 @@ is do {
 # 
 is do {
 #	my $*PRINT-READABLY = Nil;
-#	my $*PRINT-CASE = 'capitalize';
+#	my $*PRINT-CASE = Q{capitalize};
 #	$fl.format( Q{~s}, Nil );
-}, Q{Nil}, 'formatter.s.5';
+}, Q{Nil}, Q{formatter.s.5};
 
 )
 
@@ -140,13 +140,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.s.7';
+}, 0, Q{format.s.7};
 )
 
 #`(
@@ -173,13 +171,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.s.8';
+}, 0, Q{format.s.8};
 )
 
 #`(
@@ -212,23 +208,21 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"NIL",
-	"NIL",
-	"NIL",
-	" NIL",
-	"  NIL",
-	"   NIL",
-	"    NIL",
-	"     NIL",
-	"      NIL",
-	"       NIL"
-], 'format.s.9';
+}, [	Q{NIL},
+	Q{NIL},
+	Q{NIL},
+	Q{ NIL},
+	Q{  NIL},
+	Q{   NIL},
+	Q{    NIL},
+	Q{     NIL},
+	Q{      NIL},
+	Q{       NIL}
+], Q{format.s.9};
 )
 
 #`(
@@ -261,23 +255,21 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"NIL",
-	"NIL",
-	"NIL",
-	"NIL ",
-	"NIL  ",
-	"NIL   ",
-	"NIL    ",
-	"NIL     ",
-	"NIL      ",
-	"NIL       "
-], 'format.s.10';
+}, [	Q{NIL},
+	Q{NIL},
+	Q{NIL},
+	Q{NIL },
+	Q{NIL  },
+	Q{NIL   },
+	Q{NIL    },
+	Q{NIL     },
+	Q{NIL      },
+	Q{NIL       }
+], Q{format.s.10};
 )
 
 #`(
@@ -310,23 +302,21 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"()",
-	"()",
-	" ()",
-	"  ()",
-	"   ()",
-	"    ()",
-	"     ()",
-	"      ()",
-	"       ()",
-	"        ()"
-], 'format.s.11';
+}, [	Q{()},
+	Q{()},
+	Q{ ()},
+	Q{  ()},
+	Q{   ()},
+	Q{    ()},
+	Q{     ()},
+	Q{      ()},
+	Q{       ()},
+	Q{        ()}
+], Q{format.s.11};
 )
 
 #`(
@@ -359,23 +349,21 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"()",
-	"()",
-	"() ",
-	"()  ",
-	"()   ",
-	"()    ",
-	"()     ",
-	"()      ",
-	"()       ",
-	"()        "
-], 'format.s.12';
+}, [	Q{()},
+	Q{()},
+	Q{() },
+	Q{()  },
+	Q{()   },
+	Q{()    },
+	Q{()     },
+	Q{()      },
+	Q{()       },
+	Q{()        }
+], Q{format.s.12};
 )
 
 #`(
@@ -407,23 +395,21 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"()".
-	"()".
-	"() ".
-	"()  ".
-	"()   ".
-	"()    ".
-	"()     ".
-	"()      ".
-	"()       ".
-	"()        "
-], 'format.s.13';
+}, [	Q{()}.
+	Q{()}.
+	Q{() }.
+	Q{()  }.
+	Q{()   }.
+	Q{()    }.
+	Q{()     }.
+	Q{()      }.
+	Q{()       }.
+	Q{()        }
+], Q{format.s.13};
 )
 
 #`(
@@ -455,23 +441,21 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"()",
-	"()",
-	" ()",
-	"  ()",
-	"   ()",
-	"    ()",
-	"     ()",
-	"      ()",
-	"       ()",
-	"        ()"
-], 'format.s.14';
+}, [	Q{()},
+	Q{()},
+	Q{ ()},
+	Q{  ()},
+	Q{   ()},
+	Q{    ()},
+	Q{     ()},
+	Q{      ()},
+	Q{       ()},
+	Q{        ()}
+], Q{format.s.14};
 )
 
 # (def-format-test format.s.15
@@ -581,96 +565,94 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC  ",
-	"ABC   ",
-	"ABC    ",
-	"ABC     ",
-	"ABC      ",
-	"ABC       "
-], 'format.s.29';
+}, [	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC  },
+	Q{ABC   },
+	Q{ABC    },
+	Q{ABC     },
+	Q{ABC      },
+	Q{ABC       }
+], Q{format.s.29};
 )
 
 # (def-format-test format.s.30
 #   "~3,,+2S" ('ABC) "ABC  ")
 # 
-is $fl.format( Q{~3,,+2S}, 'ABC' ), Q{ABC  };
+is $fl.format( Q{~3,,+2S}, Q{ABC} ), Q{ABC  };
 
 # (def-format-test format.s.31
 #   "~3,,0S" ('ABC) "ABC")
 # 
-is $fl.format( Q{~3,,0S}, 'ABC' ), Q{ABC};
+is $fl.format( Q{~3,,0S}, Q{ABC} ), Q{ABC};
 
 # (def-format-test format.s.32
 #   "~3,,-1S" ('ABC) "ABC")
 # 
-is $fl.format( Q{~3,,-1S}, 'ABC' ), Q{ABC};
+is $fl.format( Q{~3,,-1S}, Q{ABC} ), Q{ABC};
 
 # (def-format-test format.s.33
 #   "~3,,0S" ('ABCD) "ABCD")
 # 
-is $fl.format( Q{~3,,0S}, 'ABCD' ), Q{ABCD};
+is $fl.format( Q{~3,,0S}, Q{ABCD} ), Q{ABCD};
 
 # (def-format-test format.s.34
 #   "~3,,-1S" ('ABCD) "ABCD")
 # 
-is $fl.format( Q{~3,,-1S}, 'ABCD' ), Q{ABCD};
+is $fl.format( Q{~3,,-1S}, Q{ABCD} ), Q{ABCD};
 
 # ;;; With padchar
 # 
 # (def-format-test format.s.35
 #   "~4,,,'XS" ('AB) "ABXX")
 # 
-is $fl.format( Q{~4,,,'XS}, 'AB' ), Q{ABXX};
+is $fl.format( Q{~4,,,'XS}, Q{AB} ), Q{ABXX};
 
 # (def-format-test format.s.36
 #   "~4,,,s" ('AB) "AB  ")
 # 
-is $fl.format( Q{~4,,,s}, 'AB' ), Q{AB  };
+is $fl.format( Q{~4,,,s}, Q{AB} ), Q{AB  };
 
 # (def-format-test format.s.37
 #   "~4,,,'X@s" ('AB) "XXAB")
 # 
-is $fl.format( Q{~4,,,'X@s}, 'AB' ), Q{XXAB};
+is $fl.format( Q{~4,,,'X@s}, Q{AB} ), Q{XXAB};
 
 # (def-format-test format.s.38
 #   "~4,,,@S" ('AB) "  AB")
 # 
-is $fl.format( Q{~4,,,@s}, 'AB' ), Q{  AB};
+is $fl.format( Q{~4,,,@s}, Q{AB} ), Q{  AB};
 
 # (def-format-test format.s.39
 #   "~10,,,vS" (nil 'ABCDE) "ABCDE     ")
 # 
-is $fl.format( Q{~10,,,vS}, Nil, "ABCDE" ), Q{ABCDE     };
+is $fl.format( Q{~10,,,vS}, Nil, Q{ABCDE} ), Q{ABCDE     };
 
 # (def-format-test format.s.40
 #   "~10,,,v@S" (nil 'ABCDE) "     ABCDE")
 # 
-is $fl.format( Q{~10,,,v@S}, Nil, "ABCDE" ), Q{     ABCDE};
+is $fl.format( Q{~10,,,v@S}, Nil, Q{ABCDE} ), Q{     ABCDE};
 
 # (def-format-test format.s.41
 #   "~10,,,vs" (#\* 'ABCDE) "ABCDE*****")
 # 
-is $fl.format( Q{~10,,,vs}, '*', "ABCDE" ), Q{ABCDE*****};
+is $fl.format( Q{~10,,,vs}, Q{*}, Q{ABCDE} ), Q{ABCDE*****};
 
 # (def-format-test format.s.42
 #   "~10,,,v@s" (#\* 'ABCDE) "*****ABCDE")
 # 
-is $fl.format( Q{~10,,,v@s}, '*', "ABCDE" ), Q{*****ABCDE};
+is $fl.format( Q{~10,,,v@s}, Q{*}, Q{ABCDE} ), Q{*****ABCDE};
 
 # ;;; Other tests
 # 
@@ -704,20 +686,18 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"ABC"
-	"ABC "
-	"ABC  "
-	"ABC   "
-	"ABC    "
-	"ABC     "
-	"ABC      "
-], 'format.s.44';
+}, [	Q{ABC},
+	Q{ABC },
+	Q{ABC  },
+	Q{ABC   },
+	Q{ABC    },
+	Q{ABC     },
+	Q{ABC      },
+], Q{format.s.44};
 )
 
 #`(
@@ -745,20 +725,18 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"ABC",
-	" ABC",
-	"  ABC",
-	"   ABC",
-	"    ABC",
-	"     ABC",
-	"      ABC"
-], 'formatter.s.44a';
+}, [	Q{ABC},
+	Q{ ABC},
+	Q{  ABC},
+	Q{   ABC},
+	Q{    ABC},
+	Q{     ABC},
+	Q{      ABC}
+], Q{formatter.s.44a};
 )
 
 # (def-format-test format.s.45

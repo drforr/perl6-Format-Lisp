@@ -15,7 +15,10 @@ my $fl = Format::Lisp.new;
 #   "M
 #     M")
 # 
-is $fl.format( Q{~<M~3:i~:@_M~:>}, [ 'M', 'M' ] ), Q{M\n    M}, 'format.i.1';
+is $fl.format(
+	Q{~<M~3:i~:@_M~:>},
+	[ Q{M}, Q{M} ]
+), qq{M\n    M}, Q{format.i.1};
 )
 
 # ;;; See pprint-indent.10
@@ -25,7 +28,10 @@ is $fl.format( Q{~<M~3:i~:@_M~:>}, [ 'M', 'M' ] ), Q{M\n    M}, 'format.i.1';
 #   "(M
 #    M)")
 # 
-is $fl.format( Q{~<M~1:I~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n   M)}, 'format.i.2';
+is $fl.format(
+	Q{~<M~1:I~:@_M~:>},
+	[ Q{M}, Q{M} ]
+), qq{(M\n   M)}, Q{format.i.2};
 )
 
 # ;;; See pprint-indent.11
@@ -37,8 +43,8 @@ is $fl.format( Q{~<M~1:I~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n   M)}, 'format.i.2';
 # 
 is $fl.format(
 	Q{~<(~;M~-1:i~:@_M~;)~:>},
-	[ 'M', 'M' ]
-), Q[(M\n M)], 'format.i.3';
+	[ Q{M}, Q{M} ]
+), qq[(M\n M)], Q{format.i.3};
 )
 
 #`(
@@ -47,7 +53,10 @@ is $fl.format(
 #   "(M
 #  M)")
 # 
-is $fl.format( Q{~:<M~-1:i~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n M)}, 'format.i.4';
+is $fl.format(
+	Q{~:<M~-1:i~:@_M~:>},
+	[ Q{M}, Q{M} ]
+), qq{(M\n M)}, Q{format.i.4};
 )
 
 #`(
@@ -58,8 +67,8 @@ is $fl.format( Q{~:<M~-1:i~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n M)}, 'format.i.4';
 # 
 is $fl.format(
 	Q{~<(~;M~:I~:@_M~;)~:>},
-	[ 'M', 'M' ]
-), Q{(M\n  M)}, 'format.i.5';
+	[ Q{M}, Q{M} ]
+), qq{(M\n  M)}, Q{format.i.5};
 )
 
 #`(
@@ -68,7 +77,10 @@ is $fl.format(
 #   "(M
 #   M)")
 # 
-is $fl.format( Q{~<(~;M~v:i~:@_M~;)~:>}, [ Nil ] ), Q{(M\n  M)}, 'format.i.6';
+is $fl.format(
+	Q{~<(~;M~v:i~:@_M~;)~:>},
+	[ Nil ]
+), qq{(M\n  M)}, Q{format.i.6};
 )
 
 #`(
@@ -77,7 +89,10 @@ is $fl.format( Q{~<(~;M~v:i~:@_M~;)~:>}, [ Nil ] ), Q{(M\n  M)}, 'format.i.6';
 #   "(M
 # M)")
 # 
-is $fl.format( Q{~:<M~-2:i~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\nM)}, 'format.i.7';
+is $fl.format(
+	Q{~:<M~-2:i~:@_M~:>},
+	[ Q{M}, Q{M} ]
+), qq{(M\nM)}, Q{format.i.7};
 )
 
 #`(
@@ -86,7 +101,10 @@ is $fl.format( Q{~:<M~-2:i~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\nM)}, 'format.i.7';
 #   "M
 #  M")
 # 
-is $fl.format( Q{~<M~:i~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n M)}, 'format.i.8';
+is $fl.format(
+	Q{~<M~:i~:@_M~:>},
+	[ Q{M}, Q{M} ]
+), qq{(M\n M)}, Q{format.i.8};
 )
 
 # ;;; See pprint-indent.13
@@ -98,8 +116,8 @@ is $fl.format( Q{~<M~:i~:@_M~:>}, [ 'M', 'M' ] ), Q{(M\n M)}, 'format.i.8';
 # 
 is $fl.format(
 	Q{~<MMM~I~:@_MMMMM~:>},
-	[ 'M', 'M' ]
-), Q{(MMM\nMMMMM)}, 'format.i.9';
+	[ Q{M}, Q{M} ]
+), qq{(MMM\nMMMMM)}, Q{format.i.9};
 )
 
 #`(
@@ -110,8 +128,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:<MMM~I~:@_MMMMM~:>},
-	[ 'M', 'M' ]
-), Q{(MMM\nMMMMM)}, 'format.i.10';
+	[ Q{M}, Q{M} ]
+), qq{(MMM\nMMMMM)}, Q{format.i.10};
 )
 
 #`(
@@ -122,8 +140,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~<MMM~1I~:@_MMMMM~:>},
-	[ 'M', 'M' ]
-), Q{(MMM\n MMMMM)}, 'format.i.11';
+	[ Q{M}, Q{M} ]
+), qq{(MMM\n MMMMM)}, Q{format.i.11};
 )
 
 #`(
@@ -134,8 +152,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{XXX~<MMM~1I~:@_MMMMM~:>},
-	[ 'M', 'M' ]
-), Q{(XXXMMM\n    MMMMM)}, 'format.i.12';
+	[ Q{M}, Q{M} ]
+), qq{(XXXMMM\n    MMMMM)}, Q{format.i.12};
 )
 
 #`(
@@ -146,8 +164,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{XXX~<MMM~I~:@_MMMMM~:>},
-	[ 'M', 'M' ]
-), Q{(XXXMMM\n   MMMMM)}, 'format.i.13';
+	[ Q{M}, Q{M} ]
+), qq{(XXXMMM\n   MMMMM)}, Q{format.i.13};
 )
 
 #`(
@@ -158,8 +176,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{XXX~<MMM~-1I~:@_MMMMM~:>},
-	[ 'M', 'M' ]
-), Q{(XXXMMM\n  MMMMM)}, 'format.i.14';
+	[ Q{M}, Q{M} ]
+), qq{(XXXMMM\n  MMMMM)}, Q{format.i.14};
 )
 
 #`(
@@ -171,7 +189,7 @@ is $fl.format(
 is $fl.format(
 	Q{XXX~<MMM~vI~:@_MMMMM~:>},
 	[ Nil ]
-), Q{(XXXMMM\n   MMMMM)}, 'format.i.15';
+), qq{(XXXMMM\n   MMMMM)}, Q{format.i.15};
 )
 
 #`(
@@ -183,7 +201,7 @@ is $fl.format(
 is $fl.format(
 	Q{XXX~<MMM~vI~:@_MMMMM~:>},
 	[ 2 ]
-), Q{(XXXMMM\n     MMMMM)}, 'format.i.16';
+), qq{(XXXMMM\n     MMMMM)}, Q{format.i.16};
 )
 
 done-testing;

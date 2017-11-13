@@ -414,7 +414,7 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.x.14
 #   "~vx" (nil #x100) "100")
 # 
-is $fl.format( Q{~vx}, Nil, 0x100 ), Q{100}, 'format.x.14';
+is $fl.format( Q{~vx}, Nil, 0x100 ), Q{100}, Q{format.x.14};
 
 #`(
 # (def-format-test format.x.15
@@ -506,7 +506,7 @@ is $fl.format( Q{~vx}, Nil, 0x100 ), Q{100}, 'format.x.14';
 #          (n #x1b3fe))
 #      (loop for i from 0 to 10
 #            for args = (make-list i)
-#            for s = (apply #'format nil "~#x" n args)
+#            for s = (apply #Q{format nil "~#x" n args)
 #            for s2 = (with-output-to-string
 #                       (stream)
 #                       (assert (equal (apply fn stream n args) args)))
@@ -534,7 +534,7 @@ is $fl.format( Q{~vx}, Nil, 0x100 ), Q{100}, 'format.x.14';
 #          (n #x1234567890))
 #      (loop for i from 0 to 10
 #            for args = (make-list i)
-#            for s = (apply #'format nil "~,,,#:x" n args)
+#            for s = (apply #Q{format nil "~,,,#:x" n args)
 #            for s2 = (with-output-to-string
 #                       (stream)
 #                       (assert (equal (apply fn stream n args) args)))
@@ -562,7 +562,7 @@ is $fl.format( Q{~vx}, Nil, 0x100 ), Q{100}, 'format.x.14';
 #          (n #x1234567890))
 #      (loop for i from 0 to 10
 #            for args = (make-list i)
-#            for s = (apply #'format nil "~,,,#@:X" n args)
+#            for s = (apply #Q{format nil "~,,,#@:X" n args)
 #            for s2 = (with-output-to-string
 #                       (stream)
 #                       (assert (equal (apply fn stream n args) args)))

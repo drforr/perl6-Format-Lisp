@@ -12,7 +12,7 @@ my $fl = Format::Lisp.new;
 #   (concatenate 'string "~" (string #\Newline) "   X")
 #   nil "X")
 # 
-is $fl.format( qq{~\n   X} ), Q{X}, 'format.newline.1';
+is $fl.format( qq{~\n   X} ), Q{X}, Q{format.newline.1};
 )
 
 #`(
@@ -20,7 +20,7 @@ is $fl.format( qq{~\n   X} ), Q{X}, 'format.newline.1';
 #   (concatenate 'string "A~:" (string #\Newline) " X")
 #   nil "A X")
 # 
-is $fl.format( qq{A~:\n X} ), Q{A X}, 'format.newline.2';
+is $fl.format( qq{A~:\n X} ), Q{A X}, Q{format.newline.2};
 )
 
 #`(
@@ -28,7 +28,7 @@ is $fl.format( qq{A~:\n X} ), Q{A X}, 'format.newline.2';
 #   (concatenate 'string "A~@" (string #\Newline) " X")
 #   nil #.(concatenate 'string "A" (string #\Newline) "X"))
 # 
-is $fl.format( qq{A~@\n X} ), qq{A X}, 'format.newline.2';
+is $fl.format( qq{A~@\n X} ), qq{A X}, Q{format.newline.2};
 )
 
 done-testing;

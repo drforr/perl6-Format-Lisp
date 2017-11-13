@@ -13,8 +13,8 @@ my $fl = Format::Lisp.new;
 # 
 is $fl.format(
 	Q{~(XXyy~AuuVV~)},
-	"ABc dEF ghI"
-), Q{xxyyabc def ghiuuvv}, 'format.paren.1';
+	Q{ABc dEF ghI}
+), Q{xxyyabc def ghiuuvv}, Q{format.paren.1};
 )
 
 # ;;; Conversion of simple characters to downcase
@@ -43,13 +43,13 @@ is do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
+##		my $s = $fl.format( Q{~v,,2A}, $i, Q{ABC} );
+#		my $s2 = $fl.formatter-call-to-string( $fn, $i, Q{ABC} );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.paren.2';
+}, 0, Q{format.paren.2};
 )
 
 #`(
@@ -78,20 +78,18 @@ is do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.paren.2';
+}, 0, Q{formatter.paren.2};
 )
 
 #`(
 # (def-format-test format.paren.3
 #   "~@(this is a TEST.~)" nil "This is a test.")
 # 
-is $fl.format( Q{~@(this is a TEST.~)} ), Q{This is a test.}, 'format.paren.2';
+is $fl.format( Q{~@(this is a TEST.~)} ), Q{This is a test.}, Q{format.paren.2};
 )
 
 #`(
@@ -100,7 +98,7 @@ is $fl.format( Q{~@(this is a TEST.~)} ), Q{This is a test.}, 'format.paren.2';
 # 
 is $fl.format(
 	Q{~@(!@#$%^&*this is a TEST.~)}
-), Q{!@#$%^&*This is a test.}, 'format.paren.4';
+), Q{!@#$%^&*This is a test.}, Q{format.paren.4};
 )
 
 #`(
@@ -109,7 +107,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:(this is a TEST.~)}
-), Q{This Is A Test.}, 'format.paren.5';
+), Q{This Is A Test.}, Q{format.paren.5};
 )
 
 #`(
@@ -118,7 +116,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:(this is7a TEST.~)}
-), Q{This Is7a Test.}, 'format.paren.6';
+), Q{This Is7a Test.}, Q{format.paren.6};
 )
 
 #`(
@@ -127,7 +125,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:@(this is AlSo A teSt~)}
-), Q{THIS IS ALSO A TEST}, 'format.paren.7';
+), Q{THIS IS ALSO A TEST}, Q{format.paren.7};
 )
 
 #`(
@@ -155,13 +153,11 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.paren.8';
+}, 0, Q{format.paren.8};
 )
 
 #`(
@@ -190,13 +186,11 @@ is-deeply do {
 	my $bv = 0b11001;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.paren.8';
+}, 0, Q{formatter.paren.8};
 )
 
 # ;;; Nested conversion
@@ -207,7 +201,7 @@ is-deeply do {
 # 
 is $fl.format(
 	Q{~(aBc ~:(def~) GHi~)}
-), Q{abc def ghi}, 'format.paren.9';
+), Q{abc def ghi}, Q{format.paren.9};
 )
 
 #`(
@@ -216,7 +210,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~(aBc ~:(def~) GHi~)}
-), Q{abc def ghi}, 'format.paren.10';
+), Q{abc def ghi}, Q{format.paren.10};
 )
 
 #`(
@@ -225,7 +219,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@(aBc ~:(def~) GHi~)}
-), Q{Abc def ghi}, 'format.paren.11';
+), Q{Abc def ghi}, Q{format.paren.11};
 )
 
 #`(
@@ -234,7 +228,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~(aBc ~@(def~) GHi~)}
-), Q{abc def ghi}, 'format.paren.12';
+), Q{abc def ghi}, Q{format.paren.12};
 )
 
 #`(
@@ -243,7 +237,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~(aBc ~:(def~) GHi~)}
-), Q{abc def ghi}, 'format.paren.13';
+), Q{abc def ghi}, Q{format.paren.13};
 )
 
 #`(
@@ -252,7 +246,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:(aBc ~(def~) GHi~)}
-), Q{Abc Def Ghi}, 'format.paren.14';
+), Q{Abc Def Ghi}, Q{format.paren.14};
 )
 
 #`(
@@ -261,7 +255,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:(aBc ~:(def~) GHi~)}
-), Q{Abc Def Ghi}, 'format.paren.15';
+), Q{Abc Def Ghi}, Q{format.paren.15};
 )
 
 #`(
@@ -270,7 +264,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:(aBc ~@(def~) GHi~)}
-), Q{Abc Def Ghi}, 'format.paren.16';
+), Q{Abc Def Ghi}, Q{format.paren.16};
 )
 
 #`(
@@ -279,7 +273,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:(aBc ~@:(def~) GHi~)}
-), Q{Abc Def Ghi}, 'format.paren.17';
+), Q{Abc Def Ghi}, Q{format.paren.17};
 )
 
 #`(
@@ -288,7 +282,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@(aBc ~(def~) GHi~)}
-), Q{Abc def ghi}, 'format.paren.18';
+), Q{Abc def ghi}, Q{format.paren.18};
 )
 
 #`(
@@ -297,7 +291,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@(aBc ~:(def~) GHi~)}
-), Q{Abc def ghi}, 'format.paren.19';
+), Q{Abc def ghi}, Q{format.paren.19};
 )
 
 #`(
@@ -306,7 +300,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@(aBc ~@(def~) GHi~)}
-), Q{Abc def ghi}, 'format.paren.20';
+), Q{Abc def ghi}, Q{format.paren.20};
 )
 
 #`(
@@ -315,7 +309,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@(aBc ~@:(def~) GHi~)}
-), Q{Abc def ghi}, 'format.paren.21';
+), Q{Abc def ghi}, Q{format.paren.21};
 )
 
 #`(
@@ -324,7 +318,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:@(aBc ~(def~) GHi~)}
-), Q{ABC DEF GHI}, 'format.paren.22';
+), Q{ABC DEF GHI}, Q{format.paren.22};
 )
 
 #`(
@@ -333,7 +327,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@:(aBc ~:(def~) GHi~)}
-), Q{ABC DEF GHI}, 'format.paren.23';
+), Q{ABC DEF GHI}, Q{format.paren.23};
 )
 
 #`(
@@ -342,7 +336,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~:@(aBc ~@(def~) GHi~)}
-), Q{ABC DEF GHI}, 'format.paren.24';
+), Q{ABC DEF GHI}, Q{format.paren.24};
 )
 
 #`(
@@ -351,7 +345,7 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~@:(aBc ~@(def~) GHi~)}
-), Q{ABC DEF GHI}, 'format.paren.25';
+), Q{ABC DEF GHI}, Q{format.paren.25};
 )
 
 done-testing;

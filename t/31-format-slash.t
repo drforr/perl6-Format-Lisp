@@ -11,21 +11,21 @@ my $fl = Format::Lisp.new;
 #   (format nil "~/pprint-linear/" 1)
 #   "1")
 # 
-is $fl.format( Q{~/pprint-linear/}, 1 ), Q{1}, 'format./.1';
+is $fl.format( Q{~/pprint-linear/}, 1 ), Q{1}, Q{format./.1};
 
 # (def-pprint-test format./.2
 #   (format nil "~/pprint-linear/" 2)
 #   "2"
 #   :pretty nil)
 # 
-is $fl.format( Q{~/pprint-linear/}, 2 ), Q{2}, 'format./.2';
+is $fl.format( Q{~/pprint-linear/}, 2 ), Q{2}, Q{format./.2};
 
 #`(
 # (def-pprint-test format./.3
 #   (format nil "~/pprint-linear/" '(17))
 #   "17")
 # 
-is $fl.format( Q{~/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.3';
+is $fl.format( Q{~/pprint-linear/}, [ 17 ] ), Q{1}, Q{format./.3};
 )
 
 #`(
@@ -33,7 +33,7 @@ is $fl.format( Q{~/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.3';
 #   (format nil "~:/pprint-linear/" '(17))
 #   "(17)")
 # 
-is $fl.format( Q{~:/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.4';
+is $fl.format( Q{~:/pprint-linear/}, [ 17 ] ), Q{1}, Q{format./.4};
 )
 
 #`(
@@ -41,7 +41,7 @@ is $fl.format( Q{~:/pprint-linear/}, [ 17 ] ), Q{1}, 'format./.4';
 #   (format nil "~@/pprint-linear/" 1)
 #   "1")
 # 
-is $fl.format( Q{~@/pprint-linear/}, 1 ), Q{1}, 'format./.5';
+is $fl.format( Q{~@/pprint-linear/}, 1 ), Q{1}, Q{format./.5};
 )
 
 #`(
@@ -49,7 +49,7 @@ is $fl.format( Q{~@/pprint-linear/}, 1 ), Q{1}, 'format./.5';
 #   (format nil "~@:/pprint-linear/" 1)
 #   "1")
 # 
-is $fl.format( Q{~@:/pprint-linear/}, 1 ), Q{1}, 'format./.6';
+is $fl.format( Q{~@:/pprint-linear/}, 1 ), Q{1}, Q{format./.6};
 )
 
 #`(
@@ -57,7 +57,7 @@ is $fl.format( Q{~@:/pprint-linear/}, 1 ), Q{1}, 'format./.6';
 #   (format nil "~/PPRINT-LINEAR/" 1)
 #   "1")
 # 
-is $fl.format( Q{~/PPRINT-LINEAR/}, 1 ), Q{1}, 'format./.7';
+is $fl.format( Q{~/PPRINT-LINEAR/}, 1 ), Q{1}, Q{format./.7};
 )
 
 #`(
@@ -65,7 +65,7 @@ is $fl.format( Q{~/PPRINT-LINEAR/}, 1 ), Q{1}, 'format./.7';
 #   (format nil "~/pPrINt-lINeaR/" 1)
 #   "1")
 # 
-is $fl.format( Q{~/pPrINt-liNeaR/}, 1 ), Q{1}, 'format./.8';
+is $fl.format( Q{~/pPrINt-liNeaR/}, 1 ), Q{1}, Q{format./.8};
 )
 
 #`(
@@ -101,7 +101,7 @@ is $fl.format( Q{~/pPrINt-liNeaR/}, 1 ), Q{1}, 'format./.8';
 #   (format nil "~<~/pprint-tabular/~:>" '((|M|)))
 #   "M")
 # 
-is $fl.format( Q{~<~/pprint-tabular/~:>}, [ 'M' ] ), Q{M}, 'format./.12';
+is $fl.format( Q{~<~/pprint-tabular/~:>}, [ Q{M} ] ), Q{M}, Q{format./.12};
 )
 
 #`(
@@ -109,7 +109,7 @@ is $fl.format( Q{~<~/pprint-tabular/~:>}, [ 'M' ] ), Q{M}, 'format./.12';
 #   (format nil "~<~:/pprint-tabular/~:>" '((|M|)))
 #   "(M)")
 # 
-is $fl.format( Q{~<~:/pprint-tabular/~:>}, [ 'M' ] ), Q{(M)}, 'format./.13';
+is $fl.format( Q{~<~:/pprint-tabular/~:>}, [ Q{M} ] ), Q{(M)}, Q{format./.13};
 )
 
 #`(
@@ -117,7 +117,7 @@ is $fl.format( Q{~<~:/pprint-tabular/~:>}, [ 'M' ] ), Q{(M)}, 'format./.13';
 #   (format nil "~<~:@/pprint-tabular/~:>" '((|M|)))
 #   "(M)")
 # 
-is $fl.format( Q{~<~:@/pprint-tabular/~:>}, [ 'M' ] ), Q{(M)}, 'format./.14';
+is $fl.format( Q{~<~:@/pprint-tabular/~:>}, [ Q{M} ] ), Q{(M)}, Q{format./.14};
 )
 
 #`(
@@ -125,7 +125,7 @@ is $fl.format( Q{~<~:@/pprint-tabular/~:>}, [ 'M' ] ), Q{(M)}, 'format./.14';
 #   (format nil "~<~@/pprint-tabular/~:>" '((|M|)))
 #   "M")
 # 
-is $fl.format( Q{~<~@/pprint-tabular/~:>}, [ 'M' ] ), Q{M}, 'format./.15';
+is $fl.format( Q{~<~@/pprint-tabular/~:>}, [ Q{M} ] ), Q{M}, Q{format./.15};
 )
 
 #`(
@@ -135,8 +135,8 @@ is $fl.format( Q{~<~@/pprint-tabular/~:>}, [ 'M' ] ), Q{M}, 'format./.15';
 # 
 is $fl.format(
 	Q{~<~4:/pprint-tabular/~:>},
-	[ 'M', 'M' ]
-), Q{(M   M)}, 'format./.16';
+	[ Q{M}, Q{M} ]
+), Q{(M   M)}, Q{format./.16};
 )
 
 #`(
@@ -146,8 +146,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~<~v:/pprint-tabular/~:>},
-	Nil, [ 'M', 'M' ]
-), Q{(M               M)}, 'format./.17';
+	Nil, [ Q{M}, Q{M} ]
+), Q{(M               M)}, Q{format./.17};
 )
 
 #`(
@@ -157,8 +157,8 @@ is $fl.format(
 # 
 is $fl.format(
 	Q{~<~v:/pprint-tabular/~:>},
-	3, [ 'M', 'M' ]
-), Q{(M  M)}, 'format./.18';
+	3, [ Q{M}, Q{M} ]
+), Q{(M  M)}, Q{format./.18};
 )
 
 #`(

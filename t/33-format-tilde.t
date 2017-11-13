@@ -10,7 +10,7 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.~.1
 #   "~~" nil "~")
 # 
-is $fl.format( Q{~~}), Q{~}, 'format.~.1';
+is $fl.format( Q{~~}), Q{~}, Q{format.~.1};
 
 #`(
 # (deftest format.~.2
@@ -26,13 +26,11 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.~.2';
+}, 0, Q{format.~.2};
 )
 
 #`(
@@ -50,20 +48,18 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.~.2';
+}, 0, Q{formatter.~.2};
 )
 
 #`(
 # (def-format-test format.~.3
 #   "~v~" (0) "")
 # 
-is $fl.format( Q{~v~}, 0), Q{}, 'format.~.3';
+is $fl.format( Q{~v~}, 0), Q{}, Q{format.~.3};
 )
 
 #`(
@@ -79,13 +75,11 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.~.4';
+}, 0, Q{format.~.4};
 )
 
 #`(
@@ -102,13 +96,11 @@ is do {
 	my @collected;
 	for 0 .. 100 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.~.4';
+}, 0, Q{formatter.~.4};
 )
 
 #`(
@@ -116,7 +108,7 @@ is do {
 #   (loop for i from 0 to (min (- call-arguments-limit 3) 100)
 #         for s = (make-string i :initial-element #\~)
 #         for args = (make-list i)
-#         for s2 = (apply #'format nil "~#~" args)
+#         for s2 = (apply #Q{format nil "~#~" args)
 #         unless (string= s s2)
 #         collect (list i s s2))
 #   nil)
@@ -125,13 +117,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'format.~.5';
+}, 0, Q{format.~.5};
 )
 
 #`(
@@ -151,13 +141,11 @@ is do {
 	my @collected;
 	for 0 .. 10 -> $i {
 #		my @args = 
-##		my $s = $fl.format( Q{~v,,2A}, $i, 'ABC' );
-#		my $s2 = $fl.formatter-call-to-string( $fn, $i, 'ABC' );
 #		is $s, $s2;
 #		@collected.append( $s );
 	}
 	@collected.elems;
-}, 0, 'formatter.~.5';
+}, 0, Q{formatter.~.5};
 )
 
 done-testing;

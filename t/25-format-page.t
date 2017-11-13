@@ -10,7 +10,7 @@ my $fl = Format::Lisp.new;
 # (def-format-test format.page.1
 #   "~0|" nil "")
 # 
-is $fl.format( Q{~0|} ), Q{}, 'format.page.1';
+is $fl.format( Q{~0|} ), Q{}, Q{format.page.1};
 
 #`(
 # (deftest format.page.2
@@ -49,12 +49,12 @@ is $fl.format( Q{~0|} ), Q{}, 'format.page.1';
 # (def-format-test format.page.4
 #   "~V|" (0) "")
 # 
-is $fl.format( Q{~V|}, 0 ), Q{}, 'format.page.4';
+is $fl.format( Q{~V|}, 0 ), Q{}, Q{format.page.4};
 
 # (def-format-test format.page.5
 #   "~v|" (nil) #.(format nil "~|"))
 # 
-is $fl.format( Q{~v|}, Nil ), $fl.format( Q{~|} ), 'format.page.5';
+is $fl.format( Q{~v|}, Nil ), $fl.format( Q{~|} ), Q{format.page.5};
 
 done-testing;
 

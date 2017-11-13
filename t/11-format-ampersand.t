@@ -10,32 +10,32 @@ my $fl = Format::Lisp.new;
 #`(
 subtest {
 #`(
-	is $fl.format( Q{X~~~D&}, 4 ), Q{X~4&}, 'non-nil';
+	is $fl.format( Q{X~~~D&}, 4 ), Q{X~4&}, Q{non-nil};
 )
-}, 'missing coverage';
+}, Q{missing coverage};
 )
 
 # (def-format-test format.&.1
 #   "~0&" nil "")
 # 
-is $fl.format( Q{~0&} ), Q{}, 'format.&.1';
+is $fl.format( Q{~0&} ), Q{}, Q{format.&.1};
 
 # (def-format-test format.&.2
 #   "~&" nil "")
 # 
-is $fl.format( Q{~&} ), Q{}, 'format.&.2';
+is $fl.format( Q{~&} ), Q{}, Q{format.&.2};
 
 #`(
 # (def-format-test format.&.3
 #   "X~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
-is $fl.format( Q{X~&} ), qq{X\n}, 'format.&.3';
+is $fl.format( Q{X~&} ), qq{X\n}, Q{format.&.3};
 )
 
 # (def-format-test format.&.4
 #   "X~%~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
-is $fl.format( Q{X~%~&} ), qq{X\n}, 'format.&.4';
+is $fl.format( Q{X~%~&} ), qq{X\n}, Q{format.&.4};
 
 #`(
 # (deftest format.&.5
@@ -58,7 +58,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.&.5';
+}, 0, Q{format.&.5};
 )
 
 #`(
@@ -84,7 +84,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'formatter.&.5';
+}, 0, Q{formatter.&.5};
 )
 
 #`(
@@ -110,7 +110,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.&.6';
+}, 0, Q{format.&.6};
 )
 
 #`(
@@ -138,19 +138,19 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'formatter.&.6';
+}, 0, Q{formatter.&.6};
 )
 
 # (def-format-test format.&.7
 #   "~v&" (nil) "")
 # 
-is $fl.format( Q{~v&}, Nil ), Q{}, 'format.&.7';
+is $fl.format( Q{~v&}, Nil ), Q{}, Q{format.&.7};
 
 #`(
 # (def-format-test format.&.8
 #   "X~v&" (nil) #.(concatenate 'string "X" (string #\Newline)))
 # 
-is $fl.format( Q{X~v&}, Nil ), qq{X\n}, 'format.&.8';
+is $fl.format( Q{X~v&}, Nil ), qq{X\n}, Q{format.&.8};
 )
 
 #`(
@@ -172,7 +172,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.&.9';
+}, 0, Q{format.&.9};
 )
 
 #`(
@@ -196,7 +196,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'formatter.&.9';
+}, 0, Q{formatter.&.9};
 )
 
 #`(
@@ -204,7 +204,7 @@ is do {
 #   (loop for i from 1 to (min (- call-arguments-limit 3) 100)
 #         for s1 = (make-string (1- i) :initial-element #\Newline)
 #         for args = (make-list i)
-#         for s2 = (apply #'format nil "~#&" args)
+#         for s2 = (apply #Q{format nil "~#&" args)
 #         unless (string= s1 s2)
 #         collect i)
 #   nil)
@@ -229,12 +229,12 @@ is do {
 # (def-format-test format.&.11
 #   "X~V%" (0) "X")
 # 
-is $fl.format( Q{X~V&}, 0 ), Q{X}, 'format.&.11';
+is $fl.format( Q{X~V&}, 0 ), Q{X}, Q{format.&.11};
 
 # (def-format-test format.&.12
 #   "X~#%" nil "X")
 # 
-is $fl.format( Q{X~#%} ), Q{X}, 'format.&.12';
+is $fl.format( Q{X~#%} ), Q{X}, Q{format.&.12};
 
 #`(
 # (def-format-test format.&.13
@@ -242,7 +242,7 @@ is $fl.format( Q{X~#%} ), Q{X}, 'format.&.12';
 #                         (concatenate 'string "X" nl nl nl))
 #   3)
 #
-is $fl.format( Q{X~#%}, 'a', 'b', 'c' ), qq{X\n\n\n}, 'format.&.1';
+is $fl.format( Q{X~#%}, Q{a}, Q{b}, Q{c} ), qq{X\n\n\n}, Q{format.&.1};
 )
 
 done-testing;

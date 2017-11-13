@@ -8,10 +8,10 @@ use Format::Lisp;
 my $fl = Format::Lisp.new;
 
 subtest {
-	is $fl.format( Q{~D}, 27 ), Q{27}, 'format.d.1 slice';
+	is $fl.format( Q{~D}, 27 ), Q{27}, Q{format.d.1 slice};
 
-	is $fl.format( Q{~@d}, 27 ), Q{+27}, 'format.d.2 slice';
-}, 'missing coverage';
+	is $fl.format( Q{~@d}, 27 ), Q{+27}, Q{format.d.2 slice};
+}, Q{missing coverage};
 
 #`(
 # (deftest format.d.1
@@ -33,13 +33,13 @@ is do {
 	for 1 .. 1000 {
 		my $x = 1 >> ( 80.rand.Int + 2 );
 		my $i = ( $x + $x ).rand.Int - $x;
-		my $s1 = $fl.format( "~D", $i );
+		my $s1 = $fl.format( Q{~D}, $i );
 #		unless $s1 eq $s1 and $s2 eq $s3 {
 #			@collected.append( [ $c, $s1, $s2, $s3 ] );
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.1';
+}, 0, Q{format.d.1};
 )
 
 #`(
@@ -70,7 +70,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'formatter.d.1';
+}, 0, Q{formatter.d.1};
 )
 
 #`(
@@ -93,13 +93,13 @@ is do {
 	for 1 .. 1000 {
 		my $x = 1 >> ( 80.rand.Int + 2 );
 		my $i = ( $x + $x ).rand.Int - $x;
-		my $s1 = $fl.format( "~@D", $i );
+		my $s1 = $fl.format( Q{~@D}, $i );
 #		unless $s1 eq $s1 and $s2 eq $s3 {
 #			@collected.append( [ $c, $s1, $s2, $s3 ] );
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.2';
+}, 0, Q{format.d.2};
 )
 
 #`(
@@ -130,7 +130,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'formatter.d.2';
+}, 0, Q{formatter.d.2};
 )
 
 #`(
@@ -162,7 +162,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.3';
+}, 0, Q{format.d.3};
 )
 
 #`(
@@ -197,7 +197,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'formatter.d.3';
+}, 0, Q{formatter.d.3};
 )
 
 #`(
@@ -236,7 +236,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.4';
+}, 0, Q{format.d.4};
 )
 
 #`(
@@ -278,7 +278,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'formatter.d.4';
+}, 0, Q{formatter.d.4};
 )
 
 #`(
@@ -311,7 +311,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.5';
+}, 0, Q{format.d.5};
 )
 
 #`(
@@ -346,7 +346,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'formatter.d.5';
+}, 0, Q{formatter.d.5};
 )
 
 #`(
@@ -382,7 +382,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.6';
+}, 0, Q{format.d.6};
 )
 
 #`(
@@ -426,7 +426,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.7';
+}, 0, Q{format.d.7};
 )
 
 # ;;; Comma tests
@@ -457,7 +457,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.8';
+}, 0, Q{format.d.8};
 )
 
 #`(
@@ -500,7 +500,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.9';
+}, 0, Q{format.d.9};
 )
 
 #`(
@@ -540,7 +540,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.10';
+}, 0, Q{format.d.10};
 )
 
 #`(
@@ -577,7 +577,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.11';
+}, 0, Q{format.d.11};
 )
 
 #`(
@@ -616,7 +616,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'formatter.d.11';
+}, 0, Q{formatter.d.11};
 )
 
 #`(
@@ -657,7 +657,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.12';
+}, 0, Q{format.d.12};
 )
 
 #`(
@@ -697,7 +697,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.d.13';
+}, 0, Q{format.d.13};
 )
 
 # ;;; NIL arguments
@@ -705,22 +705,22 @@ is do {
 # (def-format-test format.d.14
 #   "~vD" (nil 100) "100")
 # 
-is $fl.format( Q{~vD}, Nil, 100 ), Q{100}, 'format.d.14';
+is $fl.format( Q{~vD}, Nil, 100 ), Q{100}, Q{format.d.14};
 
 # (def-format-test format.d.15
 #   "~6,vD" (nil 100) "   100")
 # 
-is $fl.format( Q{~6,vD}, Nil, 100 ), Q{   100}, 'format.d.15';
+is $fl.format( Q{~6,vD}, Nil, 100 ), Q{   100}, Q{format.d.15};
 
 # (def-format-test format.d.16
 #   "~,,v:d" (nil 12345) "12,345")
 # 
-is $fl.format( Q{~,,v:d}, Nil, 12345 ), Q{12,345}, 'format.d.16';
+is $fl.format( Q{~,,v:d}, Nil, 12345 ), Q{12,345}, Q{format.d.16};
 
 # (def-format-test format.d.17
 #   "~,,'*,v:d" (nil 12345) "12*345")
 # 
-is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, 'format.d.17';
+is $fl.format( Q{~,,'*,v:d}, Nil, 12345 ), Q{12*345}, Q{format.d.17};
 
 # ;;; When the argument is not an integer, print as if using ~A and base 10
 # 
@@ -743,7 +743,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.d.18';
+}, 0, Q{format.d.18};
 )
 
 #`(
@@ -766,7 +766,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.d.19';
+}, 0, Q{format.d.19};
 )
 
 #`(
@@ -789,7 +789,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.d.20';
+}, 0, Q{format.d.20};
 )
 
 #`(
@@ -814,7 +814,7 @@ is do {
 		}
 	}
 	@collected.elems;
-}, 0, 'format.d.21';
+}, 0, Q{format.d.21};
 )
 
 # ;;; Must add tests for non-integers when the parameters
@@ -830,7 +830,7 @@ is do {
 #    #'values
 #    (loop for i from 0 to 10
 #          for args = (make-list i)
-#          for s = (apply #'format nil "~#d" 12345 args)
+#          for s = (apply #Q{format nil "~#d" 12345 args)
 #          collect s))
 #   "12345"
 #   "12345"
@@ -856,18 +856,18 @@ is-deeply do {
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"12345",
-	"12345",
-	"12345",
-	"12345",
-	"12345",
-	" 12345",
-	"  12345",
-	"   12345",
-	"    12345",
-	"     12345",
-	"      12345"
-], 'format.d.22';
+}, [	Q{12345},
+	Q{12345},
+	Q{12345},
+	Q{12345},
+	Q{12345},
+	Q{ 12345},
+	Q{  12345},
+	Q{   12345},
+	Q{    12345},
+	Q{     12345},
+	Q{      12345}
+], Q{format.d.22};
 )
 
 #`(
@@ -877,7 +877,7 @@ is-deeply do {
 #    (let ((fn (formatter "~#D")))
 #      (loop for i from 0 to 10
 #            for args = (make-list i)
-#            ; for s = (apply #'format nil "~#d" 12345 args)
+#            ; for s = (apply #Q{format nil "~#d" 12345 args)
 #            for s = (with-output-to-string
 #                      (stream)
 #                      (assert (equal (apply fn stream 12345 args) args)))
@@ -906,18 +906,18 @@ is-deeply do {
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"12345",
-	"12345",
-	"12345",
-	"12345",
-	"12345",
-	" 12345",
-	"  12345",
-	"   12345",
-	"    12345",
-	"     12345",
-	"      12345"
-], 'formatter.d.22';
+}, [	Q{12345},
+	Q{12345},
+	Q{12345},
+	Q{12345},
+	Q{12345},
+	Q{ 12345},
+	Q{  12345},
+	Q{   12345},
+	Q{    12345},
+	Q{     12345},
+	Q{      12345}
+], Q{formatter.d.22};
 )
 
 #`(
@@ -927,7 +927,7 @@ is-deeply do {
 #    (let ((fn (formatter "~,,,#:D")))
 #      (loop for i from 0 to 10
 #            for args = (make-list i)
-#            for s = (apply #'format nil "~,,,#:d" 1234567890 args)
+#            for s = (apply #Q{format nil "~,,,#:d" 1234567890 args)
 #            for s2 = (with-output-to-string
 #                       (stream)
 #                       (assert (equal (apply fn stream 1234567890 args) args)))
@@ -958,18 +958,18 @@ is-deeply do {
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"1,2,3,4,5,6,7,8,9,0",
-	"12,34,56,78,90",
-	"1,234,567,890",
-	"12,3456,7890",
-	"12345,67890",
-	"1234,567890",
-	"123,4567890",
-	"12,34567890",
-	"1,234567890",
-	"1234567890",
-	"1234567890"
-], 'format.d.23';
+}, [	Q{1,2,3,4,5,6,7,8,9,0},
+	Q{12,34,56,78,90},
+	Q{1,234,567,890},
+	Q{12,3456,7890},
+	Q{12345,67890},
+	Q{1234,567890},
+	Q{123,4567890},
+	Q{12,34567890},
+	Q{1,234567890},
+	Q{1234567890},
+	Q{1234567890}
+], Q{format.d.23};
 )
 
 #`(
@@ -979,7 +979,7 @@ is-deeply do {
 #    (let ((fn (formatter "~,,,#:@d")))
 #      (loop for i from 0 to 10
 #            for args = (make-list i)
-#            for s = (apply #'format nil "~,,,#@:D" 1234567890 args)
+#            for s = (apply #Q{format nil "~,,,#@:D" 1234567890 args)
 #            for s2 = (with-output-to-string
 #                       (stream)
 #                       (assert (equal (apply fn stream 1234567890 args) args)))
@@ -1010,39 +1010,39 @@ is-deeply do {
 #		@collected.append( $s );
 	}
 	@collected;
-}, [	"+1,2,3,4,5,6,7,8,9,0",
-	"+12,34,56,78,90",
-	"+1,234,567,890",
-	"+12,3456,7890",
-	"+12345,67890",
-	"+1234,567890",
-	"+123,4567890",
-	"+12,34567890",
-	"+1,234567890",
-	"+1234567890",
-	"+1234567890"
-], 'format.d.24';
+}, [	Q{+1,2,3,4,5,6,7,8,9,0},
+	Q{+12,34,56,78,90},
+	Q{+1,234,567,890},
+	Q{+12,3456,7890},
+	Q{+12345,67890},
+	Q{+1234,567890},
+	Q{+123,4567890},
+	Q{+12,34567890},
+	Q{+1,234567890},
+	Q{+1234567890},
+	Q{+1234567890}
+], Q{format.d.24};
 )
 
 # (def-format-test format.d.25
 #   "~+10d" (1234) "      1234")
 # 
-is $fl.format( Q{~+10d}, 1234 ), Q{      1234}, 'format.d.25';
+is $fl.format( Q{~+10d}, 1234 ), Q{      1234}, Q{format.d.25};
 
 # (def-format-test format.d.26
 #   "~+10@d" (1234) "     +1234")
 # 
-is $fl.format( Q{~+10@d}, 1234 ), Q{     +1234}, 'format.d.26';
+is $fl.format( Q{~+10@d}, 1234 ), Q{     +1234}, Q{format.d.26};
 
 # (def-format-test format.d.27
 #   "~-1d" (1234) "1234")
 # 
-is $fl.format( Q{~-1d}, 1234 ), Q{1234}, 'format.d.27';
+is $fl.format( Q{~-1d}, 1234 ), Q{1234}, Q{format.d.27};
 
 # (def-format-test format.d.28
 #   "~-1000000000000000000d" (1234) "1234")
 # 
-is $fl.format( Q{~-1000000000000000000d}, 1234 ), Q{1234}, 'format.d.28';
+is $fl.format( Q{~-1000000000000000000d}, 1234 ), Q{1234}, Q{format.d.28};
 
 # (def-format-test format.d.29
 #   "~vd" ((1- most-negative-fixnum) 1234) "1234")
@@ -1089,7 +1089,7 @@ is do {
 #		}
 #	}
 	@collected.elems;
-}, 0, 'format.d.30';
+}, 0, Q{format.d.30};
 )
 
 done-testing;

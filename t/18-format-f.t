@@ -38,7 +38,7 @@ is do {
 #		}
 #	}
 	@collected.elems;
-}, 0, 'format.f.1';
+}, 0, Q{format.f.1};
 )
 
 #`(
@@ -74,7 +74,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.2';
+}, 0, Q{format.f.2};
 )
 
 #`(
@@ -109,7 +109,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.3';
+}, 0, Q{format.f.3};
 )
 
 #`(
@@ -135,7 +135,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.4';
+}, 0, Q{format.f.4};
 )
 
 #`(
@@ -160,7 +160,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.5';
+}, 0, Q{format.f.5};
 )
 
 #`(
@@ -185,7 +185,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.6';
+}, 0, Q{format.f.6};
 )
 
 #`(
@@ -210,7 +210,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.7';
+}, 0, Q{format.f.7};
 )
 
 #`(
@@ -235,7 +235,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.8';
+}, 0, Q{format.f.8};
 )
 
 #`(
@@ -260,7 +260,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.9';
+}, 0, Q{format.f.9};
 )
 
 #`(
@@ -285,7 +285,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.10';
+}, 0, Q{format.f.10};
 )
 
 #`(
@@ -310,7 +310,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.11';
+}, 0, Q{format.f.11};
 )
 
 #`(
@@ -335,7 +335,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.12';
+}, 0, Q{format.f.12};
 )
 
 #`(
@@ -360,7 +360,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.13';
+}, 0, Q{format.f.13};
 )
 
 #`(
@@ -385,7 +385,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.14';
+}, 0, Q{format.f.14};
 )
 
 #`(
@@ -410,7 +410,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.15';
+}, 0, Q{format.f.15};
 )
 
 #`(
@@ -435,7 +435,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.16';
+}, 0, Q{format.f.16};
 )
 
 #`(
@@ -460,7 +460,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.17';
+}, 0, Q{format.f.17};
 )
 
 #`(
@@ -486,7 +486,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.18';
+}, 0, Q{format.f.18};
 )
 
 #`(
@@ -511,7 +511,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.19';
+}, 0, Q{format.f.19};
 )
 
 #`(
@@ -536,7 +536,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.20';
+}, 0, Q{format.f.20};
 )
 
 #`(
@@ -561,7 +561,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.21';
+}, 0, Q{format.f.21};
 )
 
 # ;;; overflow
@@ -589,7 +589,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.22';
+}, 0, Q{format.f.22};
 )
 
 #`(
@@ -615,7 +615,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.23';
+}, 0, Q{format.f.23};
 )
 
 #`(
@@ -641,7 +641,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.24';
+}, 0, Q{format.f.24};
 )
 
 #`(
@@ -667,7 +667,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.25';
+}, 0, Q{format.f.25};
 )
 
 # ;;; padchar
@@ -695,7 +695,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.25';
+}, 0, Q{format.f.25};
 )
 
 #`(
@@ -721,7 +721,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.27';
+}, 0, Q{format.f.27};
 )
 
 # ;;; v parameters
@@ -750,7 +750,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.28';
+}, 0, Q{format.f.28};
 )
 
 #`(
@@ -777,7 +777,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.29';
+}, 0, Q{format.f.29};
 )
 
 #`(
@@ -804,7 +804,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.30';
+}, 0, Q{format.f.30};
 )
 
 #`(
@@ -831,7 +831,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.31';
+}, 0, Q{format.f.31};
 )
 
 #`(
@@ -858,7 +858,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.32';
+}, 0, Q{format.f.32};
 )
 
 # ;;; Randomized tests
@@ -912,7 +912,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.34';
+}, 0, Q{format.f.34};
 )
 
 #`(
@@ -939,7 +939,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.35';
+}, 0, Q{format.f.35};
 )
 
 #`(
@@ -966,7 +966,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.36';
+}, 0, Q{format.f.36};
 )
 
 #`(
@@ -993,7 +993,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.37';
+}, 0, Q{format.f.37};
 )
 
 #`(
@@ -1034,7 +1034,7 @@ is do {
 #		}
 #	}
 	@collected.elems;
-}, 0, 'format.f.38';
+}, 0, Q{format.f.38};
 )
 
 #`(
@@ -1063,7 +1063,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.39';
+}, 0, Q{format.f.39};
 )
 
 #`(
@@ -1092,7 +1092,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.40';
+}, 0, Q{format.f.40};
 )
 
 #`(
@@ -1121,7 +1121,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.41';
+}, 0, Q{format.f.41};
 )
 
 #`(
@@ -1168,7 +1168,7 @@ is do {
 #		}
 	}
 	@collected.elems;
-}, 0, 'format.f.42';
+}, 0, Q{format.f.42};
 )
 
 # ;;; This failed in sbcl 0.8.12.25
@@ -1177,7 +1177,7 @@ is do {
 # (def-format-test format.f.43
 #   "~,,,,',f" (0.0) "0.0")
 # 
-is $fl.format( Q{~,,,,',f}, 0.0 ), Q{0.0}, 'format.f.43';
+is $fl.format( Q{~,,,,',f}, 0.0 ), Q{0.0}, Q{format.f.43};
 )
 
 #`(
@@ -1203,27 +1203,27 @@ is do {
 #		}
 #	}
 	@collected.elems;
-}, 0, 'format.f.44';
+}, 0, Q{format.f.44};
 )
 
 #`(
 # (def-format-test format.f.45
 #     "~2f" (1.1) "1.0")
 # 
-is $fl.format( Q{~2f}, 1.1 ), Q{1.0}, 'format.f.45';
+is $fl.format( Q{~2f}, 1.1 ), Q{1.0}, Q{format.f.45};
 )
 
 # (def-format-test format.f.45b
 #     "~3f" (1.1) "1.1")
 # 
-is $fl.format( Q{~3f}, 1.1 ), Q{1.1}, 'format.f.45b';
+is $fl.format( Q{~3f}, 1.1 ), Q{1.1}, Q{format.f.45b};
 
 # ;; This fails on ECL 15.3.7
 #`(
 # (def-format-test format.f.46
 #     "~0f" (0.01) ".0")
 # 
-is $fl.format( Q{~0f}, 0.01 ), Q{.0}, 'format.f.46';
+is $fl.format( Q{~0f}, 0.01 ), Q{.0}, Q{format.f.46};
 )
 
 # ;; sbcl prints "."
@@ -1231,21 +1231,21 @@ is $fl.format( Q{~0f}, 0.01 ), Q{.0}, 'format.f.46';
 # (def-format-test format.f.46b
 #     "~0,0f" (0.01) "0.")
 # 
-is $fl.format( Q{~0,0f}, 0.01 ), Q{0.}, 'format.f.46b';
+is $fl.format( Q{~0,0f}, 0.01 ), Q{0.}, Q{format.f.46b};
 )
 
 # ;; Most implementations print .00
 # (def-format-test format.f.47
 #     "~3f" (0.000001) "0.0")
 # 
-is $fl.format( Q{~3f}, 0.000001 ), Q{0.0}, 'format.f.47';
+is $fl.format( Q{~3f}, 0.000001 ), Q{0.0}, Q{format.f.47};
 
 # ;; CCL 1.10 and ECL 15.3.7 ignore k parameter when w and d aren't set
 #`(
 # (def-format-test format.f.48
 #     "~,,2f" (0.1) "10.0")
 # 
-is $fl.format( Q{~,,2f}, 0.1 ), Q{10.0}, 'format.f.48';
+is $fl.format( Q{~,,2f}, 0.1 ), Q{10.0}, Q{format.f.48};
 )
 
 done-testing;
