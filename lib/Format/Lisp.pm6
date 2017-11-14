@@ -102,19 +102,12 @@ class Format::Lisp {
 			}
 			elsif $directive ~~ Format::Lisp::Directive::Tilde {
 				$offset = 0;
-				$text ~= $directive.to-string(
-					@arguments[$index],
-					@arguments[$index+1],
-					@arguments.elems - $index
-				);
 			}
-			else {
-				$text ~= $directive.to-string(
-					@arguments[$index],
-					@arguments[$index+1],
-					@arguments.elems - $index
-				);
-			}
+			$text ~= $directive.to-string(
+				@arguments[$index],
+				@arguments[$index+1],
+				@arguments.elems - $index
+			);
 			$index += $offset;
 		}
 		return $text;

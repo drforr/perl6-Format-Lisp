@@ -187,6 +187,10 @@ class Format::Lisp::Directive {
 
 		return $out;
 	}
+
+	method to-string( $_argument, $next, $remaining ) {
+		return '';
+	}
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive {
@@ -243,16 +247,6 @@ class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
 	has $.trailing-colon = False;
-
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
-
-		return '';
-	}
 }
 
 class Format::Lisp::Directive::B is Format::Lisp::Directive {
@@ -304,42 +298,6 @@ class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 	has $.commachar = ',';
 	has $.comma-interval = 3;
 	has $.trailing-colon = False;
-
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
-
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = sprintf "%b", $argument;
-
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
-
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return '';
-#		return self.pad(
-#			$out, $at, $mincol, $colinc, $minpad, $padchar
-#		);
-	}
 }
 
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
@@ -352,9 +310,6 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive {
-	method to-string( $_argument, $next, $remaining ) {
-		return '';
-	}
 }
 
 class Format::Lisp::Directive::C is Format::Lisp::Directive {
@@ -542,9 +497,6 @@ class Format::Lisp::Directive::Percent is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { 
-	method to-string( $_argument, $next, $remaining ) {
-		return '';
-	}
 }
 
 class Format::Lisp::Directive::P is Format::Lisp::Directive {
@@ -558,9 +510,6 @@ class Format::Lisp::Directive::P is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::Ques is Format::Lisp::Directive {
-	method to-string( $_argument, $next, $remaining ) {
-		return '';
-	}
 }
 
 class Format::Lisp::Directive::R is Format::Lisp::Directive {
@@ -694,18 +643,6 @@ warn "32";
 			}
 		}
 	}
-	
-
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		# XXX $.n is the equivalent of $.mincol.
-		my $n;
-		( $n, $argument ) =
-			self.get-n( $argument, $next, $remaining );
-
-		return 0;
-	}
 }
 
 class Format::Lisp::Directive::S is Format::Lisp::Directive {
@@ -750,15 +687,9 @@ class Format::Lisp::Directive::Tilde is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::T is Format::Lisp::Directive {
-	method to-string( $_argument, $next, $remaining ) {
-		return '';
-	}
 }
 
 class Format::Lisp::Directive::Under is Format::Lisp::Directive {
-	method to-string( $_argument, $next, $remaining ) {
-		return '';
-	}
 }
 
 class Format::Lisp::Directive::W is Format::Lisp::Directive { }
