@@ -47,7 +47,19 @@ class Format::Lisp::Directive {
 		return $text;
 	}
 
-	method pad( $out, $at, $mincol, $colinc, $minpad, $padchar ) {
+	method pad-left( $_out, $mincol, $padchar ) {
+		my $out = self.print-case( $_out );
+		my $padding = '';
+		if $mincol > $out.chars + $padding.chars {
+			my $remainder = $mincol - $out.chars - $padding.chars;
+			$padding ~= $padchar x $remainder;
+		}
+
+		return $padding ~ $out;
+	}
+
+	method pad( $_out, $at, $mincol, $colinc, $minpad, $padchar ) {
+		my $out = self.print-case( $_out );
 		my $padding = '';
 		if $minpad > 0 {
 			$padding ~= $padchar x $minpad;
@@ -88,25 +100,25 @@ class Format::Lisp::Directive {
 		return ( $colinc, $argument );
 	}
 
-	method get-nil( $argument, $out ) {
-		my $_out = $out;
+	method get-nil( $argument, $_out ) {
+		my $out = $_out;
 		if $argument ~~ List {
 			if $.colon {
-				$_out = '(NIL)';
+				$out = '(NIL)';
 			}
 			else {
-				$_out = '(NIL)'; # Sigh.
+				$out = '(NIL)'; # Sigh.
 			}
 		}
 		elsif !$argument {
 			if $.colon {
-				$_out = '()';
+				$out = '()';
 			}
 			else {
-				$_out = 'NIL';
+				$out = 'NIL';
 			}
 		}
-		return $_out;
+		return $out;
 	}
 
 	method get-minpad( $_argument, $next, $remaining ) {
@@ -174,7 +186,7 @@ class Format::Lisp::Directive {
 		return ( $n, $argument );
 	}
 
-	method commify( $_out, $commachar, $comma-interval ) {
+	method to-number( $_out, $commachar, $comma-interval ) {
 		my $out = $_out;
 		my $chars-to-commify = $out.chars;
 		$chars-to-commify-- if $out ~~ /^\-/;
@@ -187,6 +199,7 @@ class Format::Lisp::Directive {
 				$out.substr-rw( *-$inset, 0 ) = $commachar;
 			}
 		}
+		$out = '+' ~ $out if $.at and $out > 0;
 
 		return $out;
 	}
@@ -227,7 +240,6 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
 
 		return self.pad(
 			$out, $.at, $mincol, $colinc, $minpad, $padchar
@@ -288,17 +300,9 @@ class Format::Lisp::Directive::B is Format::Lisp::Directive {
 		$argument = sprintf "%b", $argument;
 
 		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
+		$out = self.to-number( $out, $commachar, $comma-interval );
 
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return self.pad(
-			$out, $at, $mincol, $colinc, $minpad, $padchar
-		);
+		return self.pad-left( $out, $mincol, $padchar );
 	}
 }
 
@@ -381,18 +385,9 @@ class Format::Lisp::Directive::D is Format::Lisp::Directive {
 		$argument = sprintf "%d", $argument;
 
 		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
-		$out = self.commify( $out, $commachar, $comma-interval );
+		$out = self.to-number( $out, $commachar, $comma-interval );
 
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return self.pad(
-			$out, $at, $mincol, $colinc, $minpad, $padchar
-		);
+		return self.pad-left( $out, $mincol, $padchar );
 	}
 }
 
@@ -432,16 +427,10 @@ class Format::Lisp::Directive::F is Format::Lisp::Directive {
 
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
 
 		$out = '+' ~ $out if $.at and $out > 0;
 
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return self.pad(
-			$out, $at, $mincol, $colinc, $minpad, $padchar
-		);
+		return self.pad-left( $out, $mincol, $padchar );
 	}
 }
 
@@ -477,18 +466,9 @@ class Format::Lisp::Directive::O is Format::Lisp::Directive {
 		$argument = sprintf "%o", $argument;
 
 		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
-		$out = self.commify( $out, $commachar, $comma-interval );
+		$out = self.to-number( $out, $commachar, $comma-interval );
 
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return self.pad(
-			$out, $at, $mincol, $colinc, $minpad, $padchar
-		);
+		return self.pad-left( $out, $mincol, $padchar );
 	}
 }
 
@@ -565,18 +545,9 @@ class Format::Lisp::Directive::R is Format::Lisp::Directive {
 		$argument = $argument.base( $radix );
 
 		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
-		$out = self.commify( $out, $commachar, $comma-interval );
+		$out = self.to-number( $out, $commachar, $comma-interval );
 
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return self.pad(
-			$out, $at, $mincol, $colinc, $minpad, $padchar
-		);
+		return self.pad-left( $out, $mincol, $padchar );
 	}
 }
 
@@ -687,7 +658,6 @@ class Format::Lisp::Directive::S is Format::Lisp::Directive {
 
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
 
 		return self.pad(
 			$out, $.at, $mincol, $colinc, $minpad, $padchar
@@ -742,7 +712,6 @@ class Format::Lisp::Directive::X is Format::Lisp::Directive {
 
 		my $out = $argument;
 		$out = self.get-nil( $argument, $out );
-		$out = self.print-case( $out );
 
 		$out = '+' ~ $out if $.at and $out > 0;
 
