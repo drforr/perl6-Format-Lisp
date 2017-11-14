@@ -21,6 +21,9 @@ class Format::Lisp::Text {
 	method to-string( $_argument, $next, $remaining ) {
 		return $.text;
 	}
+	method to-offset( $index, $arg, $next, $elems ) {
+		return 0;
+	}
 }
 
 class Format::Lisp::Directive {
@@ -191,6 +194,10 @@ class Format::Lisp::Directive {
 	method to-string( $_argument, $next, $remaining ) {
 		return '';
 	}
+
+	method to-offset( $index, $arg, $next, $elems ) {
+		return 1;
+	}
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive {
@@ -247,6 +254,10 @@ class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
 	has $.trailing-colon = False;
+
+	method to-offset( $index, $arg, $next, $elems ) {
+		return 1;
+	}
 }
 
 class Format::Lisp::Directive::B is Format::Lisp::Directive {
@@ -307,6 +318,10 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	has $.commachar = ',';
 	has $.comma-interval = 3;
 	has $.trailing-colon = False;
+
+	method to-offset( $index, $arg, $next, $elems ) {
+		return 1;
+	}
 }
 
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive {
@@ -681,6 +696,10 @@ class Format::Lisp::Directive::S is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::Tilde is Format::Lisp::Directive {
+	method to-offset( $index, $arg, $next, $elems ) {
+		return 0;
+	}
+
 	method to-string( $_argument, $next, $remaining ) {
 		return '~';
 	}

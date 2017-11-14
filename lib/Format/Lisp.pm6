@@ -92,17 +92,12 @@ class Format::Lisp {
 					);
 				}
 			}
-			elsif $directive ~~ Format::Lisp::Directive::Star {
-				$offset = $directive.to-offset(
-					$index,
-					@arguments[$index],
-					@arguments[$index+1],
-					@arguments.elems
-				);
-			}
-			elsif $directive ~~ Format::Lisp::Directive::Tilde {
-				$offset = 0;
-			}
+			$offset = $directive.to-offset(
+				$index,
+				@arguments[$index],
+				@arguments[$index+1],
+				@arguments.elems
+			);
 			$text ~= $directive.to-string(
 				@arguments[$index],
 				@arguments[$index+1],
