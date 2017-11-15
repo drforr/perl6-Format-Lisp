@@ -67,7 +67,7 @@ is do {
 #   nil)
 # 
 is do {
-	my $fn = $fl.formatter( Q{~b} );
+	my $fn = $fl.formatter( Q{~@b} );
 	for 1 .. 1000 {
 		my $x = 2 ** ( 2 + 80.rand.Int );
 		my $i = ( ( $x + $x ).rand - $x );

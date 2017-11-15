@@ -12,15 +12,167 @@ Format::Lisp::Actions - Actions for Common Lisp format strings
 
 =end pod
 
-role Nested {
+my role Nested {
 	has @.children;
+}
+
+my role Padded {
+	has $.mincol = 0;
+	has $.padchar = ' ';
+
+	method get-mincol( $argument, $next, $remaining ) {
+		return ( $argument // 0, $next ) if $.mincol eq 'next';
+		return ( $remaining, $argument ) if $.mincol eq 'remaining';
+		return ( $.mincol, $argument );
+	}
+
+	method get-padchar( $argument, $next, $remaining ) {
+		return ( $argument // ' ', $next ) if $.padchar eq 'next';
+		return ( $remaining, $argument ) if $.padchar eq 'remaining';
+		return ( $.padchar, $argument );
+	}
+}
+
+my role Number-Like {
+	also does Padded;
+	has $.commachar = ',';
+	has $.comma-interval = 3;
+
+	method get-commachar( $argument, $next, $remaining ) {
+		return ( $argument // ',', $next ) if $.commachar eq 'next';
+		return ( $remaining, $argument ) if $.commachar eq 'remaining';
+		return ( $.commachar, $argument );
+	}
+
+	method get-comma-interval( $argument, $next, $remaining ) {
+		return ( $argument // 3, $next ) if $.comma-interval eq 'next';
+		return ( $remaining, $argument ) if
+			$.comma-interval eq 'remaining';
+		return ( $.comma-interval, $argument );
+	}
+
+	method _get-mincol-padchar-commachar-comma-interval( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my ( $mincol, $padchar, $commachar, $comma-interval );
+		( $mincol, $argument ) =
+			self.get-mincol( $argument, $next, $remaining );
+
+		( $padchar, $argument ) =
+			self.get-padchar( $argument, $next, $remaining );
+
+		( $commachar, $argument ) =
+			self.get-commachar( $argument, $next, $remaining );
+
+		( $comma-interval, $argument ) =
+			self.get-comma-interval( $argument, $next, $remaining );
+
+		return ( $mincol, $padchar, $commachar, $comma-interval, $argument );
+	}
+
+	method _pad-left( $_out, $mincol, $padchar ) {
+		my $out = self.print-case( $_out );
+
+		if $mincol > $out.chars {
+			my $remainder = $mincol - $out.chars;
+			return ( $padchar x $remainder ) ~ $out;
+		}
+
+		return $out;
+	}
+
+	method _to-number( $_out, $mincol, $padchar, $commachar, $comma-interval ) {
+		my $out = $_out;
+		my $chars-to-commify = $out.chars;
+		$chars-to-commify-- if $out ~~ /^\-/;
+		if $.colon and $chars-to-commify > $comma-interval {
+			my $commas-to-add =
+				$chars-to-commify / $comma-interval;
+			$commas-to-add-- if $comma-interval == 1;
+			for 0 .. $commas-to-add - 1 -> $x {
+				my $inset = ( $comma-interval * ( $x + 1 )) + $x;
+				$out.substr-rw( *-$inset, 0 ) = $commachar;
+			}
+		}
+		if $.at and $out > 0 {
+			$out = '+' ~ $out;
+		}
+
+		return self._pad-left( $out, $mincol, $padchar );
+	}
+
+	method _formatter( $argument, $next, $remaining ) { !!! }
+
+	method to-string( $_argument, $next, $remaining ) {
+		my ( $mincol, $padchar, $commachar, $comma-interval, $argument ) =
+			self._get-mincol-padchar-commachar-comma-interval(
+				$_argument, $next, $remaining
+			);
+		$argument = self._formatter( $argument, $next, $remaining );
+
+		return self._to-number(
+			$argument, $mincol, $padchar, $commachar, $comma-interval
+		);
+	}
+}
+
+my role String-Like {
+	also does Padded;
+	has $.colinc = 1;
+	has $.minpad = 0;
+
+	method get-colinc( $argument, $next, $remaining ) {
+		return ( $argument // 1, $next ) if $.colinc eq 'next';
+		return ( $remaining, $argument ) if $.colinc eq 'remaining';
+		return ( $.colinc, $argument );
+	}
+
+	method get-minpad( $argument, $next, $remaining ) {
+		return ( $argument // 0, $next ) if $.minpad eq 'next';
+		return ( $remaining, $argument ) if $.minpad eq 'remaining';
+		return ( $.minpad, $argument );
+	}
+
+	method get-mincol-colinc-minpad-padchar-nil( $_argument, $next, $remaining ) {
+		my $argument = $_argument;
+
+		my ( $mincol, $colinc, $minpad, $padchar );
+		( $mincol, $argument ) =
+			self.get-mincol( $argument, $next, $remaining );
+
+		( $colinc, $argument ) =
+			self.get-colinc( $argument, $next, $remaining );
+
+		( $minpad, $argument ) =
+			self.get-minpad( $argument, $next, $remaining );
+
+		( $padchar, $argument ) =
+			self.get-padchar( $argument, $next, $remaining );
+
+		my $out = self.get-nil( $argument, $argument );
+
+		return ( $mincol, $colinc, $minpad, $padchar, $out );
+	}
+
+	method to-string( $_argument, $next, $remaining ) {
+		my ( $mincol, $colinc, $minpad, $padchar, $argument ) =
+			self.get-mincol-colinc-minpad-padchar-nil(
+				$_argument, $next, $remaining
+			);
+
+		return self.pad(
+			$argument, $mincol, $colinc, $minpad, $padchar
+		);
+	}
 }
 
 class Format::Lisp::Text {
 	has $.text;
-	method to-string( $_argument, $next, $remaining ) {
+
+	method to-string( $argument, $next, $remaining ) {
 		return $.text;
 	}
+
 	method to-offset( $index, $arg, $next, $elems ) {
 		return 0;
 	}
@@ -47,22 +199,11 @@ class Format::Lisp::Directive {
 		return $text;
 	}
 
-	method pad-left( $_out, $mincol, $padchar ) {
-		my $out = self.print-case( $_out );
-		my $padding = '';
-		if $mincol > $out.chars + $padding.chars {
-			my $remainder = $mincol - $out.chars - $padding.chars;
-			$padding ~= $padchar x $remainder;
-		}
-
-		return $padding ~ $out;
-	}
-
-	method pad( $_out, $at, $mincol, $colinc, $minpad, $padchar ) {
+	method pad( $_out, $mincol, $colinc, $minpad, $padchar ) {
 		my $out = self.print-case( $_out );
 		my $padding = '';
 		if $minpad > 0 {
-			$padding ~= $padchar x $minpad;
+			$padding = $padchar x $minpad;
 		}
 		if $mincol > $out.chars + $padding.chars {
 			my $remainder = $mincol - $out.chars - $padding.chars;
@@ -70,138 +211,32 @@ class Format::Lisp::Directive {
 			$padding ~= $padchar x $pads;
 		}
 
-		return $padding ~ $out if $at;
+		return $padding ~ $out if $.at;
 		return $out ~ $padding;
 	}
 
-	method get-mincol( $_argument, $next, $remaining ) {
-		my $mincol = $.mincol;
-		my $argument = $_argument;
-		if $mincol eq 'next' {
-			$mincol = $argument // 0;
-			$argument = $next;
-		}
-		elsif $mincol eq 'remaining' {
-			$mincol = $remaining;
-		}
-		return ( $mincol, $argument );
-	}
-
-	method get-colinc( $_argument, $next, $remaining ) {
-		my $colinc = $.colinc;
-		my $argument = $_argument;
-		if $colinc eq 'next' {
-			$colinc = $argument // 1;
-			$argument = $next;
-		}
-		elsif $colinc eq 'remaining' {
-			$colinc = $remaining;
-		}
-		return ( $colinc, $argument );
-	}
-
-	method get-nil( $argument, $_out ) {
-		my $out = $_out;
+	method get-nil( $argument, $out ) {
 		if $argument ~~ List {
-			if $.colon {
-				$out = '(NIL)';
-			}
-			else {
-				$out = '(NIL)'; # Sigh.
-			}
+			return '(NIL)' if $.colon;
+			return '(NIL)'; # Sigh.
 		}
 		elsif !$argument {
-			if $.colon {
-				$out = '()';
-			}
-			else {
-				$out = 'NIL';
-			}
+			return '()' if $.colon;
+			return 'NIL';
 		}
 		return $out;
 	}
 
-	method get-minpad( $_argument, $next, $remaining ) {
-		my $minpad = $.minpad;
-		my $argument = $_argument;
-		if $minpad eq 'next' {
-			$minpad = $argument // 0;
-			$argument = $next;
-		}
-		elsif $minpad eq 'remaining' {
-			$minpad = $remaining;
-		}
-		return ( $minpad, $argument );
+	method get-n( $argument, $next, $remaining ) {
+		return ( $argument // 0, $next ) if $.n eq 'next';
+		return ( $remaining, $argument ) if $.n eq 'remaining';
+		return ( $.n, $argument );
 	}
 
-	method get-padchar( $_argument, $next, $remaining ) {
-		my $padchar = $.padchar;
-		my $argument = $_argument;
-		if $padchar eq 'next' {
-			$padchar = $argument // ' ';
-			$argument = $next;
-		}
-		elsif $padchar eq 'remaining' {
-			$padchar = $remaining;
-		}
-		return ( $padchar, $argument );
-	}
-
-	method get-commachar( $_argument, $next, $remaining ) {
-		my $commachar = $.commachar;
-		my $argument = $_argument;
-		if $commachar eq 'next' {
-			$commachar = $argument // ',';
-			$argument = $next;
-		}
-		elsif $commachar eq 'remaining' {
-			$commachar = $remaining;
-		}
-		return ( $commachar, $argument );
-	}
-
-	method get-comma-interval( $_argument, $next, $remaining ) {
-		my $comma-interval = $.comma-interval;
-		my $argument = $_argument;
-		if $comma-interval eq 'next' {
-			$comma-interval = $argument // 3;
-			$argument = $next;
-		}
-		elsif $comma-interval eq 'remaining' {
-			$comma-interval = $remaining;
-		}
-		return ( $comma-interval, $argument );
-	}
-
-	method get-n( $_argument, $next, $remaining ) {
-		my $n = $.n;
-		my $argument = $_argument;
-		if $n eq 'next' {
-			$n = $argument // 0;
-			$argument = $next;
-		}
-		elsif $n eq 'remaining' {
-			$n = $remaining;
-		}
-		return ( $n, $argument );
-	}
-
-	method to-number( $_out, $commachar, $comma-interval ) {
-		my $out = $_out;
-		my $chars-to-commify = $out.chars;
-		$chars-to-commify-- if $out ~~ /^\-/;
-		if $.colon and $chars-to-commify > $comma-interval {
-			my $commas-to-add =
-				$chars-to-commify / $comma-interval;
-			$commas-to-add-- if $comma-interval == 1;
-			for 0 .. $commas-to-add - 1 -> $x {
-				my $inset = ( $comma-interval * ( $x + 1 )) + $x;
-				$out.substr-rw( *-$inset, 0 ) = $commachar;
-			}
-		}
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		return $out;
+	method get-radix( $argument, $next, $remaining ) {
+		return ( $argument // 0, $next ) if $.radix eq 'next';
+		return ( $remaining, $argument ) if $.radix eq 'remaining';
+		return ( $.radix, $argument );
 	}
 
 	method to-string( $_argument, $next, $remaining ) {
@@ -214,37 +249,7 @@ class Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.colinc = 1;
-	has $.minpad = 0;
-	has $.padchar = ' ';
-
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $colinc;
-		( $colinc, $argument ) =
-			self.get-colinc( $argument, $next, $remaining );
-
-		my $minpad;
-		( $minpad, $argument ) =
-			self.get-minpad( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-
-		return self.pad(
-			$out, $.at, $mincol, $colinc, $minpad, $padchar
-		);
-	}
+	also does String-Like;
 }
 
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
@@ -257,8 +262,6 @@ class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 		( $n, $argument ) =
 			self.get-n( $argument, $next, $remaining );
 
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
 		return qq{\n} x $n;
 	}
 }
@@ -273,54 +276,22 @@ class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::B is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
+	also does Number-Like;
 
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
-
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = sprintf "%b", $argument;
-
-		my $out = $argument;
-		$out = self.to-number( $out, $commachar, $comma-interval );
-
-		return self.pad-left( $out, $mincol, $padchar );
+	method _formatter( $value, $next, $remaining ) {
+		return sprintf "%b", $value;
 	}
 }
 
 class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
+	also does Padded;
 	also does Nested;
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
 	has $.trailing-colon = False;
 }
 
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
+	also does Padded;
 	also does Nested;
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
 	has $.trailing-colon = False;
 
 	method to-offset( $index, $arg, $next, $elems ) {
@@ -332,9 +303,7 @@ class Format::Lisp::Directive::Caret is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::C is Format::Lisp::Directive {
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
+	method _to-character-name( $character ) {
 		my %character-names =
 			qq{ } => 'Space',
 			qq{\x08} => 'Backspace',
@@ -345,49 +314,25 @@ class Format::Lisp::Directive::C is Format::Lisp::Directive {
 			qq{\x0f} => 'Page'
 		;
 
-		if $.colon {
-			if %character-names{$argument} {
-				$argument = %character-names{$argument};
-			}
-		}
-
-		my $out = $argument;
-		$out = self.print-case( $out );
-		return $out;
+		return %character-names{$character}
+			if %character-names{$character};
+		return $character;
 	}
-}
-
-class Format::Lisp::Directive::D is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
 
 	method to-string( $_argument, $next, $remaining ) {
 		my $argument = $_argument;
 
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
+		$argument = self._to-character-name( $argument ) if $.colon;
 
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
+		return self.print-case( $argument );
+	}
+}
 
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
+class Format::Lisp::Directive::D is Format::Lisp::Directive {
+	also does Number-Like;
 
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = sprintf "%d", $argument;
-
-		my $out = $argument;
-		$out = self.to-number( $out, $commachar, $comma-interval );
-
-		return self.pad-left( $out, $mincol, $padchar );
+	method _formatter( $value, $next, $remaining ) {
+		return sprintf "%d", $value;
 	}
 }
 
@@ -396,41 +341,14 @@ class Format::Lisp::Directive::Dollar is Format::Lisp::Directive { }
 class Format::Lisp::Directive::E is Format::Lisp::Directive { }
 
 class Format::Lisp::Directive::F is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
+	also does Number-Like;
 
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
-
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = sprintf "%f", $argument;
+	method _formatter( $_value, $next, $remaining ) {
+		my $value = sprintf "%f", $_value;
 		if $.mincol {
-			$argument = $argument.substr( 0, $.mincol );
+			$value = $value.substr( 0, $.mincol );
 		}
-
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		return self.pad-left( $out, $mincol, $padchar );
+		return $value;
 	}
 }
 
@@ -439,36 +357,10 @@ class Format::Lisp::Directive::G is Format::Lisp::Directive { }
 class Format::Lisp::Directive::I is Format::Lisp::Directive { }
 
 class Format::Lisp::Directive::O is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
+	also does Number-Like;
 
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
-
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = sprintf "%o", $argument;
-
-		my $out = $argument;
-		$out = self.to-number( $out, $commachar, $comma-interval );
-
-		return self.pad-left( $out, $mincol, $padchar );
+	method _formatter( $value, $next, $remaining ) {
+		return sprintf "%o", $value;
 	}
 }
 
@@ -497,9 +389,7 @@ class Format::Lisp::Directive::Pipe is Format::Lisp::Directive {
 class Format::Lisp::Directive::P is Format::Lisp::Directive {
 	method to-string( $_argument, $next, $remaining ) {
 		# XXX Of course, this is heavily language-dependent.
-		if $_argument and $_argument != 1 {
-			return 's';
-		}
+		return 's' if $_argument and $_argument != 1;
 		return '';
 	}
 }
@@ -508,46 +398,16 @@ class Format::Lisp::Directive::Ques is Format::Lisp::Directive {
 }
 
 class Format::Lisp::Directive::R is Format::Lisp::Directive {
+	also does Number-Like;
 	has $.radix = 10;
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
 
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
+	method _formatter( $_value, $next, $remaining ) {
+		my $value = $_value;
+		my $radix;
+		( $radix, $value ) =
+			self.get-radix( $value, $next, $remaining );
 
-		my $radix = $.radix;
-		if $radix eq 'next' {
-			$radix = $argument // 10;
-			$argument = $next;
-		}
-		elsif $radix eq 'remaining' {
-			$radix = $remaining;
-		}
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
-
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = $argument.base( $radix );
-
-		my $out = $argument;
-		$out = self.to-number( $out, $commachar, $comma-interval );
-
-		return self.pad-left( $out, $mincol, $padchar );
+		return $value.base( $radix );
 	}
 }
 
@@ -555,114 +415,70 @@ class Format::Lisp::Directive::Semi is Format::Lisp::Directive { }
 
 class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 	has $.text;
-	method to-string( $_argument, $next, $remaining ) {
-		return $_argument;
+
+	method to-string( $argument, $next, $remaining ) {
+		return $argument;
 	}
 }
 
 class Format::Lisp::Directive::Star is Format::Lisp::Directive {
 	has $.n = Nil;
 
-	method to-offset( $index, $arg, $next, $elems ) {
+	method to-offset( $index, $argument, $next, $elems ) {
 		if $.at {
-			my $offset = 0;
-			if $.n ~~ Real {
-				$offset = $.n;
-			}
-			elsif $.n ~~ Str {
+			return $.n - $index if $.n ~~ Real;
+			if $.n ~~ Str {
 				if $.n eq 'remaining' {
 warn "12";
+					return -$index;
 				}
-				elsif $.n eq 'next' {
-					$offset = $arg // 0;
-				}
+				return ( $argument // 0 ) - $index if
+					$.n eq 'next';
+				return -$index;
 			}
-			return $offset - $index;
+			return -$index;
 		}
 		else {
 			if $.colon {
-				if $.n ~~ Real {
-					return -$.n;
-				}
-				elsif $.n ~~ Str {
+				return -$.n if $.n ~~ Real;
+				if $.n ~~ Str {
 					if $.n eq 'remaining' {
 warn "22";
 					}
 					elsif $.n eq 'next' {
-						my $offset = 0;
-						if $arg ~~ Real {
-							if $arg == 2 {
-								$offset = -1;
-							}
-							else {
-								$offset = $next - $index;
-							}
+						if $argument ~~ Real {
+							return -1 if
+								$argument == 2;
+							return $next - $index;
 						}
-						return $offset;
+						return 0;
 					}
 				}
-				else {
-					return -1;
-				}
+				return -1;
 			}
 			else {
-				my $offset = 0;
 				if $.n ~~ Str {
 					if $.n eq 'remaining' {
 warn "32";
+						return 0;
 					}
 					elsif $.n eq 'next' {
-						if $index+1 < $elems - 1 {
-							$offset = ( $arg // 1 ) + $next - $index;
+						if $index + 1 < $elems - 1 {
+							return ( $argument // 1 ) + $next - $index;
 						}
-						else {
-							$offset = $next - $index;
-						}
+						return $next - $index;
 					}
+					return 0;
 				}
-				elsif $.n ~~ Real {
-				}
-				else {
-					$offset = 1;
-				}
-				return $offset;
+				return 0 if $.n ~~ Real;
+				return 1;
 			}
 		}
 	}
 }
 
 class Format::Lisp::Directive::S is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.colinc = 1;
-	has $.minpad = 0;
-	has $.padchar = ' ';
-
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $colinc;
-		( $colinc, $argument ) =
-			self.get-colinc( $argument, $next, $remaining );
-
-		my $minpad;
-		( $minpad, $argument ) =
-			self.get-minpad( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-
-		return self.pad(
-			$out, $.at, $mincol, $colinc, $minpad, $padchar
-		);
-	}
+	also does String-Like;
 }
 
 class Format::Lisp::Directive::Tilde is Format::Lisp::Directive {
@@ -684,43 +500,10 @@ class Format::Lisp::Directive::Under is Format::Lisp::Directive {
 class Format::Lisp::Directive::W is Format::Lisp::Directive { }
 
 class Format::Lisp::Directive::X is Format::Lisp::Directive {
-	has $.mincol = 0;
-	has $.padchar = ' ';
-	has $.commachar = ',';
-	has $.comma-interval = 3;
+	also does Number-Like;
 
-	method to-string( $_argument, $next, $remaining ) {
-		my $argument = $_argument;
-
-		my $mincol;
-		( $mincol, $argument ) =
-			self.get-mincol( $argument, $next, $remaining );
-
-		my $padchar;
-		( $padchar, $argument ) =
-			self.get-padchar( $argument, $next, $remaining );
-
-		my $commachar;
-		( $commachar, $argument ) =
-			self.get-commachar( $argument, $next, $remaining );
-
-		my $comma-interval;
-		( $comma-interval, $argument ) =
-			self.get-comma-interval( $argument, $next, $remaining );
-
-		$argument = sprintf "%x", $argument;
-
-		my $out = $argument;
-		$out = self.get-nil( $argument, $out );
-
-		$out = '+' ~ $out if $.at and $out > 0;
-
-		my $at = True;
-		my $colinc = 1;
-		my $minpad = 0;
-		return self.pad(
-			$out, $at, $mincol, $colinc, $minpad, $padchar
-		);
+	method _formatter( $value, $next, $remaining ) {
+		return sprintf "%x", $value;
 	}
 }
 
