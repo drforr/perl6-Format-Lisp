@@ -61,7 +61,7 @@ my role Number-Like {
 		return self._attribute( $remaining, $default, $attribute );
 	}
 	method _adjust-argument( $next, $attribute ) {
-		$!argument = self._argument( $.argument, $next, $attribute );
+		$!argument = self._argument( $next, $attribute );
 	}
 
 	method to-string( $_argument, $next, $remaining ) {
@@ -116,7 +116,7 @@ my role String-Like {
 		return self._attribute( $remaining, $default, $attribute );
 	}
 	method _adjust-argument( $next, $attribute ) {
-		$!argument = self._argument( $.argument, $next, $attribute );
+		$!argument = self._argument( $next, $attribute );
 	}
 
 	method to-string( $_argument, $next, $remaining ) {
@@ -161,10 +161,10 @@ class Format::Lisp::Directive {
 		return $remaining if $attribute eq 'remaining';
 		return $attribute;
 	}
-	method _argument( $argument, $next, $attribute ) {
+	method _argument( $next, $attribute ) {
 		return $next if $attribute eq 'next';
-		return $argument if $attribute eq 'remaining';
-		return $argument;
+		return $.argument if $attribute eq 'remaining';
+		return $.argument;
 	}
 
 	method _print-case( $text ) {
