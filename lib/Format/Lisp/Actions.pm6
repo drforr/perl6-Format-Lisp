@@ -58,7 +58,7 @@ my role Number-Like {
 	method _formatter( $next, $remaining ) { !!! }
 
 	method _get-attribute( $remaining, $default, $attribute ) {
-		return self._attribute( $.argument, $remaining, $default, $attribute );
+		return self._attribute( $remaining, $default, $attribute );
 	}
 	method _adjust-argument( $next, $attribute ) {
 		$!argument = self._argument( $.argument, $next, $attribute );
@@ -113,7 +113,7 @@ my role String-Like {
 	}
 
 	method _get-attribute( $remaining, $default, $attribute ) {
-		return self._attribute( $.argument, $remaining, $default, $attribute );
+		return self._attribute( $remaining, $default, $attribute );
 	}
 	method _adjust-argument( $next, $attribute ) {
 		$!argument = self._argument( $.argument, $next, $attribute );
@@ -156,8 +156,8 @@ class Format::Lisp::Directive {
 	has $.at = False;
 	has $.colon = False;
 
-	method _attribute( $argument, $remaining, $default, $attribute ) {
-		return $argument // $default if $attribute eq 'next';
+	method _attribute( $remaining, $default, $attribute ) {
+		return $.argument // $default if $attribute eq 'next';
 		return $remaining if $attribute eq 'remaining';
 		return $attribute;
 	}
@@ -211,9 +211,11 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 	has $.n = 0;
+	has $.argument;
 
 	method to-string( $argument, $next, $remaining ) {
-		my $n = self._attribute( $argument, $remaining, 0, $.n );
+		$!argument = $argument;
+		my $n = self._attribute( $remaining, 0, $.n );
 
 		return qq{\n} x $n;
 	}
@@ -321,9 +323,11 @@ class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
 
 class Format::Lisp::Directive::Percent is Format::Lisp::Directive {
 	has $.n = 1;
+	has $.argument;
 
 	method to-string( $argument, $next, $remaining ) {
-		my $n = self._attribute( $argument, $remaining, 0, $.n );
+		$!argument = $argument;
+		my $n = self._attribute( $remaining, 0, $.n );
 
 		return qq{\n} x $n;
 	}
