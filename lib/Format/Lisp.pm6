@@ -111,21 +111,20 @@ class Format::Lisp {
 	}
 
 	method _format( @directives, @arguments ) {
-		my $text = '';
 		my $index = 0;
-		for @directives -> $directive {
-			$text ~= self.accumulate(
-				$directive, $index, @arguments
+		return join( '', map {
+			my $text = self.accumulate(
+				$_, $index, @arguments
 			);
-			my $offset = $directive.to-offset(
+			my $offset = $_.to-offset(
 				$index,
 				@arguments[$index],
 				@arguments[$index+1],
 				@arguments.elems
 			);
 			$index += $offset;
-		}
-		return $text;
+			$text;
+		}, @directives );
 	}
 
 	method format( Str $format, **@arguments ) {
