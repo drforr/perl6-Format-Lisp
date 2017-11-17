@@ -92,6 +92,28 @@ class Format::Lisp {
 					);
 				}
 			}
+			elsif $directive ~~ Format::Lisp::Directive::Paren {
+				my $formatted = self._format(
+					@( $directive.children ),
+					@( @arguments[$index] )
+				);
+				if $directive.at {
+					if $directive.colon {
+						$formatted = uc( $formatted );
+					}
+					else {
+						$formatted = tclc( $formatted );
+					}
+				}
+				else {
+					if $directive.colon {
+					}
+					else {
+						$formatted = lc( $formatted );
+					}
+				}
+				$text ~= $formatted;
+			}
 			$offset = $directive.to-offset(
 				$index,
 				@arguments[$index],
