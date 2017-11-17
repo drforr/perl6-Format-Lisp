@@ -72,58 +72,62 @@ class Format::Lisp {
 		$parsed.ast;
 	}
 
+	multi method accumulate(
+		Format::Lisp::Directive::Angle $directive,
+		$index, @arguments
+	) {
+		return self._format(
+			@( $directive.children ),
+			@( @arguments[$index] )
+		);
+	}
+	multi method accumulate(
+		Format::Lisp::Directive::Bracket $directive,
+		$index, @arguments
+	) {
+		return self._format(
+			@( $directive.children ),
+			@( @arguments[$index] )
+		) if @arguments[$index] == 0 or $directive.at;
+		return '';
+	}
+	multi method accumulate(
+		Format::Lisp::Directive::Paren $directive,
+		$index,
+		@arguments
+	) {
+		my $formatted = self._format(
+			@( $directive.children ),
+			@( @arguments[$index] )
+		);
+		if $directive.at {
+			return uc( $formatted ) if $directive.colon;
+			return tclc( $formatted );
+		}
+		if $directive.colon {
+		}
+		return lc( $formatted );
+	}
+	multi method accumulate( $directive, $index, @arguments ) {
+		return $directive.to-string(
+			@arguments[$index],
+			@arguments[$index+1],
+			@arguments.elems - $index
+		);
+	}
+
 	method _format( @directives, @arguments ) {
 		my $text = '';
 		my $index = 0;
 		for @directives -> $directive {
-			my $offset = 1;
-			if $directive ~~ Format::Lisp::Directive::Angle {
-				$text ~= self._format(
-					@( $directive.children ),
-					@( @arguments[$index] )
-				);
-			}
-			elsif $directive ~~ Format::Lisp::Directive::Bracket {
-				if @arguments[$index] == 0 or
-				   $directive.at {
-					$text ~= self._format(
-						@( $directive.children ),
-						@( @arguments[$index] )
-					);
-				}
-			}
-			elsif $directive ~~ Format::Lisp::Directive::Paren {
-				my $formatted = self._format(
-					@( $directive.children ),
-					@( @arguments[$index] )
-				);
-				if $directive.at {
-					if $directive.colon {
-						$formatted = uc( $formatted );
-					}
-					else {
-						$formatted = tclc( $formatted );
-					}
-				}
-				else {
-					if $directive.colon {
-					}
-					else {
-						$formatted = lc( $formatted );
-					}
-				}
-				$text ~= $formatted;
-			}
-			$offset = $directive.to-offset(
+			$text ~= self.accumulate(
+				$directive, $index, @arguments
+			);
+			my $offset = $directive.to-offset(
 				$index,
 				@arguments[$index],
 				@arguments[$index+1],
 				@arguments.elems
-			);
-			$text ~= $directive.to-string(
-				@arguments[$index],
-				@arguments[$index+1],
-				@arguments.elems - $index
 			);
 			$index += $offset;
 		}
