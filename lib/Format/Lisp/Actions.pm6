@@ -252,6 +252,10 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	method to-offset( $index, $arg, $next, $elems ) {
 		return 1;
 	}
+	method postprocess( $text, $index, @arguments ) {
+		return $text if @arguments[$index] == 0 or self.at;
+		return '';
+	}
 }
 
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive {
@@ -319,6 +323,15 @@ class Format::Lisp::Directive::O is Format::Lisp::Directive {
 
 class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
 	also does Nested;
+	method postprocess( $text, $index, @arguments ) {
+		if self.at {
+			return uc( $text ) if self.colon;
+			return tclc( $text );
+		}
+		if self.colon {
+		}
+		return lc( $text );
+	}
 }
 
 class Format::Lisp::Directive::Percent is Format::Lisp::Directive {

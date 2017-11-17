@@ -85,11 +85,11 @@ class Format::Lisp {
 		Format::Lisp::Directive::Bracket $directive,
 		$index, @arguments
 	) {
-		return self._format(
+		my $formatted = self._format( # XXX Could cause issues
 			@( $directive.children ),
 			@( @arguments[$index] )
-		) if @arguments[$index] == 0 or $directive.at;
-		return '';
+		);
+		return $directive.postprocess( $formatted, $index, @arguments );
 	}
 	multi method accumulate(
 		Format::Lisp::Directive::Paren $directive,
@@ -100,13 +100,7 @@ class Format::Lisp {
 			@( $directive.children ),
 			@( @arguments[$index] )
 		);
-		if $directive.at {
-			return uc( $formatted ) if $directive.colon;
-			return tclc( $formatted );
-		}
-		if $directive.colon {
-		}
-		return lc( $formatted );
+		return $directive.postprocess( $formatted, $index, @arguments );
 	}
 	multi method accumulate( $directive, $index, @arguments ) {
 		return $directive.to-string(
