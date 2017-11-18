@@ -221,6 +221,7 @@ class Format::Lisp {
 	}
 
 	method format( Str $format, **@arguments ) {
+		return '' unless $format;
 		my @directives = self._parse( $format );
 		my $text = self._format( @directives, @arguments );
 		return $text;

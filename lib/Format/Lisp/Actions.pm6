@@ -485,6 +485,8 @@ class Format::Lisp::Directive::X is Format::Lisp::Directive {
 	}
 }
 
+class X::Format-Error { }
+
 class Format::Lisp::Actions {
 	method not-Tilde( $/ ) {
 		make Format::Lisp::Text.new(
@@ -792,6 +794,9 @@ class Format::Lisp::Actions {
 				commachar => @arguments[2] // ',',
 				comma-interval => @arguments[3] // 3
 			)
+		}
+		elsif $/<tilde-Unused> {
+			THROW X::Format-Error.new;
 		}
 	}
 

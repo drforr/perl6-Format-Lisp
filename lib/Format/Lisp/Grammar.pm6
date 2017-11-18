@@ -121,6 +121,10 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-Slash { '/' ( <-[ / ]>+ ) '/' }
 
+	token tilde-Unused {
+		<[ H h J j K k L l M m N n Q q U u V v Y y Z z ` ]>
+	}
+
 	token Atom {
 	|	'~' <Tilde-Options>
 		[
@@ -155,6 +159,7 @@ grammar Format::Lisp::Grammar {
 		|	<tilde-Under>
 		|	<tilde-W>
 		|	<tilde-X>
+		|	<tilde-Unused>
 		]
 	|	<not-Tilde>
 	}
