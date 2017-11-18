@@ -37,10 +37,12 @@ is $fl.format(
 is $fl.format( Q{~1{~A~^~A~}}, [ 1 ] ), Q{1}, Q[format.^.{.3];
 )
 
+#`(
 # (def-format-test format.^.{.4
 #   "~0{~A~^~A~}" ('(1)) "")
 # 
 is $fl.format( Q{~0{~A~^~A~}}, [ 1 ] ), Q{}, Q[format.^.{.4];
+)
 
 #`(
 # (def-format-test format.^.{.5
@@ -89,6 +91,7 @@ is $fl.format(
 ), Q{123456780}, Q[format.^.{.9];
 )
 
+#`(
 # (def-format-test format.^.{.10
 #   "~{~#,#^~A~}" ('(1 2 3 4 5 6 7 8 9 10)) "")
 # 
@@ -96,7 +99,9 @@ is $fl.format(
 	Q{~{~#,#^~A~}},
 	[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 ), Q{}, Q[format.^.{.10];
+)
 
+#`(
 # (def-format-test format.^.{.11
 #   "~{~#,#,#^~A~}" ('(1 2 3 4 5 6 7 8 9 10)) "")
 # 
@@ -104,6 +109,7 @@ is $fl.format(
 	Q{~{~#,#,#^~A~}},
 	[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 ), Q{}, Q[format.^.{.11];
+)
 
 #`(
 # (def-format-test format.^.{.12
@@ -276,10 +282,12 @@ is $fl.format(
 ), Q{123}, Q[format.^.{.29];
 )
 
+#`(
 # (def-format-test format.^.{.30
 #   "~{~',,',^~A~}" ('(1 2 3)) "")
 # 
 is $fl.format( Q{~{~',,',^~A~}}, [ 1, 2, 3 ] ), Q{}, Q[format.^.{.30];
+)
 
 #`(
 # (def-format-test format.^.{.31
@@ -295,6 +303,7 @@ is $fl.format( Q{~{~1,v,v^~A~}}, [ Q{a}, Nil, 0 ] ), Q{0}, Q[format.^.{.31];
 is $fl.format( Q{~{~v,1,v^~A~}}, [ Q{a}, Nil, 0 ] ), Q{0}, Q[format.^.{.32];
 )
 
+#`(
 # (def-format-test format.^.{.33
 #   "~{~v,v,v^~A~}" ('(#\a #\a nil 0)) "")
 # 
@@ -302,6 +311,7 @@ is $fl.format(
 	Q{~{~v,v,v^~A~}},
 	[ Q{a}, Q{a}, Nil, 0 ]
 ), Q{}, Q[format.^.{.33];
+)
 
 # ;;; ~^ with ~:{
 # 
@@ -444,10 +454,12 @@ is $fl.format( Q{~:{~'x,3^~A~}}, [ [ 1 ] ] ), Q{1}, Q[format.^.:{.14];
 is $fl.format( Q{~:{~3,'x^~A~}}, [ [ 1 ] ] ), Q{1}, Q[format.^.:{.15];
 )
 
+#`(
 # (def-format-test format.^.\:{.16
 #   "~:{~'x,'x^~A~}" ('((1))) "")
 # 
 is $fl.format( Q{~:{~'x,'x^~A~}}, [ [ 1 ] ] ), Q{}, Q[format.^.:{.16];
+)
 
 #`(
 # (def-format-test format.^.\:{.17
@@ -471,6 +483,7 @@ is $fl.format(
 ), Q{2357}, Q[format.^.:{.18];
 )
 
+#`(
 # (def-format-test format.^.\:{.19
 #   "~:{~#,#^~A~}" ('((1)()(2 10)(3 a b)(4)(5 x)(6)(7 8))) "")
 # 
@@ -479,6 +492,7 @@ is $fl.format(
 	[ [ 1 ], [ ], [ 2, 10 ], [ 3, Q{a}, Q{b} ], [ 4 ],
 	  [ 5, Q{x} ], [ 6 ], [ 7, 8 ] ]
 ), Q{}, Q[format.^.:{.19];
+)
 
 #`(
 # (def-format-test format.^.\:{.20
@@ -500,6 +514,7 @@ is $fl.format(
 ), Q{134}, Q[format.^.:{.21];
 )
 
+#`(
 # (def-format-test format.^.\:{.22
 #   "~:{~1,1,1^~A~}" ('((1)(2 3)(4 5 6)(7 8 9 0))) "")
 # 
@@ -507,7 +522,9 @@ is $fl.format(
 	Q{~:{~1,1,1^~A~}},
 	[ [ 1 ], [ 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9, 0 ] ]
 ), Q{}, Q[format.^.:{.22];
+)
 
+#`(
 # (def-format-test format.^.\:{.23
 #   "~:{~1,2,3^~A~}" ('((1)(2 3)(4 5 6)(7 8 9 0))) "")
 # 
@@ -515,6 +532,7 @@ is $fl.format(
 	Q{~:{~1,2,3^~A~}},
 	[ [ 1 ], [ 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9, 0 ] ]
 ), Q{}, Q[format.^.:{.23];
+)
 
 #`(
 # (def-format-test format.^.\:{.24
@@ -643,6 +661,7 @@ is $fl.format(
 ), Q{1245}, Q[format.^.:{.36];
 )
 
+#`(
 # (def-format-test format.^.\:{.37
 #   "~:{~#,#,#^~A~}" ('((1) (2 1) (3 2 1) (4 3 2 1) (5 4 3 2 1))) "")
 # 
@@ -650,7 +669,9 @@ is $fl.format(
 	Q{~:{~#,#,#^~A~}},
 	[ [ 1 ], [ 2, 1 ], [ 3, 2, 1 ], [ 4, 3, 2, 1 ], [ 5, 4, 3, 2, 1 ] ]
 ), Q{}, Q[format.^.:{.37];
+)
 
+#`(
 # (def-format-test format.^.\:{.38
 #   "~:{~1,v,v^~A~}" ('((#\a nil 0))) "0")
 # 
@@ -658,6 +679,7 @@ is $fl.format(
 	Q{~:{~1,v,v^~A~}},
 	[ [ Q{a}, Nil, 0 ] ]
 ), Q{}, Q[format.^.:{.38];
+)
 
 #`(
 # (def-format-test format.^.\:{.39
@@ -698,10 +720,12 @@ is $fl.format(
 is $fl.format( Q{~1@{~A~^~A~}}, 1 ), Q{1}, Q[format.^@{.3];
 )
 
+#`(
 # (def-format-test format.^.@{.4
 #   "~0@{~A~^~A~}" (1) "" 1)
 # 
 is $fl.format( Q{~0@{~A~^~A~}}, 1 ), Q{}, Q[format.^@{.4];
+)
 
 #`(
 # (def-format-test format.^.@{.5
@@ -757,6 +781,7 @@ is $fl.format(
 ), Q{1234567}, Q[format.^.@{.10];
 )
 
+#`(
 # (def-format-test format.^.@{.11
 #   "~@{~#,#,#^~A~}" (1 2 3 4 5 6 7 8 9 10) "" 10)
 # 
@@ -764,6 +789,7 @@ is $fl.format(
 	Q{~@{~#,#,#^~A~}},
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 ), Q{}, Q[format.^.@{.11];
+)
 
 #`(
 # (def-format-test format.^.@{.12
@@ -939,10 +965,12 @@ is $fl.format(
 ), Q{123}, Q[format.^.@{.29];
 )
 
+#`(
 # (def-format-test format.^.@{.30
 #   "~@{~',,',^~A~}" (1 2 3) "" 3)
 # 
 is $fl.format( Q{~@{~',,',^~A~}}, 1, 2, 3 ), Q{}, Q[format.^.@{.30];
+)
 
 #`(
 # (def-format-test format.^.@{.31
@@ -1105,10 +1133,12 @@ is $fl.format( Q{~:@{~'x,3^~A~}}, [ 1 ] ), Q{1}, Q[format.^.:@{.14];
 is $fl.format( Q{~:@{~3,'x^~A~}}, [ 1 ] ), Q{1}, Q[format.^.:@{.15];
 )
 
+#`(
 # (def-format-test format.^.\:@{.16
 #   "~:@{~'x,'x^~A~}" ('(1)) "")
 # 
 is $fl.format( Q{~:@{~'x,'x^~A~}}, [ 1 ] ), Q{}, Q[format.^.:@{.16];
+)
 
 #`(
 # (def-format-test format.^.\:@{.17
@@ -1130,6 +1160,7 @@ is $fl.format(
 ), Q{2357}, Q[format.^.:@{.18];
 )
 
+#`(
 # (def-format-test format.^.\:@{.19
 #   "~:@{~#,#^~A~}" ('(1) '() '(2 10) '(3 a b) '(4) '(5 x) '(6) '(7 8)) "")
 # 
@@ -1138,6 +1169,7 @@ is $fl.format(
 	[ 1 ], [ ], [ 2, 10 ], [ 3, Q{a}, Q{b} ], [ 4 ],
 	[ 5, Q{x} ], [ 6 ], [ 7, 8 ]
 ), Q{}, Q[format.^.:@{.19];
+)
 
 #`(
 # (def-format-test format.^.\:@{.20
@@ -1159,6 +1191,7 @@ is $fl.format(
 ), Q{134}, Q[format.^.:@{.21];
 )
 
+#`(
 # (def-format-test format.^.\:@{.22
 #   "~:@{~1,1,1^~A~}" ('(1) '(2 3) '(4 5 6) '(7 8 9 0)) "")
 # 
@@ -1166,7 +1199,9 @@ is $fl.format(
 	Q{~:@{~1,1,1^~A~}},
 	[ 1 ], [ 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9, 0 ]
 ), Q{}, Q[format.^.:@{.22];
+)
 
+#`(
 # (def-format-test format.^.\:@{.23
 #   "~:@{~1,2,3^~A~}" ('(1) '(2 3) '(4 5 6) '(7 8 9 0)) "")
 # 
@@ -1174,6 +1209,7 @@ is $fl.format(
 	Q{~:@{~1,2,3^~A~}},
 	[ 1 ], [ 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9, 0 ]
 ), Q{}, Q[format.^.:@{.23];
+)
 
 #`(
 # (def-format-test format.^.\:@{.24
@@ -1303,6 +1339,7 @@ is $fl.format(
 ), Q{1245}, Q[format.^.:@{.36];
 )
 
+#`(
 # (def-format-test format.^.\:@{.37
 #   "~:@{~#,#,#^~A~}" ('(1) '(2 1) '(3 2 1) '(4 3 2 1) '(5 4 3 2 1)) "")
 # 
@@ -1310,6 +1347,7 @@ is $fl.format(
 	Q{~:@{~#,#,#^~A~}},
 	[ 1 ], [ 2, 1 ], [ 3, 2, 1 ], [ 4, 3, 2, 1 ], [ 5, 4, 3, 2, 1 ]
 ), Q{}, Q[format.^.:@{.37];
+)
 
 #`(
 # (def-format-test format.^.\:@{.38
@@ -1362,10 +1400,12 @@ is $fl.format(
 
 # ;;; arguments
 # 
+#`(
 # (def-format-test format.\:^.\:{.4
 #   "~:{~0:^~A~}" ('((1)(2))) "")
 # 
 is $fl.format( Q{~:{~0:^~A~}}, [ [ 1 ], [ 2 ] ] ), Q{}, Q[format.:^.:{.4];
+)
 
 #`(
 # (def-format-test format.\:^.\:{.5
@@ -1411,6 +1451,7 @@ is $fl.format(
 ), Q{1}, Q[format.:^.:{.9];
 )
 
+#`(
 # (def-format-test format.\:^.\:{.10
 #   "~:{~1,1:^~A~}" ('(()(1)(2 3))) "")
 # 
@@ -1418,6 +1459,7 @@ is $fl.format(
 	Q{~:{~1,1:^~A~}},
 	[ [ ], [ 1 ] , [ 2, 3 ] ]
 ), Q{}, Q[format.:^.:{.10];
+)
 
 #`(
 # (def-format-test format.\:^.\:{.11
@@ -1489,11 +1531,13 @@ is $fl.format(
 is $fl.format( Q{~:{~#,#:^~A~}}, [ Nil ] ), Q{24}, Q[format.:^.:{.17];
 )
 
+#`(
 # (def-format-test format.\:^.\:{.18
 #   "~:{~#,#:^~A~}" ('((1)))
 #   "")
 # 
 is $fl.format( Q{~:{~#,#:^~A~}}, [ [ 1 ] ] ), Q{}, Q[format.:^.:{.18];
+)
 
 #`(
 # (def-format-test format.\:^.\:{.19
@@ -1528,17 +1572,21 @@ is $fl.format(
 ), Q{23}, Q[format.:^.:{.21];
 )
 
+#`(
 # (def-format-test format.\:^.\:{.22
 #   "~:{~'X,'X:^~A~}" ('((1)(2)))
 #   "")
 # 
 is $fl.format( Q{~:{~'X,'X:^~A~}}, [ [ 1 ], [ 2 ] ] ), Q{}, Q[format.:^.:{.22];
+)
 
+#`(
 # (def-format-test  format.\:^.\:{.23
 #   "~:{~1,2,3:^~A~}" ('((1)(2)))
 #   "")
 # 
 is $fl.format( Q{~:{~1,2,3:^~A~}}, [ [ 1 ], [ 2 ] ] ), Q{}, Q[format.:^.:{.23];
+)
 
 #`(
 # (def-format-test  format.\:^.\:{.24
@@ -1709,6 +1757,7 @@ is $fl.format(
 ), Q{120}, Q[format.:^.:{.38];
 )
 
+#`(
 # (def-format-test  format.\:^.\:{.39
 #   "~:{~#,#,#:^~A~}" ('((1 2 3)(2)(0 A B C D)(4 5)(5 7 8 9)))
 #   "")
@@ -1718,6 +1767,7 @@ is $fl.format(
 	[ [ 1, 2, 3 ], [ 2 ], [ 0, Q{A}, Q{B}, Q{C}, Q{D} ],
 	[ 4, 5 ], [ 5, 7, 8, 9 ] ]
 ), Q{}, Q[format.:^.:{.38];
+)
 
 # ;;; ~:^ in ~:@{
 # 
@@ -1750,11 +1800,13 @@ is $fl.format(
 ), Q{123}, Q[format.:^.:@{.3];
 )
 
+#`(
 # (def-format-test format.\:^.\:@{.4
 #   "~:@{~0:^~A~}" ('(1) '(2))
 #   "" 1)
 # 
 is $fl.format( Q{~:@{~0:^~A~}}, [ 1 ], [ 2 ] ), Q{}, Q[format.:^.:@{.4];
+)
 
 #`(
 # (def-format-test format.\:^.\:@{.5
@@ -1890,6 +1942,7 @@ is $fl.format(
 ), Q{}, Q[format.:^.:@{.17];
 )
 
+#`(
 # (def-format-test format.\:^.\:@{.18
 #   "~:@{~#,#:^~A~}" ('(1))
 #   "")
@@ -1898,6 +1951,7 @@ is $fl.format(
 	Q{~:@{~#,#:^~A~}},
 	[ 1 ]
 ), Q{}, Q[format.:^.:@{.18];
+)
 
 #`(
 # (def-format-test format.\:^.\:@{.19
@@ -1932,6 +1986,7 @@ is $fl.format(
 ), Q{12}, Q[format.:^.:@{.21];
 )
 
+#`(
 # (def-format-test format.\:^.\:@{.22
 #   "~:@{~'X,'X:^~A~}" ('(1) '(2))
 #   "" 1)
@@ -1940,7 +1995,9 @@ is $fl.format(
 	Q{~:@{~'X,'X:^~A~}},
 	[ 1 ], [ 2 ]
 ), Q{}, Q[format.:^.:@{.22];
+)
 
+#`(
 # (def-format-test  format.\:^.\:@{.23
 #   "~:@{~1,2,3:^~A~}" ('(1) '(2))
 #   "" 1)
@@ -1949,7 +2006,9 @@ is $fl.format(
 	Q{~:@{~1,2,3:^~A~}},
 	[ 1 ], [ 2 ]
 ), Q{}, Q[format.:^.:@{.23];
+)
 
+#`(
 # (def-format-test  format.\:^.\:@{.24
 #   "~:@{~1,2,1:^~A~}" ('(1) '(2))
 #   "12")
@@ -1958,6 +2017,7 @@ is $fl.format(
 	Q{~:@{~1,2,3:^~A~}},
 	[ 1 ], [ 2 ]
 ), Q{}, Q[format.:^.:@{.24];
+)
 
 #`(
 # (def-format-test  format.\:^.\:@{.25
@@ -2117,6 +2177,7 @@ is $fl.format(
 ), Q{120}, Q[format.:^.:@{.38];
 )
 
+#`(
 # (def-format-test  format.\:^.\:@{.39
 #   "~:@{~#,#,#:^~A~}" ('(1 2 3) '(2) '(0 A B C D) '(4 5) '(5 7 8 9))
 #   "" 4)
@@ -2126,6 +2187,7 @@ is $fl.format(
 	[ 1, 2, 3 ], [ 2 ], [ 0, Q{A}, Q{B}, Q{C}, Q{D} ],
 	[ 4, 5 ], [ 5, 7, 8, 9 ]
 ), Q{}, Q[format.:^.:@{.38];
+)
 
 # ;;; ~^ inside ~?, ~@?
 # 
