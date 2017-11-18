@@ -86,6 +86,8 @@ grammar Format::Lisp::Grammar {
 
 	token tilde-I { <[ i I ]> }
 
+	token tilde-Newline { "\n" }
+
 	token tilde-O { <[ o O ]> }
 
 	token tilde-OParen { '(' }
@@ -136,6 +138,7 @@ grammar Format::Lisp::Grammar {
 		|	<tilde-F>
 		|	<tilde-G>
 		|	<tilde-I>
+		|	<tilde-Newline>
 		|	<tilde-O>
 		|	<tilde-P>
 		|	<tilde-Paren>

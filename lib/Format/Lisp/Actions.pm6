@@ -313,6 +313,8 @@ class Format::Lisp::Directive::G is Format::Lisp::Directive { }
 
 class Format::Lisp::Directive::I is Format::Lisp::Directive { }
 
+class Format::Lisp::Directive::Newline is Format::Lisp::Directive { }
+
 class Format::Lisp::Directive::O is Format::Lisp::Directive {
 	also does Number-Like;
 
@@ -641,6 +643,12 @@ class Format::Lisp::Actions {
 		}
 		elsif $/<tilde-I> {
 			make Format::Lisp::Directive::I.new(
+				at => $has-at,
+				colon => $has-colon
+			)
+		}
+		elsif $/<tilde-Newline> {
+			make Format::Lisp::Directive::Newline.new(
 				at => $has-at,
 				colon => $has-colon
 			)
