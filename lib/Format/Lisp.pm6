@@ -157,6 +157,11 @@ class Format::Lisp {
 				}
 			}
 		}
+		elsif @arguments[$index] and @arguments[$index] ~~ Sub {
+			return join( '', map {
+				@arguments[$index]( $_ )
+			}, @( @arguments[$index+1] ) );
+		}
 		else {
 			if @arguments[$index] {
 				return join( '', map {

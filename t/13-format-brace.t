@@ -137,6 +137,7 @@ is $fl.format( Q[~0{~}], Q[~A], [ 1, 2, 3 ] ), Q[], Q[format.{.15];
 is $fl.format( Q[~1{~}], Q[~A], [ 4, 5, 6 ] ), Q[4], Q[format.{.16];
 )
 
+#`(
 # (deftest format.{.17
 #   (format nil "~{~}" (formatter "") nil)
 #   "")
@@ -145,6 +146,7 @@ is $fl.format(
 	Q[~{~}],
 	$fl.formatter( Q[] ),
 ), Q[], Q[format.{.17];
+)
 
 # (deftest format.{.18
 #   (format nil "~1{~}" (formatter "") '(1 2 3 4))
@@ -152,19 +154,17 @@ is $fl.format(
 # 
 is $fl.format(
 	Q[~1{~}],
-	$fl.formatter( Q[] ), 1, 2, 3, 4
+	$fl.formatter( Q[] ), [ 1, 2, 3, 4 ]
 ), Q[], Q[format.{.18];
 
-#`(
 # (deftest format.{.19
 #   (format nil "~{~}" (formatter "~A") '(1 2 3 4))
 #   "1234")
 # 
 is $fl.format(
 	Q[~{~}],
-	$fl.formatter( Q[~A] ), 1, 2, 3, 4
+	$fl.formatter( Q[~A] ), [ 1, 2, 3, 4 ]
 ), Q[1234], Q[format.{.19];
-)
 
 #`(
 # (deftest format.{.20
