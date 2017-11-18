@@ -82,6 +82,20 @@ class Format::Lisp {
 		);
 	}
 	multi method accumulate(
+		Format::Lisp::Directive::Brace $directive,
+		$index, @arguments
+	) {
+		return '' if $directive.n == 0; # XXX really needs to be processed
+		return '' unless @arguments[$index]; # XXX see above
+		my $formatted = join( '', map {
+			self._format(
+				@( $directive.children ),
+				@( $_ )
+			)
+		}, @( @arguments[$index] ) );
+		return $formatted;
+	}
+	multi method accumulate(
 		Format::Lisp::Directive::Bracket $directive,
 		$index, @arguments
 	) {

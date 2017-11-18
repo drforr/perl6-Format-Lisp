@@ -241,7 +241,21 @@ class Format::Lisp::Directive::B is Format::Lisp::Directive {
 class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 	also does Padded;
 	also does Nested;
+	has $.n = 1; # XXX may not be to spec, don't have it handy ATM.
 	has $.trailing-colon = False;
+	has $.argument;
+
+	method to-string( $argument, $next, $remaining ) {
+		$!argument = $argument;
+		my $n = self._attribute( $remaining, 0, $.n );
+
+		return '';
+	}
+	# XXX postprocess to get proper @arguments[$index]
+	method postprocess( $text, $index, @arguments ) {
+		return $text if @arguments[$index] == 0 or self.at;
+		return '';
+	}
 }
 
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
@@ -252,6 +266,7 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	method to-offset( $index, $arg, $next, $elems ) {
 		return 1;
 	}
+	# XXX postprocess to get proper @arguments[$index]
 	method postprocess( $text, $index, @arguments ) {
 		return $text if @arguments[$index] == 0 or self.at;
 		return '';
