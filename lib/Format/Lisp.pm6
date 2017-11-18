@@ -85,15 +85,89 @@ class Format::Lisp {
 		Format::Lisp::Directive::Brace $directive,
 		$index, @arguments
 	) {
-		return '' if $directive.n == 0; # XXX really needs to be processed
-		return '' unless @arguments[$index]; # XXX see above
-		my $formatted = join( '', map {
-			self._format(
-				@( $directive.children ),
-				@( $_ )
-			)
-		}, @( @arguments[$index] ) );
-		return $formatted;
+		if $directive.colon {
+			if $directive.trailing-colon {
+				return join( '', map {
+					self._format(
+						@( $directive.children ),
+						@( $_ )
+					)
+				}, @( @arguments[$index] ) );
+			}
+			elsif $directive.at {
+			}
+			elsif $directive.n {
+				my $n = $directive.n;
+				my $formatted;
+				for 1 .. +$n min @( @arguments[$index] ).elems -> $x {
+					$formatted ~= self._format(
+						@( $directive.children ),
+						@( @arguments[$index][$x-1] )
+					);
+				}
+				return $formatted;
+			}
+			else {
+				return join( '', map {
+					self._format(
+						@( $directive.children ),
+						@( $_ )
+					)
+				}, @( @arguments[$index] ) );
+			}
+		}
+		elsif $directive.trailing-colon {
+			if $directive.at {
+			}
+			elsif $directive.n {
+			}
+			else {
+			}
+
+			return join( '', map {
+				self._format(
+					@( $directive.children ),
+					@( $_ )
+				)
+			}, @( @arguments[$index] ) );
+		}
+		elsif $directive.at {
+			if $directive.n {
+			}
+			else {
+			}
+		}
+		elsif $directive.n {
+			if +$directive.n > 0 {
+				if @arguments[$index] {
+				}
+				else {
+					return '';
+				}
+				return '';
+			}
+			elsif +$directive.n == 0 {
+				if @arguments[$index] {
+					return join( '', map {
+						self._format(
+							@( $directive.children ),
+							@( $_ )
+						)
+					}, @( @arguments[$index] ) );
+				}
+			}
+		}
+		else {
+			if @arguments[$index] {
+				return join( '', map {
+					self._format(
+						@( $directive.children ),
+						@( $_ )
+					)
+				}, @( @arguments[$index] ) );
+			}
+		}
+		return '';
 	}
 	multi method accumulate(
 		Format::Lisp::Directive::Bracket $directive,

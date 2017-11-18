@@ -241,7 +241,7 @@ class Format::Lisp::Directive::B is Format::Lisp::Directive {
 class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 	also does Padded;
 	also does Nested;
-	has $.n = 1; # XXX may not be to spec, don't have it handy ATM.
+	has $.n;
 	has $.trailing-colon = False;
 	has $.argument;
 
@@ -580,8 +580,8 @@ class Format::Lisp::Actions {
 		}
 		elsif $/<tilde-Brace> {
 			my $has-trailing-colon =
-				?( $/<tilde-Angle><tilde-CBrace><Tilde-Options><options> and
-				   $/<tilde-Angle><tilde-CBrace><Tilde-Options><options>.ast.<colon> );
+				?( $/<tilde-Brace><tilde-CBrace><Tilde-Options><options> and
+				   $/<tilde-Brace><tilde-CBrace><Tilde-Options><options>.ast.<colon> );
 			my @children;
 			@children.append( $/<tilde-Brace><TOP><Atom>>>.ast ) if
 				$/<tilde-Brace><TOP><Atom>;
@@ -589,6 +589,7 @@ class Format::Lisp::Actions {
 				at => $has-at,
 				colon => $has-colon,
 				trailing-colon => $has-trailing-colon,
+				n => @arguments[0] // Nil,
 				children => @children
 			)
 		}
