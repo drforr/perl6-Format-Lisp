@@ -232,6 +232,7 @@ subtest {
 	}, 'F';
 )
 
+#`(
 	subtest {
 #`(
 		throws-ok {
@@ -239,8 +240,11 @@ subtest {
 		} X::Format-Error, 'no arguments';
 )
 
+#`(
 		is $fl.format( Q{~G}, Q{} ), Q{}, 'one argument';
+)
 	}, 'G';
+)
 
 #`(
 	throws-like {

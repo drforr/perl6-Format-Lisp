@@ -87,6 +87,18 @@ my role Number-Like {
 			$mincol, $padchar, $commachar, $comma-interval
 		);
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my %args = self.make-args(
+			< mincol padchar commachar comma-interval >,
+			$/<Tilde-Options>
+		);
+		return self.bless(
+			|%options,
+			|%args
+		)
+	}
 }
 
 my role String-Like {
@@ -137,6 +149,18 @@ my role String-Like {
 		$!argument = self._get-nil( $.argument, $.argument );
 
 		return self._pad( $mincol, $colinc, $minpad, $padchar );
+	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my %args = self.make-args(
+			< mincol colinc minpad padchar >,
+			$/<Tilde-Options>
+		);
+		return self.bless(
+			|%options,
+			|%args
+		);
 	}
 }
 
@@ -203,6 +227,28 @@ class Format::Lisp::Directive {
 	method to-offset( $index, $arg, $next, $elems ) {
 		return 1;
 	}
+
+	method make-args( @names, $/ ) {
+		my @arguments;
+		@arguments.append( $/<value-comma>>>.ast ) if
+			$/<value-comma>;
+		@arguments.append( $/<value>.ast ) if
+			$/<value> or
+			$/<value-comma>;
+		my %arguments;
+		for @names.kv -> $index, $name {
+			%arguments{ $name } = @arguments[ $index ] if
+				@arguments[ $index ].defined;
+		}
+		return %arguments
+	}
+	method make-options( $/ ) {
+		my %options = 
+			at => $/.ast.<at>,
+			colon => $/.ast.<colon>
+		;
+		return %options;
+	}
 }
 
 class Format::Lisp::Directive::A is Format::Lisp::Directive {
@@ -212,6 +258,14 @@ class Format::Lisp::Directive::A is Format::Lisp::Directive {
 class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 	has $.n = 0;
 	has $.argument;
+
+	method from-match( Mu $/ ) {
+		my %args = self.make-args(
+			[ < n > ],
+			$/<Tilde-Options>
+		);
+		return self.bless( |%args );
+	}
 
 	method to-string( $argument, $next, $remaining ) {
 		$!argument = $argument;
@@ -224,6 +278,21 @@ class Format::Lisp::Directive::Amp is Format::Lisp::Directive {
 class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	also does Nested;
 	has $.trailing-colon = False;
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my $has-trailing-colon =
+			?( $/<tilde-Angle><tilde-CAngle><Tilde-Options><options> and
+			   $/<tilde-Angle><tilde-CAngle><Tilde-Options><options>.ast.<colon> );
+		my @children;
+		@children.append( $/<tilde-Angle><TOP><Atom>>>.ast ) if
+			$/<tilde-Angle><TOP><Atom>;
+		return self.bless(
+			|%options,
+			trailing-colon => $has-trailing-colon,
+			children => @children
+		);
+	}
 
 	method to-offset( $index, $arg, $next, $elems ) {
 		return 1;
@@ -256,6 +325,26 @@ class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 		return $text if @arguments[$index] == 0 or self.at;
 		return '';
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my %args = self.make-args(
+			[ < n > ],
+			$/<Tilde-Options>
+		);
+		my $has-trailing-colon =
+			?( $/<tilde-Brace><tilde-CBrace><Tilde-Options><options> and
+			   $/<tilde-Brace><tilde-CBrace><Tilde-Options><options>.ast.<colon> );
+		my @children;
+		@children.append( $/<tilde-Brace><TOP><Atom>>>.ast ) if
+			$/<tilde-Brace><TOP><Atom>;
+		return self.bless(
+			|%options,
+			trailing-colon => $has-trailing-colon,
+			children => @children,
+			|%args
+		)
+	}
 }
 
 class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
@@ -271,9 +360,31 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 		return $text if @arguments[$index] == 0 or self.at;
 		return '';
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my $has-trailing-colon =
+			?( $/<tilde-Angle><tilde-CBracket><Tilde-Options><options> and
+			   $/<tilde-Angle><tilde-CBracket><Tilde-Options><options>.ast.<colon> );
+		my @children;
+		@children.append( $/<tilde-Bracket><TOP><Atom>>>.ast ) if
+			$/<tilde-Bracket><TOP><Atom>;
+		return self.bless(
+			|%options,
+			trailing-colon => $has-trailing-colon,
+			children => @children
+		)
+	}
 }
 
 class Format::Lisp::Directive::Caret is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::C is Format::Lisp::Directive {
@@ -300,6 +411,13 @@ class Format::Lisp::Directive::C is Format::Lisp::Directive {
 
 		return self._print-case( $argument );
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::D is Format::Lisp::Directive {
@@ -310,9 +428,27 @@ class Format::Lisp::Directive::D is Format::Lisp::Directive {
 	}
 }
 
-class Format::Lisp::Directive::Dollar is Format::Lisp::Directive { }
+# XXX Dollar is going to be locale-specific as well.
+# XXX Maybe Currency unicode directives as well?
+class Format::Lisp::Directive::Dollar is Format::Lisp::Directive {
 
-class Format::Lisp::Directive::E is Format::Lisp::Directive { }
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
+}
+
+class Format::Lisp::Directive::E is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
+}
 
 class Format::Lisp::Directive::F is Format::Lisp::Directive {
 	also does Number-Like;
@@ -324,11 +460,35 @@ class Format::Lisp::Directive::F is Format::Lisp::Directive {
 	}
 }
 
-class Format::Lisp::Directive::G is Format::Lisp::Directive { }
+class Format::Lisp::Directive::G is Format::Lisp::Directive {
+	also does Number-Like;
 
-class Format::Lisp::Directive::I is Format::Lisp::Directive { }
+	method _formatter( $next, $remaining ) {
+		my $value = sprintf "%f", $.argument;
+		$value = $value.substr( 0, $.mincol ) if $.mincol;
+		return $value;
+	}
+}
 
-class Format::Lisp::Directive::Newline is Format::Lisp::Directive { }
+class Format::Lisp::Directive::I is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
+}
+
+class Format::Lisp::Directive::Newline is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
+}
 
 class Format::Lisp::Directive::O is Format::Lisp::Directive {
 	also does Number-Like;
@@ -349,6 +509,21 @@ class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
 		}
 		return lc( $text );
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my $has-trailing-colon =
+			?( $/<tilde-Angle><tilde-CParen><Tilde-Options><options> and
+			   $/<tilde-Angle><tilde-CParen><Tilde-Options><options>.ast.<colon> );
+		my @children;
+		@children.append( $/<tilde-Paren><TOP><Atom>>>.ast ) if
+			$/<tilde-Paren><TOP><Atom>;
+		return self.bless(
+			|%options,
+			trailing-colon => $has-trailing-colon,
+			children => @children
+		)
+	}
 }
 
 class Format::Lisp::Directive::Percent is Format::Lisp::Directive {
@@ -361,9 +536,28 @@ class Format::Lisp::Directive::Percent is Format::Lisp::Directive {
 
 		return qq{\n} x $n;
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my %args = self.make-args(
+			[ < n > ],
+			$/<Tilde-Options>
+		);
+		return self.bless(
+			|%options,
+			|%args
+		)
+	}
 }
 
 class Format::Lisp::Directive::Pipe is Format::Lisp::Directive { 
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::P is Format::Lisp::Directive {
@@ -372,9 +566,23 @@ class Format::Lisp::Directive::P is Format::Lisp::Directive {
 		return 's' if $_argument and $_argument != 1;
 		return '';
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::Ques is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::R is Format::Lisp::Directive {
@@ -387,15 +595,45 @@ class Format::Lisp::Directive::R is Format::Lisp::Directive {
 
 		return $argument.base( $radix );
 	}
+
+	# Also has 'radix' attribute, which is why it's specialized.
+	#
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my %args = self.make-args(
+			< radix mincol padchar commachar comma-interval >,
+			$/<Tilde-Options>
+		);
+		return self.bless(
+			|%options,
+			|%args
+		)
+	}
 }
 
-class Format::Lisp::Directive::Semi is Format::Lisp::Directive { }
+class Format::Lisp::Directive::Semi is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
+}
 
 class Format::Lisp::Directive::Slash is Format::Lisp::Directive {
 	has $.text;
 
 	method to-string( $argument, $next, $remaining ) {
 		return $argument;
+	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			text => $/<tilde-Slash>[0].Str,
+			|%options
+		)
 	}
 }
 
@@ -453,6 +691,18 @@ warn "32";
 			}
 		}
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		my %args = self.make-args(
+			[ < n > ],
+			$/<Tilde-Options>
+		);
+		return self.bless(
+			|%options,
+			|%args
+		)
+	}
 }
 
 class Format::Lisp::Directive::S is Format::Lisp::Directive {
@@ -467,15 +717,44 @@ class Format::Lisp::Directive::Tilde is Format::Lisp::Directive {
 	method to-string( $_argument, $next, $remaining ) {
 		return '~';
 	}
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::T is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
 class Format::Lisp::Directive::Under is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
 }
 
-class Format::Lisp::Directive::W is Format::Lisp::Directive { }
+class Format::Lisp::Directive::W is Format::Lisp::Directive {
+
+	method from-match( Mu $/ ) {
+		my %options = self.make-options( $/<Tilde-Options> );
+		return self.bless(
+			|%options
+		)
+	}
+}
 
 class Format::Lisp::Directive::X is Format::Lisp::Directive {
 	also does Number-Like;
@@ -531,269 +810,124 @@ class Format::Lisp::Actions {
 		}
 	}
 
-	method Atom( $/ ) {
-		my $has-at = $/<Tilde-Options>.ast.<at>;
-		my $has-colon = $/<Tilde-Options>.ast.<colon>;
+	sub make-args( @names, $/ ) {
 		my @arguments;
-		@arguments.append( $/<Tilde-Options><value-comma>>>.ast ) if
-			$/<Tilde-Options><value-comma>;
-		@arguments.append( $/<Tilde-Options><value>.ast ) if
-			$/<Tilde-Options><value> or
-			$/<Tilde-Options><value-comma>;
-		if $/<not-Tilde> { make $/<not-Tilde>.ast }
+		@arguments.append( $/<value-comma>>>.ast ) if
+			$/<value-comma>;
+		@arguments.append( $/<value>.ast ) if
+			$/<value> or
+			$/<value-comma>;
+		my %arguments;
+		for @names.kv -> $index, $name {
+			%arguments{ $name } = @arguments[ $index ] if
+				@arguments[ $index ].defined;
+		}
+		return %arguments
+	}
+	sub make-options( $/ ) {
+		my %options = 
+			at => $/.ast.<at>,
+			colon => $/.ast.<colon>
+		;
+		return %options;
+	}
+
+	method Atom( $/ ) {
+		if $/<not-Tilde> {
+			make $/<not-Tilde>.ast
+		}
 		elsif $/<tilde-A> {
-			make Format::Lisp::Directive::A.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				colinc => @arguments[1] // 1,
-				minpad => @arguments[2] // 0,
-				padchar => @arguments[3] // ' '
-			)
+			make Format::Lisp::Directive::A.from-match( $/ )
 		}
 		elsif $/<tilde-Amp> {
-			make Format::Lisp::Directive::Amp.new(
-				n => @arguments[0] // 0
-			)
+			make Format::Lisp::Directive::Amp.from-match( $/ )
 		}
 		elsif $/<tilde-Angle> {
-			my $has-trailing-colon =
-				?( $/<tilde-Angle><tilde-CAngle><Tilde-Options><options> and
-				   $/<tilde-Angle><tilde-CAngle><Tilde-Options><options>.ast.<colon> );
-			my @children;
-			@children.append( $/<tilde-Angle><TOP><Atom>>>.ast ) if
-				$/<tilde-Angle><TOP><Atom>;
-			make Format::Lisp::Directive::Angle.new(
-				at => $has-at,
-				colon => $has-colon,
-				trailing-colon => $has-trailing-colon,
-				children => @children
-			)
+			make Format::Lisp::Directive::Angle.from-match( $/ )
 		}
 		elsif $/<tilde-B> {
-			make Format::Lisp::Directive::B.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				padchar => @arguments[1] // ' ',
-				commachar => @arguments[2] // ',',
-				comma-interval => @arguments[3] // 3
-			)
+			make Format::Lisp::Directive::B.from-match( $/ )
 		}
 		elsif $/<tilde-Brace> {
-			my $has-trailing-colon =
-				?( $/<tilde-Brace><tilde-CBrace><Tilde-Options><options> and
-				   $/<tilde-Brace><tilde-CBrace><Tilde-Options><options>.ast.<colon> );
-			my @children;
-			@children.append( $/<tilde-Brace><TOP><Atom>>>.ast ) if
-				$/<tilde-Brace><TOP><Atom>;
-			make Format::Lisp::Directive::Brace.new(
-				at => $has-at,
-				colon => $has-colon,
-				trailing-colon => $has-trailing-colon,
-				n => @arguments[0] // Nil,
-				children => @children
-			)
+			make Format::Lisp::Directive::Brace.from-match( $/ )
 		}
 		elsif $/<tilde-Bracket> {
-			my $has-trailing-colon =
-				?( $/<tilde-Angle><tilde-CBracket><Tilde-Options><options> and
-				   $/<tilde-Angle><tilde-CBracket><Tilde-Options><options>.ast.<colon> );
-			my @children;
-			@children.append( $/<tilde-Bracket><TOP><Atom>>>.ast ) if
-				$/<tilde-Bracket><TOP><Atom>;
-			make Format::Lisp::Directive::Bracket.new(
-				at => $has-at,
-				colon => $has-colon,
-				trailing-colon => $has-trailing-colon,
-				children => @children
-			)
+			make Format::Lisp::Directive::Bracket.from-match( $/ )
 		}
 		elsif $/<tilde-Caret> {
-			make Format::Lisp::Directive::Caret.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Caret.from-match( $/ )
 		}
 		elsif $/<tilde-C> {
-			make Format::Lisp::Directive::C.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::C.from-match( $/ )
 		}
 		elsif $/<tilde-D> {
-			make Format::Lisp::Directive::D.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				padchar => @arguments[1] // ' ',
-				commachar => @arguments[2] // ',',
-				comma-interval => @arguments[3] // 3
-			)
+			make Format::Lisp::Directive::D.from-match( $/ )
 		}
 		elsif $/<tilde-Dollar> {
-			make Format::Lisp::Directive::Dollar.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Dollar.from-match( $/ )
 		}
 		elsif $/<tilde-E> {
-			make Format::Lisp::Directive::E.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::E.from-match( $/ )
 		}
 		elsif $/<tilde-F> {
-			make Format::Lisp::Directive::F.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				padchar => @arguments[1] // ' ',
-				commachar => @arguments[2] // ',',
-				comma-interval => @arguments[3] // 3
-			)
+			make Format::Lisp::Directive::F.from-match( $/ )
 		}
 		elsif $/<tilde-G> {
-			make Format::Lisp::Directive::G.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::G.from-match( $/ )
 		}
 		elsif $/<tilde-I> {
-			make Format::Lisp::Directive::I.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::I.from-match( $/ )
 		}
 		elsif $/<tilde-Newline> {
-			make Format::Lisp::Directive::Newline.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Newline.from-match( $/ )
 		}
 		elsif $/<tilde-O> {
-			make Format::Lisp::Directive::O.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				padchar => @arguments[1] // ' ',
-				commachar => @arguments[2] // ',',
-				comma-interval => @arguments[3] // 3
-			)
+			make Format::Lisp::Directive::O.from-match( $/ )
 		}
 		elsif $/<tilde-Paren> {
-			my $has-trailing-colon =
-				?( $/<tilde-Angle><tilde-CParen><Tilde-Options><options> and
-				   $/<tilde-Angle><tilde-CParen><Tilde-Options><options>.ast.<colon> );
-			my @children;
-			@children.append( $/<tilde-Paren><TOP><Atom>>>.ast ) if
-				$/<tilde-Paren><TOP><Atom>;
-			make Format::Lisp::Directive::Paren.new(
-				at => $has-at,
-				colon => $has-colon,
-				trailing-colon => $has-trailing-colon,
-				children => @children
-			)
+			make Format::Lisp::Directive::Paren.from-match( $/ )
 		}
 		elsif $/<tilde-Percent> {
-			make Format::Lisp::Directive::Percent.new(
-				at => $has-at,
-				colon => $has-colon,
-				n => @arguments[0] // 1
-			)
+			make Format::Lisp::Directive::Percent.from-match( $/ )
 		}
 		elsif $/<tilde-Pipe> {
-			make Format::Lisp::Directive::Pipe.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Pipe.from-match( $/ )
 		}
 		elsif $/<tilde-P> {
-			make Format::Lisp::Directive::P.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::P.from-match( $/ )
 		}
 		elsif $/<tilde-Ques> {
-			make Format::Lisp::Directive::Ques.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Ques.from-match( $/ )
 		}
 		elsif $/<tilde-R> {
-			make Format::Lisp::Directive::R.new(
-				at => $has-at,
-				colon => $has-colon,
-				radix => @arguments[0] // 10,
-				mincol => @arguments[1] // 0,
-				padchar => @arguments[2] // ' ',
-				commachar => @arguments[3] // ',',
-				comma-interval => @arguments[4] // 3
-			)
+			make Format::Lisp::Directive::R.from-match( $/ )
 		}
 		elsif $/<tilde-Semi> {
-			make Format::Lisp::Directive::Semi.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Semi.from-match( $/ )
 		}
 		elsif $/<tilde-Slash> {
-			make Format::Lisp::Directive::Slash.new(
-				text => $/<tilde-Slash>[0].Str,
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Slash.from-match( $/ )
 		}
 		elsif $/<tilde-Star> {
-			make Format::Lisp::Directive::Star.new(
-				at => $has-at,
-				colon => $has-colon,
-				n => @arguments[0] // Nil
-			)
+			make Format::Lisp::Directive::Star.from-match( $/ )
 		}
 		elsif $/<tilde-S> {
-			make Format::Lisp::Directive::S.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				colinc => @arguments[1] // 1,
-				minpad => @arguments[2] // 0,
-				padchar => @arguments[3] // ' '
-			)
+			make Format::Lisp::Directive::S.from-match( $/ )
 		}
 		elsif $/<tilde-Tilde> {
-			make Format::Lisp::Directive::Tilde.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Tilde.from-match( $/ )
 		}
 		elsif $/<tilde-T> {
-			make Format::Lisp::Directive::T.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::T.from-match( $/ )
 		}
 		elsif $/<tilde-Under> {
-			make Format::Lisp::Directive::Under.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::Under.from-match( $/ )
 		}
 		elsif $/<tilde-W> {
-			make Format::Lisp::Directive::W.new(
-				at => $has-at,
-				colon => $has-colon
-			)
+			make Format::Lisp::Directive::W.from-match( $/ )
 		}
 		elsif $/<tilde-X> {
-			make Format::Lisp::Directive::X.new(
-				at => $has-at,
-				colon => $has-colon,
-				mincol => @arguments[0] // 0,
-				padchar => @arguments[1] // ' ',
-				commachar => @arguments[2] // ',',
-				comma-interval => @arguments[3] // 3
-			)
+			make Format::Lisp::Directive::X.from-match( $/ )
 		}
 		elsif $/<tilde-Unused> {
 			THROW X::Format-Error.new;
