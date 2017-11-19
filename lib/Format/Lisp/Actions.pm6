@@ -282,8 +282,8 @@ class Format::Lisp::Directive::Angle is Format::Lisp::Directive {
 	method from-match( Mu $/ ) {
 		my %options = self.make-options( $/<Tilde-Options> );
 		my $has-trailing-colon =
-			?( $/<tilde-Angle><tilde-CAngle><Tilde-Options><options> and
-			   $/<tilde-Angle><tilde-CAngle><Tilde-Options><options>.ast.<colon> );
+			?( $/<tilde-Angle><Tilde-Options><options> and
+			   $/<tilde-Angle><Tilde-Options><options>.ast.<colon> );
 		my @children;
 		@children.append( $/<tilde-Angle><TOP><Atom>>>.ast ) if
 			$/<tilde-Angle><TOP><Atom>;
@@ -333,8 +333,8 @@ class Format::Lisp::Directive::Brace is Format::Lisp::Directive {
 			$/<Tilde-Options>
 		);
 		my $has-trailing-colon =
-			?( $/<tilde-Brace><tilde-CBrace><Tilde-Options><options> and
-			   $/<tilde-Brace><tilde-CBrace><Tilde-Options><options>.ast.<colon> );
+			?( $/<tilde-Brace><Tilde-Options><options> and
+			   $/<tilde-Brace><Tilde-Options><options>.ast.<colon> );
 		my @children;
 		@children.append( $/<tilde-Brace><TOP><Atom>>>.ast ) if
 			$/<tilde-Brace><TOP><Atom>;
@@ -364,8 +364,8 @@ class Format::Lisp::Directive::Bracket is Format::Lisp::Directive {
 	method from-match( Mu $/ ) {
 		my %options = self.make-options( $/<Tilde-Options> );
 		my $has-trailing-colon =
-			?( $/<tilde-Angle><tilde-CBracket><Tilde-Options><options> and
-			   $/<tilde-Angle><tilde-CBracket><Tilde-Options><options>.ast.<colon> );
+			?( $/<tilde-Angle><Tilde-Options><options> and
+			   $/<tilde-Angle><Tilde-Options><options>.ast.<colon> );
 		my @children;
 		@children.append( $/<tilde-Bracket><TOP><Atom>>>.ast ) if
 			$/<tilde-Bracket><TOP><Atom>;
@@ -513,8 +513,8 @@ class Format::Lisp::Directive::Paren is Format::Lisp::Directive {
 	method from-match( Mu $/ ) {
 		my %options = self.make-options( $/<Tilde-Options> );
 		my $has-trailing-colon =
-			?( $/<tilde-Angle><tilde-CParen><Tilde-Options><options> and
-			   $/<tilde-Angle><tilde-CParen><Tilde-Options><options>.ast.<colon> );
+			?( $/<tilde-Angle><Tilde-Options><options> and
+			   $/<tilde-Angle><Tilde-Options><options>.ast.<colon> );
 		my @children;
 		@children.append( $/<tilde-Paren><TOP><Atom>>>.ast ) if
 			$/<tilde-Paren><TOP><Atom>;
@@ -832,21 +832,125 @@ class Format::Lisp::Actions {
 		return %options;
 	}
 
+	method tilde-A( $/ ) {
+		make Format::Lisp::Directive::A.from-match( $/ )
+	}
+
+	method tilde-Amp( $/ ) {
+		make Format::Lisp::Directive::Amp.from-match( $/ )
+	}
+
+	method tilde-B( $/ ) {
+		make Format::Lisp::Directive::B.from-match( $/ )
+	}
+
+	method tilde-Caret( $/ ) {
+		make Format::Lisp::Directive::Caret.from-match( $/ )
+	}
+
+	method tilde-C( $/ ) {
+		make Format::Lisp::Directive::C.from-match( $/ )
+	}
+
+	method tilde-D( $/ ) {
+		make Format::Lisp::Directive::D.from-match( $/ )
+	}
+
+	method tilde-Dollar( $/ ) {
+		make Format::Lisp::Directive::Dollar.from-match( $/ )
+	}
+
+	method tilde-E( $/ ) {
+		make Format::Lisp::Directive::E.from-match( $/ )
+	}
+
+	method tilde-F( $/ ) {
+		make Format::Lisp::Directive::F.from-match( $/ )
+	}
+
+	method tilde-G( $/ ) {
+		make Format::Lisp::Directive::G.from-match( $/ )
+	}
+
+	method tilde-I( $/ ) {
+		make Format::Lisp::Directive::I.from-match( $/ )
+	}
+
+	method tilde-Newline( $/ ) {
+		make Format::Lisp::Directive::Newline.from-match( $/ )
+	}
+
+	method tilde-O( $/ ) {
+		make Format::Lisp::Directive::O.from-match( $/ )
+	}
+
+	method tilde-P( $/ ) {
+		make Format::Lisp::Directive::P.from-match( $/ )
+	}
+
+	method tilde-Percent( $/ ) {
+		make Format::Lisp::Directive::Percent.from-match( $/ )
+	}
+
+	method tilde-Pipe( $/ ) {
+		make Format::Lisp::Directive::Pipe.from-match( $/ )
+	}
+
+	method tilde-Ques( $/ ) {
+		make Format::Lisp::Directive::Ques.from-match( $/ )
+	}
+
+	method tilde-R( $/ ) {
+		make Format::Lisp::Directive::R.from-match( $/ )
+	}
+
+	method tilde-S( $/ ) {
+		make Format::Lisp::Directive::S.from-match( $/ )
+	}
+
+	method tilde-Semi( $/ ) {
+		make Format::Lisp::Directive::Semi.from-match( $/ )
+	}
+
+	method tilde-Star( $/ ) {
+		make Format::Lisp::Directive::Star.from-match( $/ )
+	}
+
+	method tilde-T( $/ ) {
+		make Format::Lisp::Directive::T.from-match( $/ )
+	}
+
+	method tilde-Tilde( $/ ) {
+		make Format::Lisp::Directive::Tilde.from-match( $/ )
+	}
+
+	method tilde-Under( $/ ) {
+		make Format::Lisp::Directive::Under.from-match( $/ )
+	}
+
+	method tilde-W( $/ ) {
+		make Format::Lisp::Directive::W.from-match( $/ )
+	}
+
+	method tilde-X( $/ ) {
+		make Format::Lisp::Directive::X.from-match( $/ )
+	}
+
 	method Atom( $/ ) {
 		if $/<not-Tilde> {
 			make $/<not-Tilde>.ast
 		}
 		elsif $/<tilde-A> {
-			make Format::Lisp::Directive::A.from-match( $/ )
+			make $/<tilde-A>.ast
 		}
 		elsif $/<tilde-Amp> {
-			make Format::Lisp::Directive::Amp.from-match( $/ )
+			make $/<tilde-Amp>.ast
 		}
 		elsif $/<tilde-Angle> {
 			make Format::Lisp::Directive::Angle.from-match( $/ )
 		}
 		elsif $/<tilde-B> {
-			make Format::Lisp::Directive::B.from-match( $/ )
+			make $/<tilde-B>.ast
 		}
 		elsif $/<tilde-Brace> {
 			make Format::Lisp::Directive::Brace.from-match( $/ )
@@ -855,79 +959,79 @@ class Format::Lisp::Actions {
 			make Format::Lisp::Directive::Bracket.from-match( $/ )
 		}
 		elsif $/<tilde-Caret> {
-			make Format::Lisp::Directive::Caret.from-match( $/ )
+			make $/<tilde-Caret>.ast
 		}
 		elsif $/<tilde-C> {
-			make Format::Lisp::Directive::C.from-match( $/ )
+			make $/<tilde-C>.ast
 		}
 		elsif $/<tilde-D> {
-			make Format::Lisp::Directive::D.from-match( $/ )
+			make $/<tilde-D>.ast
 		}
 		elsif $/<tilde-Dollar> {
-			make Format::Lisp::Directive::Dollar.from-match( $/ )
+			make $/<tilde-Dollar>.ast
 		}
 		elsif $/<tilde-E> {
-			make Format::Lisp::Directive::E.from-match( $/ )
+			make $/<tilde-E>.ast
 		}
 		elsif $/<tilde-F> {
-			make Format::Lisp::Directive::F.from-match( $/ )
+			make $/<tilde-F>.ast
 		}
 		elsif $/<tilde-G> {
-			make Format::Lisp::Directive::G.from-match( $/ )
+			make $/<tilde-G>.ast
 		}
 		elsif $/<tilde-I> {
-			make Format::Lisp::Directive::I.from-match( $/ )
+			make $/<tilde-I>.ast
 		}
 		elsif $/<tilde-Newline> {
-			make Format::Lisp::Directive::Newline.from-match( $/ )
+			make $/<tilde-Newline>.ast
 		}
 		elsif $/<tilde-O> {
-			make Format::Lisp::Directive::O.from-match( $/ )
+			make $/<tilde-O>.ast
 		}
 		elsif $/<tilde-Paren> {
 			make Format::Lisp::Directive::Paren.from-match( $/ )
 		}
 		elsif $/<tilde-Percent> {
-			make Format::Lisp::Directive::Percent.from-match( $/ )
+			make $/<tilde-Percent>.ast
 		}
 		elsif $/<tilde-Pipe> {
-			make Format::Lisp::Directive::Pipe.from-match( $/ )
+			make $/<tilde-Pipe>.ast
 		}
 		elsif $/<tilde-P> {
-			make Format::Lisp::Directive::P.from-match( $/ )
+			make $/<tilde-P>.ast
 		}
 		elsif $/<tilde-Ques> {
-			make Format::Lisp::Directive::Ques.from-match( $/ )
+			make $/<tilde-Ques>.ast
 		}
 		elsif $/<tilde-R> {
-			make Format::Lisp::Directive::R.from-match( $/ )
+			make $/<tilde-R>.ast
 		}
 		elsif $/<tilde-Semi> {
-			make Format::Lisp::Directive::Semi.from-match( $/ )
+			make $/<tilde-Semi>.ast
 		}
 		elsif $/<tilde-Slash> {
 			make Format::Lisp::Directive::Slash.from-match( $/ )
 		}
 		elsif $/<tilde-Star> {
-			make Format::Lisp::Directive::Star.from-match( $/ )
+			make $/<tilde-Star>.ast
 		}
 		elsif $/<tilde-S> {
-			make Format::Lisp::Directive::S.from-match( $/ )
+			make $/<tilde-S>.ast
 		}
 		elsif $/<tilde-Tilde> {
-			make Format::Lisp::Directive::Tilde.from-match( $/ )
+			make $/<tilde-Tilde>.ast
 		}
 		elsif $/<tilde-T> {
-			make Format::Lisp::Directive::T.from-match( $/ )
+			make $/<tilde-T>.ast
 		}
 		elsif $/<tilde-Under> {
-			make Format::Lisp::Directive::Under.from-match( $/ )
+			make $/<tilde-Under>.ast
 		}
 		elsif $/<tilde-W> {
-			make Format::Lisp::Directive::W.from-match( $/ )
+			make $/<tilde-W>.ast
 		}
 		elsif $/<tilde-X> {
-			make Format::Lisp::Directive::X.from-match( $/ )
+			make $/<tilde-X>.ast
 		}
 		elsif $/<tilde-Unused> {
 			THROW X::Format-Error.new;

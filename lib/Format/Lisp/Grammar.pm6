@@ -55,87 +55,61 @@ grammar Format::Lisp::Grammar {
 		<value-comma> ** 0..9 <value>? <options>?
 	}
 
-	token tilde-Tilde { '~' }
+	# Unbalanced tokens
+	# Yes, <Tilde-Options> can be factored out, it will be later on.
+	#
+	token tilde-A { <Tilde-Options> <[ a A ]> }
+	token tilde-Amp { <Tilde-Options> '&' }
+	token tilde-B { <Tilde-Options> <[ b B ]> }
+	token tilde-Caret { <Tilde-Options> '^' }
+	token tilde-C { <Tilde-Options> <[ c C ]> }
+	token tilde-D { <Tilde-Options> <[ d D ]> }
+	token tilde-Dollar { <Tilde-Options> '$' }
+	token tilde-E { <Tilde-Options> <[ e E ]> }
+	token tilde-F { <Tilde-Options> <[ f F ]> }
+	token tilde-G { <Tilde-Options> <[ g G ]> }
+	token tilde-I { <Tilde-Options> <[ i I ]> }
+	token tilde-Newline { <Tilde-Options> "\n" }
+	token tilde-O { <Tilde-Options> <[ o O ]> }
+	token tilde-P { <Tilde-Options> <[ p P ]> }
+	token tilde-Percent { <Tilde-Options> '%' }
+	token tilde-Pipe { <Tilde-Options> '|' }
+	token tilde-Ques { <Tilde-Options> '?' }
+	token tilde-R { <Tilde-Options> <[ r R ]> }
+	token tilde-S { <Tilde-Options> <[ s S ]> }
+	token tilde-Semi { <Tilde-Options> ';' }
+	token tilde-Star { <Tilde-Options> '*' }
+	token tilde-T { <Tilde-Options> <[ t T ]> }
+	token tilde-Tilde { <Tilde-Options> '~' }
+	token tilde-Under { <Tilde-Options> '_' }
+	token tilde-W { <Tilde-Options> <[ w W ]> }
+	token tilde-X { <Tilde-Options> <[ x X ]> }
 
-	token tilde-OAngle { '<' }
-	token tilde-CAngle { <Tilde-Options> '>' }
-
-	token tilde-A { <[ a A ]> }
-
-	token tilde-OBrace { '{' }
-	token tilde-CBrace { <Tilde-Options> '}' }
-
-	token tilde-OBracket { '[' }
-	token tilde-CBracket { <Tilde-Options> ']' }
-
-	token tilde-B { <[ b B ]> }
-
-	token tilde-Caret { '^' }
-
-	token tilde-C { <[ c C ]> }
-
-	token tilde-D { <[ d D ]> }
-
-	token tilde-Dollar { '$' }
-
-	token tilde-E { <[ e E ]> }
-
-	token tilde-F { <[ f F ]> }
-
-	token tilde-G { <[ g G ]> }
-
-	token tilde-I { <[ i I ]> }
-
-	token tilde-Newline { "\n" }
-
-	token tilde-O { <[ o O ]> }
-
-	token tilde-OParen { '(' }
-	token tilde-CParen { <Tilde-Options> ')' }
-
-	token tilde-P { <[ p P ]> }
-
-	token tilde-Ques { '?' }
-
-	token tilde-R { <[ r R ]> }
-
-	token tilde-Star { '*' }
-
-	token tilde-S { <[ s S ]> }
-
-	token tilde-T { <[ t T ]> }
-
-	token tilde-W { <[ w W ]> }
-
-	token tilde-X { <[ x X ]> }
-
-	token tilde-Semi { ';' }
-
-	token tilde-Percent { '%' }
-
-	token tilde-Pipe { '|' }
-
-	token tilde-Amp { '&' }
-
-	token tilde-Under { '_' }
-
+	# Balanced tokens
+	#
+	token tilde-Angle { '<' <TOP>? '~' <Tilde-Options> '>' }
+	token tilde-Brace { '{' <TOP>? '~' <Tilde-Options> '}' }
+	token tilde-Bracket { '[' <TOP>? '~' <Tilde-Options> ']' }
+	token tilde-Paren { '(' <TOP>? '~' <Tilde-Options> ')' }
 	token tilde-Slash { '/' ( <-[ / ]>+ ) '/' }
 
+	# Catchall, not quite there yet.
+	#
 	token tilde-Unused {
+		# XXX Really should be '.', come to think of it.
+		# XXX but that would require ordering...
+		#
 		<[ H h J j K k L l M m N n Q q U u V v Y y Z z ` ]>
 	}
 
 	token Atom {
-	|	'~' <Tilde-Options>
+	|	'~'
 		[
 		|	<tilde-A>
 		|	<tilde-Amp>
-		|	<tilde-Angle>
 		|	<tilde-B>
-		|	<tilde-Brace>
-		|	<tilde-Bracket>
-		|	<tilde-C>
 		|	<tilde-Caret>
+		|	<tilde-C>
 		|	<tilde-D>
 		|	<tilde-Dollar>
 		|	<tilde-E>
@@ -145,32 +119,33 @@ grammar Format::Lisp::Grammar {
 		|	<tilde-Newline>
 		|	<tilde-O>
 		|	<tilde-P>
-		|	<tilde-Paren>
 		|	<tilde-Percent>
 		|	<tilde-Pipe>
 		|	<tilde-Ques>
 		|	<tilde-R>
 		|	<tilde-S>
 		|	<tilde-Semi>
-		|	<tilde-Slash>
 		|	<tilde-Star>
 		|	<tilde-T>
 		|	<tilde-Tilde>
 		|	<tilde-Under>
 		|	<tilde-W>
 		|	<tilde-X>
+		]
+
+	# These are really <List>-style tokens, will fix this later.
+	#
+	|	'~' <Tilde-Options>
+		[
+		|	<tilde-Angle>
+		|	<tilde-Brace>
+		|	<tilde-Bracket>
+		|	<tilde-Paren>
+		|	<tilde-Slash>
 		|	<tilde-Unused>
 		]
 	|	<not-Tilde>
 	}
-
-	token tilde-Angle { <tilde-OAngle> <TOP>? '~' <tilde-CAngle> }
-
-	token tilde-Brace { <tilde-OBrace> <TOP>? '~' <tilde-CBrace> }
-
-	token tilde-Bracket { <tilde-OBracket> <TOP>? '~' <tilde-CBracket> }
-
-	token tilde-Paren { <tilde-OParen> <TOP>? '~' <tilde-CParen> }
 
 	token TOP { <Atom>+ }
 }
