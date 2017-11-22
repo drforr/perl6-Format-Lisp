@@ -8,30 +8,30 @@ use Format::Lisp;
 my $*fl = Format::Lisp.new;
 
 subtest {
-	ok def-format-test( Q{X~~~D&}, [ 4 ], Q{X~4&} ), Q{non-nil};
+	ok def-format-test( Q{X~~~D&}, ( 4 ), Q{X~4&} ), Q{non-nil};
 }, Q{missing coverage};
 
 # (def-format-test format.&.1
 #   "~0&" nil "")
 # 
-ok def-format-test( Q{~0&}, [ ], Q{} ), Q{format.&.1};
+ok def-format-test( Q{~0&}, ( ), Q{} ), Q{format.&.1};
 
 # (def-format-test format.&.2
 #   "~&" nil "")
 # 
-ok def-format-test( Q{~&}, [ ], Q{} ), Q{format.&.2};
+ok def-format-test( Q{~&}, ( ), Q{} ), Q{format.&.2};
 
 #`(
 # (def-format-test format.&.3
 #   "X~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
-ok def-format-test( Q{X~&}, [ ], qq{X\n} ), Q{format.&.3};
+ok def-format-test( Q{X~&}, ( ), qq{X\n} ), Q{format.&.3};
 )
 
 # (def-format-test format.&.4
 #   "X~%~&" nil #.(concatenate 'string "X" (string #\Newline)))
 # 
-ok def-format-test( Q{X~%~&}, [ ], qq{X\n} ), Q{format.&.4};
+ok def-format-test( Q{X~%~&}, ( ), qq{X\n} ), Q{format.&.4};
 
 #`(
 # (deftest format.&.5
@@ -148,13 +148,13 @@ ok deftest(
 # (def-format-test format.&.7
 #   "~v&" (nil) "")
 # 
-ok def-format-test( Q{~v&}, [ Nil ], Q{} ), Q{format.&.7};
+ok def-format-test( Q{~v&}, ( Nil ), Q{} ), Q{format.&.7};
 
 #`(
 # (def-format-test format.&.8
 #   "X~v&" (nil) #.(concatenate 'string "X" (string #\Newline)))
 # 
-ok def-format-test( Q{X~v&}, [ Nil ], qq{X\n} ), Q{format.&.8};
+ok def-format-test( Q{X~v&}, ( Nil ), qq{X\n} ), Q{format.&.8};
 )
 
 #`(
@@ -265,19 +265,19 @@ ok deftest(
 # (def-format-test format.&.11
 #   "X~V%" (0) "X")
 # 
-ok def-format-test( Q{X~V&}, [ 0 ], Q{X} ), Q{format.&.11};
+ok def-format-test( Q{X~V&}, ( 0 ), Q{X} ), Q{format.&.11};
 
 # (def-format-test format.&.12
 #   "X~#%" nil "X")
 # 
-ok def-format-test( Q{X~#%}, [ ], Q{X} ), Q{format.&.12};
+ok def-format-test( Q{X~#%}, ( ), Q{X} ), Q{format.&.12};
 
 # (def-format-test format.&.13
 #   "X~#%" ('a 'b 'c) #.(let ((nl (string #\Newline)))
 #                         (concatenate 'string "X" nl nl nl))
 #   3)
 #
-ok def-format-test( Q{X~#%}, [ Q{a}, Q{b}, Q{c} ], qq{X\n\n\n} ), Q{format.&.1};
+ok def-format-test( Q{X~#%}, ( Q{a}, Q{b}, Q{c} ), qq{X\n\n\n} ), Q{format.&.1};
 
 done-testing;
 
