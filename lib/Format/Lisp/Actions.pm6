@@ -1034,7 +1034,7 @@ class Format::Lisp::Actions {
 			make $/<tilde-X>.ast
 		}
 		elsif $/<tilde-Unused> {
-			THROW X::Format-Error.new;
+			X::Format-Error.new.throw;
 		}
 	}
 
